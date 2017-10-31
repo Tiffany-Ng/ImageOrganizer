@@ -25,3 +25,9 @@ How does the user add new images?
 What happens if two images have the same names?
 
 How are the images with specific tags returned?
+
+What config files are needed?
+
+How is the log represented?
+
+How/When are the tags saved when to program is closed?
