@@ -1,6 +1,6 @@
 TODO:
 
-- Create Image class.
+- Create Image class. 
 
 - Create Tag class.
 
@@ -8,6 +8,8 @@ TODO:
 
 - Create Log class.
 
-- Create GUI.
+- Create GUI. (Tiffany, Amarnath)
+
+- Create Main class.
 
 - Learn and teach JavaFX.
