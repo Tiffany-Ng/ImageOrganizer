@@ -11,6 +11,6 @@
 
 - Create GUI. (Tiffany, Amarnath)
 
-- Create Main class.
+- Create Main class. (Everyone)
 
 - Learn and teach JavaFX.
