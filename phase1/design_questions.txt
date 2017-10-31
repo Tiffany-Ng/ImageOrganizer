@@ -7,3 +7,9 @@ What happens when a new tag is created?
 
 Which class is keeping track of the association between tags and files?
 
+How many log files would we need in total?
+One per Image object, each Imange will have their own log object which will refer to a log file.
+
+
+
+
