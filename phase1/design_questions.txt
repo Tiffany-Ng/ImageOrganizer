@@ -12,5 +12,6 @@ Which class will keep track of all the images?
 Which class will communicate with the GUI regarding the images?
 
 What happens if there is no log file?
+If the program does not contain a log file for the image, an empty log object will be created. The log object is written to a new file when the program is closed.
 
 When should the log class update the log file?
