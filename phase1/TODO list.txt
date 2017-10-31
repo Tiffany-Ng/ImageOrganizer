@@ -1,13 +1,13 @@
-﻿TODO:
+﻿TODO
 
-- Create Image class. 
-
+- Create ImageManger class. 
+ 
 - Create Tag class. (Tiffany)
 
 - Create ImageManger class.
   —— Akshat
 
-- Create Log class.
+- Create Log class. (Amarnath Parthiban)
 
 - Create GUI. (Tiffany, Amarnath)
 
