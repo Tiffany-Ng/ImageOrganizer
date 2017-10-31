@@ -59,4 +59,6 @@ How does the user get the history of a single image?
 
 How does the user get all past logs?
 
+How will logs be named? Will tags also be included in logs?
+
 

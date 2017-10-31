@@ -1,13 +1,12 @@
 ﻿TODO
 
 - Create Image class (Allan). 
- 
-- Create Tag class. (Tiffany)
 
 - Create ImageManger class.
   —— Akshat
 
 - Create Log class. (Amarnath Parthiban)
+	- Give Allan a message when Log class is implemented. Image will have a log instance variable in the future.
 
 - Create GUI. (Tiffany, Amarnath)
 
