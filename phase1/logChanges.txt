@@ -1,1 +1,3 @@
-...
+Log 1:
+
+Implemented Image class
