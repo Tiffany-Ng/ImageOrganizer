@@ -18,9 +18,9 @@ Which class will communicate with the GUI regarding the images?
   GUI
 
 What happens if there is no log file?
+If the program does not contain a log file for the image, an empty log object will be created. The log object is written to a new file when the program is closed.
 
 When should the log class update the log file?
-
 How many log files would we need in total?
 One per Image object, each image will have their own log object which will refer to a log file.
 
@@ -29,4 +29,3 @@ How does the user add new images?
 What happens if two images have the same names?
 
 How are the images with specific tags returned?
-
