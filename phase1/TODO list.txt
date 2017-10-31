@@ -4,7 +4,15 @@ TODO:
 
 - Create Tag class. 
 
+<<<<<<< HEAD
 - Create ImageManger class. 
+=======
+
+- Create ImageManger class.
+  —— Akshat
+
+- Create ImageManger class.
+>>>>>>> b83478ebddd09a09065b67afb4939d871e9f3b01
 
 - Create Log class. (Amarnath Parthiban)
 
