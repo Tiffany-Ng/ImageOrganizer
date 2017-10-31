@@ -1,6 +1,6 @@
 ﻿TODO
 
-- Create ImageManger class. 
+- Create Image class (Allan). 
  
 - Create Tag class. (Tiffany)
 
