@@ -2,12 +2,12 @@ TODO:
 
 - Create Image class.
 
-- Create Tag class.
+- Create Tag class. 
 
-- Create ImageManger class.
+- Create ImageManger class. 
 
-- Create Log class.
+- Create Log class. (Amarnath Parthiban)
 
-- Create GUI.
+- Create GUI. 
 
 - Learn and teach JavaFX.
