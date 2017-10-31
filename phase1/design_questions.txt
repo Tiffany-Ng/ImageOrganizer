@@ -7,3 +7,10 @@ What happens when a new tag is created?
 
 Which class is keeping track of the association between tags and files?
 
+Which class will keep track of all the images?
+
+Which class will communicate with the GUI regarding the images?
+
+What happens if there is no log file?
+
+When should the log class update the log file?
