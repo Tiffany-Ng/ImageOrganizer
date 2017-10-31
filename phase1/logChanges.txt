@@ -1,3 +1,15 @@
-Log 1:
+#########
+#Log 1:
+
+Person: Allan
 
 Implemented Image class
+
+#########
+#Log 2:
+
+Person: Allan
+
+Issue: Tag class has no purpose
+
+Fix: Deleted Tag class
