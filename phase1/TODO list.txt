@@ -1,0 +1,9 @@
+TODO:
+
+1. Create Image class.
+
+2. Create Tag class.
+
+3. Create ImageManger class.
+
+4. Learn and teach JavaFX.
