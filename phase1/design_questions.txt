@@ -25,3 +25,31 @@ How does the user add new images?
 What happens if two images have the same names?
 
 How are the images with specific tags returned?
+
+What happens if the image name has the @ symbol? Ex: my@email.com receipt?
+
+What happens if the tag has the @ symbol? Ex: @R@dParty?
+
+What happens when a new directory is chosen?
+
+Should we allow " @" when renaming images or adding tags?
+No, if we detect " @", we request the user to choose another name.
+
+Should we allow users to rename tags when renaming images?
+
+When renaming images, what is displayed? The raw image name, or the image name without tags?
+
+What class is responsible for adding and removing tags? What is the pathway from the user?
+
+What happens when an image is renamed to an already existing name?
+
+What happens when a link between an image and its log is broken? IE, one gets deleted or moved
+
+How does the user get the history of a single image?
+
+How does the user get all past logs?
+
+
+
+
+
