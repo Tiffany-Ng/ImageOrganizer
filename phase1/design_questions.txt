@@ -5,11 +5,15 @@ starting directory?
 
 What happens when a new tag is created?
 
+
 Which class is keeping track of the association between tags and files?
 
 Which class will keep track of all the images?
+- The image manager has an array list of all the images. 
 
 Which class will communicate with the GUI regarding the images?
+- The image manager has an array list of all the images. It will be communicating with the 
+  GUI
 
 What happens if there is no log file?
 
