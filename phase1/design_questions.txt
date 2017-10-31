@@ -2,6 +2,7 @@
 
 Which part(s) of the program are responsible for reading the contents of the
 starting directory?
+ImageManger
 
 What happens when a new tag is created?
 -A new tag object will be created, new tag will be stored in the Image object.
@@ -25,10 +26,13 @@ When should the log class update the log file?
 One per Image object, each image will have their own log object which will refer to a log file.
 
 How does the user add new images?
+-This is not mentioned in the specification of the program, but one way is for the user to provide a path to the new image and the ImageManger will create a new image object.
 
 What happens if two images have the same names?
+-Output an error message to the user, suggest alternate names to user.
 
 How are the images with specific tags returned?
+-Check the tags of each Image, add Images that has the specific tag(s) to a list, return the list, pass to GUI to display the images. 
 
 How do we store the times in the log files?
 - Check out java Timestamp
