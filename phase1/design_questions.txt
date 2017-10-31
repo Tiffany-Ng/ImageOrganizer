@@ -4,21 +4,25 @@ Which part(s) of the program are responsible for reading the contents of the
 starting directory?
 
 What happens when a new tag is created?
-A new tag object will be created, new tag will be stored in the Image object.
+-A new tag object will be created, new tag will be stored in the Image object.
 
 Which class is keeping track of the association between tags and files?
-The Image object will have an ArrayList to keep track of the current tags; log object in the Image object will have the history of all tags.
+-The Image object will have an ArrayList to keep track of the current tags; 
+ log object in   the Image object will have the history of all tags.
 
 Which class will keep track of all the images?
+- The image manager has an array list of all the images. 
 
 Which class will communicate with the GUI regarding the images?
+- The image manager has an array list of all the images. It will be communicating with the 
+  GUI
 
 What happens if there is no log file?
-If the program does not contain a log file for the image, an empty log object will be created. The log object is written to a new file when the program is closed.
+-If the program does not contain a log file for the image, an empty log object will be created. The log object is written to a new file when the program is closed.
 
 When should the log class update the log file?
-How many log files would we need in total?
-One per Image object, each Imange will have their own log object which will refer to a log file.
+-How many log files would we need in total?
+One per Image object, each image will have their own log object which will refer to a log file.
 
 How does the user add new images?
 
