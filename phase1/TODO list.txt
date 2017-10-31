@@ -1,9 +1,35 @@
-TODO:
+﻿TODO:
 
-1. Create Image class.
+<<<<<<< HEAD
+- Create Image class.
 
-2. Create Tag class.
+- Create Tag class. 
 
-3. Create ImageManger class.
+<<<<<<< HEAD
+- Create ImageManger class. 
+=======
+=======
+- Create Image class. 
 
-4. Learn and teach JavaFX.
+- Create Tag class. (Tiffany)
+>>>>>>> f9fc0dc81cd3ad487f53af2cb5683b3e4a2542b3
+
+- Create ImageManger class.
+  —— Akshat
+
+<<<<<<< HEAD
+- Create ImageManger class.
+>>>>>>> b83478ebddd09a09065b67afb4939d871e9f3b01
+
+- Create Log class. (Amarnath Parthiban)
+
+- Create GUI. 
+=======
+- Create Log class.
+
+- Create GUI. (Tiffany, Amarnath)
+
+- Create Main class.
+>>>>>>> f9fc0dc81cd3ad487f53af2cb5683b3e4a2542b3
+
+- Learn and teach JavaFX.
