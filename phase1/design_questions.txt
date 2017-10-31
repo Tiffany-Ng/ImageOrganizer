@@ -14,3 +14,9 @@ Which class will communicate with the GUI regarding the images?
 What happens if there is no log file?
 
 When should the log class update the log file?
+
+How does the user add new images?
+
+What happens if two images have the same names?
+
+How are the images with specific tags returned?
