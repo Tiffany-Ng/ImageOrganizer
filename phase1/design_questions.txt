@@ -29,3 +29,6 @@ How does the user add new images?
 What happens if two images have the same names?
 
 How are the images with specific tags returned?
+
+How do we store the times in the log files?
+- Check out java Timestamp
