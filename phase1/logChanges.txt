@@ -13,3 +13,10 @@ Person: Allan
 Issue: Tag class has no purpose
 
 Fix: Deleted Tag class
+
+#########
+#Log 3:
+
+Person: Amarnath Parthiban
+
+Implemented Log and Entry classes.
