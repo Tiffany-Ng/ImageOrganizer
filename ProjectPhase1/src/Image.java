@@ -17,6 +17,8 @@ public class Image {
      */
     private String name;
 
+    // TODO : Add directory for an image (create Log object)
+
     /**
      * Construct an image representing File imageFile
      * @param imageFile The File object of the image

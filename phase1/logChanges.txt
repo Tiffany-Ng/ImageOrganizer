@@ -27,3 +27,10 @@ Implemented Log and Entry classes.
 Person: Akshat Nigam
 
 Instead of using timeStamp, used Date object. Makes easier to read for a user.
+
+#########
+#Log 5:
+
+Person: Akshat Nigam
+
+Implemented an outline for ImageManager.
