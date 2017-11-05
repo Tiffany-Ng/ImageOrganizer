@@ -32,7 +32,7 @@ public class Log implements Iterable<Entry> {
      */
     public Entry recentEntry() {
 
-        return history.get(history.size() -1 );
+        return history.get(history.size() -1 );  //TODO: Will need to convert into suitable redable format.
 
     }
 

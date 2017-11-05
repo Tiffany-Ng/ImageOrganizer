@@ -1,9 +1,9 @@
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * The state of an Image.
  *
- * @version 0.1
+ * @version 0.2
  * @author Amarnath Parthiban
  */
 public class Entry {
@@ -16,7 +16,7 @@ public class Entry {
     /**
      * The time the Entry was created.
      */
-    private Timestamp timeStamp;
+    private Date currDate;
 
     /**
      * Construct a new Entry.
@@ -26,16 +26,16 @@ public class Entry {
     public Entry(String entryName) {
 
         this.entryName = entryName;
-        this.timeStamp = new Timestamp(System.currentTimeMillis());
+        this.currDate = new Date();
 
     }
 
-    public String getTimeStamp() {
-        return timeStamp.toString();
+    public Date getDate() {
+        return this.currDate;
     }
 
-    public void setTimeStamp(Timestamp timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setTimeStamp(Date newDate) {
+        this.currDate = newDate;
     }
 
     public String getEntryName() {

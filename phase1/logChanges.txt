@@ -20,3 +20,10 @@ Fix: Deleted Tag class
 Person: Amarnath Parthiban
 
 Implemented Log and Entry classes.
+
+#########
+#Log 4:
+
+Person: Akshat Nigam
+
+Instead of using timeStamp, used Date object. Makes easier to read for a user.
