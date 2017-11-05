@@ -34,3 +34,11 @@ Instead of using timeStamp, used Date object. Makes easier to read for a user.
 Person: Akshat Nigam
 
 Implemented an outline for ImageManager.
+
+#########
+#Log 6:
+
+Person: Prynciss
+
+Added Main. It currently allows user to choose/type in directory, the program will then check if it is a valid directory.
+If it is, it will switch to an empty screen. If not, an error message in red will appear.
