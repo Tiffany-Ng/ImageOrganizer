@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * All images that a user can access.
  * POSSIBLE ENTRY POINT FOR A USER
  */
-public class ImageManager {
+public class ImageManager implements Serializable{
 
     /** The list of all images accessible by a user */
     private static ArrayList<Image> images = new ArrayList<>();

@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -6,7 +7,7 @@ import java.util.Date;
  * @version 0.2
  * @author Amarnath Parthiban
  */
-public class Entry {
+public class Entry implements Serializable {
 
     /**
      * The name the Image had at this time.

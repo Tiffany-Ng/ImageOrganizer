@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  * @version 0.1
  * @author Amarnath Parthiban
  */
-public class Log implements Iterable<Entry> {
+public class Log implements Iterable<Entry>, Serializable {
 
     /**
      * List of all changes, each stored as an Entry.

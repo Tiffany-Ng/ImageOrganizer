@@ -1,10 +1,11 @@
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Image {
+public class Image implements Serializable{
 
     /**
      * The File object of the image
