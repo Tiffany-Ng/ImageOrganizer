@@ -141,11 +141,18 @@ public class Image {
 
     /**
      * Update image file using current image properties and record log with logMessage
+     *
+     * @throws RuntimeException Unsuccessful rename. Image is no longer synced to proper imageFile. Image is not valid,
+     * is held by a process (ie antivirus), or an image exists in the renaming location
      */
     private void updateFile(String logMessage){
-        boolean success = imageFile.renameTo(createLocation());
+        File newImageFile = createLocation();
+        boolean success = imageFile.renameTo(newImageFile);
         if(success){
+            imageFile = newImageFile;
             log.addEntry(new Entry(logMessage));
+        }else{
+            throw new RuntimeException("Image renaming was unsuccessful.");
         }
     }
 
@@ -161,32 +168,6 @@ public class Image {
             fileName.append(tag);
         }
         fileName.append(extension);
-        File location = new File(directory, fileName.toString());
-        // Todo Check what if name already exists? What if newLocation = imageFile?
-        System.out.println(location.toString());
-        return location;
-    }
-
-    public static void main(String[] args) {
-        //TODO used to debug Image. Delete in final submission
-        File imageFile = new File("C:\\Users\\allan\\Downloads\\csc207 test\\Tester.png");
-
-        Image image = new Image(imageFile);
-        image.rename("Test");
-        image.rename("Tester");
-        /**
-        image.addTag("test");
-        image.addTag("budapest");
-        image.addTag("budapest");
-        **/
-
-        System.out.println(image.getName());
-        System.out.println(image.getTags().toString());
-        System.out.println(image.extension);
-
-        for(Entry e : image.log){
-            System.out.println(e.getEntryName());
-        }
-
+        return new File(directory, fileName.toString());
     }
 }
