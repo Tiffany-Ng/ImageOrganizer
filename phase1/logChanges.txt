@@ -42,3 +42,13 @@ Person: Prynciss
 
 Added Main. It currently allows user to choose/type in directory, the program will then check if it is a valid directory.
 If it is, it will switch to an empty screen. If not, an error message in red will appear.
+
+
+#########
+#Log 7:
+
+Person: Allan
+
+Flaw: Image history is not logged. Image cannot be manipulated.
+
+Fix: Image logs its own history. Image can be moved, renamed, have tags added, have tags removed.
