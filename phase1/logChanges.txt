@@ -60,3 +60,12 @@ Person: Allan
 Flaw: Image cannot be changed twice. First change acts as expected. Second change does not happen.
 
 Fix: Image.imageFile is updated to new location after every successful rename.
+
+#########
+#Log 9:
+
+Person: Allan
+
+Flaw: Preconditions are not checked.
+
+Fix: Throws exceptions when preconditions are not met.
