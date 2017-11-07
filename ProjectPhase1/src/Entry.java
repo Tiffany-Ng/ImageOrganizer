@@ -43,7 +43,12 @@ public class Entry implements Serializable {
         return entryName;
     }
 
-    public void setEntryName(String entryName) {
-        this.entryName = entryName;
+    public void setEntryName(String entryName) { this.entryName = entryName; }
+
+    @Override
+    public String toString() {
+
+        return getDate().toString() + " - " + getEntryName();
+
     }
 }
