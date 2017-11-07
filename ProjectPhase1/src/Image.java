@@ -171,6 +171,21 @@ public class Image implements Serializable{
     }
 
     /**
+     * Adds tags to image
+     * <p>
+     * Precondition: tag in tags does not contain " @"
+     * </p>
+     *
+     * @param tags to add
+     * @throws InvalidNameException tag in tags contains " @"
+     */
+    public void addTag(String[] tags) {
+        for(String tag : tags){
+            addTag(tag);
+        }
+    }
+
+    /**
      * Removes tag from image
      *
      * @param tag tag to remove
