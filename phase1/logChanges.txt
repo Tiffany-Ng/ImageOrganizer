@@ -103,3 +103,12 @@ Fix: Added images from a directory onto a static variable.
 Person: Allan
 
 Implemented Image.addTags
+
+#########
+#Log 14:
+
+Person: Allan
+
+Flaw: Missing getters in Image
+
+Fix: Implemented missing getters in Image

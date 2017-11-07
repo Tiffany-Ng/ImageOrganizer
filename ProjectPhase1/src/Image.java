@@ -93,12 +93,46 @@ public class Image implements Serializable{
     }
 
     /**
+     * Get the log of this image
+     * <p>
+     * The returned Log is mutable and will affect Image.
+     * </p>
+     *
+     * @return The Log of this image
+     */
+    public Log getLog() {
+        return log;
+    }
+
+    /**
+     * Get the extension of this image
+     *
+     * @return The extension of this image
+     */
+    public String getExtension() {
+        return extension;
+    }
+
+    /**
      * Get the name, without tag information, of this image
      *
      * @return the name of this image
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Get the directory of this image
+     *
+     * <p>
+     * The returned directory is a cloned File.
+     * </p>
+     *
+     * @return the directory of this image
+     */
+    public File getDirectory() {
+        return new File(directory.toString());
     }
 
     /**
@@ -176,7 +210,7 @@ public class Image implements Serializable{
      * Precondition: tag in tags does not contain " @"
      * </p>
      *
-     * @param tags to add
+     * @param tags list of tags to add
      * @throws InvalidNameException tag in tags contains " @"
      */
     public void addTag(String[] tags) {
