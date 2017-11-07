@@ -69,3 +69,12 @@ Person: Allan
 Flaw: Preconditions are not checked.
 
 Fix: Throws exceptions when preconditions are not met.
+
+#########
+#Log 10:
+
+Person: Akshat
+
+Flaw: No way to get images from a directory.
+
+Fix: Implemented a way to get array-list of images from a directory.
