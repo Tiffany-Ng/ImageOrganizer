@@ -78,7 +78,8 @@ Person: Allan
 Flaw: When application is reopened, recreating image's log is impossible
 
 Fix: ImageManager, Image, Log, Entry can be serialized
-=======
+
+#########
 #Log 11:
 
 Person: Akshat
@@ -96,3 +97,18 @@ Flaw: Images found in directory are only temporarily stored.
 
 Fix: Added images from a directory onto a static variable.
 
+#########
+#Log 13:
+
+Person: Allan
+
+Implemented Image.addTags
+
+#########
+#Log 14:
+
+Person: Allan
+
+Flaw: Missing getters in Image
+
+Fix: Implemented missing getters in Image
