@@ -71,6 +71,7 @@ Flaw: Preconditions are not checked.
 Fix: Throws exceptions when preconditions are not met.
 
 #########
+<<<<<<< HEAD
 #Log 9:
 
 Person: Allan
@@ -78,3 +79,21 @@ Person: Allan
 Flaw: When application is reopened, recreating image's log is impossible
 
 Fix: ImageManager, Image, Log, Entry can be serialized
+=======
+#Log 10:
+
+Person: Akshat
+
+Flaw: No way to get images from a directory.
+
+Fix: Implemented a way to get array-list of images from a directory.
+
+#########
+#Log 11:
+
+Person: Akshat
+
+Flaw: Images found in directory are only temporarily stored.
+
+Fix: Added images from a directory onto a static variable.
+>>>>>>> c7e429834499ee7ece9150d50f9f012f77a24317

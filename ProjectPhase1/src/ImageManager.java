@@ -1,5 +1,8 @@
 import java.io.Serializable;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FilenameFilter;
 
 /**
  * All images that a user can access.
@@ -18,13 +21,13 @@ public class ImageManager implements Serializable{
      */
     public void addNewImage(Image newImage){
 
-        images.add(newImage);
+        ImageManager.images.add(newImage);
 
     }
 
 
     /**
-     * Delete an image from all directories // TODO: change if we make a directories class
+     * Delete an image from all directories
      *
      * @param imgDelete the image that will be removed
      */
@@ -52,32 +55,78 @@ public class ImageManager implements Serializable{
     }
 
 
-    /**  // TODO: implement after cleaning up image
-     * Remove a particular tag from an Image
+    /**
+     * Return a list of all relevant(png/jpeg/jpg etc.) files in a particular directory.
      *
-     * @param tagName Tag to be removed from an image
+     * @param directory the path of the folder to search in.
+     * @return File[] An array list of images in the specified directory.
      */
-    public void removeTag(String tagName){
+    private File[] findFiles(String directory){
+
+        // Get reference to the concerned folder
+        File folder = new File(directory);
+
+        return folder.listFiles(new FilenameFilter() {  // return a list of all image files.
+            public boolean accept(File dir, String name) {
+                return (name.endsWith(".png") | name.endsWith(".jpg") | name.endsWith(".jpeg)") |   // Considering file of the appropriate type
+                        name.endsWith(".tiff") | name.endsWith(".ppm") | name.endsWith(".jfif"));
+            }
+        });
 
     }
 
 
-    /**   // TODO
-     * Reset the old DELETED tags for an image
-     */
-    public void resetOldTags(){
-
-    }
-
-
-    /** // TODO
-     * Move an image to a new directory
+    /**
+     * Convert an array of File objects into an array of Image objects.
      *
-     * @param newPath the new directory path for the image.
+     * @param possibleImages List of images in a directory that will be converted in to Image objects.
      */
-    public void move(String newPath){
+    private void convertToImageObjects(File[] possibleImages){
+
+        //ArrayList<Image> images = new ArrayList<>();
+        for( File f: possibleImages ){
+            try {
+               this.addNewImage(new Image(f));
+
+            } catch (IOException e) {
+                System.out.println("Image file incorrectly read!");
+                e.printStackTrace();
+            }
+        }
 
     }
 
+
+    /**
+     * Add all images from a specified directory into the list of images that a user has seen.
+     *
+     * @param directory The path of the folder the images are to be found
+     */
+    public void getImagesFrom(String directory){
+
+        // get the relevant File objects from directory(png/jpeg/etc.) format
+        File[] files = this.findFiles(directory);
+
+        // convert the files into an array-List of Image objects.
+        this.convertToImageObjects(files);
+
+    }
+
+
+    /**
+     * Testing the image reader...
+     * TODO: Remove towards the end of the project. (Currently great for testing)
+     */
+    public static void main(String[] args) {
+
+        String directory = "/Users/akshatkumarnigam/Desktop";  // the path to my desktop
+        ImageManager im = new ImageManager();
+
+        im.getImagesFrom(directory);
+
+        for(Image img : ImageManager.images){
+            System.out.println(img.getName());
+        }
+    }
 
 }
