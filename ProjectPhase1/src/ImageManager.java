@@ -20,7 +20,7 @@ public class ImageManager {
      */
     public void addNewImage(Image newImage){
 
-        images.add(newImage);
+        ImageManager.images.add(newImage);
 
     }
 
@@ -79,37 +79,35 @@ public class ImageManager {
      * Convert an array of File objects into an array of Image objects.
      *
      * @param possibleImages List of images in a directory that will be converted in to Image objects.
-     * @return images An array-list of converted Image objects
      */
-    private ArrayList<Image> convertToImageObjects(File[] possibleImages){
+    private void convertToImageObjects(File[] possibleImages){
 
-        ArrayList<Image> images = new ArrayList<>();
+        //ArrayList<Image> images = new ArrayList<>();
         for( File f: possibleImages ){
             try {
-                images.add(new Image(f));
+               this.addNewImage(new Image(f));
+
             } catch (IOException e) {
                 System.out.println("Image file incorrectly read!");
                 e.printStackTrace();
             }
         }
 
-        return images;
     }
 
 
     /**
-     * Return an array-List of Image objects in a specified directory.
+     * Add all images from a specified directory into the list of images that a user has seen.
      *
      * @param directory The path of the folder the images are to be found
-     * @return ArrayList<Image> All Images found int the directory.
      */
-    public ArrayList<Image> getImagesFrom(String directory){
+    public void getImagesFrom(String directory){
 
         // get the relevant File objects from directory(png/jpeg/etc.) format
         File[] files = this.findFiles(directory);
 
         // convert the files into an array-List of Image objects.
-        return this.convertToImageObjects(files);
+        this.convertToImageObjects(files);
 
     }
 
@@ -123,8 +121,9 @@ public class ImageManager {
         String directory = "/Users/akshatkumarnigam/Desktop";  // the path to my desktop
         ImageManager im = new ImageManager();
 
-        ArrayList<Image> images = im.getImagesFrom(directory);
-        for(Image img : images){
+        im.getImagesFrom(directory);
+
+        for(Image img : ImageManager.images){
             System.out.println(img.getName());
         }
     }

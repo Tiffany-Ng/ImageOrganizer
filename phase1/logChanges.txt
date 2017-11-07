@@ -78,3 +78,12 @@ Person: Akshat
 Flaw: No way to get images from a directory.
 
 Fix: Implemented a way to get array-list of images from a directory.
+
+#########
+#Log 11:
+
+Person: Akshat
+
+Flaw: Images found in directory are only temporarily stored.
+
+Fix: Added images from a directory onto a static variable.
