@@ -7,6 +7,8 @@ import java.io.FilenameFilter;
 /**
  * All images that a user can access.
  * POSSIBLE ENTRY POINT FOR A USER
+ * TODO ImageManager shouldn't make images since already made images cannot recreate their history. Images should be
+ * added from calling classes.
  */
 public class ImageManager implements Serializable{
 
