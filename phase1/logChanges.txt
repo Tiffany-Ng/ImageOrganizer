@@ -112,3 +112,12 @@ Person: Allan
 Flaw: Missing getters in Image
 
 Fix: Implemented missing getters in Image
+
+#########
+#Log 15:
+
+Person: Akshat
+
+Flaw: Images in sub-directories are not included.
+
+Fix: Added images from sub-directory by creating recursive algorithm.
