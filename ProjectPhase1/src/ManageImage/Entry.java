@@ -1,8 +1,10 @@
+package ManageImage;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * The state of an Image.
+ * The state of an ManageImage.ImageFile.
  *
  * @version 0.2
  * @author Amarnath Parthiban
@@ -10,17 +12,17 @@ import java.util.Date;
 public class Entry implements Serializable {
 
     /**
-     * The name the Image had at this time.
+     * The name the ManageImage.ImageFile had at this time.
      */
     private String entryName;
 
     /**
-     * The time the Entry was created.
+     * The time the ManageImage.Entry was created.
      */
     private Date currDate;
 
     /**
-     * Construct a new Entry.
+     * Construct a new ManageImage.Entry.
      *
      * @param entryName String
      */

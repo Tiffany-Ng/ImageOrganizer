@@ -1,11 +1,15 @@
+package ManageImage;
+
+import ManageImage.Entry;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 /**
- * A Log of all changes to an Image.
- * A Log is able to iterate through every Entry it has recorded.
+ * A ManageImage.Log of all changes to an ManageImage.ImageFile.
+ * A ManageImage.Log is able to iterate through every ManageImage.Entry it has recorded.
  *
  * @version 0.1
  * @author Amarnath Parthiban
@@ -13,12 +17,12 @@ import java.util.List;
 public class Log implements Iterable<Entry>, Serializable {
 
     /**
-     * List of all changes, each stored as an Entry.
+     * List of all changes, each stored as an ManageImage.Entry.
      */
     private List<Entry> history;
 
     /**
-     * Construct a new Log.
+     * Construct a new ManageImage.Log.
      */
     public Log() {
 
@@ -29,7 +33,7 @@ public class Log implements Iterable<Entry>, Serializable {
     /**
      * Get the most recent entry in the history.
      *
-     * @return Entry
+     * @return ManageImage.Entry
      */
     public Entry recentEntry() {
 
@@ -38,9 +42,9 @@ public class Log implements Iterable<Entry>, Serializable {
     }
 
     /**
-     * Records a new Entry in the history.
+     * Records a new ManageImage.Entry in the history.
      *
-     * @param e Entry
+     * @param e ManageImage.Entry
      */
     public void addEntry(Entry e) {
 
@@ -49,7 +53,7 @@ public class Log implements Iterable<Entry>, Serializable {
     }
 
     /**
-     * The Iterator of Log, used to go through each Entry.
+     * The Iterator of ManageImage.Log, used to go through each ManageImage.Entry.
      *
      * @return Iterator
      */
@@ -61,7 +65,7 @@ public class Log implements Iterable<Entry>, Serializable {
     }
 
     /**
-     * The Iterator Log uses to go through each Entry found in history.
+     * The Iterator ManageImage.Log uses to go through each ManageImage.Entry found in history.
      */
     private class LogIterator implements Iterator<Entry> {
 
@@ -80,9 +84,9 @@ public class Log implements Iterable<Entry>, Serializable {
         }
 
         /**
-         * The next Entry.
+         * The next ManageImage.Entry.
          *
-         * @return Entry
+         * @return ManageImage.Entry
          */
         @Override
         public Entry next() {

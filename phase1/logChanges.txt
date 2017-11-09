@@ -124,9 +124,26 @@ Fix: Added images from sub-directory by creating recursive algorithm.
 
 #########
 #Log 16:
-
 Person: Allan
 
 Flaw: Unable to manage all previously used tags
 
 Fix: Implemented TagManager
+
+#########
+#Log 17:
+Person: Amarnath
+
+Implemented a rudementry form of the Image GUI.
+
+#########
+#Log 18:
+
+Person: Prynciss
+
+Flaw: Class Image collides with actual java Image object.
+
+Fix: Renamed Image to ImageFile.
+
+Other: Created two packages for front and back end. Added in PicGrid for showing user a grid of pictures under the selected
+directiory, when user clicks on picture, program will call ImageScene.

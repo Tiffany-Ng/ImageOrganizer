@@ -1,3 +1,5 @@
+package ManageImage;
+
 import java.io.Serializable;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,25 +8,36 @@ import java.io.FilenameFilter;
 import java.util.Arrays;
 
 /**
- * All images that a user can access.
+ * All imageFiles that a user can access.
  * POSSIBLE ENTRY POINT FOR A USER
- * TODO ImageManager shouldn't make images since already made images cannot recreate their history. Images should be
+ * TODO ManageImage.ImageManager shouldn't make imageFiles since already made imageFiles cannot recreate their history. Images should be
  * added from calling classes.
  */
 public class ImageManager implements Serializable{
 
-    /** The list of all images accessible by a user */
-    private static ArrayList<Image> images = new ArrayList<>();
+    /** The list of all imageFiles accessible by a user */
+    private static ArrayList<ImageFile> imageFiles = new ArrayList<>();
 
+
+    /**
+     * Returns imageFiles
+     *
+     * @return ArrayList<ImageFile> imageFiles
+     */
+    public static ArrayList<ImageFile> getImageFiles(){
+
+        return imageFiles;
+
+    }
 
     /**
      * Add a new image
      *
      * @param newImage the new image which will be added
      */
-    public void addNewImage(Image newImage){
+    public void addNewImage(ImageFile newImage){
 
-        ImageManager.images.add(newImage);
+        ImageManager.imageFiles.add(newImage);
 
     }
 
@@ -34,9 +47,9 @@ public class ImageManager implements Serializable{
      *
      * @param imgDelete the image that will be removed
      */
-    public void deleteImage(Image imgDelete){
+    public void deleteImage(ImageFile imgDelete){
 
-        images.remove(imgDelete);
+        imageFiles.remove(imgDelete);
 
     }
 
@@ -49,7 +62,7 @@ public class ImageManager implements Serializable{
      */
     public boolean searchByName(String imageName){
 
-        for (Image i: images){
+        for (ImageFile i: imageFiles){
             if (i.getName().equals(imageName)){
                 return true;
             }
@@ -59,10 +72,10 @@ public class ImageManager implements Serializable{
 
 
     /**
-     * Return an array of Image files in a directory
+     * Return an array of ManageImage.ImageFile files in a directory
      *
      * @param directory the path of the folder to search in.
-     * @return File[] array of all images in a directory.
+     * @return File[] array of all imageFiles in a directory.
      */
     private ArrayList<File> findImages(String directory){
 
@@ -102,10 +115,10 @@ public class ImageManager implements Serializable{
 
 
     /**
-     * Check for sub-directories in directory, while adding images.
+     * Check for sub-directories in directory, while adding imageFiles.
      *
      * @param directory the path of the folder to search in.
-     * @return ArrayList<File> arrayList of all images(including those found in sub-directories).
+     * @return ArrayList<File> arrayList of all imageFiles(including those found in sub-directories).
      */
     private ArrayList<File> checkSubDirectories(String directory){
 
@@ -135,19 +148,19 @@ public class ImageManager implements Serializable{
 
 
     /**
-     * Convert an array of File objects into an array of Image objects.
+     * Convert an array of File objects into an array of ManageImage.ImageFile objects.
      *
-     * @param possibleImages List of images in a directory that will be converted in to Image objects.
+     * @param possibleImages List of imageFiles in a directory that will be converted in to ManageImage.ImageFile objects.
      */
     private void convertToImageObjects(ArrayList<File> possibleImages){
 
-        //ArrayList<Image> images = new ArrayList<>();
+        //ArrayList<ManageImage.ImageFile> imageFiles = new ArrayList<>();
         for( File f: possibleImages ){
             try {
-               this.addNewImage(new Image(f));
+               this.addNewImage(new ImageFile(f));
 
             } catch (IOException e) {
-                System.out.println("Image file incorrectly read!");
+                System.out.println("ManageImage.ImageFile file incorrectly read!");
                 e.printStackTrace();
             }
         }
@@ -156,16 +169,16 @@ public class ImageManager implements Serializable{
 
 
     /**
-     * Add all images from a specified directory into the list of images that a user has seen.
+     * Add all imageFiles from a specified directory into the list of imageFiles that a user has seen.
      *
-     * @param directory The path of the folder the images are to be found
+     * @param directory The path of the folder the imageFiles are to be found
      */
     public void getImagesFrom(String directory){
 
         // get the relevant File objects from directory & sub-directory
         ArrayList<File> files = this.checkSubDirectories(directory);
 
-        // convert the files into an array-List of Image objects.
+        // convert the files into an array-List of ManageImage.ImageFile objects.
         this.convertToImageObjects(files);
 
     }
@@ -182,7 +195,7 @@ public class ImageManager implements Serializable{
 
         im.getImagesFrom(directory);
 
-        for(Image img : images){
+        for(ImageFile img : imageFiles){
             System.out.println(img.getName());
         }
     }

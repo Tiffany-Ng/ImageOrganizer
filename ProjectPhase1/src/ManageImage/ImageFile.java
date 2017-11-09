@@ -1,3 +1,5 @@
+package ManageImage;
+
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
@@ -5,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Image implements Serializable{
+public class ImageFile implements Serializable{
 
     /**
      * The File object of the image
@@ -44,7 +46,7 @@ public class Image implements Serializable{
      * @param imageFile The File object of the image
      * @throws InvalidFileException imageFile is an invalid image
      */
-    public Image(File imageFile) throws IOException {
+    public ImageFile(File imageFile) throws IOException {
         if (!imageFile.isFile()) {
             throw new InvalidFileException("Invalid file");
         }
@@ -71,10 +73,10 @@ public class Image implements Serializable{
     }
 
     /**
-     * Indicates if 'tag' is contained in this Image
+     * Indicates if 'tag' is contained in this ManageImage.ImageFile
      *
      * @param tag The tag used as a search reference
-     * @return True if this Image contains 'tag'
+     * @return True if this ManageImage.ImageFile contains 'tag'
      */
     public boolean containsTag(String tag) {
         return tags.contains(tag);
@@ -95,10 +97,10 @@ public class Image implements Serializable{
     /**
      * Get the log of this image
      * <p>
-     * The returned Log is mutable and will affect Image.
+     * The returned ManageImage.Log is mutable and will affect ManageImage.ImageFile.
      * </p>
      *
-     * @return The Log of this image
+     * @return The ManageImage.Log of this image
      */
     public Log getLog() {
         return log;
@@ -149,12 +151,12 @@ public class Image implements Serializable{
     }
 
     /**
-     * Renames this Image and the File this Image represents
+     * Renames this ManageImage.ImageFile and the File this ManageImage.ImageFile represents
      * <p>
      * Precondition: newName does not contain " @"
      * </p>
      *
-     * @param newName The Image's new name
+     * @param newName The ManageImage.ImageFile's new name
      * @throws InvalidNameException newName contains " @"
      */
     public void rename(String newName) {
@@ -164,11 +166,11 @@ public class Image implements Serializable{
         String oldName = this.name;
         this.name = newName;
 
-        updateFile("Image \"" + oldName + "\" was renamed to \"" + newName + "\"");
+        updateFile("ManageImage.ImageFile \"" + oldName + "\" was renamed to \"" + newName + "\"");
     }
 
     /**
-     * Moves this Image to newDirectory
+     * Moves this ManageImage.ImageFile to newDirectory
      * <p>
      * Precondition: newDirectory is a valid directory
      * </p>
@@ -234,7 +236,7 @@ public class Image implements Serializable{
     /**
      * Update image file using current image properties and record log with logMessage
      *
-     * @throws UnsuccessfulRenameException Unsuccessful rename. Image is no longer synced to proper imageFile. Image is
+     * @throws UnsuccessfulRenameException Unsuccessful rename. ManageImage.ImageFile is no longer synced to proper imageFile. ManageImage.ImageFile is
      *                                     not valid, is held by a process (ie antivirus), or an image exists in the renaming location
      */
     private void updateFile(String logMessage) {
@@ -266,7 +268,7 @@ public class Image implements Serializable{
 }
 
 /**
- * InvalidFileException represents the exception where the File type does not correspond with the expected File type
+ * ManageImage.InvalidFileException represents the exception where the File type does not correspond with the expected File type
  */
 class InvalidFileException extends RuntimeException {
     InvalidFileException(String message) {
@@ -275,7 +277,7 @@ class InvalidFileException extends RuntimeException {
 }
 
 /**
- * InvalidNameException represents the exception where a tag or the image is given an invalid name
+ * ManageImage.InvalidNameException represents the exception where a tag or the image is given an invalid name
  */
 class InvalidNameException extends RuntimeException {
     InvalidNameException(String message) {
@@ -284,7 +286,7 @@ class InvalidNameException extends RuntimeException {
 }
 
 /**
- * UnsuccessfulRenameException represents the exception where the image is renamed unsuccessfully
+ * ManageImage.UnsuccessfulRenameException represents the exception where the image is renamed unsuccessfully
  */
 class UnsuccessfulRenameException extends RuntimeException {
     UnsuccessfulRenameException() {
