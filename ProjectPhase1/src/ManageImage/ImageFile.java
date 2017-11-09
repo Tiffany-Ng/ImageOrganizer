@@ -265,6 +265,16 @@ public class ImageFile implements Serializable{
         fileName.append(extension);
         return new File(directory, fileName.toString());
     }
+
+    /**
+     * this ImageFile and object are equal they represent the same image file
+     * @param object the object to comapare to
+     * @return indicate if this ImageObject is equal to object
+     */
+    @Override
+    public boolean equals(Object object){
+        return object instanceof ImageFile && ((ImageFile)object).getFile().equals(imageFile);
+    }
 }
 
 /**

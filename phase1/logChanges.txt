@@ -165,3 +165,12 @@ Person: Allan
 Flaw: Maximized window with scene heights and widths causes a window size bug. 
 
 Fix: If the scene height and width is not the screen's size, maximized is set to false.
+
+#########
+#Log 21:
+
+Person: Allan
+
+Flaw: Duplicate imageFiles can be added to ImageManager.
+
+Fix: Duplicate ImageFile is not added to ImageManager

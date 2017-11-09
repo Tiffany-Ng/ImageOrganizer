@@ -33,12 +33,20 @@ public class ImageManager implements Serializable{
     /**
      * Add a new image
      *
-     * @param newImage the new image which will be added
+     * @param imageInsert the image which will be added
      */
-    public void addNewImage(ImageFile newImage){
+    public void addImage(ImageFile imageInsert){
 
-        ImageManager.imageFiles.add(newImage);
-
+        boolean match = false;
+        for(ImageFile imageFile:imageFiles){
+            if(imageFile.equals(imageInsert)){
+                match = true;
+                break;
+            }
+        }
+        if(!match){
+            ImageManager.imageFiles.add(imageInsert);
+        }
     }
 
 
@@ -157,7 +165,7 @@ public class ImageManager implements Serializable{
         //ArrayList<ManageImage.ImageFile> imageFiles = new ArrayList<>();
         for( File f: possibleImages ){
             try {
-               this.addNewImage(new ImageFile(f));
+               this.addImage(new ImageFile(f));
 
             } catch (IOException e) {
                 System.out.println("ManageImage.ImageFile file incorrectly read!");
