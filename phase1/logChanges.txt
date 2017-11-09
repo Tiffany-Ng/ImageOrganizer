@@ -156,3 +156,12 @@ Person: Allan
 Flaw: Must reopen another program to select another directory
 
 Fix: Added button to choose another directory
+
+#########
+#Log 20:
+
+Person: Allan
+
+Flaw: Maximized window with scene heights and widths causes a window size bug. 
+
+Fix: If the scene height and width is not the screen's size, maximized is set to false.

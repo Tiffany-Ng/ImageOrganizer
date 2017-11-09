@@ -36,6 +36,7 @@ class PicGrid {
         currentStage.setScene(scene);
         currentStage.setMaximized(true);
 
+
         Button chooseDirectory = new Button("Select directory");
         chooseDirectory.setOnAction(
                 e -> {

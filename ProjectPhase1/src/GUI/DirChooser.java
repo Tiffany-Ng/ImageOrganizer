@@ -71,7 +71,7 @@ class DirChooser {
                     }
                 });
 
+        currentStage.setMaximized(false);
         currentStage.setScene(scene);
-        currentStage.show();
     }
 }
