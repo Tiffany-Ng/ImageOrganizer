@@ -17,46 +17,58 @@ import java.io.File;
 import java.util.ArrayList;
 
 class PicGrid {
-  static void picGrid(Stage currentStage, File directory) {
-    FlowPane pane = new FlowPane();
-    pane.setPadding(new Insets(20, 20, 5, 20));
-    pane.setVgap(15);
-    pane.setHgap(15);
-    pane.setPrefWrapLength(300);
+    static void picGrid(Stage currentStage, File directory) {
 
-    ScrollPane scrollPane = new ScrollPane();
-    scrollPane.setContent(pane);
-    scrollPane.setFitToHeight(true);
-    scrollPane.setFitToWidth(true);
+        currentStage.setTitle("Image Viewer - List images");
 
-    Scene scene = new Scene(scrollPane);
-    currentStage.setScene(scene);
-    currentStage.setMaximized(true);
+        FlowPane pane = new FlowPane();
+        pane.setPadding(new Insets(20, 20, 5, 20));
+        pane.setVgap(15);
+        pane.setHgap(15);
+        pane.setPrefWrapLength(300);
 
-    Label label = new Label(directory.toString());
-    label.setMinWidth(2000);
-    pane.getChildren().add(label);
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(pane);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
 
-    ImageManager im = new ImageManager();
-    im.getImagesFrom(directory.toString());
-    ArrayList<Button> toAdd = new ArrayList<>();
-    for (ImageFile img : ImageManager.getImageFiles()) {
-      Image image = new Image("file:///" + img.getFile().toString(), 200, 200, true, true, true);
-      ImageView view = new ImageView(image);
-      view.setCache(true);
-      view.setCacheHint(CacheHint.SPEED);
-      Button button = new Button(img.getName(), view);
-      button.setContentDisplay(ContentDisplay.TOP);
-      button.setCache(true);
-      button.setCacheHint(CacheHint.SPEED);
+        Scene scene = new Scene(scrollPane);
+        currentStage.setScene(scene);
+        currentStage.setMaximized(true);
 
-      button.setOnAction(
-          e -> {
-            ImageScene toScene = new ImageScene(img);
-            currentStage.setScene(toScene.getImageScene());
-          });
-      toAdd.add(button);
+        Button chooseDirectory = new Button("Select directory");
+        chooseDirectory.setOnAction(
+                e -> {
+                    DirChooser.dirChooser(currentStage);
+                });
+        pane.getChildren().add(chooseDirectory);
+
+        Label currentDirectory = new Label(directory.toString());
+        currentDirectory.setMinWidth(2000);
+        pane.getChildren().add(currentDirectory);
+
+
+
+        ImageManager im = new ImageManager();
+        im.createImagesFromDirectory(directory.toString());
+        ArrayList<Button> toAdd = new ArrayList<>();
+        for (ImageFile img : ImageManager.getImageFiles()) {
+            Image image = new Image("file:///" + img.getFile().toString(), 200, 200, true, true, true);
+            ImageView view = new ImageView(image);
+            view.setCache(true);
+            view.setCacheHint(CacheHint.SPEED);
+            Button viewImage = new Button(img.getName(), view);
+            viewImage.setContentDisplay(ContentDisplay.TOP);
+            viewImage.setCache(true);
+            viewImage.setCacheHint(CacheHint.SPEED);
+
+            viewImage.setOnAction(
+                    e -> {
+                        ImageScene toScene = new ImageScene(img);
+                        currentStage.setScene(toScene.getImageScene());
+                    });
+            toAdd.add(viewImage);
+        }
+        pane.getChildren().addAll(toAdd);
     }
-    pane.getChildren().addAll(toAdd);
-  }
 }

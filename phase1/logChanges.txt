@@ -147,3 +147,12 @@ Fix: Renamed Image to ImageFile.
 
 Other: Created two packages for front and back end. Added in PicGrid for showing user a grid of pictures under the selected
 directiory, when user clicks on picture, program will call ImageScene.
+
+#########
+#Log 19:
+
+Person: Allan
+
+Flaw: Must reopen another program to select another directory
+
+Fix: Added button to choose another directory

@@ -173,7 +173,7 @@ public class ImageManager implements Serializable{
      *
      * @param directory The path of the folder the imageFiles are to be found
      */
-    public void getImagesFrom(String directory){
+    public void createImagesFromDirectory(String directory){
 
         // get the relevant File objects from directory & sub-directory
         ArrayList<File> files = this.checkSubDirectories(directory);
@@ -193,7 +193,7 @@ public class ImageManager implements Serializable{
         String directory = "/Users/akshatkumarnigam/Desktop/sample";  // the path to a sample file
         ImageManager im = new ImageManager();
 
-        im.getImagesFrom(directory);
+        im.createImagesFromDirectory(directory);
 
         for(ImageFile img : imageFiles){
             System.out.println(img.getName());

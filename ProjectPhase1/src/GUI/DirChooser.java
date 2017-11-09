@@ -15,6 +15,9 @@ import java.io.File;
 
 class DirChooser {
     static void dirChooser(Stage currentStage){
+
+        currentStage.setTitle("Image Viewer - Select Directory");
+
         GridPane pane = new GridPane();
         Scene scene = new Scene(pane, 500, 250);
 
@@ -27,6 +30,7 @@ class DirChooser {
         TextField dirTextField = new TextField();
         dirTextField.setPrefWidth(350);
         dirTextField.setText("Input Directory");
+        GridPane.setHalignment(dirTextField, HPos.LEFT);
 
         Text instruction = new Text();
         instruction.setText("Please select/type in a directory:");
@@ -35,14 +39,13 @@ class DirChooser {
         error.setText("Please select a working directory.");
         error.setFill(Color.RED);
         GridPane.setHalignment(error, HPos.RIGHT);
-        pane.add(error, 4, 8);
         error.setVisible(false);
 
         pane.setHgap(10);
         pane.setVgap(10);
         pane.setPadding(new Insets(5, 5, 5, 5));
 
-        GridPane.setHalignment(dirTextField, HPos.LEFT);
+        pane.add(error, 4, 8);
         pane.add(dirTextField, 4, 7);
         pane.add(dirChooserBtn, 5, 7);
         pane.add(instruction, 4, 6);

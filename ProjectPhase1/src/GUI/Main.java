@@ -11,17 +11,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.DirectoryChooser;
+
 import java.io.File;
 
 public class Main extends Application {
-  public static void main(String[] args) {
-    launch(args);
-  }
+    public static void main(String[] args) {
+        launch(args);
+    }
 
-  @Override
-  public void start(Stage currentStage) {
-    currentStage.setTitle("Turtle ManageImage.ImageFile Tag View Manager!");
-
-    DirChooser.dirChooser(currentStage);
-  }
+    @Override
+    public void start(Stage currentStage) {
+        DirChooser.dirChooser(currentStage);
+    }
 }
