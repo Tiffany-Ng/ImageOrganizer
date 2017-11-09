@@ -174,3 +174,12 @@ Person: Allan
 Flaw: Duplicate imageFiles can be added to ImageManager.
 
 Fix: Duplicate ImageFile is not added to ImageManager
+
+#########
+#Log 22:
+
+Person: Allan
+
+Flaw: Directories display incorrect images
+
+Fix: PicGrid filters images by directory before displaying

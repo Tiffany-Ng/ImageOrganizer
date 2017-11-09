@@ -53,7 +53,7 @@ class PicGrid {
         ImageManager im = new ImageManager();
         im.createImagesFromDirectory(directory.toString());
         ArrayList<Button> toAdd = new ArrayList<>();
-        for (ImageFile img : ImageManager.getImageFiles()) {
+        for (ImageFile img : im.getImageFilesByDirectory(directory)) {
             Image image = new Image("file:///" + img.getFile().toString(), 200, 200, true, true, true);
             ImageView view = new ImageView(image);
             view.setCache(true);

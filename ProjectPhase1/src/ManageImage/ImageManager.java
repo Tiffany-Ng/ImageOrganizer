@@ -31,6 +31,27 @@ public class ImageManager implements Serializable{
     }
 
     /**
+     * Get images stored in directory
+     * <p>
+     * Assumes stored images and directory all use absolute paths
+     * </p>
+     * @param directory the directory that contains returned images
+     * @return the images stored in directory
+     */
+    public ArrayList<ImageFile> getImageFilesByDirectory(File directory){
+
+        ArrayList<ImageFile> filteredImages = new ArrayList<>();
+        for(ImageFile imageFile : imageFiles){
+            File imageDirectory = imageFile.getDirectory();
+            if (imageDirectory.toString().startsWith(directory.toString())){
+                filteredImages.add(imageFile);
+            }
+        }
+        return filteredImages;
+
+    }
+
+    /**
      * Add a new image
      *
      * @param imageInsert the image which will be added
