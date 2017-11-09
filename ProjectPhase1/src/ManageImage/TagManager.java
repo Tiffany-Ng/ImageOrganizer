@@ -1,17 +1,19 @@
+package ManageImage;
+
 import java.util.LinkedList;
 
 /**
- * TagManager represents a pool of unique tags
+ * ManageImage.TagManager represents a pool of unique tags
  */
 public class TagManager {
 
     /**
-     * the tags that a TagManager stores
+     * the tags that a ManageImage.TagManager stores
      */
     private LinkedList<String> tags;
 
     /**
-     * Construct a TagManager
+     * Construct a ManageImage.TagManager
      */
     public TagManager(){
         tags = new LinkedList<>();
@@ -19,7 +21,7 @@ public class TagManager {
 
     /**
      * Adds tag to tagManager if tag is not yet added
-     * @param tag the tag to be added to TagManager
+     * @param tag the tag to be added to ManageImage.TagManager
      */
     public void add(String tag){
         if(!tags.contains(tag)){
