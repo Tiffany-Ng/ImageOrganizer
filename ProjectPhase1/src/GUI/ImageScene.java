@@ -1,3 +1,5 @@
+package GUI;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
@@ -9,6 +11,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
+import ManageImage.*;
+
 import java.util.List;
 
 /**
@@ -19,18 +23,18 @@ public class ImageScene {
     /**
      * The image used .
      */
-    private Image image;
+    private ImageFile image;
 
     private Scene imageScene;
 
     private GridPane g;
 
     /**
-     * Construct an ImageScene.
+     * Construct an GUI.ImageScene.
      *
      * @param image
      */
-    public ImageScene(Image image) {
+    public ImageScene(ImageFile image) {
 
         this.image = image;
 
