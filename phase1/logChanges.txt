@@ -121,3 +121,12 @@ Person: Akshat
 Flaw: Images in sub-directories are not included.
 
 Fix: Added images from sub-directory by creating recursive algorithm.
+
+#########
+#Log 16:
+
+Person: Allan
+
+Flaw: Unable to manage all previously used tags
+
+Fix: Implemented TagManager
