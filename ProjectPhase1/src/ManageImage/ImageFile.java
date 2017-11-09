@@ -273,7 +273,7 @@ public class ImageFile implements Serializable{
      */
     @Override
     public boolean equals(Object object){
-        return object instanceof ImageFile && ((ImageFile)object).getFile().equals(imageFile);
+        return object instanceof ImageFile && ((ImageFile)object).getFile().equals(imageFile) && ((ImageFile)object).getDirectory().equals(this.getDirectory());
     }
 }
 

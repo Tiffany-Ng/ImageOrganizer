@@ -183,3 +183,15 @@ Person: Allan
 Flaw: Directories display incorrect images
 
 Fix: PicGrid filters images by directory before displaying
+#########
+#Log 23:
+
+Person: Prynciss
+
+Flaw: ImageManager's data are lost after the program closes. 
+
+Fix: ImageManager is saved to out.ser when choosing another directory and on close. Program will read saved data when a directory
+is chosen. ImageManager now has two ArrayLists; allImageFiles for all tracked ImageFiles and imageFiles for ImageFiles in
+current directory.
+
+Other: Added in another check for equals method in ImageFile, now also checks for same directory

@@ -40,6 +40,7 @@ class PicGrid {
         Button chooseDirectory = new Button("Select directory");
         chooseDirectory.setOnAction(
                 e -> {
+                    ImageManager.save();
                     DirChooser.dirChooser(currentStage);
                 });
         pane.getChildren().add(chooseDirectory);
