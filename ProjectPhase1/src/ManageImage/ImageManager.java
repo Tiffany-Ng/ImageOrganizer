@@ -161,7 +161,11 @@ public class ImageManager implements Serializable {
               }
             });
 
-    return new ArrayList<File>(Arrays.asList(collect)); // TODO: null condition
+    if (collect == null){   // no files of the right format were found
+      return new ArrayList<File>();
+    }
+
+    return new ArrayList<File>(Arrays.asList(collect));
   }
 
   /**
@@ -175,7 +179,11 @@ public class ImageManager implements Serializable {
     File folder = new File(directory);
     ArrayList<String> gatherSubDirectories = new ArrayList<String>();
 
-    for (File f : folder.listFiles()) { // TODO: empty directory check
+    if (folder.listFiles() == null){
+      return gatherSubDirectories;
+    }
+
+    for (File f : folder.listFiles()) {
       if (f.isDirectory()) {
         gatherSubDirectories.add(f.getName());
       }

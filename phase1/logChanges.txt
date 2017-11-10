@@ -213,3 +213,12 @@ Person: Amarnath
 Flaw: Can't add tags.
 
 Fix: Can now add tags to an image.
+
+#########
+#Log 26:
+
+Person: Akshat
+
+Flaw: Recursive algorithm fails in special conditions.
+
+Fix: Included caveats to avoid those conditions.
