@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -31,6 +32,8 @@ public class ImageScene {
     private GridPane g;
 
     private  TextArea log;
+
+    private FlowPane f;
 
     /**
      * Construct an GUI.ImageScene.
@@ -88,7 +91,35 @@ public class ImageScene {
 
         });
 
+        Text imageName = new Text(image.getName());
+        layout.add(imageName, 1, 0, 1, 1);
+
+        TextField newTag = new TextField("Tag Name");
+        newTag.setEditable(true);
+
+        Button addTag = new Button("+");
+        addTag.setOnAction(e -> {
+
+            image.addTag(newTag.getText());
+            addClickableTags();
+            updateLog();
+
+        });
+
+        layout.add(newTag, 3, 0, 1, 1);
+        layout.add(addTag, 4, 0, 1, 1);
+
         return layout;
+
+    }
+
+    private HBox headerSetup() {
+
+        HBox header = new HBox();
+
+
+
+        return header;
 
     }
 
@@ -116,15 +147,13 @@ public class ImageScene {
         dir.getChildren().add(directory);
         flow.getChildren().add(dir);
 
-
+        // make all the tags
         // sub-flowPane to hold the tags
-        FlowPane f = new FlowPane(Orientation.HORIZONTAL, 7, 5);
+        f = new FlowPane(Orientation.HORIZONTAL, 7, 5);
         f.setPadding(new Insets(5));
         f.setPrefHeight(480/2.5);
+        f = addClickableTags();
 
-        // make all the tags
-        List<String> tags = image.getTags();
-        addClickableTags(tags, f);
 
         flow.getChildren().add(new ScrollPane(f));
 
@@ -142,7 +171,10 @@ public class ImageScene {
 
     }
 
-    private void addClickableTags(List<String> tags, FlowPane f) {
+    private FlowPane addClickableTags() {
+
+        List<String> tags = image.getTags();
+        f.getChildren().removeAll(f.getChildren());
 
         for (String t : tags) {
 
@@ -161,6 +193,8 @@ public class ImageScene {
             f.getChildren().add(tag);
 
         }
+
+        return f;
 
     }
 

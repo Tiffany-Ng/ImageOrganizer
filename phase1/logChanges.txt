@@ -197,10 +197,19 @@ current directory.
 Other: Added in another check for equals method in ImageFile, now also checks for same directory
 
 #########
-#Log 23:
+#Log 24:
 
 Person: Amarnath
 
 Flaw: Can't remove tags.
 
 Fix: Can now remove tags from an image.
+
+#########
+#Log 25:
+
+Person: Amarnath
+
+Flaw: Can't add tags.
+
+Fix: Can now add tags to an image.
