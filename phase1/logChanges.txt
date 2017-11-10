@@ -195,3 +195,12 @@ is chosen. ImageManager now has two ArrayLists; allImageFiles for all tracked Im
 current directory.
 
 Other: Added in another check for equals method in ImageFile, now also checks for same directory
+
+#########
+#Log 23:
+
+Person: Amarnath
+
+Flaw: Can't remove tags.
+
+Fix: Can now remove tags from an image.

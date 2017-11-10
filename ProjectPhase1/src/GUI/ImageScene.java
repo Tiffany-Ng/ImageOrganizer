@@ -6,13 +6,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
+import javafx.scene.layout.*;
 
 import ManageImage.*;
+import javafx.scene.text.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +29,8 @@ public class ImageScene {
     private Scene imageScene;
 
     private GridPane g;
+
+    private  TextArea log;
 
     /**
      * Construct an GUI.ImageScene.
@@ -53,21 +56,25 @@ public class ImageScene {
         GridPane layout = new GridPane();
         layout.setHgap(10);
         layout.setVgap(10);
-        layout.setPadding(new Insets(0, 10, 0, 10));
+        layout.setPadding(new Insets(0, 10, 10, 10));
 
         // image in form of a viewable icon
         ImageView icon = new ImageView();
         icon.setFitWidth(720);
         icon.setFitHeight(480);
 
-        // since we have a class named image, the javafx image needs to be used like this
         // needs the "file://" because image will not understand it is a directory
-        icon.setImage(new javafx.scene.image.Image("file:///" + image.getFile().toString()));
-        layout.add(icon, 1, 1, 2, 2);
+        icon.setImage(new Image("file:///" + image.getFile().toString()));
 
         // flowPane for image information
-        FlowPane f = flowSetup();
-        layout.add(f, 3, 1, 1, 3);
+        VBox f = vBoxSetup();
+
+        HBox h = new HBox();
+        h.getChildren().add(icon);
+        h.getChildren().add(f);
+        h.setSpacing(5);
+
+        layout.add(h, 1,  1, 4, 2);
 
         // go to main screen
         Button back = new Button();
@@ -90,39 +97,75 @@ public class ImageScene {
      *
      * @return FlowPane
      */
-    private FlowPane flowSetup() {
+    private VBox vBoxSetup() {
 
         // initial values
-        FlowPane flow = new FlowPane();
-        flow.setPadding(new Insets(5, 0, 5, 0));
-        flow.setVgap(4);
-        flow.setHgap(4);
+        VBox flow = new VBox();
+        flow.setPadding(new Insets(0, 0, 5, 0));
+        flow.setSpacing(10);
+
+        // image directory
+        Text directory = new Text();
+        directory.setText(image.getDirectory().toString());
+
+        HBox dir = new HBox();
+        dir.boundsInParentProperty();
+        dir.setMaxWidth(flow.getMaxWidth());
+
+        dir.setStyle("-fx-border-color: gray;");
+        dir.getChildren().add(directory);
+        flow.getChildren().add(dir);
+
 
         // sub-flowPane to hold the tags
-        FlowPane f = new FlowPane(Orientation.HORIZONTAL, 5, 5);
+        FlowPane f = new FlowPane(Orientation.HORIZONTAL, 7, 5);
         f.setPadding(new Insets(5));
+        f.setPrefHeight(480/2.5);
 
         // make all the tags
         List<String> tags = image.getTags();
+        addClickableTags(tags, f);
+
+        flow.getChildren().add(new ScrollPane(f));
+
+        log = new TextArea();
+        // image log
+        updateLog();
+
+        log.setWrapText(true);
+        log.setEditable(false);
+        log.setPrefHeight(480/2);
+
+        flow.getChildren().add(log);
+
+        return flow;
+
+    }
+
+    private void addClickableTags(List<String> tags, FlowPane f) {
+
         for (String t : tags) {
 
             // makes all tags as clickable buttons
             Button tag = new Button(t);
 
             // #TODO make sure tags disappear when clicked, and is visually shown
-            tag.setOnAction(e -> image.removeTag(tag.toString()));
+            tag.setOnAction(e -> {
+
+                image.removeTag(tag.getText());
+                f.getChildren().remove(tag);
+                updateLog();
+
+            });
+
             f.getChildren().add(tag);
 
         }
 
-        flow.getChildren().add(new ScrollPane(f));
+    }
 
-        // image directory
-        Text directory = new Text();
-        directory.setText(image.getDirectory().toString());
-        flow.getChildren().add(directory);
+    private void updateLog() {
 
-        // image log
         Log imageLog = image.getLog();
         StringBuilder logs = new StringBuilder();
 
@@ -134,12 +177,8 @@ public class ImageScene {
         }
 
         // represent log as textArea
-        TextArea log = new TextArea(logs.toString());
-        log.setWrapText(true);
-        log.setEditable(false);
-        flow.getChildren().add(log);
+        log.setText(logs.toString());
 
-        return flow;
 
     }
 
