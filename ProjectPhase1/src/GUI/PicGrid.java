@@ -66,7 +66,7 @@ class PicGrid {
 
             viewImage.setOnAction(
                     e -> {
-                        ImageScene toScene = new ImageScene(img);
+                        ImageScene toScene = new ImageScene(img, directory, currentStage);
                         currentStage.setScene(toScene.getImageScene());
                     });
             toAdd.add(viewImage);

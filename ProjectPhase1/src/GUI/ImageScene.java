@@ -13,9 +13,11 @@ import javafx.scene.layout.*;
 
 import ManageImage.*;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
 
 /**
  * GUI of an individual image's information
@@ -35,17 +37,23 @@ public class ImageScene {
 
     private FlowPane f;
 
+    private File directory;
+    private Stage prevScene;
+
     /**
      * Construct an GUI.ImageScene.
      *
      * @param image
      */
-    public ImageScene(ImageFile image) {
+    public ImageScene(ImageFile image, File directory, Stage prevScene) {
 
         this.image = image;
 
         g = gridSetup();
         imageScene = new Scene(g);
+
+        this.directory = directory;
+        this.prevScene = prevScene;
 
     }
 
@@ -84,10 +92,10 @@ public class ImageScene {
         back.setText("<- Back");
         layout.add(back, 0, 0, 1, 1);
 
-        // #TODO setup the action to go back to main screen
         back.setOnAction(e -> {
 
-
+            ImageManager.save();
+            PicGrid.picGrid(prevScene, this.directory);
 
         });
 
