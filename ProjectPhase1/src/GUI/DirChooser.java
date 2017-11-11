@@ -14,6 +14,9 @@ import javafx.stage.Stage;
 import java.io.File;
 
 class DirChooser {
+
+    /** Represents the directory that was opened by a user */
+
     static void dirChooser(Stage currentStage){
 
         currentStage.setTitle("Image Viewer - Select Directory");
@@ -64,6 +67,7 @@ class DirChooser {
         goBtn.setOnAction(
                 e -> {
                     File directory = new File(dirTextField.getText());
+
                     if (directory.isDirectory()) {
                         PicGrid.picGrid(currentStage, directory);
                     } else {
@@ -74,4 +78,5 @@ class DirChooser {
         currentStage.setMaximized(false);
         currentStage.setScene(scene);
     }
+
 }

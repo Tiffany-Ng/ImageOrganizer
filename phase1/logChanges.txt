@@ -222,3 +222,12 @@ Person: Akshat
 Flaw: Recursive algorithm fails in special conditions.
 
 Fix: Included caveats to avoid those conditions.
+
+#########
+#Log 27:
+
+Person: Akshat
+
+Flaw: Back button in ImageScene not imlemented.
+
+Fix: Implemented action listener for the back button.
