@@ -14,7 +14,6 @@ import javafx.scene.layout.*;
 import ManageImage.*;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,9 +56,9 @@ public class ImageScene {
     private GridPane gridSetup() {
 
         GridPane layout = new GridPane();
-        layout.setHgap(10);
-        layout.setVgap(10);
-        layout.setPadding(new Insets(0, 10, 10, 10));
+        layout.setHgap(6);
+        layout.setVgap(6);
+        layout.setPadding(new Insets(10, 10, 10, 10));
 
         // image in form of a viewable icon
         ImageView icon = new ImageView();
@@ -77,7 +76,8 @@ public class ImageScene {
         h.getChildren().add(f);
         h.setSpacing(5);
 
-        layout.add(h, 1,  1, 4, 2);
+        layout.add(icon, 1,  1, 4, 2);
+        layout.add(f, 6,1,2,2);
 
         // go to main screen
         Button back = new Button();
@@ -106,8 +106,8 @@ public class ImageScene {
 
         });
 
-        layout.add(newTag, 3, 0, 1, 1);
-        layout.add(addTag, 4, 0, 1, 1);
+        layout.add(newTag, 6, 0, 1, 1);
+        layout.add(addTag, 7, 0, 1, 1);
 
         return layout;
 
@@ -176,10 +176,12 @@ public class ImageScene {
         List<String> tags = image.getTags();
         f.getChildren().removeAll(f.getChildren());
 
+        ImageView i = new ImageView(new Image("file:///" + "x.jpeg"));
+
         for (String t : tags) {
 
             // makes all tags as clickable buttons
-            Button tag = new Button(t);
+            Button tag = new Button(t, i);
 
             // #TODO make sure tags disappear when clicked, and is visually shown
             tag.setOnAction(e -> {
