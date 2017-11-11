@@ -37,7 +37,10 @@ public class ImageScene {
 
     private FlowPane f;
 
+    /**The directory that the user first opened */
     private File directory;
+
+    /** The previous picGrid scene */
     private Stage prevScene;
 
     /**
@@ -45,7 +48,7 @@ public class ImageScene {
      *
      * @param image
      */
-    public ImageScene(ImageFile image, File directory, Stage prevScene) {
+    ImageScene(ImageFile image, File directory, Stage prevScene) {
 
         this.image = image;
 
