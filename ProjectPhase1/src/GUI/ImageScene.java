@@ -57,6 +57,10 @@ public class ImageScene {
         this.directory = directory;
         this.prevScene = prevScene;
 
+        //prevScene.sizeToScene();
+        prevScene.setWidth(imageScene.getWidth());
+        prevScene.setHeight(imageScene.getHeight());
+
     }
 
     /**

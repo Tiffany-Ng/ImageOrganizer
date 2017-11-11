@@ -32,10 +32,12 @@ class PicGrid {
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
 
+        currentStage.setMaximized(true);
+        scrollPane.setMinViewportWidth(currentStage.getWidth());
+        scrollPane.setMinViewportHeight(currentStage.getHeight());
+
         Scene scene = new Scene(scrollPane);
         currentStage.setScene(scene);
-        currentStage.setMaximized(true);
-
 
         Button chooseDirectory = new Button("Select directory");
         chooseDirectory.setOnAction(

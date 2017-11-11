@@ -231,3 +231,14 @@ Person: Akshat
 Flaw: Back button in ImageScene not imlemented.
 
 Fix: Implemented action listener for the back button.
+
+#########
+#Log 28:
+
+Person: Amarnath
+
+Flaw: PicGrid would be extremely small when returned after visiting ImageScene.
+
+Fix: GUI stays maximized while viewing ImageScene and PicGrid. 
+
+Bug: Taking the GUI out of maximum reverts to a small screen regardless of scene.
