@@ -1,5 +1,6 @@
 package GUI;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -139,21 +140,25 @@ public class ImageScene {
         newTag.setValue("Tag name");
         newTag.setEditable(true);
 
+
         newTag.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            //sited from oracle javadoc
             LinkedList<String> relatedTags = new LinkedList<>();
             if(!(newValue == null)){
                 relatedTags.addAll(TagManager.search(newValue));
             }
-            System.out.println(relatedTags.toString());
-            newTag.getItems().clear();
-            newTag.getItems().addAll(relatedTags);
+            //sited from https://stackoverflow.com/questions/30465313/javafx-textfield-with-listener-gives-java-lang-illegalargumentexception-the-s
+            Platform.runLater(() -> {
+                newTag.getItems().clear();
+                newTag.getItems().addAll(relatedTags);
+            });
         });
 
         Button addTag = new Button("+");
         addTag.setOnAction(e -> {
-            image.addTag((String)newTag.getValue());
-            newTag.setValue("");
+            if(newTag.getValue() instanceof String){
+                image.addTag((String)newTag.getValue());
+            }
+            //newTag.setValue("");
             addClickableTags();
             updateLog();
             imageNameUpdate();

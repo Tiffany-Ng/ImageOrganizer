@@ -287,3 +287,12 @@ Person: Amarnath
 Flaw: out bounds error
 
 Fix: fixed it
+
+#########
+#Log 33:
+
+Person: Allan and Prynciss
+
+Flaw: Tried to edit object that had a listener while listener was being run
+
+Fix: Code that edits listener's object is run after listener code
