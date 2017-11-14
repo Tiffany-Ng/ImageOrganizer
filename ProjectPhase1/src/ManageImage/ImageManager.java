@@ -153,7 +153,7 @@ public class ImageManager implements Serializable {
               public boolean accept(File dir, String name) {
                 return (name.endsWith(".png")
                     | name.endsWith(".jpg")
-                    | name.endsWith(".jpeg)")
+                    | name.endsWith(".jpeg")
                     | // Considering file of the appropriate type
                     name.endsWith(".tiff")
                     | name.endsWith(".ppm")

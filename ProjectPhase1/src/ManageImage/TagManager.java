@@ -1,29 +1,24 @@
 package ManageImage;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
  * ManageImage.TagManager represents a pool of unique tags
  */
-public class TagManager {
+public class TagManager implements Serializable{
 
     /**
      * the tags that a ManageImage.TagManager stores
      */
-    private LinkedList<String> tags;
+    private static LinkedList<String> tags = new LinkedList<>();;
 
-    /**
-     * Construct a ManageImage.TagManager
-     */
-    public TagManager(){
-        tags = new LinkedList<>();
-    }
 
     /**
      * Adds tag to tagManager if tag is not yet added
      * @param tag the tag to be added to ManageImage.TagManager
      */
-    public void add(String tag){
+    public static void add(String tag){
         if(!tags.contains(tag)){
             tags.add(tag);
         }
@@ -33,7 +28,7 @@ public class TagManager {
      * Removes tag from tagManager
      * @param tag the tag to be removed
      */
-    public void remove(String tag){
+    public static void remove(String tag){
         tags.remove(tag);
     }
 
@@ -42,7 +37,7 @@ public class TagManager {
      * @param tagSearch the filter for all stored tags
      * @return all tags that contains tagSearch, with similar first letters ordered first
      */
-    public LinkedList<String> search(String tagSearch){
+    public static LinkedList<String> search(String tagSearch){
         LinkedList<String> sameFirstLetter = new LinkedList<>();
         LinkedList<String> otherMatches = new LinkedList<>();
         for(String tag : tags){

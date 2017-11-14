@@ -1,5 +1,7 @@
 package GUI;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
@@ -13,6 +15,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.io.File;
 
@@ -127,13 +130,25 @@ public class ImageScene {
 
         layout.add(imageName, 1, 0, 1, 1);
 
-        TextField newTag = new TextField("Tag Name");
+        ComboBox newTag = new ComboBox();
+        newTag.setValue("Tag name");
         newTag.setEditable(true);
+
+        newTag.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            //sited from oracle javadoc
+            LinkedList<String> relatedTags = new LinkedList<>();
+            if(!(newValue == null)){
+                relatedTags.addAll(TagManager.search(newValue));
+            }
+            System.out.println(relatedTags.toString());
+            newTag.getItems().clear();
+            newTag.getItems().addAll(relatedTags);
+        });
 
         Button addTag = new Button("+");
         addTag.setOnAction(e -> {
-
-            image.addTag(newTag.getText());
+            image.addTag((String)newTag.getValue());
+            newTag.setValue("");
             addClickableTags();
             updateLog();
             imageNameUpdate();

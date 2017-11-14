@@ -269,3 +269,12 @@ Person: Amarnath
 Flaw: Combobox changes size depending on size of file name.
 
 Fix: Combobox stays a constant width.
+
+#########
+#Log 32:
+
+Person: Allan
+
+Flaw: Couldn't read jpeg files, couldn't list previously used tags
+
+Fix: Reads jpeg files, lists previously used tags
