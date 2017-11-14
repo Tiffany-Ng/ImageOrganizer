@@ -109,6 +109,7 @@ public class ImageScene {
 
         imageNames = new ComboBox<>();
         imageNameUpdate();
+        imageNames.setMaxWidth(720);
 
         Button revertName = new Button("Revert");
         revertName.setOnAction(event -> {

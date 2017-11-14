@@ -260,3 +260,12 @@ Flaw: Image cannot be reverted to a prevous version with tags.
 Fix: Now able to revert Image's name to previous version.
 
 Bug: Size of image name slides the log and tags area.
+
+#########
+#Log 31:
+
+Person: Amarnath
+
+Flaw: Combobox changes size depending on size of file name.
+
+Fix: Combobox stays a constant width.
