@@ -1,0 +1,9 @@
+Please follow the following steps to run the code on the command line:
+
+1. cd inside the 'src' directory. 'ls' should produce(GUI & ManageImage)
+
+2. compile all the files using the following command: "javac GUI/Main.java".
+
+3. Run the program with the following command: "java GUI.Main".
+
+A directory chooser should pop-up. Select a directory, and have fun!.

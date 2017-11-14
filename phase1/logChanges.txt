@@ -278,3 +278,12 @@ Person: Allan
 Flaw: Couldn't read jpeg files, couldn't list previously used tags
 
 Fix: Reads jpeg files, lists previously used tags
+
+#########
+#Log 32:
+
+Person: Amarnath
+
+Flaw: out bounds error
+
+Fix: fixed it

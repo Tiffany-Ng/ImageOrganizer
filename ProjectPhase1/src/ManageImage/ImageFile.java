@@ -62,7 +62,7 @@ public class ImageFile implements Serializable{
 
         List<String> priorTags = splitTags(imageFile.getName());
 
-        log.addEntry(new Entry("Set initial name", getName()));
+        log.addEntry(new Entry("Set initial name", getName() + getExtension()));
 
         if (priorTags.size() > 1) {
             tags.addAll(priorTags);
