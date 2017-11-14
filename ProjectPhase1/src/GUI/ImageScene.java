@@ -110,14 +110,19 @@ public class ImageScene {
         imageNames = new ComboBox<>();
         imageNameUpdate();
         imageNames.setMaxWidth(720);
+        imageNames.getSelectionModel().selectFirst();
 
         Button revertName = new Button("Revert");
         revertName.setOnAction(event -> {
 
-            image.revertName(imageNames.getItems().size() - imageNames.getItems().indexOf(imageNames.getValue()) - 1);
-            updateLog();
-            addClickableTags();
-            imageNameUpdate();
+            if (!image.nameWithTags().equals(imageNames.getValue())) {
+                image.revertName(imageNames.getItems().size() -
+                        ((imageNames.getItems().indexOf(imageNames.getValue()) == -1) ?
+                                0 : imageNames.getItems().indexOf(imageNames.getValue())) - 1);
+                updateLog();
+                addClickableTags();
+                imageNameUpdate();
+            }
 
         });
 

@@ -269,3 +269,12 @@ Person: Amarnath
 Flaw: Combobox changes size depending on size of file name.
 
 Fix: Combobox stays a constant width.
+
+#########
+#Log 31:
+
+Person: Amarnath
+
+Flaw: out bounds error
+
+Fix: fixed it
