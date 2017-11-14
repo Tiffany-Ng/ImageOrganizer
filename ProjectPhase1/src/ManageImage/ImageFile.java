@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ImageFile implements Serializable{
 
@@ -59,7 +60,17 @@ public class ImageFile implements Serializable{
         log = new Log();
         directory = imageFile.getParentFile();
 
-        String rawName = imageFile.getName();
+        List<String> priorTags = splitTags(imageFile.getName());
+
+        log.addEntry(new Entry("Set initial name", getName()));
+
+        if (priorTags.size() > 1) {
+            tags.addAll(priorTags);
+        }
+    }
+
+    public List<String> splitTags(String rawName) {
+
         int indexExtension = rawName.lastIndexOf(".");
         extension = rawName.substring(indexExtension);
         rawName = rawName.substring(0, indexExtension);
@@ -67,9 +78,8 @@ public class ImageFile implements Serializable{
 
         name = nameParts[0];
 
-        if (nameParts.length > 1) {
-            tags.addAll(Arrays.asList(nameParts).subList(1, nameParts.length));
-        }
+        return Arrays.asList(nameParts).subList(1, nameParts.length);
+
     }
 
     /**
@@ -167,6 +177,17 @@ public class ImageFile implements Serializable{
         this.name = newName;
 
         updateFile("ManageImage.ImageFile \"" + oldName + "\" was renamed to \"" + newName + "\"");
+    }
+
+    public void revertName(int entryNumber) {
+
+        List<String> priorTags = splitTags(log.getEntry(entryNumber).getImageName());
+
+        tags.clear();
+        tags.addAll(priorTags);
+
+        log.addEntry(new Entry("Reverted " + getName() + " to prior tags: " + nameWithTags(), nameWithTags()));
+
     }
 
     /**

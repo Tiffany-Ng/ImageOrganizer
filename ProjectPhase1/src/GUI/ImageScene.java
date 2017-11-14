@@ -111,6 +111,14 @@ public class ImageScene {
         imageNameUpdate();
 
         Button revertName = new Button("Revert");
+        revertName.setOnAction(event -> {
+
+            image.revertName(imageNames.getItems().size() - imageNames.getItems().indexOf(imageNames.getValue()) - 1);
+            updateLog();
+            addClickableTags();
+            imageNameUpdate();
+
+        });
 
         HBox imageName = new HBox();
         imageName.getChildren().addAll(imageNames, revertName);
@@ -148,9 +156,10 @@ public class ImageScene {
 
         }
 
-        Collections.reverse(imageNames.getItems());
-        imageNames.setPromptText(imageNames.getItems().get(0));
-
+        if (!imageNames.getItems().isEmpty()) {
+            Collections.reverse(imageNames.getItems());
+            imageNames.setPromptText(imageNames.getItems().get(0));
+        }
     }
 
     private HBox headerSetup() {

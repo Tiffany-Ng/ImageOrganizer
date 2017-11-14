@@ -41,6 +41,12 @@ public class Log implements Iterable<Entry>, Serializable {
 
     }
 
+    public Entry getEntry(int num) {
+
+        return history.get(num);
+
+    }
+
     /**
      * Records a new ManageImage.Entry in the history.
      *

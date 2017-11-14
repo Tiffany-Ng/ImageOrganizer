@@ -249,3 +249,14 @@ Bug: Taking the GUI out of maximum reverts to a small screen regardless of scene
 Person: Amarnath
 
 Added the ability to see all past names image had.
+
+#########
+#Log 30:
+
+Person: Amarnath
+
+Flaw: Image cannot be reverted to a prevous version with tags.
+
+Fix: Now able to revert Image's name to previous version.
+
+Bug: Size of image name slides the log and tags area.
