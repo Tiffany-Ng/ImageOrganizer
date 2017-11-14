@@ -1,6 +1,7 @@
 package GUI;
 
 import ManageImage.ImageManager;
+import ManageImage.TagManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -18,5 +19,6 @@ public class Main extends Application {
   @Override
   public void stop() {
     ImageManager.save();
+    TagManager.save();
   }
 }

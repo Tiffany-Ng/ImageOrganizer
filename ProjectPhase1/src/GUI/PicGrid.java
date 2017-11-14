@@ -43,6 +43,7 @@ class PicGrid {
         chooseDirectory.setOnAction(
                 e -> {
                     ImageManager.save();
+                    TagManager.save();
                     DirChooser.dirChooser(currentStage);
                 });
         pane.getChildren().add(chooseDirectory);
@@ -51,8 +52,8 @@ class PicGrid {
         currentDirectory.setMinWidth(2000);
         pane.getChildren().add(currentDirectory);
 
-
-
+        //Loads in tags from tags.ser
+        TagManager tm = new TagManager();
         ImageManager im = new ImageManager();
         im.createImagesFromDirectory(directory.toString());
         ArrayList<Button> toAdd = new ArrayList<>();

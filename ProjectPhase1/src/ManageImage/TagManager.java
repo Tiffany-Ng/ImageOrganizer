@@ -1,6 +1,6 @@
 package ManageImage;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.LinkedList;
 
 /**
@@ -11,7 +11,43 @@ public class TagManager implements Serializable{
     /**
      * the tags that a ManageImage.TagManager stores
      */
-    private static LinkedList<String> tags = new LinkedList<>();;
+    private static LinkedList<String> tags = new LinkedList<>();
+
+    public TagManager(){
+        try {
+
+            FileInputStream inputStream = new FileInputStream("tags.ser");
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+            tags = (java.util.LinkedList<String>) objectInputStream.readObject();
+            objectInputStream.close();
+
+            //for (ImageFile image : allImageFiles) System.out.println(image.getName());
+
+        } catch (FileNotFoundException e) {
+            System.out.println("No file");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            System.out.println("Class not found");
+        }
+    }
+
+    // cite: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
+    public static void save(){
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream("tags.ser");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(tags);
+            objectOutputStream.close();
+
+            tags.clear();
+        } catch (FileNotFoundException e) {
+            System.out.println("No file");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     /**

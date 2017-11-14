@@ -296,3 +296,12 @@ Person: Allan and Prynciss
 Flaw: Tried to edit object that had a listener while listener was being run
 
 Fix: Code that edits listener's object is run after listener code
+
+#########
+#Log 34:
+
+Person: Allan
+
+Flaw: Tags are not saved
+
+Fix: Tags are saved
