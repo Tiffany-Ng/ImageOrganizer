@@ -242,3 +242,10 @@ Flaw: PicGrid would be extremely small when returned after visiting ImageScene.
 Fix: GUI stays maximized while viewing ImageScene and PicGrid. 
 
 Bug: Taking the GUI out of maximum reverts to a small screen regardless of scene.
+
+#########
+#Log 29:
+
+Person: Amarnath
+
+Added the ability to see all past names image had.

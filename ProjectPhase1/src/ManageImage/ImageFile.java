@@ -244,7 +244,7 @@ public class ImageFile implements Serializable{
         boolean success = imageFile.renameTo(newImageFile);
         if (success) {
             imageFile = newImageFile;
-            log.addEntry(new Entry(logMessage));
+            log.addEntry(new Entry(logMessage, nameWithTags()));
         } else {
             throw new UnsuccessfulRenameException();
         }
@@ -256,6 +256,12 @@ public class ImageFile implements Serializable{
      * @return File representation of this image
      */
     private File createLocation() {
+
+        return new File(directory, nameWithTags());
+    }
+
+    public String nameWithTags () {
+
         StringBuilder fileName = new StringBuilder();
         fileName.append(name);
         for (String tag : tags) {
@@ -263,7 +269,9 @@ public class ImageFile implements Serializable{
             fileName.append(tag);
         }
         fileName.append(extension);
-        return new File(directory, fileName.toString());
+
+        return fileName.toString();
+
     }
 
     /**

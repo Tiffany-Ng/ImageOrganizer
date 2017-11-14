@@ -3,10 +3,7 @@ package GUI;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -15,6 +12,7 @@ import ManageImage.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.Collections;
 import java.util.List;
 import java.io.File;
 
@@ -42,12 +40,15 @@ public class ImageScene {
     /** The previous picGrid scene */
     private Stage prevScene;
 
+    private ComboBox<String> imageNames;
+
+
     /**
      * Construct an GUI.ImageScene.
      *
      * @param image
      */
-    ImageScene(ImageFile image, File directory, Stage prevScene) {
+    public ImageScene(ImageFile image, File directory, Stage prevScene) {
 
         this.image = image;
 
@@ -106,7 +107,15 @@ public class ImageScene {
 
         });
 
-        Text imageName = new Text(image.getName());
+        imageNames = new ComboBox<>();
+        imageNameUpdate();
+
+        Button revertName = new Button("Revert");
+
+        HBox imageName = new HBox();
+        imageName.getChildren().addAll(imageNames, revertName);
+        imageName.setSpacing(5.0);
+
         layout.add(imageName, 1, 0, 1, 1);
 
         TextField newTag = new TextField("Tag Name");
@@ -118,6 +127,7 @@ public class ImageScene {
             image.addTag(newTag.getText());
             addClickableTags();
             updateLog();
+            imageNameUpdate();
 
         });
 
@@ -125,6 +135,21 @@ public class ImageScene {
         layout.add(addTag, 7, 0, 1, 1);
 
         return layout;
+
+    }
+
+    private void imageNameUpdate() {
+
+        imageNames.getItems().removeAll(imageNames.getItems());
+
+        for (Entry e : image.getLog()) {
+
+            imageNames.getItems().add(e.getImageName());
+
+        }
+
+        Collections.reverse(imageNames.getItems());
+        imageNames.setPromptText(imageNames.getItems().get(0));
 
     }
 
@@ -204,6 +229,7 @@ public class ImageScene {
                 image.removeTag(tag.getText());
                 f.getChildren().remove(tag);
                 updateLog();
+                imageNameUpdate();
 
             });
 

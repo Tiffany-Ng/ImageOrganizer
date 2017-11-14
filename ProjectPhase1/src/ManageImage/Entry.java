@@ -21,14 +21,17 @@ public class Entry implements Serializable {
      */
     private Date currDate;
 
+    private String imageName;
+
     /**
      * Construct a new ManageImage.Entry.
      *
      * @param entryName String
      */
-    public Entry(String entryName) {
+    public Entry(String entryName, String imageName) {
 
         this.entryName = entryName;
+        this.imageName = imageName;
         this.currDate = new Date();
 
     }
@@ -46,6 +49,14 @@ public class Entry implements Serializable {
     }
 
     public void setEntryName(String entryName) { this.entryName = entryName; }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
 
     @Override
     public String toString() {
