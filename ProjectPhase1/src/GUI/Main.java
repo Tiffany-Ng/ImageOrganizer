@@ -12,6 +12,8 @@ public class Main extends Application {
 
   @Override
   public void start(Stage currentStage) {
+    ImageManager.load();
+    TagManager.load();
     DirChooser.dirChooser(currentStage, false);
   }
 

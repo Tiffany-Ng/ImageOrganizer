@@ -76,12 +76,9 @@ class DirChooser {
 
                     if (directory.isDirectory()) {
                         if (!getString) {
-                            //Loads in tags from tags.ser
-                            TagManager tm = new TagManager();
-                            ImageManager im = new ImageManager();
-                            im.createImagesFromDirectory(directory.toString());
+                            ImageManager.createImagesFromDirectory(directory.toString());
                             chooser.hide();
-                            PicGrid.picGrid(currentStage, directory, im);
+                            PicGrid.picGrid(currentStage, directory);
                             currentStage.show();
                         }
 
