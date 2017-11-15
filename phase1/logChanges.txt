@@ -390,3 +390,12 @@ Flaw: GUI shows message that a tag can be deleted even when no tags have been cr
 
 Fix: Delete message is only shown when a tag is created.
 
+#########
+#Log 44:
+
+Person: Akshat
+
+Flaw: Nothing on GUI for changing image directory.
+
+Fix: Added button on GUI for changing directory of an image.
+

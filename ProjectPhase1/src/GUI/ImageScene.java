@@ -15,8 +15,10 @@ import ManageImage.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -171,7 +173,22 @@ public class ImageScene {
 
         });
 
+        // TODO: changeDir button goes here
+        Button changeDir = new Button();
+        changeDir.setText("Change Directory");
+
+        changeDir.setOnAction(
+                e -> {
+                    DirectoryChooser dirChooser = new DirectoryChooser();
+                    File newdirectory = dirChooser.showDialog(prevScene);  // TODO: GIVING AN ERROR
+                    if (newdirectory != null) {
+                        this.image.move(newdirectory);
+                        PicGrid.picGrid(prevScene, this.directory);   // go to PicGrid after moving the image
+                    }
+                });
+
         layout.add(newTag, 6, 0, 1, 1);
+        layout.add(changeDir,7, 1, 1, 1 );
         layout.add(addTag, 7, 0, 1, 1);
 
         return layout;
