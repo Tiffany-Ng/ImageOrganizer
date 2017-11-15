@@ -338,10 +338,37 @@ Set it to true to just return the choosen directory.
 #########
 #Log 38:
 
+Person: Prynciss
+
+Flaw: ImageManager.getImageFilesByDirectory is non-static and has an error so it does not filter out ImageFiles correctly
+by directory.
+
+Fix: Changed ImageManager.getImageFilesByDirectory to static and fixed bug
+
+#########
+#Log 39:
+
+Person: Prynciss
+
+Flaw: Unecessary saving
+
+Fix: Changed so ImageManger and TagManger only loads when program starts and saves when program closes
+
+#########
+#Log 40:
+
+Person: Prynciss
+
+Flaw: ImageFile.move doesn't actually move the file to another directory
+
+Fix: Modified so it does
+
+#########
+#Log 41:
+
 Person: Akshat
 
 Flaw: If a user deletes/moves file when the GUI is open, and tries viewing the same image, the program crashes.
 
 Fix: method checkForSubDirectory() is implemented via a if-else clause.
-
 

@@ -204,6 +204,8 @@ public class ImageFile implements Serializable{
             throw new InvalidFileException("Invalid directory");
         }
 
+        //cite: https://www.mkyong.com/java/how-to-move-file-to-another-directory-in-java/
+        this.getFile().renameTo(new File(newDirectory.getName() + File.pathSeparator + this.nameWithTags()));
         directory = newDirectory;
         updateFile("Moved image \"" + name + "\" to \"" + newDirectory.toString() + "\"");
     }
