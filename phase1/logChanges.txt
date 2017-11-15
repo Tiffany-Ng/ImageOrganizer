@@ -323,3 +323,14 @@ Person: Prynciss
 Flaw: Takes a long time to load when pressing 'back' in ImageScene
 
 Fix: Program doesn't save on back button to save time
+
+#########
+#Log 37:
+
+Person: Prynciss
+
+Flaw: DirChooser needs to perform differently when choosing a directory to open pictures or choosing directory for changing a file's
+directory.
+
+Fix: Set the second parameter of DirChooser to false for it to save and refresh ImageManager and TagManager.
+Set it to true to just return the choosen directory.

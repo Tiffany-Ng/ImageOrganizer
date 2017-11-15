@@ -12,7 +12,7 @@ public class Main extends Application {
 
   @Override
   public void start(Stage currentStage) {
-    DirChooser.dirChooser(currentStage);
+    DirChooser.dirChooser(currentStage, false);
   }
 
   @Override

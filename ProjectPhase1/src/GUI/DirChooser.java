@@ -19,8 +19,9 @@ import java.io.File;
 class DirChooser {
 
     /** Represents the directory that was opened by a user */
+    static File directory;
 
-    static void dirChooser(Stage currentStage){
+    static File dirChooser(Stage currentStage, boolean getString){
 
         Stage chooser = new Stage();
 
@@ -71,16 +72,19 @@ class DirChooser {
 
         goBtn.setOnAction(
                 e -> {
-                    File directory = new File(dirTextField.getText());
+                    directory = new File(dirTextField.getText());
 
                     if (directory.isDirectory()) {
-                        //Loads in tags from tags.ser
-                        TagManager tm = new TagManager();
-                        ImageManager im = new ImageManager();
-                        im.createImagesFromDirectory(directory.toString());
-                        chooser.hide();
-                        PicGrid.picGrid(currentStage, directory, im);
-                        currentStage.show();
+                        if (!getString) {
+                            //Loads in tags from tags.ser
+                            TagManager tm = new TagManager();
+                            ImageManager im = new ImageManager();
+                            im.createImagesFromDirectory(directory.toString());
+                            chooser.hide();
+                            PicGrid.picGrid(currentStage, directory, im);
+                            currentStage.show();
+                        }
+
                     } else {
                         error.setVisible(true);
                     }
@@ -90,6 +94,8 @@ class DirChooser {
         chooser.setScene(scene);
         chooser.initModality(Modality.APPLICATION_MODAL);
         chooser.show();
+
+        return directory;
     }
 
 }

@@ -17,60 +17,59 @@ import java.io.File;
 import java.util.ArrayList;
 
 class PicGrid {
-    static void picGrid(Stage currentStage, File directory, ImageManager imageManager) {
+  static void picGrid(Stage currentStage, File directory, ImageManager imageManager) {
 
-        currentStage.setTitle("Image Viewer - List images");
+    currentStage.setTitle("Image Viewer - List images");
 
-        FlowPane pane = new FlowPane();
-        pane.setPadding(new Insets(20, 20, 5, 20));
-        pane.setVgap(15);
-        pane.setHgap(15);
-        pane.setPrefWrapLength(300);
+    FlowPane pane = new FlowPane();
+    pane.setPadding(new Insets(20, 20, 5, 20));
+    pane.setVgap(15);
+    pane.setHgap(15);
+    pane.setPrefWrapLength(300);
 
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setContent(pane);
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
+    ScrollPane scrollPane = new ScrollPane();
+    scrollPane.setContent(pane);
+    scrollPane.setFitToHeight(true);
+    scrollPane.setFitToWidth(true);
 
-        currentStage.setMaximized(true);
-        scrollPane.setMinViewportWidth(currentStage.getWidth());
-        scrollPane.setMinViewportHeight(currentStage.getHeight());
+    currentStage.setMaximized(true);
+    scrollPane.setMinViewportWidth(currentStage.getWidth());
+    scrollPane.setMinViewportHeight(currentStage.getHeight());
 
-        Scene scene = new Scene(scrollPane);
-        currentStage.setScene(scene);
+    Scene scene = new Scene(scrollPane);
+    currentStage.setScene(scene);
 
-        Button chooseDirectory = new Button("Select directory");
-        chooseDirectory.setOnAction(
-                e -> {
-                    ImageManager.save();
-                    TagManager.save();
-                    DirChooser.dirChooser(currentStage);
-                });
-        pane.getChildren().add(chooseDirectory);
+    Button chooseDirectory = new Button("Select directory");
+    chooseDirectory.setOnAction(
+        e -> {
+          ImageManager.save();
+          TagManager.save();
+          DirChooser.dirChooser(currentStage, false);
+        });
+    pane.getChildren().add(chooseDirectory);
 
-        Label currentDirectory = new Label(directory.toString());
-        currentDirectory.setMinWidth(2000);
-        pane.getChildren().add(currentDirectory);
+    Label currentDirectory = new Label(directory.toString());
+    currentDirectory.setMinWidth(2000);
+    pane.getChildren().add(currentDirectory);
 
+    ArrayList<Button> toAdd = new ArrayList<>();
+    for (ImageFile img : imageManager.getImageFilesByDirectory(directory)) {
+      Image image = new Image("file:///" + img.getFile().toString(), 200, 200, true, true, true);
+      ImageView view = new ImageView(image);
+      view.setCache(true);
+      view.setCacheHint(CacheHint.SPEED);
+      Button viewImage = new Button(img.getName(), view);
+      viewImage.setContentDisplay(ContentDisplay.TOP);
+      viewImage.setCache(true);
+      viewImage.setCacheHint(CacheHint.SPEED);
 
-        ArrayList<Button> toAdd = new ArrayList<>();
-        for (ImageFile img : imageManager.getImageFilesByDirectory(directory)) {
-            Image image = new Image("file:///" + img.getFile().toString(), 200, 200, true, true, true);
-            ImageView view = new ImageView(image);
-            view.setCache(true);
-            view.setCacheHint(CacheHint.SPEED);
-            Button viewImage = new Button(img.getName(), view);
-            viewImage.setContentDisplay(ContentDisplay.TOP);
-            viewImage.setCache(true);
-            viewImage.setCacheHint(CacheHint.SPEED);
-
-            viewImage.setOnAction(
-                    e -> {
-                        ImageScene toScene = new ImageScene(img, directory, currentStage, imageManager);
-                        currentStage.setScene(toScene.getImageScene());
-                    });
-            toAdd.add(viewImage);
-        }
-        pane.getChildren().addAll(toAdd);
+      viewImage.setOnAction(
+          e -> {
+            ImageScene toScene = new ImageScene(img, directory, currentStage, imageManager);
+            currentStage.setScene(toScene.getImageScene());
+          });
+      toAdd.add(viewImage);
     }
+    pane.getChildren().addAll(toAdd);
+  }
 }
