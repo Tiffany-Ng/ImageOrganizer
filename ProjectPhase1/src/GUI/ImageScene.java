@@ -12,6 +12,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import ManageImage.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -80,6 +82,13 @@ public class ImageScene {
         layout.setVgap(6);
         layout.setPadding(new Insets(10, 10, 10, 10));
 
+        Text instruction = new Text();
+        instruction.setText("Wanna delete a tag?,  SELECT IT!");
+        instruction.setFont(Font.font(java.awt.Font.SERIF, 16));
+        instruction.setFill(Color.DARKBLUE);
+        layout.add(instruction, 6, 1);
+
+
         // image in form of a viewable icon
         ImageView icon = new ImageView();
         icon.setFitWidth(720);
@@ -97,7 +106,7 @@ public class ImageScene {
         h.setSpacing(5);
 
         layout.add(icon, 1,  1, 4, 2);
-        layout.add(f, 6,1,2,2);
+        layout.add(f, 6,2,2,2);
 
         // go to main screen
         Button back = new Button();
@@ -245,10 +254,13 @@ public class ImageScene {
 
     private FlowPane addClickableTags() {
 
+
         List<String> tags = image.getTags();
         f.getChildren().removeAll(f.getChildren());
 
         ImageView i = new ImageView(new Image("file:///" + "x.jpeg"));
+
+
 
         for (String t : tags) {
 

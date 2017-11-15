@@ -372,3 +372,12 @@ Flaw: If a user deletes/moves file when the GUI is open, and tries viewing the s
 
 Fix: method checkForSubDirectory() is implemented via a if-else clause.
 
+#########
+#Log 42:
+
+Person: Akshat
+
+Flaw: No information on GUI about deleting tags.
+
+Fix: Added message on GUI, which tells a user how to delete a tag.
+

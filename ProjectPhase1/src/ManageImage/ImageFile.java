@@ -199,7 +199,7 @@ public class ImageFile implements Serializable{
      * @param newDirectory the directory that will store the image
      * @throws InvalidFileException newDirectory is an invalid directory
      */
-    public void move(File newDirectory) {
+    public void move(File newDirectory) {   // TODO: implement this
         if (!newDirectory.isDirectory()) {
             throw new InvalidFileException("Invalid directory");
         }

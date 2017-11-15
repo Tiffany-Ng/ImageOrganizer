@@ -264,7 +264,7 @@ public class ImageManager implements Serializable {
    */
   public static void main(String[] args) {
 
-    String directory = "/Users/akshatkumarnigam/Desktop/sample"; // the path to a sample file
+    String directory = "/Users/akshatkumarnigam/Desktop/s2"; // the path to a sample file
     ImageManager im = new ImageManager();
 
     im.createImagesFromDirectory(directory);
