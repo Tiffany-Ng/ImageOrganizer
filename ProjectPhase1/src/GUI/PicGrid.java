@@ -17,7 +17,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 class PicGrid {
-  static void picGrid(Stage currentStage, File directory, ImageManager imageManager) {
+  static void picGrid(Stage currentStage, File directory) {
 
     currentStage.setTitle("Image Viewer - List images");
 
@@ -42,8 +42,6 @@ class PicGrid {
     Button chooseDirectory = new Button("Select directory");
     chooseDirectory.setOnAction(
         e -> {
-          ImageManager.save();
-          TagManager.save();
           DirChooser.dirChooser(currentStage, false);
         });
     pane.getChildren().add(chooseDirectory);
@@ -53,7 +51,8 @@ class PicGrid {
     pane.getChildren().add(currentDirectory);
 
     ArrayList<Button> toAdd = new ArrayList<>();
-    for (ImageFile img : imageManager.getImageFilesByDirectory(directory)) {
+    for (ImageFile img : ImageManager.getImageFilesByDirectory(directory)) {
+
       Image image = new Image("file:///" + img.getFile().toString(), 200, 200, true, true, true);
       ImageView view = new ImageView(image);
       view.setCache(true);
@@ -65,7 +64,7 @@ class PicGrid {
 
       viewImage.setOnAction(
           e -> {
-            ImageScene toScene = new ImageScene(img, directory, currentStage, imageManager);
+            ImageScene toScene = new ImageScene(img, directory, currentStage);
             currentStage.setScene(toScene.getImageScene());
           });
       toAdd.add(viewImage);

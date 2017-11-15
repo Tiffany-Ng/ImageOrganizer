@@ -13,15 +13,13 @@ public class TagManager implements Serializable{
      */
     private static LinkedList<String> tags = new LinkedList<>();
 
-    public TagManager(){
+    public static void load(){
         try {
 
             FileInputStream inputStream = new FileInputStream("tags.ser");
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             tags = (java.util.LinkedList<String>) objectInputStream.readObject();
             objectInputStream.close();
-
-            //for (ImageFile image : allImageFiles) System.out.println(image.getName());
 
         } catch (FileNotFoundException e) {
             System.out.println("No file");

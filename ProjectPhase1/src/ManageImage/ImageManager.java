@@ -2,6 +2,8 @@ package ManageImage;
 
 import java.awt.*;
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -12,18 +14,17 @@ import java.util.Arrays;
  */
 public class ImageManager implements Serializable {
 
-  private static ArrayList<ImageFile> allImageFiles = new ArrayList<>();
 
   /** The list of all imageFiles accessible by a user */
   private static ArrayList<ImageFile> imageFiles = new ArrayList<>();
 
   // cite: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
-  public ImageManager() {
+  public static void load() {
     try {
 
       FileInputStream inputStream = new FileInputStream("out.ser");
       ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-      allImageFiles = (java.util.ArrayList<ManageImage.ImageFile>) objectInputStream.readObject();
+      imageFiles = (java.util.ArrayList<ManageImage.ImageFile>) objectInputStream.readObject();
       objectInputStream.close();
 
     } catch (IOException e) {
@@ -39,11 +40,9 @@ public class ImageManager implements Serializable {
 
           FileOutputStream fileOutputStream = new FileOutputStream("out.ser");
           ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-          allImageFiles.addAll(imageFiles);
-          objectOutputStream.writeObject(allImageFiles);
+          objectOutputStream.writeObject(imageFiles);
           objectOutputStream.close();
 
-          allImageFiles.clear();
           imageFiles.clear();
 
          // for (ImageFile image : allImageFiles) System.out.println(image.getName());
@@ -73,12 +72,15 @@ public class ImageManager implements Serializable {
    * @param directory the directory that contains returned images
    * @return the images stored in directory
    */
-  public ArrayList<ImageFile> getImageFilesByDirectory(File directory) {
+  public static ArrayList<ImageFile> getImageFilesByDirectory(File directory) {
 
+    //cite: https://stackoverflow.com/questions/4746671/how-to-check-if-a-given-path-is-possible-child-of-another-path
     ArrayList<ImageFile> filteredImages = new ArrayList<>();
     for (ImageFile imageFile : imageFiles) {
       File imageDirectory = imageFile.getDirectory();
-      if (imageDirectory.toString().startsWith(directory.toString())) {
+      Path child = Paths.get(imageDirectory.toString()).toAbsolutePath();
+      Path parent = Paths.get(directory.toString()).toAbsolutePath();
+      if (child.startsWith(parent)) {
         filteredImages.add(imageFile);
       }
     }
@@ -90,14 +92,12 @@ public class ImageManager implements Serializable {
    *
    * @param imageInsert the image which will be added
    */
-  public void addImage(ImageFile imageInsert) {
+  public static void addImage(ImageFile imageInsert) {
 
     boolean match = false;
-    for (ImageFile imageFile : allImageFiles) {
+    for (ImageFile imageFile : imageFiles) {
       if (imageFile.equals(imageInsert)) {
         match = true;
-        ImageManager.imageFiles.add(imageFile);
-        allImageFiles.remove(imageFile);
         break;
       }
     }
@@ -138,7 +138,7 @@ public class ImageManager implements Serializable {
    * @param directory the path of the folder to search in.
    * @return File[] array of all imageFiles in a directory.
    */
-  private ArrayList<File> findImages(String directory) {
+  private static ArrayList<File> findImages(String directory) {
 
     File folder = new File(directory);
     File[] collect;
@@ -170,7 +170,7 @@ public class ImageManager implements Serializable {
    * @param directory the path of the folder to search in.
    * @return gatherSubDirectories Array list of names of sub-directories.
    */
-  private ArrayList<String> checkForSubDirectory(String directory) {
+  private static ArrayList<String> checkForSubDirectory(String directory) {
 
     File folder = new File(directory);
     ArrayList<String> gatherSubDirectories = new ArrayList<>();
@@ -199,10 +199,10 @@ public class ImageManager implements Serializable {
    * @param directory the path of the folder to search in.
    * @return ArrayList<File> arrayList of all imageFiles(including those found in sub-directories).
    */
-  private ArrayList<File> checkSubDirectories(String directory) {
+  private static ArrayList<File> checkSubDirectories(String directory) {
 
     // if no sub-directory, return findImages
-    if (this.checkForSubDirectory(directory).isEmpty()) {
+    if (checkForSubDirectory(directory).isEmpty()) {
       return findImages(directory);
     }
 
@@ -212,13 +212,13 @@ public class ImageManager implements Serializable {
       ArrayList<File> allImages = new ArrayList<>();
 
       // loop through the names-list generated
-      for (String dirName : this.checkForSubDirectory(directory)) {
+      for (String dirName : checkForSubDirectory(directory)) {
 
         // keep recurring through names list - and adding to the temp array
         allImages.addAll(checkSubDirectories(directory + "/" + dirName));
       }
 
-      ArrayList<File> gather = this.findImages(directory);
+      ArrayList<File> gather = findImages(directory);
       gather.addAll(allImages);
       return gather;
     }
@@ -230,12 +230,12 @@ public class ImageManager implements Serializable {
    * @param possibleImages List of imageFiles in a directory that will be converted in to
    *     ManageImage.ImageFile objects.
    */
-  private void convertToImageObjects(ArrayList<File> possibleImages) {
+  private static void convertToImageObjects(ArrayList<File> possibleImages) {
 
     // ArrayList<ManageImage.ImageFile> imageFiles = new ArrayList<>();
     for (File f : possibleImages) {
       try {
-        this.addImage(new ImageFile(f));
+        addImage(new ImageFile(f));
 
       } catch (IOException e) {
         System.out.println("ManageImage.ImageFile file incorrectly read!");
@@ -249,13 +249,13 @@ public class ImageManager implements Serializable {
    *
    * @param directory The path of the folder the imageFiles are to be found
    */
-  public void createImagesFromDirectory(String directory) {
+  public static void createImagesFromDirectory(String directory) {
 
     // get the relevant File objects from directory & sub-directory
-    ArrayList<File> files = this.checkSubDirectories(directory);
+    ArrayList<File> files = checkSubDirectories(directory);
 
     // convert the files into an array-List of ManageImage.ImageFile objects.
-    this.convertToImageObjects(files);
+    convertToImageObjects(files);
   }
 
   /**
