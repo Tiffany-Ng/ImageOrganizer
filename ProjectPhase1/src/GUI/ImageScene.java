@@ -82,13 +82,6 @@ public class ImageScene {
         layout.setVgap(6);
         layout.setPadding(new Insets(10, 10, 10, 10));
 
-        Text instruction = new Text();
-        instruction.setText("Wanna delete a tag?,  SELECT IT!");
-        instruction.setFont(Font.font(java.awt.Font.SERIF, 16));
-        instruction.setFill(Color.DARKBLUE);
-        layout.add(instruction, 6, 1);
-
-
         // image in form of a viewable icon
         ImageView icon = new ImageView();
         icon.setFitWidth(720);
@@ -161,6 +154,13 @@ public class ImageScene {
 
         Button addTag = new Button("+");
         addTag.setOnAction(e -> {
+
+            Text instruction = new Text();
+            instruction.setText("Wanna delete a tag?,  SELECT IT!");
+            instruction.setFont(Font.font(java.awt.Font.SERIF, 16));
+            instruction.setFill(Color.DARKBLUE);
+
+            layout.add(instruction, 6, 1);
             if(newTag.getValue() instanceof String){
                 image.addTag((String)newTag.getValue());
             }

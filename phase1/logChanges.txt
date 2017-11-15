@@ -381,3 +381,12 @@ Flaw: No information on GUI about deleting tags.
 
 Fix: Added message on GUI, which tells a user how to delete a tag.
 
+#########
+#Log 43:
+
+Person: Akshat
+
+Flaw: GUI shows message that a tag can be deleted even when no tags have been created.
+
+Fix: Delete message is only shown when a tag is created.
+
