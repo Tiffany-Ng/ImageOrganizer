@@ -26,10 +26,6 @@ public class ImageManager implements Serializable {
       allImageFiles = (java.util.ArrayList<ManageImage.ImageFile>) objectInputStream.readObject();
       objectInputStream.close();
 
-      //for (ImageFile image : allImageFiles) System.out.println(image.getName());
-
-    } catch (FileNotFoundException e) {
-      System.out.println("No file");
     } catch (IOException e) {
       e.printStackTrace();
     } catch (ClassNotFoundException e) {
@@ -177,20 +173,25 @@ public class ImageManager implements Serializable {
   private ArrayList<String> checkForSubDirectory(String directory) {
 
     File folder = new File(directory);
-    ArrayList<String> gatherSubDirectories = new ArrayList<String>();
+    ArrayList<String> gatherSubDirectories = new ArrayList<>();
 
-    if (folder.listFiles() == null){
+    File[] allFiles = folder.listFiles();
+
+    if (allFiles == null) {
       return gatherSubDirectories;
     }
 
-    for (File f : folder.listFiles()) {
-      if (f.isDirectory()) {
-        gatherSubDirectories.add(f.getName());
+    else {
+      for (File f : allFiles) {
+        if (f.isDirectory()) {
+          gatherSubDirectories.add(f.getName());
+        }
       }
     }
 
     return gatherSubDirectories;
   }
+
 
   /**
    * Check for sub-directories in directory, while adding imageFiles.

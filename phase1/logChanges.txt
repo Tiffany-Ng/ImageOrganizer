@@ -334,3 +334,14 @@ directory.
 
 Fix: Set the second parameter of DirChooser to false for it to save and refresh ImageManager and TagManager.
 Set it to true to just return the choosen directory.
+
+#########
+#Log 38:
+
+Person: Akshat
+
+Flaw: If a user deletes/moves file when the GUI is open, and tries viewing the same image, the program crashes.
+
+Fix: method checkForSubDirectory() is implemented via a if-else clause.
+
+
