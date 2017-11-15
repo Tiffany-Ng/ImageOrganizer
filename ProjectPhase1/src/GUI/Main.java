@@ -13,7 +13,6 @@ public class Main extends Application {
   @Override
   public void start(Stage currentStage) {
     DirChooser.dirChooser(currentStage);
-    currentStage.show();
   }
 
   @Override

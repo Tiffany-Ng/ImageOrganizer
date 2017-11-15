@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -19,7 +20,9 @@ class DirChooser {
 
     static void dirChooser(Stage currentStage){
 
-        currentStage.setTitle("Image Viewer - Select Directory");
+        Stage chooser = new Stage();
+
+        chooser.setTitle("Image Viewer - Select Directory");
 
         GridPane pane = new GridPane();
         Scene scene = new Scene(pane, 500, 250);
@@ -69,14 +72,18 @@ class DirChooser {
                     File directory = new File(dirTextField.getText());
 
                     if (directory.isDirectory()) {
+                        chooser.hide();
                         PicGrid.picGrid(currentStage, directory);
+                        currentStage.show();
                     } else {
                         error.setVisible(true);
                     }
                 });
 
-        currentStage.setMaximized(false);
-        currentStage.setScene(scene);
+        chooser.setMaximized(false);
+        chooser.setScene(scene);
+        chooser.initModality(Modality.APPLICATION_MODAL);
+        chooser.show();
     }
 
 }
