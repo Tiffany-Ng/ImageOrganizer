@@ -305,3 +305,21 @@ Person: Allan
 Flaw: Tags are not saved
 
 Fix: Tags are saved
+
+#########
+#Log 35:
+
+Person: Prynciss
+
+Flaw: DirChooser can be reused for changing file directories 
+
+Fix: Change DirChooser to be a new Stage which will popup.
+
+#########
+#Log 36:
+
+Person: Prynciss
+
+Flaw: Takes a long time to load when pressing 'back' in ImageScene
+
+Fix: Program doesn't save on back button to save time

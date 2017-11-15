@@ -46,13 +46,17 @@ public class ImageScene {
 
     private ComboBox<String> imageNames;
 
+    private ImageManager imageManager;
+
 
     /**
      * Construct an GUI.ImageScene.
      *
      * @param image
      */
-    public ImageScene(ImageFile image, File directory, Stage prevScene) {
+    public ImageScene(ImageFile image, File directory, Stage prevScene, ImageManager imageManager) {
+
+        this.imageManager = imageManager;
 
         this.image = image;
 
@@ -105,10 +109,7 @@ public class ImageScene {
         layout.add(back, 0, 0, 1, 1);
 
         back.setOnAction(e -> {
-
-            ImageManager.save();
-            PicGrid.picGrid(prevScene, this.directory);
-
+            PicGrid.picGrid(prevScene, this.directory, imageManager);
         });
 
         imageNames = new ComboBox<>();

@@ -1,5 +1,7 @@
 package GUI;
 
+import ManageImage.ImageManager;
+import ManageImage.TagManager;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -72,8 +74,12 @@ class DirChooser {
                     File directory = new File(dirTextField.getText());
 
                     if (directory.isDirectory()) {
+                        //Loads in tags from tags.ser
+                        TagManager tm = new TagManager();
+                        ImageManager im = new ImageManager();
+                        im.createImagesFromDirectory(directory.toString());
                         chooser.hide();
-                        PicGrid.picGrid(currentStage, directory);
+                        PicGrid.picGrid(currentStage, directory, im);
                         currentStage.show();
                     } else {
                         error.setVisible(true);
