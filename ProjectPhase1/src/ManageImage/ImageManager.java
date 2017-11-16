@@ -28,7 +28,7 @@ public class ImageManager implements Serializable {
       objectInputStream.close();
 
     } catch (IOException e) {
-      e.printStackTrace();
+      System.out.println("No file");
     } catch (ClassNotFoundException e) {
       System.out.println("Class not found");
     }

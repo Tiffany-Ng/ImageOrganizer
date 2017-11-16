@@ -4,6 +4,8 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -199,13 +201,11 @@ public class ImageFile implements Serializable{
      * @param newDirectory the directory that will store the image
      * @throws InvalidFileException newDirectory is an invalid directory
      */
-    public void move(File newDirectory) {   // TODO: implement this
+    public void move(File newDirectory) throws IOException {   // TODO: implement this
         if (!newDirectory.isDirectory()) {
             throw new InvalidFileException("Invalid directory");
         }
 
-        //cite: https://www.mkyong.com/java/how-to-move-file-to-another-directory-in-java/
-        this.getFile().renameTo(new File(newDirectory.getName() + File.pathSeparator + this.nameWithTags()));
         directory = newDirectory;
         updateFile("Moved image \"" + name + "\" to \"" + newDirectory.toString() + "\"");
     }

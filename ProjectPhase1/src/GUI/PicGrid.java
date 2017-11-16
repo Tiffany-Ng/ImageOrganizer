@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import ManageImage.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 class PicGrid {
@@ -42,7 +43,7 @@ class PicGrid {
     Button chooseDirectory = new Button("Select directory");
     chooseDirectory.setOnAction(
         e -> {
-          DirChooser.dirChooser(currentStage, false);
+          DirChooser.dirChooser(currentStage);
         });
     pane.getChildren().add(chooseDirectory);
 
@@ -64,7 +65,12 @@ class PicGrid {
 
       viewImage.setOnAction(
           e -> {
-            ImageScene toScene = new ImageScene(img, directory, currentStage);
+            ImageScene toScene = null;
+            try {
+              toScene = new ImageScene(img, directory, currentStage);
+            } catch (IOException e1) {
+              e1.printStackTrace();
+            }
             currentStage.setScene(toScene.getImageScene());
           });
       toAdd.add(viewImage);

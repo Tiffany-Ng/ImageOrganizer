@@ -399,3 +399,12 @@ Flaw: Nothing on GUI for changing image directory.
 
 Fix: Added button on GUI for changing directory of an image.
 
+#########
+#Log 45:
+
+Person: Prynciss
+
+Flaw: ImageFile.move does not move File correctly
+
+Fix: Modified DirChooser to move ImageFile, update Text directory to update after moving
+
