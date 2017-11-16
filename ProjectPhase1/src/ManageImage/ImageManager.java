@@ -1,6 +1,5 @@
 package ManageImage;
 
-import java.awt.*;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,9 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * All imageFiles that a user can access. POSSIBLE ENTRY POINT FOR A USER TODO
- * ManageImage.ImageManager shouldn't make imageFiles since already made imageFiles cannot recreate
- * their history. Images should be added from calling classes.
+ * Provides entry-point for the data a user can access.
+ * Data includes all image files in a directory.
  */
 public class ImageManager implements Serializable {
 
@@ -18,23 +16,35 @@ public class ImageManager implements Serializable {
   /** The list of all imageFiles accessible by a user */
   private static ArrayList<ImageFile> imageFiles = new ArrayList<>();
 
-  // cite: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
+
+  /**
+   * Loading data from serialized file out.ser
+   *
+   * cite: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
+   */
   public static void load() {
     try {
 
       FileInputStream inputStream = new FileInputStream("out.ser");
       ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-      imageFiles = (java.util.ArrayList<ManageImage.ImageFile>) objectInputStream.readObject();
+      imageFiles = (ArrayList<ManageImage.ImageFile>) objectInputStream.readObject();
       objectInputStream.close();
 
     } catch (IOException e) {
+      e.printStackTrace();
       System.out.println("No file");
     } catch (ClassNotFoundException e) {
+      e.printStackTrace();
       System.out.println("Class not found");
     }
   }
 
-  // cite: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
+
+  /**
+   * Writing data onto the serialized file out.ser.
+   *
+   * // cite: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
+   */
   public static void save(){
       try {
 
@@ -45,23 +55,12 @@ public class ImageManager implements Serializable {
 
           imageFiles.clear();
 
-         // for (ImageFile image : allImageFiles) System.out.println(image.getName());
-
       } catch (FileNotFoundException e) {
           System.out.println("No file");
 
       } catch (IOException e) {
           e.printStackTrace();
       }
-  }
-  /**
-   * Returns imageFiles
-   *
-   * @return ArrayList<ImageFile> imageFiles
-   */
-  public static ArrayList<ImageFile> getImageFiles() {
-
-    return imageFiles;
   }
 
   /**
@@ -92,7 +91,7 @@ public class ImageManager implements Serializable {
    *
    * @param imageInsert the image which will be added
    */
-  public static void addImage(ImageFile imageInsert) {
+  private static void addImage(ImageFile imageInsert) {
 
     boolean match = false;
     for (ImageFile imageFile : imageFiles) {
@@ -104,32 +103,6 @@ public class ImageManager implements Serializable {
     if (!match) {
       ImageManager.imageFiles.add(imageInsert);
     }
-  }
-
-  /**
-   * Delete an image from all directories
-   *
-   * @param imgDelete the image that will be removed
-   */
-  public void deleteImage(ImageFile imgDelete) {
-
-    imageFiles.remove(imgDelete);
-  }
-
-  /**
-   * Check if an image of a particular name exists.
-   *
-   * @param imageName check if an image of this name exists.
-   * @return boolean
-   */
-  public boolean searchByName(String imageName) {
-
-    for (ImageFile i : imageFiles) {
-      if (i.getName().equals(imageName)) {
-        return true;
-      }
-    }
-    return false;
   }
 
   /**
@@ -158,10 +131,10 @@ public class ImageManager implements Serializable {
             });
 
     if (collect == null){   // no files of the right format were found
-      return new ArrayList<File>();
+      return new ArrayList<>();
     }
 
-    return new ArrayList<File>(Arrays.asList(collect));
+    return new ArrayList<>(Arrays.asList(collect));
   }
 
   /**
@@ -208,7 +181,6 @@ public class ImageManager implements Serializable {
 
     // else return findImages + findImages(NEW_PATH)
     else {
-      // create temporary array
       ArrayList<File> allImages = new ArrayList<>();
 
       // loop through the names-list generated
@@ -258,19 +230,4 @@ public class ImageManager implements Serializable {
     convertToImageObjects(files);
   }
 
-  /**
-   * Testing the image reader... TODO: Remove towards the end of the project. (Currently great for
-   * testing)
-   */
-  public static void main(String[] args) {
-
-    String directory = "/Users/akshatkumarnigam/Desktop/s2"; // the path to a sample file
-    ImageManager im = new ImageManager();
-
-    im.createImagesFromDirectory(directory);
-
-    for (ImageFile img : imageFiles) {
-      System.out.println(img.getName());
-    }
-  }
 }
