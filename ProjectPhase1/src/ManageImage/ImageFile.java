@@ -1,5 +1,7 @@
 package ManageImage;
 
+import GUI.Main;
+
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
 
 public class ImageFile implements Serializable{
 
@@ -54,10 +57,10 @@ public class ImageFile implements Serializable{
      */
     public ImageFile(File imageFile) throws IOException {
         if (!imageFile.isFile()) {
-            throw new InvalidFileException("Invalid file");
+            Main.logger.log(Level.SEVERE, "Invalid file path", new InvalidFileException("Invalid File"));
         }
         if (ImageIO.read(imageFile) == null) {
-            throw new InvalidFileException("Invalid image");
+            Main.logger.log(Level.SEVERE, "Directory not being read", new InvalidFileException("Invalid File"));
         }
 
         this.imageFile = imageFile;
@@ -187,7 +190,7 @@ public class ImageFile implements Serializable{
      */
     public void rename(String newName) {
         if (newName.contains(" @")) {
-            throw new InvalidNameException("Name contains \" @\"");
+            Main.logger.log(Level.SEVERE, "Name inappropriately contains \" @\"", new InvalidNameException("Name contains \\\" @\\"));
         }
         String oldName = this.name;
         this.name = newName;
@@ -230,7 +233,9 @@ public class ImageFile implements Serializable{
      */
     public void move(File newDirectory) throws IOException {   // TODO: implement this
         if (!newDirectory.isDirectory()) {
-            throw new InvalidFileException("Invalid directory");
+            Main.logger.log(Level.SEVERE, "Proper file path need to be selected", new InvalidFileException("Invalid directory"));
+
+
         }
 
         directory = newDirectory;
@@ -248,7 +253,7 @@ public class ImageFile implements Serializable{
      */
     public void addTag(String tag) {
         if (tag.contains(" @")) {
-            throw new InvalidNameException("Tag contains \" @\"");
+            Main.logger.log(Level.SEVERE, "Invalid tag name", new InvalidNameException("Tag contains \" @\""));
         }
         if (!tags.contains(tag)) {
             tags.add(tag);
@@ -301,7 +306,7 @@ public class ImageFile implements Serializable{
             imageFile = newImageFile;
             log.addEntry(new Entry(logMessage + ":" + System.lineSeparator() + oldName + " -> " + newName + System.lineSeparator(), nameWithTags()));
         } else {
-            throw new UnsuccessfulRenameException();
+            Main.logger.log(Level.SEVERE, "File unsuccessfully renamed", new UnsuccessfulRenameException());
         }
     }
 
@@ -344,6 +349,7 @@ public class ImageFile implements Serializable{
  * ManageImage.InvalidFileException represents the exception where the File type does not correspond with the expected File type
  */
 class InvalidFileException extends RuntimeException {
+
     InvalidFileException(String message) {
         super(message);
     }
