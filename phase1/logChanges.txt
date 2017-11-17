@@ -458,6 +458,15 @@ Person: Prynciss
 
 Flaw: Combo box in ImageScene does not operate properly
 
-Fix: Fixed bug, shows a list of all tags on inital click, properly lets user type after adding a tag
+Fix: Fixed ComboBox bug, shows a list of all tags on inital click, properly lets user type after adding a tag
+
+#########
+#Log 52:
+
+Person: Prynciss
+
+Flaw: Logs are hard to read
+
+Fix: Changed format of log to involve new line
 
 

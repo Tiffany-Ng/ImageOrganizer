@@ -223,15 +223,15 @@ public class ImageScene {
     ComboBox newTag = new ComboBox();
     newTag.setEditable(true);
     newTag.getItems().addAll(TagManager.tags);
-
-    newTag.getEditor().setOnMouseClicked(e ->
-              newTag.show());
+    newTag.setValue("Tag Name");
+    newTag.hide();
 
     newTag
             .getEditor()
             .textProperty()
             .addListener(
                     (observable, oldValue, newValue) -> {
+
                       LinkedList<String> relatedTags = new LinkedList<>();
                       if (!(newValue == null) && !TagManager.tags.contains(newValue)) {
                         newTag.hide();

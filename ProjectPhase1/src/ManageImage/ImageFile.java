@@ -299,7 +299,7 @@ public class ImageFile implements Serializable{
         String newName = newImageFile.getName();
         if (success) {
             imageFile = newImageFile;
-            log.addEntry(new Entry(oldName + " -> " + newName + ": " + logMessage, nameWithTags()));
+            log.addEntry(new Entry(logMessage + ":" + System.lineSeparator() + oldName + " -> " + newName + System.lineSeparator(), nameWithTags()));
         } else {
             throw new UnsuccessfulRenameException();
         }
