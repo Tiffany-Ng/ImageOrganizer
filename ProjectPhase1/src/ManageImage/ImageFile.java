@@ -79,6 +79,12 @@ public class ImageFile implements Serializable{
 
     }
 
+    /**
+     * Take the name and remove all tags.
+     *
+     * @param rawName String
+     * @return List of tags
+     */
     public List<String> splitTags(String rawName) {
 
         int indexExtension = rawName.lastIndexOf(".");
@@ -189,6 +195,11 @@ public class ImageFile implements Serializable{
         updateFile("ManageImage.ImageFile \"" + oldName + "\" was renamed to \"" + newName + "\"");
     }
 
+    /**
+     * Puts the name back to a previous name.
+     *
+     * @param entryNumber
+     */
     public void revertName(int entryNumber) {
 
         List<String> priorTags = splitTags(priorNames.get(entryNumber));

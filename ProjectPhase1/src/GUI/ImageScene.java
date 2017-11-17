@@ -32,12 +32,24 @@ public class ImageScene {
     /** The image used . */
     private ImageFile image;
 
+    /**
+     * The actual scene with hold all the elements.
+     */
     private Scene imageScene;
 
+    /**
+     * Main pane of the scene.
+     */
     private GridPane g;
 
+    /**
+     * All the logs in a text box.
+     */
     private TextArea log;
 
+    /**
+     * Pane to hold clickable tags.
+     */
     private FlowPane f;
 
     /** The directory that the user first opened */
@@ -46,6 +58,9 @@ public class ImageScene {
     /** The previous picGrid scene */
     private Stage prevScene;
 
+    /**
+     * All names the image has had.
+     */
     private ComboBox<String> imageNames;
 
     /**
@@ -57,6 +72,7 @@ public class ImageScene {
 
         this.image = image;
 
+        // inspired from https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm
         g = gridSetup();
         imageScene = new Scene(g);
 
@@ -82,10 +98,14 @@ public class ImageScene {
 
         // image in form of a viewable icon
         ImageView icon = new ImageView();
+
+        // https://stackoverflow.com/questions/27894945/how-do-i-resize-an-imageview-image-in-javafx
         icon.setFitWidth(720);
         icon.setFitHeight(480);
+        icon.setPreserveRatio(true);
 
         // needs the "file://" because image will not understand it is a directory
+        // https://stackoverflow.com/questions/8474694/java-url-unknown-protocol-c
         icon.setImage(new Image("file:///" + image.getFile().toString()));
 
         // flowPane for image information
@@ -109,6 +129,7 @@ public class ImageScene {
                     PicGrid.picGrid(prevScene, this.directory);
                 });
 
+        // https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm
         imageNames = new ComboBox<>();
         imageNameUpdate();
         imageNames.setMaxWidth(720);
@@ -120,6 +141,8 @@ public class ImageScene {
                     if (!imageNames.getSelectionModel().isEmpty() && !image.nameWithTags().equals(imageNames.getValue())) {
 
                         ArrayList<String> allNames = new ArrayList<>(imageNames.getItems());
+
+                        // https://stackoverflow.com/questions/14987971/added-elements-in-arraylist-in-the-reverse-order-in-java
                         Collections.reverse(allNames);
 
                         image.revertName(allNames.indexOf(imageNames.getValue()));
@@ -182,6 +205,9 @@ public class ImageScene {
         return layout;
     }
 
+    /**
+     * Update the comboBox of image names.
+     */
     private void imageNameUpdate() {
 
         imageNames.getItems().removeAll(imageNames.getItems());
@@ -196,13 +222,6 @@ public class ImageScene {
             Collections.reverse(imageNames.getItems());
             imageNames.setPromptText(imageNames.getItems().get(0));
         }
-    }
-
-    private HBox headerSetup() {
-
-        HBox header = new HBox();
-
-        return header;
     }
 
     /**
@@ -236,6 +255,8 @@ public class ImageScene {
 
         dir.setStyle("-fx-border-color: gray;");
         dir.getChildren().add(directory);
+
+        // nested panes implemented from https://stackoverflow.com/questions/33339427/javafx-have-multiple-panes-in-one-scene
         flow.getChildren().add(dir);
 
         changeDir.setAlignment(Pos.CENTER_RIGHT);
@@ -256,6 +277,8 @@ public class ImageScene {
 
         log.setWrapText(true);
         log.setEditable(false);
+
+        // wrap error solution https://stackoverflow.com/questions/29537264/javafx-flowpane-autosize
         log.setPrefHeight(480 / 2);
 
         flow.getChildren().add(log);
@@ -263,8 +286,14 @@ public class ImageScene {
         return flow;
     }
 
+    /**
+     * Add all tags image has into a clickable section of the scene.
+     *
+     * @return FlowPane
+     */
     private FlowPane addClickableTags() {
 
+        // https://stackoverflow.com/questions/37378973/implement-tags-bar-in-javafx
         List<String> tags = image.getTags();
         f.getChildren().removeAll(f.getChildren());
 
@@ -275,7 +304,6 @@ public class ImageScene {
             // makes all tags as clickable buttons
             Button tag = new Button(t, i);
 
-            // #TODO make sure tags disappear when clicked, and is visually shown
             tag.setOnAction(
                     e -> {
                         image.removeTag(tag.getText());
@@ -290,6 +318,9 @@ public class ImageScene {
         return f;
     }
 
+    /**
+     * Update the log with its new information.
+     */
     private void updateLog() {
 
         Log imageLog = image.getLog();
@@ -298,6 +329,7 @@ public class ImageScene {
         // add all logs as a line
         for (Entry e : imageLog) {
 
+            // https://stackoverflow.com/questions/15977295/control-for-displaying-multiline-text
             logs.append(e.toString()).append(System.lineSeparator());
         }
 
