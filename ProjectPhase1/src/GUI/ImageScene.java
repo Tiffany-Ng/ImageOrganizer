@@ -221,8 +221,11 @@ public class ImageScene {
     flow.getChildren().add(changeDir);
 
     ComboBox newTag = new ComboBox();
-    newTag.setValue("Tag name");
     newTag.setEditable(true);
+    newTag.getItems().addAll(TagManager.tags);
+
+    newTag.getEditor().setOnMouseClicked(e ->
+              newTag.show());
 
     newTag
             .getEditor()
@@ -230,29 +233,35 @@ public class ImageScene {
             .addListener(
                     (observable, oldValue, newValue) -> {
                       LinkedList<String> relatedTags = new LinkedList<>();
-                      if (!(newValue == null)) {
+                      if (!(newValue == null) && !TagManager.tags.contains(newValue)) {
+                        newTag.hide();
                         relatedTags.addAll(TagManager.search(newValue));
+                        newTag.setVisibleRowCount(relatedTags.size());
+                        newTag.show();
+                        // sited from
+                        // https://stackoverflow.com/questions/30465313/javafx-textfield-with-listener-gives-java-lang-illegalargumentexception-the-s
+                        Platform.runLater(
+                                () -> {
+                                  newTag.getItems().clear();
+                                  newTag.getItems().addAll(relatedTags);
+                                  newTag.setVisibleRowCount(relatedTags.size());
+
+                                });
                       }
-                      // sited from
-                      // https://stackoverflow.com/questions/30465313/javafx-textfield-with-listener-gives-java-lang-illegalargumentexception-the-s
-                      Platform.runLater(
-                              () -> {
-                                newTag.getItems().clear();
-                                newTag.getItems().addAll(relatedTags);
-                              });
+                      else{
+                        relatedTags.addAll(TagManager.tags);
+                      }
+
+
                     });
 
     Button addTag = new Button("+");
     addTag.setOnAction(
             e -> {
-              Text instruction = new Text();
-              instruction.setText("Wanna delete a tag?,  SELECT IT!");
-              instruction.setFont(Font.font(java.awt.Font.SERIF, 16));
-              instruction.setFill(Color.DARKBLUE);
-
-              flow.getChildren().add(instruction);
               if (newTag.getValue() instanceof String) {
                 image.addTag((String) newTag.getValue());
+                newTag.setValue("");
+                newTag.hide();
               }
               // newTag.setValue("");
               addClickableTags();
@@ -265,6 +274,13 @@ public class ImageScene {
     tagBox.setSpacing(5.0);
 
     flow.getChildren().add(tagBox);
+
+    Text instruction = new Text();
+    instruction.setText("Wanna delete a tag?,  SELECT IT!");
+    //instruction.setFont(Font.font(java.awt.Font.SERIF, 16));
+    //instruction.setFill(Color.DARKBLUE);
+
+    flow.getChildren().add(instruction);
 
     // make all the tags
     // sub-flowPane to hold the tags

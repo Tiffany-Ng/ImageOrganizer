@@ -451,4 +451,13 @@ Flaw: ImageScene's frame size is weird, layout of nodes could be arranged more n
 
 Fix: Fixed ImageScene's sizing, changed the arrangment of some nodes.
 
+#########
+#Log 51:
+
+Person: Prynciss
+
+Flaw: Combo box in ImageScene does not operate properly
+
+Fix: Fixed bug, shows a list of all tags on inital click, properly lets user type after adding a tag
+
 

@@ -13,7 +13,7 @@ public class TagManager implements Serializable{
     /**
      * the tags that a ManageImage.TagManager stores
      */
-    private static LinkedList<String> tags = new LinkedList<>();
+    public static LinkedList<String> tags = new LinkedList<>();
 
     public static void load(){
         try {

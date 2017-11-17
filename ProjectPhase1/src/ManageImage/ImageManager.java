@@ -9,20 +9,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Provides entry-point for the data a user can access.
- * Data includes all image files in a directory.
+ * Provides entry-point for the data a user can access. Data includes all image files in a
+ * directory.
  */
 public class ImageManager implements Serializable {
-
 
   /** The list of all imageFiles accessible by a user */
   private static ArrayList<ImageFile> imageFiles = new ArrayList<>();
 
-
   /**
    * Loading data from serialized file out.ser
    *
-   * cite: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
+   * <p>cite:
+   * http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
    */
   public static void load() {
     try {
@@ -39,28 +38,28 @@ public class ImageManager implements Serializable {
     }
   }
 
-
   /**
    * Writing data onto the serialized file out.ser.
    *
-   * // cite: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
+   * <p>// cite:
+   * http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
    */
-  public static void save(){
-      try {
+  public static void save() {
+    try {
 
-          FileOutputStream fileOutputStream = new FileOutputStream("out.ser");
-          ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-          objectOutputStream.writeObject(imageFiles);
-          objectOutputStream.close();
+      FileOutputStream fileOutputStream = new FileOutputStream("out.ser");
+      ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+      objectOutputStream.writeObject(imageFiles);
+      objectOutputStream.close();
 
-          imageFiles.clear();
+      imageFiles.clear();
 
-      } catch (FileNotFoundException e) {
-        Main.logger.info("No file");
+    } catch (FileNotFoundException e) {
+      Main.logger.info("No file");
 
-      } catch (IOException e) {
-        Main.logger.info("IO Exception");
-      }
+    } catch (IOException e) {
+      Main.logger.info("IO Exception");
+    }
   }
 
   /**
@@ -73,7 +72,8 @@ public class ImageManager implements Serializable {
    */
   public static ArrayList<ImageFile> getImageFilesByDirectory(File directory) {
 
-    //cite: https://stackoverflow.com/questions/4746671/how-to-check-if-a-given-path-is-possible-child-of-another-path
+    // cite:
+    // https://stackoverflow.com/questions/4746671/how-to-check-if-a-given-path-is-possible-child-of-another-path
     ArrayList<ImageFile> filteredImages = new ArrayList<>();
     for (ImageFile imageFile : imageFiles) {
       File imageDirectory = imageFile.getDirectory();
@@ -102,6 +102,11 @@ public class ImageManager implements Serializable {
     }
     if (!match) {
       ImageManager.imageFiles.add(imageInsert);
+      for (String tag : imageInsert.getTags())
+        if (!TagManager.tags.contains(tag)) {
+          System.out.println(tag);
+          TagManager.tags.add(tag);
+        }
     }
   }
 
@@ -130,7 +135,7 @@ public class ImageManager implements Serializable {
               }
             });
 
-    if (collect == null){   // no files of the right format were found
+    if (collect == null) { // no files of the right format were found
       return new ArrayList<>();
     }
 
@@ -152,9 +157,7 @@ public class ImageManager implements Serializable {
 
     if (allFiles == null) {
       return gatherSubDirectories;
-    }
-
-    else {
+    } else {
       for (File f : allFiles) {
         if (f.isDirectory()) {
           gatherSubDirectories.add(f.getName());
@@ -164,7 +167,6 @@ public class ImageManager implements Serializable {
 
     return gatherSubDirectories;
   }
-
 
   /**
    * Check for sub-directories in directory, while adding imageFiles.
@@ -228,5 +230,4 @@ public class ImageManager implements Serializable {
     // convert the files into an array-List of ManageImage.ImageFile objects.
     convertToImageObjects(files);
   }
-
 }
