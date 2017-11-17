@@ -1,5 +1,7 @@
 package ManageImage;
 
+import GUI.Main;
+
 import java.io.*;
 import java.util.LinkedList;
 
@@ -22,11 +24,11 @@ public class TagManager implements Serializable{
             objectInputStream.close();
 
         } catch (FileNotFoundException e) {
-            System.out.println("No file");
+            Main.logger.info("No file");
         } catch (IOException e) {
-            System.out.println("IO Exception");
+            Main.logger.info("IO Exception");
         } catch (ClassNotFoundException e) {
-            System.out.println("Class not found");
+            Main.logger.info("Class not found");
         }
     }
 

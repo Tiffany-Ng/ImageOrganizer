@@ -74,7 +74,7 @@ class DirChooser {
                                 image.move(directory);
                                 directoryText.setText(image.getDirectory().toString());
                             } catch (IOException e1) {
-                                System.out.println("Can't move the file.");
+                                Main.logger.warning("Can't move file");
                             }
                             chooser.hide();
                         } else {
