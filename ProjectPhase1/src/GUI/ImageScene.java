@@ -229,16 +229,18 @@ public class ImageScene {
         HBox dir = new HBox();
         dir.boundsInParentProperty();
         dir.setMaxWidth(flow.getMaxWidth());
+        dir.setSpacing(5.0);
 
-        dir.setStyle("-fx-border-color: gray;");
         dir.getChildren().add(directory);
+        dir.getChildren().add(changeDir);
+        changeDir.setAlignment(Pos.CENTER_RIGHT);
 
         // nested panes implemented from
         // https://stackoverflow.com/questions/33339427/javafx-have-multiple-panes-in-one-scene
         flow.getChildren().add(dir);
         flow.setAlignment(Pos.CENTER_RIGHT);
 
-        flow.getChildren().add(changeDir);
+       // flow.getChildren().add(changeDir);
 
         ComboBox newTag = new ComboBox();
         newTag.setEditable(true);
@@ -299,10 +301,11 @@ public class ImageScene {
                 e -> {
                     if (newTag.getValue() instanceof String) {
                         image.addTag((String) newTag.getValue());
-                        //newTag.setValue("");
-                        newTag.hide();
+                        newTag.setValue("");
                     }
                     newTag.setValue("");
+                    newTag.hide();
+
                     addClickableTags();
                     updateLog();
                     imageNameUpdate();
