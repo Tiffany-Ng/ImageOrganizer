@@ -442,4 +442,13 @@ Flaw: Logger not implemented so console sometimes prints statements.
 
 Fix: Implemented logger
 
+#########
+#Log 50:
+
+Person: Prynciss
+
+Flaw: ImageScene's frame size is weird, layout of nodes could be arranged more neatly
+
+Fix: Fixed ImageScene's sizing, changed the arrangment of some nodes.
+
 

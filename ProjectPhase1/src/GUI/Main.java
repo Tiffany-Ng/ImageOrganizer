@@ -23,7 +23,6 @@ public class Main extends Application {
     handler.setLevel(Level.ALL);
     logger.addHandler(handler);
     logger.setLevel(Level.ALL);
-    logger.fine("check");
 
     launch(args);
   }
