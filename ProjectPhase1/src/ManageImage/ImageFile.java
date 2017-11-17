@@ -281,7 +281,7 @@ public class ImageFile implements Serializable{
     public void removeTag(String tag) {
         if (tag.contains(tag)) {
             tags.remove(tag);
-            TagManager.remove(tag);
+            //TagManager.remove(tag);
             updateFile("Removed tag \"" + tag + "\" from image \"" + name + "\"");
         }
     }

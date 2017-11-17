@@ -29,379 +29,357 @@ import java.util.LinkedList;
 import java.util.List;
 import java.io.File;
 
-/**
- * GUI of an individual image's information
- */
+/** GUI of an individual image's information */
 public class ImageScene {
 
-    /**
-     * The image used .
-     */
-    private ImageFile image;
+  /** The image used . */
+  private ImageFile image;
 
-    /**
-     * The actual scene with hold all the elements.
-     */
-    private Scene imageScene;
+  /** The actual scene with hold all the elements. */
+  private Scene imageScene;
 
-    /**
-     * Main pane of the scene.
-     */
-    private GridPane g;
+  /** Main pane of the scene. */
+  private GridPane g;
 
-    /**
-     * All the logs in a text box.
-     */
-    private TextArea log;
+  /** All the logs in a text box. */
+  private TextArea log;
 
-    /**
-     * Pane to hold clickable tags.
-     */
-    private FlowPane f;
+  /** Pane to hold clickable tags. */
+  private FlowPane f;
 
-    /**
-     * The directory that the user first opened
-     */
-    private File directory;
+  /** The directory that the user first opened */
+  private File directory;
 
-    /**
-     * The previous picGrid scene
-     */
-    private Stage prevScene;
+  /** The previous picGrid scene */
+  private Stage prevScene;
 
-    /**
-     * All names the image has had.
-     */
-    private ComboBox<String> imageNames;
+  /** All names the image has had. */
+  private ComboBox<String> imageNames;
 
-    /**
-     * Construct an GUI.ImageScene.
-     *
-     * @param image
-     */
-    public ImageScene(ImageFile image, File directory, Stage prevScene) throws IOException {
+  /**
+   * Construct an GUI.ImageScene.
+   *
+   * @param image
+   */
+  public ImageScene(ImageFile image, File directory, Stage prevScene) throws IOException {
 
-        this.image = image;
+    this.image = image;
 
-        // inspired from https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm
-        g = gridSetup();
-        imageScene = new Scene(g);
+    // inspired from https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm
+    g = gridSetup();
+    imageScene = new Scene(g);
 
-        this.directory = directory;
-        this.prevScene = prevScene;
+    this.directory = directory;
+    this.prevScene = prevScene;
 
-        prevScene.setMaximized(false);
-        //prevScene.sizeToScene();
-        prevScene.setWidth(1325);
-        prevScene.setHeight(750);
+    prevScene.setMaximized(false);
+    // prevScene.sizeToScene();
+    prevScene.setWidth(1325);
+    prevScene.setHeight(750);
 
-        // Source: https://stackoverflow.com/questions/13702191/center-location-of-stage (Nov 16, 2017)
-        prevScene.setX(200);
-        prevScene.setY(100);
+    // Source: https://stackoverflow.com/questions/13702191/center-location-of-stage (Nov 16, 2017)
+    prevScene.setX(200);
+    prevScene.setY(100);
 
-        prevScene.setResizable(false);
+    prevScene.setResizable(false);
+  }
+
+  /**
+   * Setup of the whole screen
+   *
+   * @return GridPane
+   */
+  private GridPane gridSetup() throws IOException {
+
+    GridPane layout = new GridPane();
+    layout.setHgap(6);
+    layout.setVgap(6);
+    layout.setPadding(new Insets(10, 10, 10, 10));
+
+    // image in form of a viewable icon
+    ImageView icon = new ImageView();
+
+    // https://stackoverflow.com/questions/27894945/how-do-i-resize-an-imageview-image-in-javafx
+    icon.setFitWidth(720);
+    icon.setFitHeight(480);
+    icon.setPreserveRatio(true);
+
+    // needs the "file://" because image will not understand it is a directory
+    // https://stackoverflow.com/questions/8474694/java-url-unknown-protocol-c
+    icon.setImage(new Image("file:///" + image.getFile().toString()));
+
+    // flowPane for image information
+    VBox f = vBoxSetup();
+
+    //    HBox h = new HBox();
+    //    h.getChildren().add(icon);
+    //    h.getChildren().add(f);
+    //    h.setSpacing(5);
+
+    layout.add(icon, 1, 2, 4, 2);
+    layout.add(f, 6, 2, 2, 2);
+
+    // go to main screen
+    Button back = new Button();
+    back.setText("<- Back");
+    layout.add(back, 0, 0, 1, 1);
+
+    back.setOnAction(
+        e -> {
+          PicGrid.picGrid(prevScene, this.directory);
+        });
+
+    // https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm
+    imageNames = new ComboBox<>();
+    imageNameUpdate();
+    imageNames.setMaxWidth(720);
+    imageNames.getSelectionModel().selectFirst();
+
+    Button revertName = new Button("Revert");
+    revertName.setOnAction(
+        event -> {
+          if (!imageNames.getSelectionModel().isEmpty()
+              && !image.nameWithTags().equals(imageNames.getValue())) {
+
+            ArrayList<String> allNames = new ArrayList<>(imageNames.getItems());
+
+            // https://stackoverflow.com/questions/14987971/added-elements-in-arraylist-in-the-reverse-order-in-java
+            Collections.reverse(allNames);
+
+            image.revertName(allNames.indexOf(imageNames.getValue()));
+            updateLog();
+            addClickableTags();
+            imageNameUpdate();
+          }
+        });
+
+    HBox imageName = new HBox();
+    imageName.getChildren().addAll(imageNames, revertName);
+    imageName.setSpacing(5.0);
+
+    layout.add(imageName, 1, 0, 1, 1);
+
+    layout.setPrefHeight(700);
+    layout.setPrefWidth(1325);
+    return layout;
+  }
+
+  /** Update the comboBox of image names. */
+  private void imageNameUpdate() {
+
+    imageNames.getItems().removeAll(imageNames.getItems());
+
+    for (String name : image.getPriorNames()) {
+
+      imageNames.getItems().add(name);
     }
 
-    /**
-     * Setup of the whole screen
-     *
-     * @return GridPane
-     */
-    private GridPane gridSetup() throws IOException {
-
-        GridPane layout = new GridPane();
-        layout.setHgap(6);
-        layout.setVgap(6);
-        layout.setPadding(new Insets(10, 10, 10, 10));
-
-        // image in form of a viewable icon
-        ImageView icon = new ImageView();
-
-        // https://stackoverflow.com/questions/27894945/how-do-i-resize-an-imageview-image-in-javafx
-        icon.setFitWidth(720);
-        icon.setFitHeight(480);
-        icon.setPreserveRatio(true);
-
-        // needs the "file://" because image will not understand it is a directory
-        // https://stackoverflow.com/questions/8474694/java-url-unknown-protocol-c
-        icon.setImage(new Image("file:///" + image.getFile().toString()));
-
-        // flowPane for image information
-        VBox f = vBoxSetup();
-
-//    HBox h = new HBox();
-//    h.getChildren().add(icon);
-//    h.getChildren().add(f);
-//    h.setSpacing(5);
-
-        layout.add(icon, 1, 2, 4, 2);
-        layout.add(f, 6, 2, 2, 2);
-
-        // go to main screen
-        Button back = new Button();
-        back.setText("<- Back");
-        layout.add(back, 0, 0, 1, 1);
-
-        back.setOnAction(
-                e -> {
-                    PicGrid.picGrid(prevScene, this.directory);
-                });
-
-        // https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm
-        imageNames = new ComboBox<>();
-        imageNameUpdate();
-        imageNames.setMaxWidth(720);
-        imageNames.getSelectionModel().selectFirst();
-
-        Button revertName = new Button("Revert");
-        revertName.setOnAction(
-                event -> {
-                    if (!imageNames.getSelectionModel().isEmpty()
-                            && !image.nameWithTags().equals(imageNames.getValue())) {
-
-                        ArrayList<String> allNames = new ArrayList<>(imageNames.getItems());
-
-                        // https://stackoverflow.com/questions/14987971/added-elements-in-arraylist-in-the-reverse-order-in-java
-                        Collections.reverse(allNames);
-
-                        image.revertName(allNames.indexOf(imageNames.getValue()));
-                        updateLog();
-                        addClickableTags();
-                        imageNameUpdate();
-                    }
-                });
-
-        HBox imageName = new HBox();
-        imageName.getChildren().addAll(imageNames, revertName);
-        imageName.setSpacing(5.0);
-
-        layout.add(imageName, 1, 0, 1, 1);
-
-
-        layout.setPrefHeight(700);
-        layout.setPrefWidth(1325);
-        return layout;
+    if (!imageNames.getItems().isEmpty()) {
+      Collections.reverse(imageNames.getItems());
+      imageNames.setPromptText(imageNames.getItems().get(0));
     }
+  }
 
-    /**
-     * Update the comboBox of image names.
-     */
-    private void imageNameUpdate() {
+  /**
+   * Setup the image's information in a flowPane.
+   *
+   * @return FlowPane
+   */
+  private VBox vBoxSetup() {
 
-        imageNames.getItems().removeAll(imageNames.getItems());
+    // initial values
+    VBox flow = new VBox();
+    flow.setPadding(new Insets(0, 0, 5, 0));
+    flow.setSpacing(10);
 
-        for (String name : image.getPriorNames()) {
+    // image directory
+    Text directory = new Text();
+    directory.setText(image.getDirectory().toString());
 
-            imageNames.getItems().add(name);
-        }
+    // button for changing the directory
+    Button changeDir = new Button();
+    changeDir.setText("Change Directory");
 
-        if (!imageNames.getItems().isEmpty()) {
-            Collections.reverse(imageNames.getItems());
-            imageNames.setPromptText(imageNames.getItems().get(0));
-        }
-    }
+    changeDir.setOnAction(
+        e -> {
+          DirChooser.dirChooser(prevScene, this.image, directory);
+        });
 
-    /**
-     * Setup the image's information in a flowPane.
-     *
-     * @return FlowPane
-     */
-    private VBox vBoxSetup() {
+    HBox dir = new HBox();
+    dir.boundsInParentProperty();
+    dir.setMaxWidth(flow.getMaxWidth());
+    dir.setSpacing(5.0);
 
-        // initial values
-        VBox flow = new VBox();
-        flow.setPadding(new Insets(0, 0, 5, 0));
-        flow.setSpacing(10);
+    dir.getChildren().add(directory);
+    dir.getChildren().add(changeDir);
+    changeDir.setAlignment(Pos.CENTER);
 
-        // image directory
-        Text directory = new Text();
-        directory.setText(image.getDirectory().toString());
+    // nested panes implemented from
+    // https://stackoverflow.com/questions/33339427/javafx-have-multiple-panes-in-one-scene
+    flow.getChildren().add(dir);
+    flow.setAlignment(Pos.CENTER_RIGHT);
 
-        // button for changing the directory
-        Button changeDir = new Button();
-        changeDir.setText("Change Directory");
+    // flow.getChildren().add(changeDir);
 
-        changeDir.setOnAction(
-                e -> {
-                    DirChooser.dirChooser(prevScene, this.image, directory);
-                });
-
-        HBox dir = new HBox();
-        dir.boundsInParentProperty();
-        dir.setMaxWidth(flow.getMaxWidth());
-        dir.setSpacing(5.0);
-
-        dir.getChildren().add(directory);
-        dir.getChildren().add(changeDir);
-        changeDir.setAlignment(Pos.CENTER_RIGHT);
-
-        // nested panes implemented from
-        // https://stackoverflow.com/questions/33339427/javafx-have-multiple-panes-in-one-scene
-        flow.getChildren().add(dir);
-        flow.setAlignment(Pos.CENTER_RIGHT);
-
-       // flow.getChildren().add(changeDir);
-
-        ComboBox newTag = new ComboBox();
-        newTag.setEditable(true);
-        newTag.getItems().addAll(TagManager.tags);
-        //newTag.setValue("Tag Name");
-        newTag.show();
-
-//    newTag.getEditor().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-//      if (event.getCode() == KeyCode.ENTER) {
-//          System.out.println("kdjla");
-//          if (newTag.getValue() instanceof String) {
-//              image.addTag((String) newTag.getValue());
-//              newTag.setValue("");
-//              newTag.hide();
-//          }
-//          // newTag.setValue("");
-//          addClickableTags();
-//          updateLog();
-//          imageNameUpdate();
-//      }
-//    });
-
-        newTag.getEditor().textProperty().addListener(
-                (observable, oldValue, newValue) -> {
-
-                    LinkedList<String> relatedTags = new LinkedList<>();
-                    if (!(newValue == null) && !TagManager.tags.contains(newValue)) {
-                        newTag.hide();
-                        relatedTags.addAll(TagManager.search(newValue));
-                        newTag.setVisibleRowCount(relatedTags.size());
-                        newTag.show();
-                        // sited from
-                        // https://stackoverflow.com/questions/30465313/javafx-textfield-with-listener-gives-java-lang-illegalargumentexception-the-s
-                        Platform.runLater(
-                                () -> {
-                                    newTag.getItems().clear();
-                                    newTag.getItems().addAll(relatedTags);
-                                    newTag.setVisibleRowCount(relatedTags.size());
-
-                                });
-                    } else if (image.getTags().contains(newValue)) {
-                        //TODO: output error message saying tag is already added
-                    } else {
-                        relatedTags.addAll(TagManager.tags);
-                        if (TagManager.tags.size() > 10)
-                            newTag.setVisibleRowCount(10);
-                        else
-                            newTag.setVisibleRowCount(TagManager.tags.size());
+    ComboBox newTag = new ComboBox();
+    newTag.setEditable(true);
+    newTag.getItems().addAll(TagManager.tags);
 
 
-                    }
+    newTag.getEditor().setOnMouseClicked(e -> {
+      newTag.show();
+      newTag.setVisibleRowCount(10);
+    });
 
+    //    newTag.getEditor().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+    //      if (event.getCode() == KeyCode.ENTER) {
+    //          System.out.println("kdjla");
+    //          if (newTag.getValue() instanceof String) {
+    //              image.addTag((String) newTag.getValue());
+    //              newTag.setValue("");
+    //              newTag.hide();
+    //          }
+    //          // newTag.setValue("");
+    //          addClickableTags();
+    //          updateLog();
+    //          imageNameUpdate();
+    //      }
+    //    });
 
-                });
-
-        Button addTag = new Button("+");
-        addTag.setOnAction(
-                e -> {
-                    if (newTag.getValue() instanceof String) {
-                        image.addTag((String) newTag.getValue());
-                        newTag.setValue("");
-                    }
-                    newTag.setValue("");
-                    newTag.hide();
-
-                    addClickableTags();
-                    updateLog();
-                    imageNameUpdate();
-                });
-
-        HBox tagBox = new HBox();
-        tagBox.getChildren().addAll(newTag, addTag);
-        tagBox.setSpacing(5.0);
-
-        flow.getChildren().add(tagBox);
-
-        Text instruction = new Text();
-        instruction.setText("Wanna delete a tag?,  SELECT IT!");
-        //instruction.setFont(Font.font(java.awt.Font.SERIF, 16));
-        //instruction.setFill(Color.DARKBLUE);
-
-        flow.getChildren().add(instruction);
-
-        // make all the tags
-        // sub-flowPane to hold the tags
-        f = new FlowPane(Orientation.HORIZONTAL, 7, 5);
-        f.setPadding(new Insets(5));
-        f.setPrefHeight(480 / 2.5);
-        f = addClickableTags();
-
-        flow.getChildren().add(new ScrollPane(f));
-
-        log = new TextArea();
-        // image log
-        updateLog();
-
-        log.setWrapText(true);
-        log.setEditable(false);
-
-        // wrap error solution https://stackoverflow.com/questions/29537264/javafx-flowpane-autosize
-        log.setPrefHeight(480 / 2);
-
-        flow.getChildren().add(log);
-
-        return flow;
-    }
-
-    /**
-     * Add all tags image has into a clickable section of the scene.
-     *
-     * @return FlowPane
-     */
-    private FlowPane addClickableTags() {
-
-        // https://stackoverflow.com/questions/37378973/implement-tags-bar-in-javafx
-        List<String> tags = image.getTags();
-        f.getChildren().removeAll(f.getChildren());
-
-        ImageView i = new ImageView(new Image("file:///" + "x.jpeg"));
-
-        for (String t : tags) {
-
-            // makes all tags as clickable buttons
-            Button tag = new Button(t, i);
-
-            tag.setOnAction(
-                    e -> {
-                        image.removeTag(tag.getText());
-                        f.getChildren().remove(tag);
-                        updateLog();
-                        imageNameUpdate();
+    newTag
+        .getEditor()
+        .textProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              LinkedList<String> relatedTags = new LinkedList<>();
+              if (newValue.length() == 0) {
+                Platform.runLater(
+                    () -> {
+                      newTag.getItems().clear();
+                      newTag.getItems().addAll(TagManager.tags);
+                      newTag.setVisibleRowCount(10);
                     });
+                // newTag.show();
+              } else {
+//                newTag.hide();
+//                relatedTags.addAll(TagManager.search(newValue));
+//                newTag.setVisibleRowCount(relatedTags.size());
+//                System.out.println(relatedTags.size());
+//                newTag.show();
+//                // sited from
+//                // https: //
+//                // stackoverflow.com/questions/30465313/javafx-textfield-with-listener-gives-java-lang-illegalargumentexception-the-s
+//                Platform.runLater(
+//                    () -> {
+//                      newTag.getItems().clear();
+//                      newTag.getItems().addAll(relatedTags);
+//                      // newTag.setVisibleRowCount(relatedTags.size());
+//                    });
+              }
+            });
 
-            f.getChildren().add(tag);
-        }
+    Button addTag = new Button("+");
+    addTag.setOnAction(
+        e -> {
+          if (newTag.getValue() instanceof String && ((String) newTag.getValue()).length() != 0) {
+            image.addTag((String) newTag.getValue());
+            //newTag.setValue("");
+          }
+          newTag.setValue("");
+          newTag.hide();
 
-        return f;
+          addClickableTags();
+          updateLog();
+          imageNameUpdate();
+        });
+
+    HBox tagBox = new HBox();
+    tagBox.getChildren().addAll(newTag, addTag);
+    tagBox.setSpacing(5.0);
+
+    flow.getChildren().add(tagBox);
+
+    Text instruction = new Text();
+    instruction.setText("Wanna delete a tag?,  SELECT IT!");
+    // instruction.setFont(Font.font(java.awt.Font.SERIF, 16));
+    // instruction.setFill(Color.DARKBLUE);
+
+    flow.getChildren().add(instruction);
+
+    // make all the tags
+    // sub-flowPane to hold the tags
+    f = new FlowPane(Orientation.HORIZONTAL, 7, 5);
+    f.setPadding(new Insets(5));
+    f.setPrefHeight(480 / 2.5);
+    f = addClickableTags();
+
+    flow.getChildren().add(new ScrollPane(f));
+
+    log = new TextArea();
+    // image log
+    updateLog();
+
+    log.setWrapText(true);
+    log.setEditable(false);
+
+    // wrap error solution https://stackoverflow.com/questions/29537264/javafx-flowpane-autosize
+    log.setPrefHeight(480 / 2);
+
+    flow.getChildren().add(log);
+
+    return flow;
+  }
+
+  /**
+   * Add all tags image has into a clickable section of the scene.
+   *
+   * @return FlowPane
+   */
+  private FlowPane addClickableTags() {
+
+    // https://stackoverflow.com/questions/37378973/implement-tags-bar-in-javafx
+    List<String> tags = image.getTags();
+    f.getChildren().removeAll(f.getChildren());
+
+    ImageView i = new ImageView(new Image("file:///" + "x.jpeg"));
+
+    for (String t : tags) {
+
+      // makes all tags as clickable buttons
+      Button tag = new Button(t, i);
+
+      tag.setOnAction(
+          e -> {
+            image.removeTag(tag.getText());
+            f.getChildren().remove(tag);
+            updateLog();
+            imageNameUpdate();
+          });
+
+      f.getChildren().add(tag);
     }
 
-    /**
-     * Update the log with its new information.
-     */
-    private void updateLog() {
+    return f;
+  }
 
-        Log imageLog = image.getLog();
-        StringBuilder logs = new StringBuilder();
+  /** Update the log with its new information. */
+  private void updateLog() {
 
-        // add all logs as a line
-        for (Entry e : imageLog) {
+    Log imageLog = image.getLog();
+    StringBuilder logs = new StringBuilder();
 
-            // https://stackoverflow.com/questions/15977295/control-for-displaying-multiline-text
-            logs.append(e.toString()).append(System.lineSeparator());
-        }
+    // add all logs as a line
+    for (Entry e : imageLog) {
 
-        // represent log as textArea
-        log.setText(logs.toString());
+      // https://stackoverflow.com/questions/15977295/control-for-displaying-multiline-text
+      logs.append(e.toString()).append(System.lineSeparator());
     }
 
-    public Scene getImageScene() {
-        return imageScene;
-    }
+    // represent log as textArea
+    log.setText(logs.toString());
+  }
 
-
+  public Scene getImageScene() {
+    return imageScene;
+  }
 }
