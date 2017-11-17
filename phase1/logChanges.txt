@@ -436,17 +436,10 @@ Bug: reverting name alternated to the last in list
 #########
 #Log 49:
 
-Person: Amarnath
+Person: Prynciss
 
-Flaw: Revert name did a weird switching thing. Initial name in revert name doesn't have tags.
+Flaw: Logger not implemented so console sometimes prints statements.
 
-Fixed: Fixed them.
+Fix: Implemented logger
 
-#########
-#Log 50:
 
-Person: Amarnath
-
-Flaw: Image with one tag not displaying tag.
-
-Fix: > 1 made into > 0
