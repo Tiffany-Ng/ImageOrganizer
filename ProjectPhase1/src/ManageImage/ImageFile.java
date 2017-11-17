@@ -71,7 +71,7 @@ public class ImageFile implements Serializable{
         String name = getName() + getExtension();
         log.addEntry(new Entry("Set initial name", name));
 
-        if (priorTags.size() > 1) {
+        if (priorTags.size() > 0) {
             tags.addAll(priorTags);
         }
 
@@ -193,7 +193,7 @@ public class ImageFile implements Serializable{
 
         List<String> priorTags = splitTags(priorNames.get(entryNumber));
 
-       priorNames.add(priorNames.remove(entryNumber));
+      priorNames.add(priorNames.remove(entryNumber));
 
         tags.clear();
         tags.addAll(priorTags);

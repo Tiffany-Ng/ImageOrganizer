@@ -441,3 +441,12 @@ Person: Amarnath
 Flaw: Revert name did a weird switching thing. Initial name in revert name doesn't have tags.
 
 Fixed: Fixed them.
+
+#########
+#Log 50:
+
+Person: Amarnath
+
+Flaw: Image with one tag not displaying tag.
+
+Fix: > 1 made into > 0
