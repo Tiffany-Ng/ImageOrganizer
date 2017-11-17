@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ImageFile implements Serializable{
@@ -40,6 +41,8 @@ public class ImageFile implements Serializable{
      */
     private File directory;
 
+    private List<String> priorNames;
+
     /**
      * Construct an image representing File imageFile
      * <p>
@@ -59,12 +62,15 @@ public class ImageFile implements Serializable{
 
         this.imageFile = imageFile;
         tags = new ArrayList<>();
+        priorNames = new ArrayList<>();
         log = new Log();
         directory = imageFile.getParentFile();
 
         List<String> priorTags = splitTags(imageFile.getName());
 
-        log.addEntry(new Entry("Set initial name", getName() + getExtension()));
+        String name = getName() + getExtension();
+        log.addEntry(new Entry("Set initial name", name));
+        priorNames.add(name);
 
         if (priorTags.size() > 1) {
             tags.addAll(priorTags);
@@ -185,10 +191,19 @@ public class ImageFile implements Serializable{
 
         List<String> priorTags = splitTags(log.getEntry(entryNumber).getImageName());
 
+        // implemented from https://stackoverflow.com/questions/15963549/arraylist-swap-elements
+        Collections.swap(priorNames, entryNumber, 0);
+
         tags.clear();
         tags.addAll(priorTags);
 
         log.addEntry(new Entry("Reverted " + getName() + " to prior tags: " + nameWithTags(), nameWithTags()));
+
+    }
+
+    public ArrayList<String> getPriorNames() {
+
+        return new ArrayList<>(priorNames);
 
     }
 
@@ -227,6 +242,7 @@ public class ImageFile implements Serializable{
             tags.add(tag);
             TagManager.add(tag);
             updateFile("Added tag \"" + tag + "\" to image \"" + name + "\"");
+            priorNames.add(nameWithTags());
         }
     }
 

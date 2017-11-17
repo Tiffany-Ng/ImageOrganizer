@@ -409,10 +409,20 @@ Flaw: ImageFile.move does not move File correctly
 Fix: Modified DirChooser to move ImageFile, update Text directory to update after moving
 
 #########
-#Log 45:
+#Log 46:
 
 Person: Prynciss
 
 Added in comments and citation in DirChooser, PicGrid, and Main.
 
+#########
+#Log 47:
+
+Person: Amarnath
+
+Flaw: repeated names in prior names
+
+Fix: made it only appear once
+
+Bug: reverting name alternated to the last in list
 
