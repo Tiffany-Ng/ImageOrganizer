@@ -415,4 +415,10 @@ Person: Prynciss
 
 Added in comments and citation in DirChooser, PicGrid, and Main.
 
+#########
+#Log 46:
+
+Person: Allan
+
+Updated logs to include oldname and newname
 

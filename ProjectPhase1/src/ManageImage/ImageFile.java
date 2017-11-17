@@ -265,11 +265,13 @@ public class ImageFile implements Serializable{
      *                                     not valid, is held by a process (ie antivirus), or an image exists in the renaming location
      */
     private void updateFile(String logMessage) {
+        String oldName = imageFile.getName();
         File newImageFile = createLocation();
         boolean success = imageFile.renameTo(newImageFile);
+        String newName = newImageFile.getName();
         if (success) {
             imageFile = newImageFile;
-            log.addEntry(new Entry(logMessage, nameWithTags()));
+            log.addEntry(new Entry(oldName + " -> " + newName + ": " + logMessage, nameWithTags()));
         } else {
             throw new UnsuccessfulRenameException();
         }
