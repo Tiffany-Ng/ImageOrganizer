@@ -25,7 +25,7 @@ public class Main extends Application {
     ConsoleHandler handler = new ConsoleHandler();
     handler.setLevel(Level.SEVERE);
     logger.addHandler(handler);
-    logger.setLevel(Level.ALL);
+    logger.setLevel(Level.OFF);
 
     launch(args);
   }

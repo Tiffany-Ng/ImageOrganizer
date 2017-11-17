@@ -103,7 +103,6 @@ public class ImageManager implements Serializable {
       ImageManager.imageFiles.add(imageInsert);
       for (String tag : imageInsert.getTags())
         if (!TagManager.tags.contains(tag)) {
-          System.out.println(tag);
           TagManager.tags.add(tag);
         }
     }
