@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
 
 /**
  * Provides entry-point for the data a user can access. Data includes all image files in a
@@ -32,9 +33,9 @@ public class ImageManager implements Serializable {
       objectInputStream.close();
 
     } catch (IOException e) {
-      Main.logger.info("No file");
+      Main.logger.log(Level.SEVERE, "ImageManager serialized file incorrectly read", e);
     } catch (ClassNotFoundException e) {
-      Main.logger.info("Class not found");
+      Main.logger.log(Level.SEVERE, "ImageManager class path not realized", e);
     }
   }
 
@@ -55,11 +56,9 @@ public class ImageManager implements Serializable {
       imageFiles.clear();
 
     } catch (FileNotFoundException e) {
-      Main.logger.info("No file");
-
+      Main.logger.log(Level.SEVERE, "ImageManager serialized file not found for writing", e);
     } catch (IOException e) {
-      Main.logger.info("IO Exception");
-    }
+      Main.logger.log(Level.SEVERE, "ImageManager serialized file incorrectly read", e);    }
   }
 
   /**
@@ -212,8 +211,7 @@ public class ImageManager implements Serializable {
         addImage(new ImageFile(f));
 
       } catch (IOException e) {
-        Main.logger.info("ManageImage.ImageFile file incorrectly read!");
-      }
+        Main.logger.log(Level.SEVERE, "ImageManager serialized file incorrectly read", e);      }
     }
   }
 

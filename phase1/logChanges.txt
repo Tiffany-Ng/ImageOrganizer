@@ -469,4 +469,13 @@ Flaw: Logs are hard to read
 
 Fix: Changed format of log to involve new line
 
+#########
+#Log 53:
+
+Person: Akshat
+
+Flaw: Console messages should be rare, made the logger severe
+
+Fix: changes logger implementation
+
 

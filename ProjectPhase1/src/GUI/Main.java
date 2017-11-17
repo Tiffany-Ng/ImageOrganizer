@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 /**
@@ -18,9 +19,11 @@ public class Main extends Application {
   public static Logger logger = Logger.getLogger(Main.class.getName());
 
   public static void main(String[] args) {
-    ConsoleHandler handler = new ConsoleHandler();
 
-    handler.setLevel(Level.ALL);
+    LogManager.getLogManager().reset();
+
+    ConsoleHandler handler = new ConsoleHandler();
+    handler.setLevel(Level.SEVERE);
     logger.addHandler(handler);
     logger.setLevel(Level.ALL);
 

@@ -4,6 +4,7 @@ import GUI.Main;
 
 import java.io.*;
 import java.util.LinkedList;
+import java.util.logging.Level;
 
 /**
  * ManageImage.TagManager represents a pool of unique tags
@@ -15,6 +16,8 @@ public class TagManager implements Serializable{
      */
     public static LinkedList<String> tags = new LinkedList<>();
 
+    /** Reading data of all tags created by the user
+     */
     public static void load(){
         try {
 
@@ -24,15 +27,17 @@ public class TagManager implements Serializable{
             objectInputStream.close();
 
         } catch (FileNotFoundException e) {
-            Main.logger.info("No file");
+            Main.logger.log(Level.SEVERE, "Serializable file path not found", e);
         } catch (IOException e) {
-            Main.logger.info("IO Exception");
+            Main.logger.log(Level.SEVERE, "Improper file reading", e);
         } catch (ClassNotFoundException e) {
-            Main.logger.info("Class not found");
+            Main.logger.log(Level.SEVERE, "Improper class path", e);
         }
     }
 
     // cite: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
+    /** Writing data of all tags created by the user in a session.
+     */
     public static void save(){
         try {
             FileOutputStream fileOutputStream = new FileOutputStream("tags.ser");
@@ -54,7 +59,7 @@ public class TagManager implements Serializable{
      * Adds tag to tagManager if tag is not yet added
      * @param tag the tag to be added to ManageImage.TagManager
      */
-    public static void add(String tag){
+    static void add(String tag){
         if(!tags.contains(tag)){
             tags.add(tag);
         }
@@ -64,7 +69,7 @@ public class TagManager implements Serializable{
      * Removes tag from tagManager
      * @param tag the tag to be removed
      */
-    public static void remove(String tag){
+    static void remove(String tag){
         tags.remove(tag);
     }
 

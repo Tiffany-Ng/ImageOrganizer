@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 
 /**
  * A stage that pops up when dirChooser is called.
@@ -74,7 +75,7 @@ class DirChooser {
                                 image.move(directory);
                                 directoryText.setText(image.getDirectory().toString());
                             } catch (IOException e1) {
-                                Main.logger.warning("Can't move file");
+                                Main.logger.log(Level.SEVERE, "new directory path not found.", e);
                             }
                             chooser.hide();
                         } else {
