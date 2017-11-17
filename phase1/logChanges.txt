@@ -418,6 +418,13 @@ Added in comments and citation in DirChooser, PicGrid, and Main.
 #########
 #Log 47:
 
+Person: Allan
+
+Updated logs to include oldname and newname
+
+#########
+#Log 48:
+
 Person: Amarnath
 
 Flaw: repeated names in prior names
@@ -425,4 +432,5 @@ Flaw: repeated names in prior names
 Fix: made it only appear once
 
 Bug: reverting name alternated to the last in list
+
 
