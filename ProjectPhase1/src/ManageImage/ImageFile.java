@@ -70,11 +70,13 @@ public class ImageFile implements Serializable{
 
         String name = getName() + getExtension();
         log.addEntry(new Entry("Set initial name", name));
-        priorNames.add(name);
 
         if (priorTags.size() > 1) {
             tags.addAll(priorTags);
         }
+
+        priorNames.add(nameWithTags());
+
     }
 
     public List<String> splitTags(String rawName) {
@@ -189,10 +191,9 @@ public class ImageFile implements Serializable{
 
     public void revertName(int entryNumber) {
 
-        List<String> priorTags = splitTags(log.getEntry(entryNumber).getImageName());
+        List<String> priorTags = splitTags(priorNames.get(entryNumber));
 
-        // implemented from https://stackoverflow.com/questions/15963549/arraylist-swap-elements
-        Collections.swap(priorNames, entryNumber, 0);
+       priorNames.add(priorNames.remove(entryNumber));
 
         tags.clear();
         tags.addAll(priorTags);

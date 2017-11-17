@@ -20,6 +20,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -116,13 +117,12 @@ public class ImageScene {
         Button revertName = new Button("Revert");
         revertName.setOnAction(
                 event -> {
-                    if (!image.nameWithTags().equals(imageNames.getValue())) {
-                        image.revertName(
-                                imageNames.getItems().size()
-                                        - ((imageNames.getItems().indexOf(imageNames.getValue()) == -1)
-                                        ? 0
-                                        : imageNames.getItems().indexOf(imageNames.getValue()))
-                                        - 1);
+                    if (!imageNames.getSelectionModel().isEmpty() && !image.nameWithTags().equals(imageNames.getValue())) {
+
+                        ArrayList<String> allNames = new ArrayList<>(imageNames.getItems());
+                        Collections.reverse(allNames);
+
+                        image.revertName(allNames.indexOf(imageNames.getValue()));
                         updateLog();
                         addClickableTags();
                         imageNameUpdate();

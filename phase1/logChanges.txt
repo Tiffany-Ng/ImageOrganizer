@@ -433,4 +433,11 @@ Fix: made it only appear once
 
 Bug: reverting name alternated to the last in list
 
+#########
+#Log 49:
 
+Person: Amarnath
+
+Flaw: Revert name did a weird switching thing. Initial name in revert name doesn't have tags.
+
+Fixed: Fixed them.
