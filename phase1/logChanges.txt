@@ -408,3 +408,11 @@ Flaw: ImageFile.move does not move File correctly
 
 Fix: Modified DirChooser to move ImageFile, update Text directory to update after moving
 
+#########
+#Log 45:
+
+Person: Prynciss
+
+Added in comments and citation in DirChooser, PicGrid, and Main.
+
+

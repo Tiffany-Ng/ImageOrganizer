@@ -17,64 +17,79 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Shows a list of thumbnails of all images under the directory.
+ */
 class PicGrid {
-  static void picGrid(Stage currentStage, File directory) {
 
-    currentStage.setTitle("Image Viewer - List images");
+    /**
+     * Sets the pane and ImageFiles in a grid like format.
+     *
+     * @param currentStage the Stage that the user is in
+     * @param directory the chosen directory
+     */
+    static void picGrid(Stage currentStage, File directory) {
 
-    FlowPane pane = new FlowPane();
-    pane.setPadding(new Insets(20, 20, 5, 20));
-    pane.setVgap(15);
-    pane.setHgap(15);
-    pane.setPrefWrapLength(300);
+        currentStage.setTitle("Image Viewer - List images");
 
-    ScrollPane scrollPane = new ScrollPane();
-    scrollPane.setContent(pane);
-    scrollPane.setFitToHeight(true);
-    scrollPane.setFitToWidth(true);
+        FlowPane pane = new FlowPane();
+        pane.setPadding(new Insets(20, 20, 5, 20));
+        pane.setVgap(15);
+        pane.setHgap(15);
+        pane.setPrefWrapLength(300);
 
-    currentStage.setMaximized(true);
-    scrollPane.setMinViewportWidth(currentStage.getWidth());
-    scrollPane.setMinViewportHeight(currentStage.getHeight());
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(pane);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
 
-    Scene scene = new Scene(scrollPane);
-    currentStage.setScene(scene);
+        currentStage.setMaximized(true);
+        scrollPane.setMinViewportWidth(currentStage.getWidth());
+        scrollPane.setMinViewportHeight(currentStage.getHeight());
 
-    Button chooseDirectory = new Button("Select directory");
-    chooseDirectory.setOnAction(
-        e -> {
-          DirChooser.dirChooser(currentStage);
-        });
-    pane.getChildren().add(chooseDirectory);
+        Scene scene = new Scene(scrollPane);
+        currentStage.setScene(scene);
 
-    Label currentDirectory = new Label(directory.toString());
-    currentDirectory.setMinWidth(2000);
-    pane.getChildren().add(currentDirectory);
+        Button chooseDirectory = new Button("Select directory");
+        chooseDirectory.setOnAction(
+                e -> {
+                    DirChooser.dirChooser(currentStage);
+                });
+        pane.getChildren().add(chooseDirectory);
 
-    ArrayList<Button> toAdd = new ArrayList<>();
-    for (ImageFile img : ImageManager.getImageFilesByDirectory(directory)) {
+        Label currentDirectory = new Label(directory.toString());
+        currentDirectory.setMinWidth(2000);
+        pane.getChildren().add(currentDirectory);
 
-      Image image = new Image("file:///" + img.getFile().toString(), 200, 200, true, true, true);
-      ImageView view = new ImageView(image);
-      view.setCache(true);
-      view.setCacheHint(CacheHint.SPEED);
-      Button viewImage = new Button(img.getName(), view);
-      viewImage.setContentDisplay(ContentDisplay.TOP);
-      viewImage.setCache(true);
-      viewImage.setCacheHint(CacheHint.SPEED);
+        ArrayList<Button> toAdd = new ArrayList<>();
+        for (ImageFile img : ImageManager.getImageFilesByDirectory(directory)) {
 
-      viewImage.setOnAction(
-          e -> {
-            ImageScene toScene = null;
-            try {
-              toScene = new ImageScene(img, directory, currentStage);
-            } catch (IOException e1) {
-              e1.printStackTrace();
-            }
-            currentStage.setScene(toScene.getImageScene());
-          });
-      toAdd.add(viewImage);
+            Image image = new Image("file:///" + img.getFile().toString(), 200, 200, true, true, true);
+            ImageView view = new ImageView(image);
+
+            // Source: https://stackoverflow.com/questions/18911186/how-do-setcache-and-cachehint-work-together-in-javafx (Date: Nov 9, 2017)
+            view.setCache(true);
+            view.setCacheHint(CacheHint.SPEED);
+
+            Button viewImage = new Button(img.getName(), view);
+            viewImage.setContentDisplay(ContentDisplay.TOP);
+
+            // Source: https://stackoverflow.com/questions/18911186/how-do-setcache-and-cachehint-work-together-in-javafx (Date: Nov 9, 2017)
+            viewImage.setCache(true);
+            viewImage.setCacheHint(CacheHint.SPEED);
+
+            viewImage.setOnAction(
+                    e -> {
+                        ImageScene toScene = null;
+                        try {
+                            toScene = new ImageScene(img, directory, currentStage);
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                        currentStage.setScene(toScene.getImageScene());
+                    });
+            toAdd.add(viewImage);
+        }
+        pane.getChildren().addAll(toAdd);
     }
-    pane.getChildren().addAll(toAdd);
-  }
 }

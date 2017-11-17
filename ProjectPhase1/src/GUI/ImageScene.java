@@ -298,7 +298,7 @@ public class ImageScene {
     // add all logs as a line
     for (Entry e : imageLog) {
 
-      logs.append(e.toString()).append(" \n");
+      logs.append(e.toString()).append(System.lineSeparator());
     }
 
     // represent log as textArea

@@ -24,7 +24,7 @@ public class TagManager implements Serializable{
         } catch (FileNotFoundException e) {
             System.out.println("No file");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("IO Exception");
         } catch (ClassNotFoundException e) {
             System.out.println("Class not found");
         }
@@ -43,7 +43,7 @@ public class TagManager implements Serializable{
             System.out.println("No file");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("IO Exception");
         }
     }
 
