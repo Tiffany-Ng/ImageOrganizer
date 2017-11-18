@@ -1,6 +1,5 @@
 package GUI;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -9,6 +8,9 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -22,6 +24,7 @@ import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -196,6 +199,19 @@ public class ImageScene {
     Text directory = new Text();
     directory.setText(image.getDirectory().toString());
 
+    // button for opening the directory
+    Button openDir = new Button();
+    openDir.setText("Open Directory");
+
+    openDir.setOnAction(
+        e -> {
+          try {
+            Desktop.getDesktop().open(image.getDirectory());
+          } catch (IOException ex) {
+            ex.printStackTrace();
+          }
+        });
+
     // button for changing the directory
     Button changeDir = new Button();
     changeDir.setText("Change Directory");
@@ -211,6 +227,7 @@ public class ImageScene {
     dir.setSpacing(5.0);
 
     dir.getChildren().add(directory);
+    dir.getChildren().add(openDir);
     dir.getChildren().add(changeDir);
     changeDir.setAlignment(Pos.CENTER);
 
@@ -269,20 +286,18 @@ public class ImageScene {
                     });
               } else {
                 System.out.println("test");
-                newTag.hide();
-                relatedTags.addAll(TagManager.search(newValue));
-                newTag.setVisibleRowCount(relatedTags.size());
-                newTag.show();
+
                 // sited from
                 // https://stackoverflow.com/questions/30465313/javafx-textfield-with-listener-gives-java-lang-illegalargumentexception-the-s
                 Platform.runLater(
                     () -> {
-//                      newTag.hide();
-//                      newTag.getItems().clear();
-//                      newTag.getItems().addAll(relatedTags);
-//                      newTag.show();
+                      newTag.hide();
+                      relatedTags.addAll(TagManager.search(newValue));
+                      newTag.setVisibleRowCount(relatedTags.size());
+                      newTag.getItems().clear();
+                      newTag.getItems().addAll(relatedTags);
+                      newTag.show();
                     });
-
               }
               // else if (TagManager.tags.contains(newValue)){
               //                Platform.runLater(
