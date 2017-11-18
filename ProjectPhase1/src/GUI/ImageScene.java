@@ -300,9 +300,7 @@ class ImageScene {
                 });
 
         Button rename = new Button("Rename");
-        rename.setOnAction(e -> {
-            this.renameImageFile();
-        });
+        rename.setOnAction(e -> this.renameImageFile());
 
 
         back.setOnAction(
@@ -391,47 +389,6 @@ class ImageScene {
                             newTag.show();
                             newTag.setVisibleRowCount(10);
                         });
-
-        // TODO: seems redundant...remove?
-        //            newTag.getEditor().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-        //              if (event.getCode() == KeyCode.ENTER) {
-        //                  System.out.println("kdjla");
-        //                  if (newTag.getValue() instanceof String) {
-        //                      image.addTag((String) newTag.getValue());
-        //                      newTag.setValue("");
-        //                      newTag.hide();
-        //                  }
-        //                  // newTag.setValue("");
-        //                  addClickableTags();
-        //                  updateLog();
-        //                  imageNameUpdate();
-        //              }
-        //            });
-
-//    newTag
-//        .getEditor()
-//        .textProperty()
-//        .addListener(
-//            (observable, oldValue, newValue) -> {
-//              LinkedList<String> relatedTags = new LinkedList<>();
-//
-//              /*Platform.runLater(
-//                      () -> {
-//                          newTag.getItems().clear();
-//                          if (newValue.length() == 0) {
-//                              newTag.getItems().addAll(TagManager.tags);
-//                              newTag.setVisibleRowCount(10);
-//                          } else {
-//                              relatedTags.addAll(TagManager.search(newValue));
-//                              newTag.setVisibleRowCount(relatedTags.size());
-//                              newTag.getItems().addAll(relatedTags);
-//                          }
-//
-//                      });
-//              newTag.getEditor().setText(newValue);
-//              */
-//
-//            });
 
         HBox tagBox = new HBox();
         Button addTag = new Button("+");

@@ -24,10 +24,10 @@ import java.util.List;
 public class PicGrid {
 
     private static Stage currentStg;
-    public static File dir;
-    public static int changeDirPoint = 0;
-    public static boolean showAll = true;
-    public static ArrayList<Button> imageButtons = new ArrayList<>();
+    private static File dir;
+    private static int changeDirPoint = 0;
+    private static boolean showAll = true;
+    private static ArrayList<Button> imageButtons = new ArrayList<>();
 
     PicGrid(Stage currentStg, File dir) {
         PicGrid.currentStg = currentStg;

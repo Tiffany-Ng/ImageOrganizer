@@ -52,7 +52,7 @@ public class Log implements Iterable<Entry>, Serializable {
      *
      * @param e ManageImage.Entry
      */
-    public void addEntry(Entry e) {
+    void addEntry(Entry e) {
 
         history.add(e);
 
