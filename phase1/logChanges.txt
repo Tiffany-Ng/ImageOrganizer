@@ -613,3 +613,12 @@ Flaw: imageScene clips through taskbar
 
 Fix: imageScene height centre considers taskbar height
 
+#########
+#Log 69:
+
+Person: Allan
+
+Flaw: files can get desynced
+
+Fix: removes desynced files on load
+

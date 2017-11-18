@@ -5,10 +5,7 @@ import GUI.Main;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 
 /**
@@ -39,6 +36,7 @@ public class ImageManager implements Serializable {
       imageFiles.clear();
       imageFiles.addAll(removeDuplicates);
       objectInputStream.close();
+      imageFiles.removeIf(imageFile -> !imageFile.getFile().exists());
 
     } catch (IOException e) {
       Main.logger.log(Level.SEVERE, "ImageManager serialized file incorrectly read", e);
