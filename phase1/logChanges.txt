@@ -568,5 +568,14 @@ Flaw: If program is run several times on the same set of images, serialised file
 
 Fix: Implemented check for duplicate Images when reading from our.ser.
 
+#########
+#Log 64:
+
+Person: Akshat
+
+Flaw: code in ImageScene.java could be made more readable
+
+Fix: Implemented style changes in ImageScence.java.
+
 
 
