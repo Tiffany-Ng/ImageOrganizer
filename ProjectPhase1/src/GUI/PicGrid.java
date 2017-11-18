@@ -16,17 +16,18 @@ import ManageImage.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Shows a list of thumbnails of all images under the directory.
  */
-class PicGrid {
+public class PicGrid {
 
     private static Stage currentStg;
-    private static File dir;
-    private static int changeDirPoint = 0;
-    private static boolean showAll = true;
-    private ArrayList<Button> imageButtons = new ArrayList<>();
+    public static File dir;
+    public static int changeDirPoint = 0;
+    public static boolean showAll = true;
+    public static ArrayList<Button> imageButtons = new ArrayList<>();
 
     PicGrid(Stage currentStg, File dir) {
         PicGrid.currentStg = currentStg;
@@ -40,8 +41,7 @@ class PicGrid {
      * @return ArrayList an array list of all clickable image buttons
      */
     private static ArrayList<Button> gatherImages() {
-        ArrayList<Button> differentDirectory = new ArrayList<>();
-        ArrayList<Button> sameDirectory = new ArrayList<>();
+        ArrayList<Button> toAdd = new ArrayList<>();
         changeDirPoint = 0;
         for (ImageFile img : ImageManager.getImageFilesByDirectory(dir)) {
 
@@ -73,15 +73,14 @@ class PicGrid {
                     });
 
             if (img.getDirectory().equals(dir)) {
-                sameDirectory.add(viewImage);
+                toAdd.add(viewImage);
                 changeDirPoint += 1;
             }else{
-                differentDirectory.add(viewImage);
+                toAdd.add(viewImage);
             }
         }
 
-        sameDirectory.addAll(differentDirectory);
-        return sameDirectory;
+        return toAdd;
     }
 
     /**
@@ -142,5 +141,22 @@ class PicGrid {
         pane.getChildren().addAll(imageButtons);
         if (!showAll)
             pane.getChildren().removeAll(imageButtons.subList(changeDirPoint, imageButtons.size()));
+    }
+
+    /**
+     * Returns the ImageFiles displayed in PicGrid
+     *
+     * @return  ArrayList<ImageFile> the ImageFiles displayed in PicGrid
+     */
+    public static ArrayList<ImageFile> getDisplayedFiles() {
+        ArrayList<ImageFile> list = ImageManager.getImageFilesByDirectory(PicGrid.dir);
+
+        if (!(PicGrid.changeDirPoint == PicGrid.imageButtons.size()) && !PicGrid.showAll) {
+            List<ImageFile> toAdd = list.subList(PicGrid.changeDirPoint, list.size());
+            list.clear();
+            list.addAll(toAdd);
+        }
+
+        return list;
     }
 }

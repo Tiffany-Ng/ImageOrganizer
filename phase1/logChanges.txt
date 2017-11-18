@@ -639,3 +639,12 @@ Person: Prynciss
 Flaw: PicGrid should show all images including subdirectory at first
 
 Fix: PicGrid now shows all images including subdirectory at first
+
+#########
+#Log 72:
+
+Person: Prynciss
+
+Flaw: Add/Remove globally does it to every imageFile
+
+Fix: Add/remove globally only applies for ImageFiles currently displayed in PicGrid
