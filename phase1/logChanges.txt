@@ -630,3 +630,12 @@ Person: Allan
 Flaw: subdirectory filter does is broken
 
 Fix: correct subdirectory images are displayed or removed
+
+#########
+#Log 71:
+
+Person: Prynciss
+
+Flaw: PicGrid should show all images including subdirectory at first
+
+Fix: PicGrid now shows all images including subdirectory at first

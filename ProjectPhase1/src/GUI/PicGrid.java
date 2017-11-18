@@ -25,7 +25,7 @@ class PicGrid {
     private static Stage currentStg;
     private static File dir;
     private static int changeDirPoint = 0;
-    private static boolean showAll = false;
+    private static boolean showAll = true;
     private ArrayList<Button> imageButtons = new ArrayList<>();
 
     PicGrid(Stage currentStg, File dir) {
