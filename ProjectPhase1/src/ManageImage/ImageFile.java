@@ -188,14 +188,17 @@ public class ImageFile implements Serializable{
      * @param newName The ManageImage.ImageFile's new name
      * @throws InvalidNameException newName contains " @"
      */
-    public void rename(String newName) {
-        if (newName.contains(" @")) {
+    public boolean rename(String newName) {
+        if (newName.contains("@")) {
             Main.logger.log(Level.SEVERE, "Name inappropriately contains \" @\"", new InvalidNameException("Name contains \\\" @\\"));
+            return false;
         }
         String oldName = this.name;
         this.name = newName;
 
+        priorNames.add(nameWithTags());
         updateFile("ManageImage.ImageFile \"" + oldName + "\" was renamed to \"" + newName + "\"");
+        return true;
     }
 
     /**
@@ -207,7 +210,7 @@ public class ImageFile implements Serializable{
 
         List<String> priorTags = splitTags(priorNames.get(entryNumber));
 
-      priorNames.add(priorNames.remove(entryNumber));
+        priorNames.add(priorNames.remove(entryNumber));
 
         tags.clear();
         tags.addAll(priorTags);
@@ -287,6 +290,7 @@ public class ImageFile implements Serializable{
         if (tag.contains(tag)) {
             tags.remove(tag);
             //TagManager.remove(tag);
+            priorNames.add(nameWithTags());
             updateFile("Removed tag \"" + tag + "\" from image \"" + name + "\"");
         }
     }
