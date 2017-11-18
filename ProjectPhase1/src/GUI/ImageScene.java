@@ -327,7 +327,7 @@ public class ImageScene {
         e -> {
           if (newTag.getValue() instanceof String && ((String) newTag.getValue()).length() != 0) {
             image.addTag((String) newTag.getValue());
-            // newTag.setValue("");
+            newTag.setValue("");
           }
 
           addClickableTags();
@@ -336,19 +336,21 @@ public class ImageScene {
         });
 
     Button addToAll = new Button("Add to All");
-    addTag.setOnAction(
+    addToAll.setOnAction(
         e -> {
           if (newTag.getValue() instanceof String && ((String) newTag.getValue()).length() != 0) {
             ImageManager.addGlobalTag((String) newTag.getValue());
+            newTag.setValue("");
           }
 
         });
 
     Button deleteFromAll = new Button("Delete from All");
-    addTag.setOnAction(
+    deleteFromAll.setOnAction(
         e -> {
           if (newTag.getValue() instanceof String && ((String) newTag.getValue()).length() != 0) {
             ImageManager.deleteGlobalTag((String) newTag.getValue());
+            newTag.setValue("");
           }
         });
 

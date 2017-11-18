@@ -536,5 +536,19 @@ Person: Prynciss
 
 Added in button in PicGrid for showing images in and under the directory.
 
+#########
+#Log 60:
+
+Person: Prynciss
+
+Globally add/delete tags.
+
+#########
+#Log 61:
+
+Person: Prynciss
+
+Fixed bug in add tag button.
+
 
 
