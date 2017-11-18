@@ -586,6 +586,11 @@ Flaw: ImageScene clips screen, it is only centred for one resolution
 
 Fix: ImageScreen is centred for every resolution
 
+#########
+#Log 66:
 
+Person: Allan
 
+Flaw: Rename has no button
 
+Fix: Can rename image through button or enter

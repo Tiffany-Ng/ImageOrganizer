@@ -101,7 +101,6 @@ class ImageScene {
         prevScene.setResizable(false);
     }
 
-
     /**
      * cite : https://stackoverflow.com/questions/13880638/how-do-i-pick-up-the-enter-key-being-pressed-in-javafx2
      * rename the image to the name collected from the relevant texBox(on hitting enter)
@@ -109,27 +108,22 @@ class ImageScene {
      * @param name the textBox which contains the new name for the image
      */
     private void renameImageFile(TextField name) {
-        name.setOnKeyPressed(
-                k -> {
-                    if (k.getCode().equals(KeyCode.ENTER)) {
 
-                        if (!image.rename(name.getText())) {
+        if (!image.rename(name.getText())) {
 
-                            // http://code.makery.ch/blog/javafx-dialogs-official/
-                            Alert badName = new Alert(Alert.AlertType.ERROR);
-                            badName.setTitle("Invalid Name");
-                            badName.setHeaderText("The name you entered is invalid.");
-                            badName.setContentText("Make sure there are no '@' symbols in your name.");
-                            badName.showAndWait();
+            // http://code.makery.ch/blog/javafx-dialogs-official/
+            Alert badName = new Alert(Alert.AlertType.ERROR);
+            badName.setTitle("Invalid Name");
+            badName.setHeaderText("The name you entered is invalid.");
+            badName.setContentText("Make sure there are no '@' symbols in your name.");
+            badName.showAndWait();
 
-                        } else {
+        } else {
 
-                            addClickableTags();
-                            updateLog();
-                            imageNameUpdate();
-                        }
-                    }
-                });
+            addClickableTags();
+            updateLog();
+            imageNameUpdate();
+        }
     }
 
     /**
@@ -281,7 +275,18 @@ class ImageScene {
 
         TextField name = new TextField(image.getName());
         name.setEditable(true);
-        this.renameImageFile(name);
+        name.setOnKeyPressed(
+                k -> {
+                    if (k.getCode().equals(KeyCode.ENTER)) {
+                        this.renameImageFile(name);
+                    }
+                });
+
+        Button rename = new Button("Rename");
+        rename.setOnAction(e -> {
+            this.renameImageFile(name);
+        });
+
 
         back.setOnAction(
                 e -> new PicGrid(prevScene, this.directory).picGrid());
@@ -296,7 +301,7 @@ class ImageScene {
         this.revertOldTagName(revertName, name);  // gives functionality to the Button
 
         HBox imageName = new HBox();
-        imageName.getChildren().addAll(name, imageNames, revertName);
+        imageName.getChildren().addAll(name, rename, imageNames, revertName);
         imageName.setSpacing(5.0);
         layout.add(imageName, 1, 0, 1, 1);
 
