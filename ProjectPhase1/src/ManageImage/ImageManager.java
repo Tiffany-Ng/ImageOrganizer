@@ -7,6 +7,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 
 /**
@@ -30,6 +32,12 @@ public class ImageManager implements Serializable {
       FileInputStream inputStream = new FileInputStream("out.ser");
       ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
       imageFiles = (ArrayList<ManageImage.ImageFile>) objectInputStream.readObject();
+      Set<ImageFile> removeDuplicates = new HashSet<>();
+
+      // remove duplicate Images from ser file
+      removeDuplicates.addAll(imageFiles);
+      imageFiles.clear();
+      imageFiles.addAll(removeDuplicates);
       objectInputStream.close();
 
     } catch (IOException e) {

@@ -559,5 +559,14 @@ Flaw: Addition of a global tag did not ensure that the tag was added to the curr
 
 Fix: fixed this, and added feature that we go back to set of all images.
 
+#########
+#Log 63:
+
+Person: Akshat
+
+Flaw: If program is run several times on the same set of images, serialised file stores multiple copies...weird duplicate images are shown on the GUI
+
+Fix: Implemented check for duplicate Images when reading from our.ser.
+
 
 
