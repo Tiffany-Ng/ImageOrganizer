@@ -57,12 +57,15 @@ public class ImageScene {
      */
     private TextArea log;
 
-    ComboBox newTag;
-
     /**
      * Pane to hold clickable tags.
      */
     private FlowPane f;
+
+    /**
+     * Combo box to hold previously used tags
+     */
+    ComboBox newTag;
 
     /**
      * The directory that the user first opened
@@ -264,11 +267,13 @@ public class ImageScene {
         newTag.setEditable(true);
         newTag.getItems().addAll(TagManager.tags);
 
-
-        newTag.getEditor().setOnMouseClicked(e -> {
-            newTag.show();
-            newTag.setVisibleRowCount(10);
-        });
+        newTag
+                .getEditor()
+                .setOnMouseClicked(
+                        e -> {
+                            newTag.show();
+                            newTag.setVisibleRowCount(10);
+                        });
 
         //    newTag.getEditor().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
         //      if (event.getCode() == KeyCode.ENTER) {
@@ -291,30 +296,20 @@ public class ImageScene {
                 .addListener(
                         (observable, oldValue, newValue) -> {
                             LinkedList<String> relatedTags = new LinkedList<>();
-                            if (newValue.length() == 0) {
-                                Platform.runLater(
-                                        () -> {
-                                            newTag.getItems().clear();
+                            System.out.println(newValue);
+                            Platform.runLater(
+                                    () -> {
+                                        newTag.getItems().clear();
+                                        if (newValue.length() == 0) {
                                             newTag.getItems().addAll(TagManager.tags);
                                             newTag.setVisibleRowCount(10);
-                                        });
-                                // newTag.show();
-                            } else {
-//                newTag.hide();
-//                relatedTags.addAll(TagManager.search(newValue));
-//                newTag.setVisibleRowCount(relatedTags.size());
-//                System.out.println(relatedTags.size());
-//                newTag.show();
-//                // sited from
-//                // https: //
-//                // stackoverflow.com/questions/30465313/javafx-textfield-with-listener-gives-java-lang-illegalargumentexception-the-s
-//                Platform.runLater(
-//                    () -> {
-//                      newTag.getItems().clear();
-//                      newTag.getItems().addAll(relatedTags);
-//                      // newTag.setVisibleRowCount(relatedTags.size());
-//                    });
-                            }
+                                        } else {
+                                            relatedTags.addAll(TagManager.search(newValue));
+                                            newTag.setVisibleRowCount(relatedTags.size());
+                                            newTag.getItems().addAll(relatedTags);
+                                        }
+                                    });
+
                         });
 
         HBox tagBox = new HBox();
