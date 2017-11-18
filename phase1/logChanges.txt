@@ -577,5 +577,15 @@ Flaw: code in ImageScene.java could be made more readable
 
 Fix: Implemented style changes in ImageScence.java.
 
+#########
+#Log 65:
+
+Person: Allan
+
+Flaw: ImageScene clips screen, it is only centred for one resolution
+
+Fix: ImageScreen is centred for every resolution
+
+
 
 
