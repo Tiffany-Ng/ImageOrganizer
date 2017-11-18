@@ -488,5 +488,15 @@ Flaw: cleaned up PicGrid.java
 
 Fix: style changes
 
+#########
+#Log 55:
+
+Person: Amarnath
+
+Flaw: cannot rename image
+
+Fix: can now rename image
+
+
 
 
