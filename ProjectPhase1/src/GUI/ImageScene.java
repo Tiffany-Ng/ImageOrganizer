@@ -136,6 +136,36 @@ public class ImageScene {
     back.setText("<- Back");
     layout.add(back, 0, 0, 1, 1);
 
+      TextField name = new TextField(image.getName());
+      name.setEditable(true);
+
+      // https://stackoverflow.com/questions/13880638/how-do-i-pick-up-the-enter-key-being-pressed-in-javafx2
+      name.setOnKeyPressed(k -> {
+
+          if (k.getCode().equals(KeyCode.ENTER)) {
+
+              if (!image.rename(name.getText())) {
+
+                  // http://code.makery.ch/blog/javafx-dialogs-official/
+                  Alert badName = new Alert(Alert.AlertType.ERROR);
+                  badName.setTitle("Invalid Name");
+                  badName.setHeaderText("The name you entered is invalid.");
+                  badName.setContentText("Make sure there are no '@' symbols in your name.");
+                  badName.showAndWait();
+
+              }
+
+              else {
+
+                  updateLog();
+                  imageNameUpdate();
+
+              }
+
+          }
+
+      });
+
     back.setOnAction(
             e -> {
               new PicGrid(prevScene, this.directory).picGrid();
@@ -162,38 +192,10 @@ public class ImageScene {
                 updateLog();
                 addClickableTags();
                 imageNameUpdate();
+                name.setText(image.getName());
+
               }
             });
-
-    TextField name = new TextField(image.getName());
-    name.setEditable(true);
-
-    // https://stackoverflow.com/questions/13880638/how-do-i-pick-up-the-enter-key-being-pressed-in-javafx2
-    name.setOnKeyPressed(k -> {
-
-      if (k.getCode().equals(KeyCode.ENTER)) {
-
-        if (!image.rename(name.getText())) {
-
-          // http://code.makery.ch/blog/javafx-dialogs-official/
-          Alert badName = new Alert(Alert.AlertType.ERROR);
-          badName.setTitle("Invalid Name");
-          badName.setHeaderText("The name you entered is invalid.");
-          badName.setContentText("Make sure there are no '@' symbols in your name.");
-          badName.showAndWait();
-
-        }
-
-        else {
-
-          updateLog();
-          imageNameUpdate();
-
-        }
-
-      }
-
-    });
 
     HBox imageName = new HBox();
     imageName.getChildren().addAll(name, imageNames, revertName);
