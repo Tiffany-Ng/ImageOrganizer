@@ -112,15 +112,11 @@ class ImageScene {
      */
     private void renameImageFile() {
 
-        try {
+        boolean success = image.rename(name.getText());
+        addClickableTags();
+        updateLog();
 
-            image.rename(name.getText());
-            addClickableTags();
-            updateLog();
-            imageNameUpdate();
-
-        } catch (Exception e) {
-
+        if(!success){
             // http://code.makery.ch/blog/javafx-dialogs-official/
             createAlert("Invalid Name", "The name you entered is invalid.",
                     "A name should not contain ' @' and the name " + name.getText() + " must be available");
@@ -250,7 +246,7 @@ class ImageScene {
                             updateLog();
                             imageNameUpdate();
                         }else{
-                            createAlert("Remove Tag Error", "The tag '\"+newTag.getValue()+\"' was not removed successfully",
+                            createAlert("Remove Tag Error", "The tag '"+tag.getText()+"' was not removed successfully",
                                     "Tag name contains ' @' or the file name without the tag is likely occupied");
                         }
                     });
@@ -446,7 +442,7 @@ class ImageScene {
                         if(success) {
                             newTag.setValue("");
                         }else{
-                            createAlert("Add Tag Error", "The tag '"+newTag.getValue()+"' was not added successfully",
+                            createAlert("Add Tag Error", "The tag '" +newTag.getValue()+ "' was not added successfully",
                                     "Tag name contains ' @' or the file name with the additional tag is occupied");
                         }
                     }

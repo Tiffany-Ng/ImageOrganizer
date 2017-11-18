@@ -671,3 +671,12 @@ Image name textbox is synced to image's name
 PicGrid does not cover taskbar
 Dedicated function for alert box creation
 prior name is added only if the change succeeds
+
+#########
+#Log 74:
+
+Person: Allan
+
+Flaw: Alertbox broke with conflict fix
+
+Fix: Alertbox behaves as expected
