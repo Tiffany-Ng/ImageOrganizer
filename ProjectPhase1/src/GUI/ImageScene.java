@@ -245,6 +245,15 @@ public class ImageScene {
         Button openDir = new Button();
         openDir.setText("Open Directory");
 
+      openDir.setOnAction(
+              e -> {
+                try {
+                  Desktop.getDesktop().open(image.getDirectory());
+                } catch (IOException ex) {
+                  Main.logger.warning("Can't open directory");
+                }
+              });
+
         // button for changing the directory
         Button changeDir = new Button();
         changeDir.setText("Change Directory");
@@ -271,7 +280,7 @@ public class ImageScene {
 
         // flow.getChildren().add(changeDir);
 
-        newTag = new ComboBox();
+        ComboBox newTag = new ComboBox();
         newTag.setEditable(true);
         newTag.getItems().addAll(TagManager.tags);
 
@@ -283,20 +292,20 @@ public class ImageScene {
                             newTag.setVisibleRowCount(10);
                         });
 
-        //    newTag.getEditor().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-        //      if (event.getCode() == KeyCode.ENTER) {
-        //          System.out.println("kdjla");
-        //          if (newTag.getValue() instanceof String) {
-        //              image.addTag((String) newTag.getValue());
-        //              newTag.setValue("");
-        //              newTag.hide();
-        //          }
-        //          // newTag.setValue("");
-        //          addClickableTags();
-        //          updateLog();
-        //          imageNameUpdate();
-        //      }
-        //    });
+//            newTag.getEditor().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+//              if (event.getCode() == KeyCode.ENTER) {
+//                  System.out.println("kdjla");
+//                  if (newTag.getValue() instanceof String) {
+//                      image.addTag((String) newTag.getValue());
+//                      newTag.setValue("");
+//                      newTag.hide();
+//                  }
+//                  // newTag.setValue("");
+//                  addClickableTags();
+//                  updateLog();
+//                  imageNameUpdate();
+//              }
+//            });
 
         newTag
                 .getEditor()

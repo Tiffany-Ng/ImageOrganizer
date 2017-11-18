@@ -529,5 +529,12 @@ Person: Prynciss
 
 Merged Allan and Amarnath's code
 
+#########
+#Log 59:
+
+Person: Prynciss
+
+Added in button in PicGrid for showing images in and under the directory.
+
 
 
