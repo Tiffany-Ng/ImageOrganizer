@@ -102,6 +102,7 @@ class PicGrid {
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
 
+        currentStg.setResizable(true);
         currentStg.setMaximized(true);
         scrollPane.setMinViewportWidth(currentStg.getWidth());
         scrollPane.setMinViewportHeight(currentStg.getHeight());

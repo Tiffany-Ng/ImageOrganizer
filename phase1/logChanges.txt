@@ -640,3 +640,16 @@ Flaw: prior names of imageFile can contain duplicate names
 
 Fix: prior names of imageFile contains unique previous names
 
+#########
+#Log 71:
+
+Person: Allan
+
+Fixes:
+When a name change fails, the user is alerted
+Preconditions will stop code from running
+ImageFile reverts correctly
+Image name textbox is synced to image's name
+PicGrid does not cover taskbar
+Dedicated function for alert box creation
+prior name is added only if the change succeeds

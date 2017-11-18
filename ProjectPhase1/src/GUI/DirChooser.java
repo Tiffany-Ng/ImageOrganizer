@@ -64,10 +64,9 @@ class DirChooser {
      * @param dirTextField the TextField for showing the chosen directory
      */
     private static void btmMethod(Button button, boolean file, Stage currentStage, Stage chooser, Text error, TextField dirTextField) {
-        if (file) {
-            button.setOnAction(
-                    e -> {
-
+        button.setOnAction(
+                e -> {
+                    if (file) {
                         directory = new File(dirTextField.getText());
 
                         if (directory.isDirectory()) {
@@ -81,11 +80,7 @@ class DirChooser {
                         } else {
                             error.setVisible(true);
                         }
-                    });
-        } else {
-            button.setOnAction(
-                    e -> {
-
+                    }else {
                         directory = new File(dirTextField.getText());
 
                         if (directory.isDirectory()) {
@@ -99,8 +94,8 @@ class DirChooser {
                         } else {
                             error.setVisible(true);
                         }
-                    });
-        }
+                    }
+                });
     }
 
     /**

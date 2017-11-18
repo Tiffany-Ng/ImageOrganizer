@@ -52,6 +52,11 @@ class ImageScene {
     private TextArea log;
 
     /**
+     * Image's name
+     */
+    TextField name;
+
+    /**
      * Pane to hold clickable tags.
      */
     private FlowPane f;
@@ -104,25 +109,28 @@ class ImageScene {
     /**
      * cite : https://stackoverflow.com/questions/13880638/how-do-i-pick-up-the-enter-key-being-pressed-in-javafx2
      * rename the image to the name collected from the relevant texBox(on hitting enter)
-     *
-     * @param name the textBox which contains the new name for the image
      */
-    private void renameImageFile(TextField name) {
+    private void renameImageFile() {
 
         if (!image.rename(name.getText())) {
 
             // http://code.makery.ch/blog/javafx-dialogs-official/
-            Alert badName = new Alert(Alert.AlertType.ERROR);
-            badName.setTitle("Invalid Name");
-            badName.setHeaderText("The name you entered is invalid.");
-            badName.setContentText("Make sure there are no '@' symbols in your name.");
-            badName.showAndWait();
-
+            createAlert("Invalid Name", "The name you entered is invalid.",
+                    "A name should not contain ' @' and the name " + name.getText() + " must be available");
+            imageNameUpdate();
         } else {
             addClickableTags();
             updateLog();
             imageNameUpdate();
         }
+    }
+
+    private void createAlert(String title, String header, String content){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     /**
@@ -142,11 +150,14 @@ class ImageScene {
                         // https://stackoverflow.com/questions/14987971/added-elements-in-arraylist-in-the-reverse-order-in-java
                         Collections.reverse(allNames);
 
-                        image.revertName(allNames.indexOf(imageNames.getValue()));
+                        boolean success = image.revertName(allNames.indexOf(imageNames.getValue()));
+                        if(!success){
+                            createAlert("Revert Error", "The revert is invalid",
+                                    "The file name " + imageNames.getValue() + " must be available");
+                        }
                         updateLog();
                         addClickableTags();
                         imageNameUpdate();
-                        name.setText(image.getName());
                     }
                 });
     }
@@ -163,10 +174,11 @@ class ImageScene {
 
 
     /**
-     * Update the comboBox of image names.
+     * Update the comboBox of image names and the text box name.
      */
     private void imageNameUpdate() {
 
+        name.setText(image.getName());
         imageNames.getItems().clear();
 
         for (String name : image.getPriorNames()) {
@@ -177,6 +189,7 @@ class ImageScene {
             Collections.reverse(imageNames.getItems());
             imageNames.getSelectionModel().selectFirst();
         }
+
     }
 
     /**
@@ -227,10 +240,15 @@ class ImageScene {
 
             tag.setOnAction(
                     e -> {
-                        image.removeTag(tag.getText());
-                        f.getChildren().remove(tag);
-                        updateLog();
-                        imageNameUpdate();
+                        boolean success = image.removeTag(tag.getText());
+                        if(success) {
+                            f.getChildren().remove(tag);
+                            updateLog();
+                            imageNameUpdate();
+                        }else{
+                            createAlert("Remove Tag Error", "The tag '\"+newTag.getValue()+\"' was not removed successfully",
+                                    "Tag name contains ' @' or the file name without the tag is likely occupied");
+                        }
                     });
 
             f.getChildren().add(tag);
@@ -272,18 +290,18 @@ class ImageScene {
         back.setText("<- Back");
         layout.add(back, 0, 0, 1, 1);
 
-        TextField name = new TextField(image.getName());
+        name = new TextField(image.getName());
         name.setEditable(true);
         name.setOnKeyPressed(
                 k -> {
                     if (k.getCode().equals(KeyCode.ENTER)) {
-                        this.renameImageFile(name);
+                        this.renameImageFile();
                     }
                 });
 
         Button rename = new Button("Rename");
         rename.setOnAction(e -> {
-            this.renameImageFile(name);
+            this.renameImageFile();
         });
 
 
@@ -420,8 +438,13 @@ class ImageScene {
         addTag.setOnAction(
                 e -> {
                     if (checkValidTagName(newTag)) {   // TODO: change this if-clause
-                        image.addTag((String) newTag.getValue());
-                        newTag.setValue("");
+                        boolean success = image.addTag((String) newTag.getValue());
+                        if(success) {
+                            newTag.setValue("");
+                        }else{
+                            createAlert("Add Tag Error", "The tag '"+newTag.getValue()+"' was not added successfully",
+                                    "Tag name contains ' @' or the file name with the additional tag is occupied");
+                        }
                     }
 
                     addClickableTags();
