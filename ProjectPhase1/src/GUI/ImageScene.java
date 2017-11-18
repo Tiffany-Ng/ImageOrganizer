@@ -112,17 +112,21 @@ class ImageScene {
      */
     private void renameImageFile() {
 
-        if (!image.rename(name.getText())) {
+        try {
+
+            image.rename(name.getText());
+            addClickableTags();
+            updateLog();
+            imageNameUpdate();
+
+        } catch (Exception e) {
 
             // http://code.makery.ch/blog/javafx-dialogs-official/
             createAlert("Invalid Name", "The name you entered is invalid.",
                     "A name should not contain ' @' and the name " + name.getText() + " must be available");
             imageNameUpdate();
-        } else {
-            addClickableTags();
-            updateLog();
-            imageNameUpdate();
         }
+
     }
 
     private void createAlert(String title, String header, String content){

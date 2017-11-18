@@ -16,40 +16,27 @@ import java.util.logging.Level;
 
 public class ImageFile implements Serializable {
 
-    /**
-     * The File object of the image
-     */
+    /** The File object of the image */
     private File imageFile;
-    /**
-     * The list of image tags
-     */
+    /** The list of image tags */
     private ArrayList<String> tags;
-    /**
-     * The name without tags
-     */
+    /** The name without tags */
     private String name;
 
-    /**
-     * The history of the image
-     */
+    /** The history of the image */
     private Log log;
 
-    /**
-     * Extension of image
-     */
+    /** Extension of image */
     private String extension;
 
-    /**
-     * Directory of image
-     */
+    /** Directory of image */
     private File directory;
 
     private List<String> priorNames;
 
     /**
      * Construct an image representing File imageFile
-     * <p>
-     * <p>Precondition: imageFile is a valid image
+     * <p>Precondition: imageFile is a valid image</p>
      *
      * @param imageFile The File object of the image
      * @throws InvalidFileException imageFile is an invalid image
@@ -114,8 +101,7 @@ public class ImageFile implements Serializable {
 
     /**
      * Get the tags of this image
-     * <p>
-     * <p>The returned list is a cloned copy. Changes to list will not mutate this image
+     * <p>The returned list is a cloned copy. Changes to list will not mutate this image</p>
      *
      * @return The tags of this image
      */
@@ -125,7 +111,6 @@ public class ImageFile implements Serializable {
 
     /**
      * Get the log of this image
-     * <p>
      * <p>The returned ManageImage.Log is mutable and will affect ManageImage.ImageFile.
      *
      * @return The ManageImage.Log of this image
@@ -165,7 +150,6 @@ public class ImageFile implements Serializable {
 
     /**
      * Get the file this image represents
-     * <p>
      * <p>The returned file is a cloned copy. Changes, especially changes that mutate the actual file,
      * may affect if this image's file is valid.
      *
@@ -190,6 +174,8 @@ public class ImageFile implements Serializable {
                     Level.SEVERE,
                     "Name inappropriately contains \" @\"",
                     new InvalidNameException("Name contains \\\" @\\"));
+            return false;
+        }else if(newName.equals(this.name)){
             return false;
         }else{
             String oldName = this.name;
@@ -231,7 +217,6 @@ public class ImageFile implements Serializable {
 
     /**
      * Moves this ManageImage.ImageFile to newDirectory
-     * <p>
      * <p>Precondition: newDirectory is a valid directory
      *
      * @param newDirectory the directory that will store the image
@@ -254,7 +239,6 @@ public class ImageFile implements Serializable {
 
     /**
      * Adds tag to image
-     * <p>
      * <p>Precondition: tag does not contain " @"
      *
      * @param tag to add
@@ -277,7 +261,6 @@ public class ImageFile implements Serializable {
 
     /**
      * Adds tags to image
-     * <p>
      * <p>Precondition: tag in tags does not contain " @"
      *
      * @param tags list of tags to add

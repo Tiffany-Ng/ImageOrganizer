@@ -1,6 +1,7 @@
 package ManageImage;
 
 import GUI.Main;
+import GUI.PicGrid;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -242,9 +243,12 @@ public class ImageManager implements Serializable {
    * @param tag The tag to delete from TagManager.tags and ImageFiles all containing that tag.
    */
   public static void deleteGlobalTag(String tag) {
-    for (ImageFile file : imageFiles) {
+
+    ArrayList<ImageFile> list = PicGrid.getDisplayedFiles();
+    for (ImageFile file : list) {
       file.removeTag(tag);
     }
+    if (TagManager.tags.contains(tag))
     TagManager.tags.remove(tag);
   }
 
@@ -254,6 +258,10 @@ public class ImageManager implements Serializable {
    * @param tag The tag to add to TagManager.tags and ImageFiles
    */
   public static void addGlobalTag(String tag) {
-    for (ImageFile file : imageFiles) file.addTag(tag);
+    ArrayList<ImageFile> list = PicGrid.getDisplayedFiles();
+
+    for (ImageFile file : list) file.addTag(tag);
   }
+
+
 }
