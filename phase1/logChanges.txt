@@ -491,6 +491,15 @@ Fix: style changes
 #########
 #Log 55:
 
+Person: Allan
+
+Flaw: Can't open image's directory
+
+Fix: Added button that opens image's directory
+
+#########
+#Log 56:
+
 Person: Amarnath
 
 Flaw: cannot rename image
@@ -498,7 +507,7 @@ Flaw: cannot rename image
 Fix: can now rename image
 
 #########
-#Log 56:
+#Log 57:
 
 Person: Amarnath
 

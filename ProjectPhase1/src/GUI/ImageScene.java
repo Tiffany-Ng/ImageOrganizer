@@ -1,6 +1,5 @@
 package GUI;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,6 +9,10 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -23,6 +26,7 @@ import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -126,9 +130,9 @@ public class ImageScene {
         layout.add(back, 0, 0, 1, 1);
 
         back.setOnAction(
-            e -> {
-                new PicGrid(prevScene, this.directory).picGrid();
-            });
+                e -> {
+                    new PicGrid(prevScene, this.directory).picGrid();
+                });
 
         // https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm
         imageNames = new ComboBox<>();
@@ -138,22 +142,21 @@ public class ImageScene {
 
         Button revertName = new Button("Revert");
         revertName.setOnAction(
-            event -> {
-                if (!imageNames.getSelectionModel().isEmpty()
-                        && !image.nameWithTags().equals(imageNames.getValue())) {
+                event -> {
+                    if (!imageNames.getSelectionModel().isEmpty()
+                            && !image.nameWithTags().equals(imageNames.getValue())) {
 
-                    ArrayList<String> allNames = new ArrayList<>(imageNames.getItems());
+                        ArrayList<String> allNames = new ArrayList<>(imageNames.getItems());
 
-                    // https://stackoverflow.com/questions/14987971/added-elements-in-arraylist-in-the-reverse-order-in-java
-                    Collections.reverse(allNames);
+                        // https://stackoverflow.com/questions/14987971/added-elements-in-arraylist-in-the-reverse-order-in-java
+                        Collections.reverse(allNames);
 
-                    image.revertName(allNames.indexOf(imageNames.getValue()));
-                    updateLog();
-                    addClickableTags();
-                    imageNameUpdate();
-                }
-            });
-
+                        image.revertName(allNames.indexOf(imageNames.getValue()));
+                        updateLog();
+                        addClickableTags();
+                        imageNameUpdate();
+                    }
+                });
 
         TextField name = new TextField(image.getName());
         name.setEditable(true);
@@ -228,6 +231,11 @@ public class ImageScene {
         Text directory = new Text();
         directory.setText(image.getDirectory().toString());
 
+
+        // button for opening the directory
+        Button openDir = new Button();
+        openDir.setText("Open Directory");
+
         // button for changing the directory
         Button changeDir = new Button();
         changeDir.setText("Change Directory");
@@ -243,6 +251,7 @@ public class ImageScene {
         dir.setSpacing(5.0);
 
         dir.getChildren().add(directory);
+        dir.getChildren().add(openDir);
         dir.getChildren().add(changeDir);
         changeDir.setAlignment(Pos.CENTER);
 
@@ -257,14 +266,16 @@ public class ImageScene {
         newTag.setEditable(true);
         newTag.getItems().addAll(TagManager.tags);
 
-
-        newTag.getEditor().setOnMouseClicked(e -> {
-            newTag.show();
-            newTag.setVisibleRowCount(10);
-        });
+        newTag
+                .getEditor()
+                .setOnMouseClicked(
+                        e -> {
+                            newTag.show();
+                            newTag.setVisibleRowCount(10);
+                        });
 
         //    newTag.getEditor().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-        //      if (event.getCode()A == KeyCode.ENTER) {
+        //      if (event.getCode() == KeyCode.ENTER) {
         //          System.out.println("kdjla");
         //          if (newTag.getValue() instanceof String) {
         //              image.addTag((String) newTag.getValue());
@@ -284,30 +295,46 @@ public class ImageScene {
                 .addListener(
                         (observable, oldValue, newValue) -> {
                             LinkedList<String> relatedTags = new LinkedList<>();
+                            System.out.println(newValue);
                             if (newValue.length() == 0) {
                                 Platform.runLater(
                                         () -> {
+                                            newTag.hide();
                                             newTag.getItems().clear();
                                             newTag.getItems().addAll(TagManager.tags);
                                             newTag.setVisibleRowCount(10);
+                                            System.out.println("clear");
+                                            newTag.setValue("");
+                                            if (!TagManager.tags.get(TagManager.tags.size() - 1).equals(oldValue))
+                                                newTag.show();
                                         });
-                                // newTag.show();
                             } else {
-//                newTag.hide();
-//                relatedTags.addAll(TagManager.search(newValue));
-//                newTag.setVisibleRowCount(relatedTags.size());
-//                System.out.println(relatedTags.size());
-//                newTag.show();
-//                // sited from
-//                // https: //
-//                // stackoverflow.com/questions/30465313/javafx-textfield-with-listener-gives-java-lang-illegalargumentexception-the-s
-//                Platform.runLater(
-//                    () -> {
-//                      newTag.getItems().clear();
-//                      newTag.getItems().addAll(relatedTags);
-//                      // newTag.setVisibleRowCount(relatedTags.size());
-//                    });
+                                System.out.println("test");
+
+                                // sited from
+                                // https://stackoverflow.com/questions/30465313/javafx-textfield-with-listener-gives-java-lang-illegalargumentexception-the-s
+                                Platform.runLater(
+                                        () -> {
+                                            newTag.hide();
+                                            relatedTags.addAll(TagManager.search(newValue));
+                                            newTag.setVisibleRowCount(relatedTags.size());
+                                            newTag.getItems().clear();
+                                            newTag.getItems().addAll(relatedTags);
+                                            newTag.show();
+                                        });
                             }
+                            // else if (TagManager.tags.contains(newValue)){
+                            //                Platform.runLater(
+                            //                    () -> {
+                            //                      newTag.hide();
+                            //                      newTag.getItems().clear();
+                            //                      newTag.getItems().add(newValue);
+                            //                      newTag.setVisibleRowCount(1);
+                            //                      newTag.show();
+                            //                    });
+                            //              } else {
+                            //                newTag.hide();
+                            //              }
                         });
 
         Button addTag = new Button("+");
@@ -315,15 +342,14 @@ public class ImageScene {
                 e -> {
                     if (newTag.getValue() instanceof String && ((String) newTag.getValue()).length() != 0) {
                         image.addTag((String) newTag.getValue());
-                        //newTag.setValue("");
+                        addClickableTags();
+                        updateLog();
+                        imageNameUpdate();
                     }
                     newTag.setValue("");
                     newTag.hide();
-
-                    addClickableTags();
-                    updateLog();
-                    imageNameUpdate();
                 });
+
 
         HBox tagBox = new HBox();
         tagBox.getChildren().addAll(newTag, addTag);
