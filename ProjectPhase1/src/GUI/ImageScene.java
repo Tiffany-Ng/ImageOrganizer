@@ -174,7 +174,7 @@ public class ImageScene {
         // https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm
         imageNames = new ComboBox<>();
         imageNameUpdate();
-        imageNames.setMaxWidth(720);
+        imageNames.setMaxWidth(590);
         imageNames.getSelectionModel().selectFirst();
 
         Button revertName = new Button("Revert");
@@ -331,7 +331,7 @@ public class ImageScene {
                         image.addTag((String) newTag.getValue());
                         //newTag.setValue("");
                     }
-                    
+
                     addClickableTags();
                     updateLog();
                     imageNameUpdate();
