@@ -109,20 +109,24 @@ class ImageScene {
      */
     private void renameImageFile(TextField name) {
 
-        if (!image.rename(name.getText())) {
+        try {
+
+            image.rename(name.getText());
+            addClickableTags();
+            updateLog();
+            imageNameUpdate();
+
+        } catch (Exception e) {
 
             // http://code.makery.ch/blog/javafx-dialogs-official/
             Alert badName = new Alert(Alert.AlertType.ERROR);
             badName.setTitle("Invalid Name");
             badName.setHeaderText("The name you entered is invalid.");
-            badName.setContentText("Make sure there are no '@' symbols in your name.");
+            badName.setContentText(e.getMessage());
             badName.showAndWait();
 
-        } else {
-            addClickableTags();
-            updateLog();
-            imageNameUpdate();
         }
+
     }
 
     /**
