@@ -488,5 +488,16 @@ Flaw: cleaned up PicGrid.java
 
 Fix: style changes
 
+#########
+#Log 55:
+
+Person: Allan
+
+Flaw: Can't open image's directory
+
+Fix: Added button that opens image's directory
+
+
+
 
 
