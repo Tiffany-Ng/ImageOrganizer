@@ -41,7 +41,8 @@ public class PicGrid {
      * @return ArrayList an array list of all clickable image buttons
      */
     private static ArrayList<Button> gatherImages() {
-        ArrayList<Button> toAdd = new ArrayList<>();
+        ArrayList<Button> sameDirectory = new ArrayList<>();
+        ArrayList<Button> differentDirectory = new ArrayList<>();
         changeDirPoint = 0;
         for (ImageFile img : ImageManager.getImageFilesByDirectory(dir)) {
 
@@ -73,14 +74,15 @@ public class PicGrid {
                     });
 
             if (img.getDirectory().equals(dir)) {
-                toAdd.add(viewImage);
+                sameDirectory.add(viewImage);
                 changeDirPoint += 1;
             }else{
-                toAdd.add(viewImage);
+                differentDirectory.add(viewImage);
             }
         }
 
-        return toAdd;
+        sameDirectory.addAll(differentDirectory);
+        return sameDirectory;
     }
 
     /**

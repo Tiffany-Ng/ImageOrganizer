@@ -680,3 +680,12 @@ Person: Allan
 Flaw: Alertbox broke with conflict fix
 
 Fix: Alertbox behaves as expected
+
+#########
+#Log 77:
+
+Person: Allan
+
+Flaw: Git automatic merge broke subdirectory filter
+
+Fix: Fixed subdirectory filter
