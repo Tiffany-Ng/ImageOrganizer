@@ -58,7 +58,8 @@ public class ImageManager implements Serializable {
     } catch (FileNotFoundException e) {
       Main.logger.log(Level.SEVERE, "ImageManager serialized file not found for writing", e);
     } catch (IOException e) {
-      Main.logger.log(Level.SEVERE, "ImageManager serialized file incorrectly read", e);    }
+      Main.logger.log(Level.SEVERE, "ImageManager serialized file incorrectly read", e);
+    }
   }
 
   /**
@@ -210,7 +211,8 @@ public class ImageManager implements Serializable {
         addImage(new ImageFile(f));
 
       } catch (IOException e) {
-        Main.logger.log(Level.SEVERE, "ImageManager serialized file incorrectly read", e);      }
+        Main.logger.log(Level.SEVERE, "ImageManager serialized file incorrectly read", e);
+      }
     }
   }
 
@@ -226,5 +228,24 @@ public class ImageManager implements Serializable {
 
     // convert the files into an array-List of ManageImage.ImageFile objects.
     convertToImageObjects(files);
+  }
+
+  /**
+   * Delete a tag from TagManager.tags and all ImageFiles containing that tag.
+   *
+   * @param tag The tag to delete from TagManager.tags and ImageFiles all containing that tag.
+   */
+  public static void deleteGlobalTag(String tag) {
+    for (ImageFile file : imageFiles) file.removeTag(tag);
+    TagManager.tags.remove(tag);
+  }
+
+  /**
+   * Add a tag from TagManager.tags and all ImageFiles containing that tag.
+   *
+   * @param tag The tag to add to TagManager.tags and ImageFiles
+   */
+  public static void addGlobalTag(String tag) {
+    for (ImageFile file : imageFiles) file.addTag(tag);
   }
 }
