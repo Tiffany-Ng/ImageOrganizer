@@ -304,8 +304,8 @@ public class ImageScene {
                 .addListener(
                         (observable, oldValue, newValue) -> {
                             LinkedList<String> relatedTags = new LinkedList<>();
-                            System.out.println(newValue);
-                            Platform.runLater(
+
+                            /*Platform.runLater(
                                     () -> {
                                         newTag.getItems().clear();
                                         if (newValue.length() == 0) {
@@ -316,7 +316,10 @@ public class ImageScene {
                                             newTag.setVisibleRowCount(relatedTags.size());
                                             newTag.getItems().addAll(relatedTags);
                                         }
+
                                     });
+                            newTag.getEditor().setText(newValue);
+                            */
 
                         });
 
@@ -328,14 +331,11 @@ public class ImageScene {
                         image.addTag((String) newTag.getValue());
                         //newTag.setValue("");
                     }
-                    tagBox.getChildren().removeAll(newTag, addTag);
-                    newTag = new ComboBox();
-                    newTag.setEditable(true);
-                    newTag.getItems().addAll(TagManager.tags);
-                    tagBox.getChildren().addAll(newTag, addTag);
+                    
                     addClickableTags();
                     updateLog();
                     imageNameUpdate();
+
                 });
 
         Text instruction = new Text();
