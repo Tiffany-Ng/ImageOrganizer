@@ -604,3 +604,12 @@ Flaw: imageNames ComboBox does not display first element, leaves value empty
 
 Fix: imageNames ComboBox displays first element per update
 
+#########
+#Log 68:
+
+Person: Allan
+
+Flaw: imageScene clips through taskbar
+
+Fix: imageScene height centre considers taskbar height
+

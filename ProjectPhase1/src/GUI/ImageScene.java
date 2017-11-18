@@ -95,7 +95,7 @@ class ImageScene {
         prevScene.setHeight(750);
 
         // cite: https://stackoverflow.com/questions/3680221/how-can-i-get-screen-resolution-in-java
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Rectangle screenSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
         prevScene.setX((screenSize.getWidth() - prevScene.getWidth())/2);
         prevScene.setY((screenSize.getHeight() - prevScene.getHeight())/2);
         prevScene.setResizable(false);
