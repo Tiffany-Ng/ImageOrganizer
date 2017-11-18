@@ -90,7 +90,10 @@ class DirChooser {
 
                         if (directory.isDirectory()) {
                             ImageManager.createImagesFromDirectory(directory.toString());
-                            PicGrid.picGrid(currentStage, directory);
+
+                            PicGrid p = new PicGrid(currentStage, directory);
+                            p.picGrid();
+
                             currentStage.show();
                             chooser.hide();
                         } else {
@@ -117,7 +120,7 @@ class DirChooser {
         Button dirChooserBtn = new Button();
         dirChooserBtn.setText("...");
 
-        Button goBtn = new Button();
+        Button goBtn = new Button();   // TODO: unanimous button creator
         goBtn.setText("Go");
 
         TextField dirTextField = new TextField();
@@ -137,7 +140,6 @@ class DirChooser {
         pane.setHgap(10);
         pane.setVgap(10);
         pane.setPadding(new Insets(5, 5, 5, 5));
-
         pane.add(error, 4, 8);
         pane.add(dirTextField, 4, 7);
         pane.add(dirChooserBtn, 5, 7);

@@ -22,47 +22,22 @@ import java.util.ArrayList;
  */
 class PicGrid {
 
+    private static Stage currentStg;
+    private static File dir;
+
+    public PicGrid(Stage currentStg, File dir){
+        PicGrid.currentStg = currentStg;
+        PicGrid.dir = dir;
+    }
+
     /**
-     * Sets the pane and ImageFiles in a grid like format.
+     * Return a view of all images form a directory, onto the GUI
      *
-     * @param currentStage the Stage that the user is in
-     * @param directory the chosen directory
+     * @return ArrayList an array list of all clickable image buttons
      */
-    static void picGrid(Stage currentStage, File directory) {
-
-        currentStage.setTitle("Image Viewer - List images");
-
-        FlowPane pane = new FlowPane();
-        pane.setPadding(new Insets(20, 20, 5, 20));
-        pane.setVgap(15);
-        pane.setHgap(15);
-        pane.setPrefWrapLength(300);
-
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setContent(pane);
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-
-        currentStage.setMaximized(true);
-        scrollPane.setMinViewportWidth(currentStage.getWidth());
-        scrollPane.setMinViewportHeight(currentStage.getHeight());
-
-        Scene scene = new Scene(scrollPane);
-        currentStage.setScene(scene);
-
-        Button chooseDirectory = new Button("Select directory");
-        chooseDirectory.setOnAction(
-                e -> {
-                    DirChooser.dirChooser(currentStage);
-                });
-        pane.getChildren().add(chooseDirectory);
-
-        Label currentDirectory = new Label(directory.toString());
-        currentDirectory.setMinWidth(2000);
-        pane.getChildren().add(currentDirectory);
-
+    private static ArrayList<Button> gatherImages(){
         ArrayList<Button> toAdd = new ArrayList<>();
-        for (ImageFile img : ImageManager.getImageFilesByDirectory(directory)) {
+        for (ImageFile img : ImageManager.getImageFilesByDirectory(dir)) {
 
             Image image = new Image("file:///" + img.getFile().toString(), 200, 200, true, true, true);
             ImageView view = new ImageView(image);
@@ -82,14 +57,54 @@ class PicGrid {
                     e -> {
                         ImageScene toScene = null;
                         try {
-                            toScene = new ImageScene(img, directory, currentStage);
+                            toScene = new ImageScene(img, dir, currentStg);
                         } catch (IOException e1) {
                             e1.printStackTrace();
                         }
-                        currentStage.setScene(toScene.getImageScene());
+                        currentStg.setScene(toScene.getImageScene());
                     });
             toAdd.add(viewImage);
         }
-        pane.getChildren().addAll(toAdd);
+
+        return toAdd;
+    }
+
+    /**
+     * Sets the pane and ImageFiles for GUI in a grid like format.
+     */
+     void picGrid() {
+
+        currentStg.setTitle("Image Viewer - List images");
+
+        FlowPane pane = new FlowPane();
+        pane.setPadding(new Insets(20, 20, 5, 20));
+        pane.setVgap(15);
+        pane.setHgap(15);
+        pane.setPrefWrapLength(300);
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(pane);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+
+        currentStg.setMaximized(true);
+        scrollPane.setMinViewportWidth(currentStg.getWidth());
+        scrollPane.setMinViewportHeight(currentStg.getHeight());
+
+        Scene scene = new Scene(scrollPane);
+        currentStg.setScene(scene);
+
+        Button chooseDirectory = new Button("Select directory");
+        chooseDirectory.setOnAction(
+                e -> DirChooser.dirChooser(currentStg));
+
+        pane.getChildren().add(chooseDirectory);
+
+        Label currentDirectory = new Label(dir.toString());
+        currentDirectory.setMinWidth(2000);
+        pane.getChildren().add(currentDirectory);
+
+        ArrayList<Button> imageButtons = gatherImages();
+        pane.getChildren().addAll(imageButtons);
     }
 }
