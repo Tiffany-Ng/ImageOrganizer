@@ -622,3 +622,11 @@ Flaw: files can get desynced
 
 Fix: removes desynced files on load
 
+#########
+#Log 70:
+
+Person: Allan
+
+Flaw: subdirectory filter does is broken
+
+Fix: correct subdirectory images are displayed or removed
