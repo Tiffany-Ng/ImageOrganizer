@@ -126,7 +126,7 @@ public class ImageScene {
 
     back.setOnAction(
         e -> {
-          PicGrid.picGrid(prevScene, this.directory);
+          new PicGrid(prevScene, this.directory).picGrid();
         });
 
     // https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm

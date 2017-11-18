@@ -479,3 +479,14 @@ Flaw: Console messages should be rare, made the logger severe
 Fix: changes logger implementation
 
 
+#########
+#Log 54:
+
+Person: Akshat
+
+Flaw: cleaned up PicGrid.java
+
+Fix: style changes
+
+
+
