@@ -196,6 +196,7 @@ public class ImageFile implements Serializable{
         String oldName = this.name;
         this.name = newName;
 
+        priorNames.add(nameWithTags());
         updateFile("ManageImage.ImageFile \"" + oldName + "\" was renamed to \"" + newName + "\"");
         return true;
     }
@@ -289,6 +290,7 @@ public class ImageFile implements Serializable{
         if (tag.contains(tag)) {
             tags.remove(tag);
             //TagManager.remove(tag);
+            priorNames.add(nameWithTags());
             updateFile("Removed tag \"" + tag + "\" from image \"" + name + "\"");
         }
     }

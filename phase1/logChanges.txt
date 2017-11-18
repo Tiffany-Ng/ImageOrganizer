@@ -497,6 +497,14 @@ Flaw: cannot rename image
 
 Fix: can now rename image
 
+#########
+#Log 56:
+
+Person: Amarnath
+
+Flaw: combobox full of past names not always updating
+
+Fix: it now updates
 
 
 
