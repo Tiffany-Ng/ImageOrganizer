@@ -522,5 +522,12 @@ Flaw: combobox full of past names not always updating
 
 Fix: it now updates
 
+#########
+#Log 58:
+
+Person: Prynciss
+
+Merged Allan and Amarnath's code
+
 
 
