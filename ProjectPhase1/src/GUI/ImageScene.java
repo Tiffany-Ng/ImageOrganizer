@@ -57,6 +57,8 @@ public class ImageScene {
      */
     private TextArea log;
 
+    ComboBox newTag;
+
     /**
      * Pane to hold clickable tags.
      */
@@ -258,7 +260,7 @@ public class ImageScene {
 
         // flow.getChildren().add(changeDir);
 
-        ComboBox newTag = new ComboBox();
+        newTag = new ComboBox();
         newTag.setEditable(true);
         newTag.getItems().addAll(TagManager.tags);
 
@@ -315,6 +317,7 @@ public class ImageScene {
                             }
                         });
 
+        HBox tagBox = new HBox();
         Button addTag = new Button("+");
         addTag.setOnAction(
                 e -> {
@@ -322,15 +325,16 @@ public class ImageScene {
                         image.addTag((String) newTag.getValue());
                         //newTag.setValue("");
                     }
-                    newTag.setValue("");
-                    newTag.hide();
-
+                    tagBox.getChildren().removeAll(newTag, addTag);
+                    newTag = new ComboBox();
+                    newTag.setEditable(true);
+                    newTag.getItems().addAll(TagManager.tags);
+                    tagBox.getChildren().addAll(newTag, addTag);
                     addClickableTags();
                     updateLog();
                     imageNameUpdate();
                 });
 
-        HBox tagBox = new HBox();
         tagBox.getChildren().addAll(newTag, addTag);
         tagBox.setSpacing(5.0);
 

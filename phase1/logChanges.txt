@@ -497,7 +497,13 @@ Flaw: Can't open image's directory
 
 Fix: Added button that opens image's directory
 
+#########
+#Log 56:
 
+Person: Allan
 
+Flaw: Combobox text is not responsive or cannot be changed after use
+
+Fix: New combobox object is used after tag is submitted
 
 
