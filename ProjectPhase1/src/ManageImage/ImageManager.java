@@ -236,7 +236,9 @@ public class ImageManager implements Serializable {
    * @param tag The tag to delete from TagManager.tags and ImageFiles all containing that tag.
    */
   public static void deleteGlobalTag(String tag) {
-    for (ImageFile file : imageFiles) file.removeTag(tag);
+    for (ImageFile file : imageFiles) {
+      file.removeTag(tag);
+    }
     TagManager.tags.remove(tag);
   }
 

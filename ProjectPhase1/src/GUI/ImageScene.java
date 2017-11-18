@@ -1,9 +1,5 @@
 package GUI;
 
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -16,14 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 
 import ManageImage.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -342,7 +334,7 @@ public class ImageScene {
             ImageManager.addGlobalTag((String) newTag.getValue());
             newTag.setValue("");
           }
-
+          new PicGrid(prevScene, this.directory).picGrid();
         });
 
     Button deleteFromAll = new Button("Delete from All");
@@ -352,6 +344,7 @@ public class ImageScene {
             ImageManager.deleteGlobalTag((String) newTag.getValue());
             newTag.setValue("");
           }
+          new PicGrid(prevScene, this.directory).picGrid();
         });
 
     tagBox.getChildren().addAll(newTag, addTag, addToAll, deleteFromAll);
@@ -361,13 +354,10 @@ public class ImageScene {
 
     Text instruction = new Text();
     instruction.setText("Wanna delete a tag?,  SELECT IT!");
-    // instruction.setFont(Font.font(java.awt.Font.SERIF, 16));
-    // instruction.setFill(Color.DARKBLUE);
+
 
     flow.getChildren().add(instruction);
 
-    // make all the tags
-    // sub-flowPane to hold the tags
     f = new FlowPane(Orientation.HORIZONTAL, 7, 5);
     f.setPadding(new Insets(5));
     f.setPrefHeight(480 / 2.5);

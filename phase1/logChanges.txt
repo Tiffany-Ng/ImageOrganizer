@@ -550,5 +550,14 @@ Person: Prynciss
 
 Fixed bug in add tag button.
 
+#########
+#Log 62:
+
+Person: Akshat
+
+Flaw: Addition of a global tag did not ensure that the tag was added to the current image
+
+Fix: fixed this, and added feature that we go back to set of all images.
+
 
 
