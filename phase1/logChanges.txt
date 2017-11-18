@@ -630,3 +630,13 @@ Person: Allan
 Flaw: subdirectory filter does is broken
 
 Fix: correct subdirectory images are displayed or removed
+
+#########
+#Log 70:
+
+Person: Allan
+
+Flaw: prior names of imageFile can contain duplicate names
+
+Fix: prior names of imageFile contains unique previous names
+

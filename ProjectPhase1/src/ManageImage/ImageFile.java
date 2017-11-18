@@ -179,6 +179,7 @@ public class ImageFile implements Serializable {
     String oldName = this.name;
     this.name = newName;
 
+    priorNames.remove(nameWithTags());
     priorNames.add(nameWithTags());
     updateFile("ManageImage.ImageFile \"" + oldName + "\" was renamed to \"" + newName + "\"");
     return true;
