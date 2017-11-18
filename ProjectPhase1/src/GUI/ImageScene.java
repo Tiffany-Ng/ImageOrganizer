@@ -119,7 +119,6 @@ class ImageScene {
             badName.showAndWait();
 
         } else {
-
             addClickableTags();
             updateLog();
             imageNameUpdate();
@@ -168,7 +167,7 @@ class ImageScene {
      */
     private void imageNameUpdate() {
 
-        imageNames.getItems().removeAll(imageNames.getItems());
+        imageNames.getItems().clear();
 
         for (String name : image.getPriorNames()) {
             imageNames.getItems().add(name);
@@ -176,7 +175,7 @@ class ImageScene {
 
         if (!imageNames.getItems().isEmpty()) {
             Collections.reverse(imageNames.getItems());
-            imageNames.setPromptText(imageNames.getItems().get(0));
+            imageNames.getSelectionModel().selectFirst();
         }
     }
 
@@ -456,7 +455,7 @@ class ImageScene {
         flow.getChildren().add(tagBox);
 
         Text instruction = new Text();
-        instruction.setText("Wanna delete a tag?,  SELECT IT!");
+        instruction.setText("Want to delete a tag? SELECT IT!");
 
 
         flow.getChildren().add(instruction);
