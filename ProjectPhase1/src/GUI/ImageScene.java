@@ -225,11 +225,13 @@ public class ImageScene {
     newTag.setEditable(true);
     newTag.getItems().addAll(TagManager.tags);
 
-
-    newTag.getEditor().setOnMouseClicked(e -> {
-      newTag.show();
-      newTag.setVisibleRowCount(10);
-    });
+    newTag
+        .getEditor()
+        .setOnMouseClicked(
+            e -> {
+              newTag.show();
+              newTag.setVisibleRowCount(10);
+            });
 
     //    newTag.getEditor().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
     //      if (event.getCode() == KeyCode.ENTER) {
@@ -252,30 +254,48 @@ public class ImageScene {
         .addListener(
             (observable, oldValue, newValue) -> {
               LinkedList<String> relatedTags = new LinkedList<>();
+              System.out.println(newValue);
               if (newValue.length() == 0) {
                 Platform.runLater(
                     () -> {
+                      newTag.hide();
                       newTag.getItems().clear();
                       newTag.getItems().addAll(TagManager.tags);
                       newTag.setVisibleRowCount(10);
+                      System.out.println("clear");
+                      newTag.setValue("");
+                      if (!TagManager.tags.get(TagManager.tags.size() - 1).equals(oldValue))
+                        newTag.show();
                     });
-                // newTag.show();
               } else {
-//                newTag.hide();
-//                relatedTags.addAll(TagManager.search(newValue));
-//                newTag.setVisibleRowCount(relatedTags.size());
-//                System.out.println(relatedTags.size());
-//                newTag.show();
-//                // sited from
-//                // https: //
-//                // stackoverflow.com/questions/30465313/javafx-textfield-with-listener-gives-java-lang-illegalargumentexception-the-s
-//                Platform.runLater(
-//                    () -> {
+                System.out.println("test");
+                newTag.hide();
+                relatedTags.addAll(TagManager.search(newValue));
+                newTag.setVisibleRowCount(relatedTags.size());
+                newTag.show();
+                // sited from
+                // https://stackoverflow.com/questions/30465313/javafx-textfield-with-listener-gives-java-lang-illegalargumentexception-the-s
+                Platform.runLater(
+                    () -> {
+//                      newTag.hide();
 //                      newTag.getItems().clear();
 //                      newTag.getItems().addAll(relatedTags);
-//                      // newTag.setVisibleRowCount(relatedTags.size());
-//                    });
+//                      newTag.show();
+                    });
+
               }
+              // else if (TagManager.tags.contains(newValue)){
+              //                Platform.runLater(
+              //                    () -> {
+              //                      newTag.hide();
+              //                      newTag.getItems().clear();
+              //                      newTag.getItems().add(newValue);
+              //                      newTag.setVisibleRowCount(1);
+              //                      newTag.show();
+              //                    });
+              //              } else {
+              //                newTag.hide();
+              //              }
             });
 
     Button addTag = new Button("+");
@@ -283,14 +303,12 @@ public class ImageScene {
         e -> {
           if (newTag.getValue() instanceof String && ((String) newTag.getValue()).length() != 0) {
             image.addTag((String) newTag.getValue());
-            //newTag.setValue("");
+            addClickableTags();
+            updateLog();
+            imageNameUpdate();
           }
           newTag.setValue("");
           newTag.hide();
-
-          addClickableTags();
-          updateLog();
-          imageNameUpdate();
         });
 
     HBox tagBox = new HBox();
