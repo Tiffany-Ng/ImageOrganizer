@@ -11,7 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 
-/** // TODO ADD A DESCRPITION
+/**
+ * An ImageFile represents an image File.
+ * <p>An ImageFile represents an image, manages tags and logs changes</p>
  *
  * @author Allan Chang 1003235983
  * @author Prynciss Ng 1003136091
@@ -20,30 +22,44 @@ import java.util.logging.Level;
  */
 public class ImageFile implements Serializable {
 
-    /** The File object of the image */
+    /**
+     * The File object of the image
+     */
     private File imageFile;
 
-    /** The list of image tags*/
+    /**
+     * The list of image tags
+     */
     private ArrayList<String> tags;
 
-    /** The name without tags */
+    /**
+     * The name without tags
+     */
     private String name;
 
-    /** The history of the image */
+    /**
+     * The history of the image
+     */
     private Log log;
 
-    /** Extension of image */
+    /**
+     * Extension of image
+     */
     private String extension;
 
-    /** Directory of image */
+    /**
+     * Directory of image
+     */
     private File directory;
 
-    /** Prior name that the imaged held */
+    /**
+     * Prior names and tags of the image
+     */
     private List<String> priorNames;
 
     /**
      * Construct an image representing File imageFile
-     * <p>Precondition: imageFile is a valid image</p>
+     * <p>Precondition: imageFile is a valid image.</p>
      *
      * @param imageFile The File object of the image
      * @throws InvalidFileException imageFile is an invalid image
@@ -81,7 +97,7 @@ public class ImageFile implements Serializable {
     /**
      * Take the name and remove all tags.
      *
-     * @param rawName String
+     * @param rawName The name stored on computer. IE: 'Test @tag.png'
      * @return List of tags
      */
     private List<String> splitTags(String rawName) {
@@ -110,7 +126,7 @@ public class ImageFile implements Serializable {
      * Get the log of this image
      * <p>The returned ManageImage.Log is mutable and will affect ManageImage.ImageFile.
      *
-     * @return The ManageImage.Log of this image
+     * @return The Log representing change history of this image
      */
     public Log getLog() {
         return log;
@@ -127,8 +143,7 @@ public class ImageFile implements Serializable {
 
     /**
      * Get the directory of this image
-     * <p>
-     * <p>The returned directory is a cloned File.
+     * <p>The returned directory is a cloned File.</p>
      *
      * @return the directory of this image
      */
@@ -139,7 +154,7 @@ public class ImageFile implements Serializable {
     /**
      * Get the file this image represents
      * <p>The returned file is a cloned copy. Changes, especially changes that mutate the actual file,
-     * may affect if this image's file is valid.
+     * may affect if this image's file is valid.</p>
      *
      * @return the file this image represents
      */
@@ -149,8 +164,7 @@ public class ImageFile implements Serializable {
 
     /**
      * Renames this ManageImage.ImageFile and the File this ManageImage.ImageFile represents
-     * <p>
-     * <p>Precondition: newName does not contain " @"
+     * <p>Precondition: newName does not contain " @"</p>
      *
      * @param newName The ManageImage.ImageFile's new name
      * @return indicates a successful rename
@@ -179,9 +193,10 @@ public class ImageFile implements Serializable {
     }
 
     /**
-     * Puts the name back to a previous name.
+     * Reverts the name back to a previous name.
+     * <p>entryNumber = 0 represents revert to oldest name. The larger the entryNumber, the more recent the name</p>
      *
-     * @param entryNumber int: position of entry to revert to
+     * @param entryNumber the position of entry to revert to
      * @return indicate if the revert was successful
      */
     public boolean revertName(int entryNumber) {
@@ -198,6 +213,11 @@ public class ImageFile implements Serializable {
         return success;
     }
 
+    /**
+     * Get a list of previous names
+     *
+     * @return the list of previous names
+     */
     public ArrayList<String> getPriorNames() {
 
         return new ArrayList<>(priorNames);
@@ -205,9 +225,10 @@ public class ImageFile implements Serializable {
 
     /**
      * Moves this ManageImage.ImageFile to newDirectory
-     * <p>Precondition: newDirectory is a valid directory
+     * <p>Precondition: newDirectory is a valid directory</p>
      *
      * @param newDirectory the directory that will store the image
+     * @return indicate if the move was successful
      * @throws InvalidFileException newDirectory is an invalid directory
      */
     public boolean move(File newDirectory) throws IOException {
@@ -227,7 +248,7 @@ public class ImageFile implements Serializable {
 
     /**
      * Adds tag to image
-     * <p>Precondition: tag does not contain " @"
+     * <p>Precondition: tag does not contain " @". Images cannot have duplicate tags</p>
      *
      * @param tag to add
      * @return Indicates if the tag insertion was successful
@@ -266,10 +287,11 @@ public class ImageFile implements Serializable {
 
     /**
      * Update image file using current image properties and record log with logMessage
+     * <p>If the update fails, the imageFile restores properties to the current image File</p>
      *
      * @return Indicates if the update was successful
-     * @throws UnsuccessfulRenameException Unsuccessful rename. ManageImage.ImageFile is no longer
-     *                                     synced to proper imageFile. ManageImage.ImageFile is not valid, is held by a process (ie
+     * @throws UnsuccessfulRenameException Unsuccessful rename. ImageFile is no longer
+     *                                     synced to proper imageFile. ImageFile is not valid, is held by a process (ie
      *                                     antivirus), or an image exists in the renaming location
      */
     private boolean updateFile(String logMessage) {
@@ -297,7 +319,7 @@ public class ImageFile implements Serializable {
     }
 
     /**
-     * Create image file using current image properties
+     * Create File from imageFile's properties
      *
      * @return File representation of this image
      */
@@ -306,6 +328,11 @@ public class ImageFile implements Serializable {
         return new File(directory, nameWithTags());
     }
 
+    /**
+     * Get the name of the image including tags and extension
+     *
+     * @return the full name of the image
+     */
     public String nameWithTags() {
 
         StringBuilder fileName = new StringBuilder();
@@ -338,7 +365,6 @@ public class ImageFile implements Serializable {
  * with the expected File type
  */
 class InvalidFileException extends RuntimeException {
-
     InvalidFileException(String message) {
         super(message);
     }
