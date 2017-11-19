@@ -6,8 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * A ManageImage.Log of all changes to an ManageImage.ImageFile.
- * A ManageImage.Log is able to iterate through every ManageImage.Entry it has recorded.
+ * A Log of all changes to an ImageFile.
+ * A Log is able to iterate through every Entry it has recorded.
  *
  * @author Allan Chang 1003235983
  * @author Prynciss Ng 1003136091
@@ -17,12 +17,12 @@ import java.util.List;
 public class Log implements Iterable<Entry>, Serializable {
 
     /**
-     * List of all changes, each stored as an ManageImage.Entry.
+     * List of all changes, each stored as an Entry.
      */
     private List<Entry> history;
 
     /**
-     * Construct a new ManageImage.Log.
+     * Construct a new Log.
      */
     Log() {
 
@@ -31,7 +31,7 @@ public class Log implements Iterable<Entry>, Serializable {
     }
 
     /**
-     * Records a new ManageImage.Entry in the history.
+     * Records a new Entry in the history.
      *
      * @param e ManageImage.Entry
      */
@@ -42,7 +42,7 @@ public class Log implements Iterable<Entry>, Serializable {
     }
 
     /**
-     * The Iterator of ManageImage.Log, used to go through each ManageImage.Entry.
+     * The Iterator of Log, used to go through each Entry.
      *
      * @return Iterator
      */
@@ -54,7 +54,7 @@ public class Log implements Iterable<Entry>, Serializable {
     }
 
     /**
-     * The Iterator ManageImage.Log uses to go through each ManageImage.Entry found in history.
+     * The Iterator Log uses to go through each Entry found in history.
      */
     private class LogIterator implements Iterator<Entry> {
 
@@ -73,9 +73,9 @@ public class Log implements Iterable<Entry>, Serializable {
         }
 
         /**
-         * The next ManageImage.Entry.
+         * The next Entry.
          *
-         * @return ManageImage.Entry
+         * @return Entry
          */
         @Override
         public Entry next() {

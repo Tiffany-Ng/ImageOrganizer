@@ -14,17 +14,17 @@ import java.util.Date;
 public class Entry implements Serializable {
 
     /**
-     * The name the ManageImage.ImageFile had at this time.
+     * The name the ImageFile had at this time.
      */
     private String entryName;
 
     /**
-     * The time the ManageImage.Entry was created.
+     * The time the Entry was created.
      */
     private Date currDate;
 
     /**
-     * Construct a new ManageImage.Entry.
+     * Construct a new Entry.
      *
      * @param entryName String
      */
