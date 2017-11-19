@@ -22,8 +22,11 @@ public class TagManager implements Serializable {
     private static LinkedList<String> tags = new LinkedList<>();
 
     /**
-     * Reading data of all tags created by the user
-     * Adapted from: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html Date: Nov 9, 2017
+     * Loads tags from tags.ser
+     * <p>
+     * Adapted: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
+     * Date: Nov 9, 2017
+     * </p>
      */
     @SuppressWarnings("unchecked")
     public static void load() {
@@ -44,8 +47,11 @@ public class TagManager implements Serializable {
     }
 
     /**
-     * Writing data of all tags created by the user in a session.
-     * Adapted from: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html Date: Nov 9, 2017
+     * Saves tags to tags.ser
+     * <p>
+     * Adapted from: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
+     * Date: Nov 9, 2017
+     * </p>
      */
     public static void save() {
         try {

@@ -62,7 +62,6 @@ public class ImageFile implements Serializable {
      * <p>Precondition: imageFile is a valid image.</p>
      *
      * @param imageFile The File object of the image
-     * @throws InvalidFileException imageFile is an invalid image
      */
     ImageFile(File imageFile) throws IOException {
         if (!imageFile.isFile()) {
@@ -168,7 +167,6 @@ public class ImageFile implements Serializable {
      *
      * @param newName The ManageImage.ImageFile's new name
      * @return indicates a successful rename
-     * @throws InvalidNameException newName contains " @"
      */
     public boolean rename(String newName) {
         if (newName.contains("@")) {
@@ -229,7 +227,6 @@ public class ImageFile implements Serializable {
      *
      * @param newDirectory the directory that will store the image
      * @return indicate if the move was successful
-     * @throws InvalidFileException newDirectory is an invalid directory
      */
     public boolean move(File newDirectory) throws IOException {
         boolean success;
@@ -252,7 +249,6 @@ public class ImageFile implements Serializable {
      *
      * @param tag to add
      * @return Indicates if the tag insertion was successful
-     * @throws InvalidNameException tag contains " @"
      */
     public boolean addTag(String tag) {
         boolean success = false;
@@ -290,9 +286,6 @@ public class ImageFile implements Serializable {
      * <p>If the update fails, the imageFile restores properties to the current image File</p>
      *
      * @return Indicates if the update was successful
-     * @throws UnsuccessfulRenameException Unsuccessful rename. ImageFile is no longer
-     *                                     synced to proper imageFile. ImageFile is not valid, is held by a process (ie
-     *                                     antivirus), or an image exists in the renaming location
      */
     private boolean updateFile(String logMessage) {
         String oldName = imageFile.getName();
