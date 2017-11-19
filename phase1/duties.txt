@@ -1,3 +1,6 @@
+	FOR A MORE COMPREHENSIVE LIST, PLEASE HAVE A LOOK AT "logChanges.txt"
+
+
 Amarnath Parthiban
 	- implemented Entry.java
 	- implemented Log.java
@@ -9,6 +12,7 @@ Amarnath Parthiban
 		- image log gui component 
 		- image icon gui component
 
+
 Prynciss Ng (Please note that 'Tiffany Ng' in git log is the same person - used the wrong name on different computer)
 	- implemented Main.java
 	- implemented DirChooser.java
@@ -19,3 +23,17 @@ Prynciss Ng (Please note that 'Tiffany Ng' in git log is the same person - used 
 	- ImageScene
 		- Add all/delete all buttons to/from global tags (partial)
 	- Creation/implementation of Logger
+
+
+Akshat Nigam (Please note that I forgot to set my name on git early in the project. 
+	"Your name here" refer to contributions by me "Akshat")
+	- implemented ImageManager.java
+	- implemented recursive algorithm which searches for relevant images in directory & sub-directory.
+	- Implemented on GUI:
+		1. The ability to see all available images after a particular image is opened
+		2. The front-end for changing the directory of an image
+		3. helpful messages from the user's perspective
+		4. Add all/delete all buttons to/from global tags (with Prynciss Ng)
+		5. Extensively improved the style of code in GUI
+	- Implemented logging when exceptions were encountered
+	- Implemented using Date object in Log.java
