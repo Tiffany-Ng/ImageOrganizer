@@ -26,6 +26,7 @@ public class ImageManager implements Serializable {
      * <p>cite:
      * http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
      */
+    @SuppressWarnings("unchecked")
     public static void load() {
         try {
 

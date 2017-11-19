@@ -19,6 +19,7 @@ public class TagManager implements Serializable {
     /**
      * Reading data of all tags created by the user
      */
+    @SuppressWarnings("unchecked")
     public static void load() {
         try {
 

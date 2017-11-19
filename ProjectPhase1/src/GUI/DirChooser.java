@@ -126,7 +126,7 @@ class DirChooser {
         Button dirChooserBtn = new Button();
         dirChooserBtn.setText("...");
 
-        Button goBtn = new Button();   // TODO: unanimous button creator
+        Button goBtn = new Button();
         goBtn.setText("Go");
 
         TextField dirTextField = new TextField();
