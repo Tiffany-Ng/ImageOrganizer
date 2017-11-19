@@ -6,4 +6,4 @@ Please follow the following steps to run the code on the command line:
 
 3. Run the program with the following command: "java GUI.Main".
 
-A directory chooser should pop-up. Select a directory, and have fun!.
+A directory chooser should pop-up. Select a directory, and have fun!
