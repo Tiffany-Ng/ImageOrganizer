@@ -692,9 +692,17 @@ Fix: Fixed subdirectory filter
 
 #########
 #Log 77:
-
 Person: Allan
 
 Flaw: Does not display alertbox for failed directory movements, alertbox for addTag is missing case where tag already exists
 
 Fix: Added alertbox for moving directory errors, added information to addTag alertbox
+
+#########
+#Log 78:
+Person: Akshat
+
+Flaw: Renaming an image does not get reflected onto the revert drop-down menu.
+
+Fix: File get's set to the new name & goes back to set of all images(new name 
+     reflected everywhere).
