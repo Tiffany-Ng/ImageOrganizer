@@ -193,7 +193,7 @@ class ImageScene {
     /**
      * Update the log with its new information.
      */
-    private void updateLog() {
+    public void updateLog() {
 
         Log imageLog = image.getLog();
         StringBuilder logs = new StringBuilder();
@@ -360,7 +360,7 @@ class ImageScene {
         changeDir.setText("Change Directory");
 
         changeDir.setOnAction(
-                e -> DirChooser.dirChooser(prevScene, this.image, directory));
+                e -> DirChooser.dirChooser(prevScene, this.image, directory, this));
 
         HBox dir = new HBox();
         dir.boundsInParentProperty();

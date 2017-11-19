@@ -29,6 +29,7 @@ class DirChooser {
     private static File directory; // Chosen directory by the user
     private static ImageFile image; // ImageFile for when changing the directory
     private static Text directoryText; // Text that displays the directory of the ImageFile
+    private static ImageScene imageScene;
 
     /**
      * Lets user to choose a directory and then shows PicGrid.
@@ -46,7 +47,8 @@ class DirChooser {
      * @param imageToMove the ImageFile to move
      * @param dirText the Text to display the directory of the ImageFile
      */
-    static void dirChooser(Stage currentStage, ImageFile imageToMove, Text dirText) {
+    static void dirChooser(Stage currentStage, ImageFile imageToMove, Text dirText, ImageScene is) {
+        imageScene = is;
         genericChooser(currentStage, true);
         image = imageToMove;
         directoryText = dirText;
@@ -74,6 +76,7 @@ class DirChooser {
                             try {
                                 boolean success = image.move(directory);
                                 directoryText.setText(image.getDirectory().toString());
+                                imageScene.updateLog();
                                 if(!success){
                                     Alert alert = new Alert(Alert.AlertType.ERROR);
                                     alert.setTitle("Move Directory Error");

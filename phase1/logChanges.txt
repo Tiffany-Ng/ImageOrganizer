@@ -714,3 +714,9 @@ Person: Allan
 Flaw: Renaming an image does not get reflected onto the revert drop-down menu.
 
 Fix: Combobox is updated after rename
+
+#########
+#Log 80:
+Person: Allan
+
+Fixed rename alertbox, changing directory updates log display
