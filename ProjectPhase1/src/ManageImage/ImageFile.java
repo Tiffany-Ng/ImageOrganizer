@@ -212,7 +212,7 @@ public class ImageFile implements Serializable {
      * @param newDirectory the directory that will store the image
      * @throws InvalidFileException newDirectory is an invalid directory
      */
-    public boolean move(File newDirectory) throws IOException { // TODO: implement this
+    public boolean move(File newDirectory) throws IOException {
         boolean success;
         if (!newDirectory.isDirectory()) {
             success = false;

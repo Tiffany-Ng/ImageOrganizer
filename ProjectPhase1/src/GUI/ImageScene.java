@@ -313,7 +313,7 @@ class ImageScene {
         // https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm
         imageNames = new ComboBox<>();
         imageNameUpdate();
-        imageNames.setMaxWidth(590);
+        imageNames.setMaxWidth(550);
         imageNames.getSelectionModel().selectFirst();
 
         Button revertName = new Button("Revert");
@@ -398,7 +398,7 @@ class ImageScene {
         Button addTag = new Button("+");
         addTag.setOnAction(
                 e -> {
-                    if (checkValidTagName(newTag)) {   // TODO: change this if-clause
+                    if (checkValidTagName(newTag)) {
                         boolean success = image.addTag(newTag.getValue());
                         if (success) {
                             newTag.setValue("");
