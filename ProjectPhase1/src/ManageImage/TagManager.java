@@ -7,7 +7,8 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 
 /**
- * ManageImage.TagManager represents a pool of unique tags
+ * TagManager represents a pool of unique tags
+ * <p>TagManager's tags can be taken saved to or loaded from tags.ser</p>
  *
  * @author Allan Chang 1003235983
  * @author Prynciss Ng 1003136091

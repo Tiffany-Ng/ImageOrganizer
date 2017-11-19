@@ -10,8 +10,8 @@ import java.util.*;
 import java.util.logging.Level;
 
 /**
- * Provides entry-point for the data a user can access. Data includes all image files in a
- * directory.
+ * ImageManager represents a collection of images
+ * <p>ImageManager's images can be taken saved to or loaded from out.ser</p>
  *
  * @author Allan Chang 1003235983
  * @author Prynciss Ng 1003136091
@@ -21,15 +21,16 @@ import java.util.logging.Level;
 public class ImageManager implements Serializable {
 
     /**
-     * The list of all imageFiles accessible by a user
+     * The list of all imageFiles stored
      */
     private static ArrayList<ImageFile> imageFiles = new ArrayList<>();
 
     /**
-     * Loading data from serialized file out.ser
+     * Loads imageFiles from out.ser
      * <p>
-     * <p>cite:
-     *Adapted from: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html Date: Nov 9, 2017
+     * Adapted: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
+     * Date: Nov 9, 2017
+     * </p>
      */
     @SuppressWarnings("unchecked")
     public static void load() {
@@ -55,10 +56,11 @@ public class ImageManager implements Serializable {
     }
 
     /**
-     * Writing data onto the serialized file out.ser.
+     * Saves imageFiles to out.ser
      * <p>
-     * <p>// cite:
-     * Adapted from: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html Date: Nov 9, 2017
+     * Adapted: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
+     * Date: Nov 9, 2017
+     * </p>
      */
     public static void save() {
         try {
@@ -79,8 +81,7 @@ public class ImageManager implements Serializable {
 
     /**
      * Get images stored in directory
-     * <p>
-     * <p>Assumes stored images and directory all use absolute paths
+     * <p>Assumes stored images and directory all use absolute paths</p>
      *
      * @param directory the directory that contains returned images
      * @return the images stored in directory
@@ -125,7 +126,7 @@ public class ImageManager implements Serializable {
     }
 
     /**
-     * Return an array of ManageImage.ImageFile files in a directory
+     * Return an array of image files in a directory
      *
      * @param directory the path of the folder to search in.
      * @return File[] array of all imageFiles in a directory.
@@ -157,7 +158,7 @@ public class ImageManager implements Serializable {
      * Get the names of all sub-directories in a directory.
      *
      * @param directory the path of the folder to search in.
-     * @return gatherSubDirectories Array list of names of sub-directories.
+     * @return The array list of names of sub-directories.
      */
     private static ArrayList<String> checkForSubDirectory(String directory) {
 
@@ -183,7 +184,7 @@ public class ImageManager implements Serializable {
      * Check for sub-directories in directory, while adding imageFiles.
      *
      * @param directory the path of the folder to search in.
-     * @return ArrayList<File> arrayList of all imageFiles(including those found in sub-directories).
+     * @return arrayList of all imageFiles(including those found in sub-directories).
      */
     private static ArrayList<File> checkSubDirectories(String directory) {
 
@@ -191,7 +192,6 @@ public class ImageManager implements Serializable {
         if (checkForSubDirectory(directory).isEmpty()) {
             return findImages(directory);
         }
-
         // else return findImages + findImages(NEW_PATH)
         else {
             ArrayList<File> allImages = new ArrayList<>();
@@ -210,7 +210,7 @@ public class ImageManager implements Serializable {
     }
 
     /**
-     * Convert an array of File objects into an array of ManageImage.ImageFile objects.
+     * Convert and store an array of File objects as imageFiles.
      *
      * @param possibleImages List of imageFiles in a directory that will be converted in to
      *                       ManageImage.ImageFile objects.
@@ -237,7 +237,6 @@ public class ImageManager implements Serializable {
 
         // get the relevant File objects from directory & sub-directory
         ArrayList<File> files = checkSubDirectories(directory);
-
         // convert the files into an array-List of ManageImage.ImageFile objects.
         convertToImageObjects(files);
     }
@@ -267,6 +266,4 @@ public class ImageManager implements Serializable {
 
         for (ImageFile file : list) file.addTag(tag);
     }
-
-
 }
