@@ -1,0 +1,11 @@
+Amarnath Parthiban
+	- implemented Entry.java
+	- implemented Log.java
+	- implemented ImageScene.java 
+		- created underlying structure of javafx scene
+		- creating local tags of image gui component
+		- renaming image file gui component
+		- reverting image to previous name
+		- image log gui component 
+		- image icon gui component
+	
