@@ -307,15 +307,6 @@ class ImageScene {
                 new PicGrid(prevScene, this.directory).picGrid();
                 });
 
-//        openDir.setOnAction(
-//                e -> {
-//                    try {
-//                        Desktop.getDesktop().open(image.getDirectory());
-//                    } catch (IOException ex) {
-//                        Main.logger.log(Level.SEVERE, "Can't open directory", ex);
-//                    }
-//                });
-
 
         back.setOnAction(
                 e -> new PicGrid(prevScene, this.directory).picGrid());
