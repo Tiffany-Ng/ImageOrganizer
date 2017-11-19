@@ -296,11 +296,25 @@ class ImageScene {
                 k -> {
                     if (k.getCode().equals(KeyCode.ENTER)) {
                         this.renameImageFile();
+                        new PicGrid(prevScene, this.directory).picGrid();
                     }
                 });
 
         Button rename = new Button("Rename");
-        rename.setOnAction(e -> this.renameImageFile());
+        rename.setOnAction(
+            e -> {
+                this.renameImageFile();
+                new PicGrid(prevScene, this.directory).picGrid();
+                });
+
+//        openDir.setOnAction(
+//                e -> {
+//                    try {
+//                        Desktop.getDesktop().open(image.getDirectory());
+//                    } catch (IOException ex) {
+//                        Main.logger.log(Level.SEVERE, "Can't open directory", ex);
+//                    }
+//                });
 
 
         back.setOnAction(
