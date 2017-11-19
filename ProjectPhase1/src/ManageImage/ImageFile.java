@@ -183,7 +183,7 @@ public class ImageFile implements Serializable {
     /**
      * Puts the name back to a previous name.
      *
-     * @param entryNumber
+     * @param entryNumber int: position of entry to revert to
      * @return indicate if the revert was successful
      */
     public boolean revertName(int entryNumber) {

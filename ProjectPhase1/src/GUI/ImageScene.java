@@ -27,7 +27,8 @@ import java.io.File;
 import java.util.logging.Level;
 
 /**
- * GUI of an individual image's information
+ * GUI of an individual image's information.
+ *
  */
 class ImageScene {
 
@@ -114,14 +115,23 @@ class ImageScene {
         imageNameUpdate();
 
         if (!success) {
-            // http://code.makery.ch/blog/javafx-dialogs-official/
+
             createAlert("Invalid Name", "The name you entered is invalid.",
                     "A name should not contain ' @' and the name " + name.getText() + " must be available");
         }
 
     }
 
+    /**
+     * Create a generic Alert using the information provided.
+     *
+     * @param title String: window title
+     * @param header String
+     * @param content String
+     */
     private void createAlert(String title, String header, String content) {
+
+        // taken from http://code.makery.ch/blog/javafx-dialogs-official/
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(header);
@@ -205,7 +215,7 @@ class ImageScene {
     }
 
     /**
-     * * Return the scene which holds the elements
+     * * Return the scene which holds the elements.
      *
      * @return current interaction's screen
      */
@@ -251,7 +261,7 @@ class ImageScene {
 
 
     /**
-     * Setup of the whole screen
+     * Setup of the whole screen combining all smaller elements and layouts.
      *
      * @return GridPane
      */
@@ -321,7 +331,7 @@ class ImageScene {
 
 
     /**
-     * Setup the image's information in a flowPane.
+     * Setup the image's information (log, tags, directory) in a flowPane.
      *
      * @return FlowPane
      */
@@ -442,13 +452,14 @@ class ImageScene {
         flow.getChildren().add(new ScrollPane(f));
 
         log = new TextArea();
+
         // image log
         updateLog();
 
         log.setWrapText(true);
         log.setEditable(false);
 
-        // wrap error solution https://stackoverflow.com/questions/29537264/javafx-flowpane-autosize
+        // wrap error solution found at https://stackoverflow.com/questions/29537264/javafx-flowpane-autosize
         log.setPrefHeight(480 / 2);
         flow.getChildren().add(log);
 

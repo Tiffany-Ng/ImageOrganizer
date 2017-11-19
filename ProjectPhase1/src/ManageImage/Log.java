@@ -8,9 +8,6 @@ import java.util.List;
 /**
  * A ManageImage.Log of all changes to an ManageImage.ImageFile.
  * A ManageImage.Log is able to iterate through every ManageImage.Entry it has recorded.
- *
- * @author Amarnath Parthiban
- * @version 0.1
  */
 public class Log implements Iterable<Entry>, Serializable {
 

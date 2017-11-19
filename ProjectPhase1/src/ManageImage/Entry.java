@@ -4,10 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * The state of an ManageImage.ImageFile.
- *
- * @author Amarnath Parthiban
- * @version 0.2
+ * The state of an ImageFile at a given time.
  */
 public class Entry implements Serializable {
 
@@ -41,6 +38,11 @@ public class Entry implements Serializable {
         return entryName;
     }
 
+    /**
+     * Return the entry in an easy to read format. date acquired - entry information.
+     *
+     * ex.  Mon Nov 13 23:08:15 EST 2017 - Added new tag: @beach
+     */
     @Override
     public String toString() {
 
