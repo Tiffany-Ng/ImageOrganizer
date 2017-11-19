@@ -5,6 +5,7 @@ import ManageImage.ImageManager;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -71,8 +72,15 @@ class DirChooser {
 
                         if (directory.isDirectory()) {
                             try {
-                                image.move(directory);
+                                boolean success = image.move(directory);
                                 directoryText.setText(image.getDirectory().toString());
+                                if(!success){
+                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                                    alert.setTitle("Move Directory Error");
+                                    alert.setHeaderText("Failed to move this image to " + directory.toString());
+                                    alert.setContentText("The destination directory likely already contains another image named " + image.nameWithTags());
+                                    alert.showAndWait();
+                                }
                             } catch (IOException e1) {
                                 Main.logger.log(Level.SEVERE, "new directory path not found.", e);
                             }

@@ -400,7 +400,7 @@ class ImageScene {
                             newTag.setValue("");
                         }else{
                             createAlert("Add Tag Error", "The tag '" +newTag.getValue()+ "' was not added successfully",
-                                    "Tag name contains ' @' or the file name with the additional tag is occupied");
+                                    "Tag name contains ' @', the tag already exists, or the file name with the additional tag is occupied");
                         }
                     }
 

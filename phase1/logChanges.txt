@@ -689,3 +689,12 @@ Person: Allan
 Flaw: Git automatic merge broke subdirectory filter
 
 Fix: Fixed subdirectory filter
+
+#########
+#Log 77:
+
+Person: Allan
+
+Flaw: Does not display alertbox for failed directory movements, alertbox for addTag is missing case where tag already exists
+
+Fix: Added alertbox for moving directory errors, added information to addTag alertbox
