@@ -8,4 +8,14 @@ Amarnath Parthiban
 		- reverting image to previous name
 		- image log gui component 
 		- image icon gui component
-	
+
+Prynciss Ng (Please note that 'Tiffany Ng' in git log is the same person - used the wrong name on different computer)
+	- implemented Main.java
+	- implemented DirChooser.java
+	- implemented PicGrid.java	
+	- ImageManager
+		- save/load so information persists after program is quit and reopened
+		- DeleteGlobalTag/addGlobalTag
+	- ImageScene
+		- Add all/delete all buttons to/from global tags (partial)
+	- Creation/implementation of Logger
