@@ -115,12 +115,12 @@ class ImageScene {
         boolean success = image.rename(name.getText());
         addClickableTags();
         updateLog();
+        imageNameUpdate();
 
         if(!success){
             // http://code.makery.ch/blog/javafx-dialogs-official/
             createAlert("Invalid Name", "The name you entered is invalid.",
                     "A name should not contain ' @' and the name " + name.getText() + " must be available");
-            imageNameUpdate();
         }
 
     }
@@ -184,12 +184,10 @@ class ImageScene {
         for (String name : image.getPriorNames()) {
             imageNames.getItems().add(name);
         }
-
         if (!imageNames.getItems().isEmpty()) {
             Collections.reverse(imageNames.getItems());
             imageNames.getSelectionModel().selectFirst();
         }
-
     }
 
     /**
@@ -296,7 +294,6 @@ class ImageScene {
                 k -> {
                     if (k.getCode().equals(KeyCode.ENTER)) {
                         this.renameImageFile();
-                        new PicGrid(prevScene, this.directory).picGrid();
                     }
                 });
 
@@ -304,7 +301,6 @@ class ImageScene {
         rename.setOnAction(
             e -> {
                 this.renameImageFile();
-                new PicGrid(prevScene, this.directory).picGrid();
                 });
 
 //        openDir.setOnAction(
