@@ -324,7 +324,7 @@ public class ImageFile implements Serializable {
     /**
      * this ImageFile and object are equal they represent the same image file
      *
-     * @param object the object to comapare to
+     * @param object the object to compare to
      * @return indicate if this ImageObject is equal to object
      */
     @Override

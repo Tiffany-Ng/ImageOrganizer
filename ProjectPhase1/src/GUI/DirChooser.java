@@ -24,11 +24,24 @@ import java.util.logging.Level;
  * There are two usages, pass in only a Stage to select a directory to open. It will then lead to PicGrid for a list of ImageFiles to show.
  * Pass in a Stage, an ImageFile, and a Text to select a directory for the ImageFile to transfer to. It will also update the Text to show
  * the new directory.
+ * Functionality of panes from: https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm Date: Nov 6, 2017
  */
 class DirChooser {
-    private static File directory; // Chosen directory by the user
-    private static ImageFile image; // ImageFile for when changing the directory
-    private static Text directoryText; // Text that displays the directory of the ImageFile
+    /**
+     * Chosen directory by the user
+     */
+    private static File directory;
+
+    /**
+     * ImageFile for when changing the directory
+     */
+    private static ImageFile image;
+
+    /**
+     * Text that displays the directory of the ImageFile
+     */
+    private static Text directoryText;
+
     private static ImageScene imageScene;
 
     /**
@@ -69,9 +82,8 @@ class DirChooser {
     private static void btmMethod(Button button, boolean file, Stage currentStage, Stage chooser, Text error, TextField dirTextField) {
         button.setOnAction(
                 e -> {
+                    directory = new File(dirTextField.getText());
                     if (file) {
-                        directory = new File(dirTextField.getText());
-
                         if (directory.isDirectory()) {
                             try {
                                 boolean success = image.move(directory);
@@ -92,8 +104,6 @@ class DirChooser {
                             error.setVisible(true);
                         }
                     } else {
-                        directory = new File(dirTextField.getText());
-
                         if (directory.isDirectory()) {
                             ImageManager.createImagesFromDirectory(directory.toString());
 
@@ -126,7 +136,7 @@ class DirChooser {
         Button dirChooserBtn = new Button();
         dirChooserBtn.setText("...");
 
-        Button goBtn = new Button();   // TODO: unanimous button creator
+        Button goBtn = new Button();
         goBtn.setText("Go");
 
         TextField dirTextField = new TextField();

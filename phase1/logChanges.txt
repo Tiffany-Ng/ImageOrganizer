@@ -727,3 +727,9 @@ Person: Allan
 
 Fixed most yellow warnings, reformatted code
 
+#########
+#Log 82:
+Person: Prynciss
+
+Added citation/javadocs
+

@@ -23,10 +23,29 @@ import java.util.List;
  */
 public class PicGrid {
 
+    /**
+     * The main stage to show the user
+     */
     private static Stage currentStg;
+
+    /**
+     * Parent directory that user chose
+     */
     private static File dir;
+
+    /**
+     * The index in imageButtons where the directory of all ImageFiles after that point is not in the chosen parent directory but the sub-folders
+     */
     private static int changeDirPoint = 0;
+
+    /**
+     * True if user wants to see all images under the chosen directory (includes sub-folders)
+     */
     private static boolean showAll = true;
+
+    /**
+     * Stores the buttons with image which leads to ImageScene on click
+     */
     private static ArrayList<Button> imageButtons = new ArrayList<>();
 
     PicGrid(Stage currentStg, File dir) {
@@ -86,6 +105,7 @@ public class PicGrid {
 
     /**
      * Sets the pane and ImageFiles for GUI in a grid like format.
+     * Functionality of panes from: https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm Date:  Nov 9, 2017
      */
     void picGrid() {
 
@@ -115,22 +135,22 @@ public class PicGrid {
 
         pane.getChildren().add(chooseDirectory);
 
+        // Only show the option of showing ImageFiles in or under directory if the parent directory has sub-folders
         if (!(changeDirPoint == imageButtons.size())) {
             Button show;
-            if (!showAll) show = new Button("Show all images under this directory (includes subfolder)");
-            else show = new Button("Show images in this directory");
+            if (!showAll) show = new Button("Press to show all images under this directory (includes subfolder)");
+            else show = new Button("Press to show images in this directory (only parent folder)");
 
             show.setOnAction(
                     e -> {
                         if (!showAll) {
                             showAll = true;
-                            show.setText("Show images in this directory");
+                            show.setText("Press to show images in this directory (only parent folder)");
                             pane.getChildren().addAll(imageButtons.subList(changeDirPoint, imageButtons.size()));
                         } else {
                             showAll = false;
-                            show.setText("Show all images under this directory (includes subfolder)");
-                            pane.getChildren()
-                                    .removeAll(imageButtons.subList(changeDirPoint, imageButtons.size()));
+                            show.setText("Press to show all images under this directory (includes subfolder)");
+                            pane.getChildren().removeAll(imageButtons.subList(changeDirPoint, imageButtons.size()));
                         }
                     });
             pane.getChildren().add(show);

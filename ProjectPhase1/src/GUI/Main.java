@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  */
 public class Main extends Application {
 
-    //https://www.loggly.com/ultimate-guide/java-logging-basics/ (Nov 16, 2017)
+    //Citation for all logger related code: https://www.loggly.com/ultimate-guide/java-logging-basics/ Date: Nov 16, 2017
     public static Logger logger = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] args) {

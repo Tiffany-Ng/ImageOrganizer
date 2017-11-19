@@ -152,7 +152,7 @@ class ImageScene {
 
                         ArrayList<String> allNames = new ArrayList<>(imageNames.getItems());
 
-                        // https://stackoverflow.com/questions/14987971/added-elements-in-arraylist-in-the-reverse-order-in-java
+                        //Cite: https://stackoverflow.com/questions/14987971/added-elements-in-arraylist-in-the-reverse-order-in-java
                         Collections.reverse(allNames);
 
                         boolean success = image.revertName(allNames.indexOf(imageNames.getValue()));

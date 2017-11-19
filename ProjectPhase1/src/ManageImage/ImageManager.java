@@ -24,7 +24,7 @@ public class ImageManager implements Serializable {
      * Loading data from serialized file out.ser
      * <p>
      * <p>cite:
-     * http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
+     *Adapted from: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html Date: Nov 9, 2017
      */
     public static void load() {
         try {
@@ -52,7 +52,7 @@ public class ImageManager implements Serializable {
      * Writing data onto the serialized file out.ser.
      * <p>
      * <p>// cite:
-     * http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
+     * Adapted from: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html Date: Nov 9, 2017
      */
     public static void save() {
         try {
