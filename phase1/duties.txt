@@ -37,3 +37,19 @@ Akshat Nigam (Please note that I forgot to set my name on git early in the proje
 		5. Extensively improved the style of code in GUI
 	- Implemented logging when exceptions were encountered
 	- Implemented using Date object in Log.java
+
+Allan Chang
+	- implemented ImageFile.java
+	- implemented TagManager.java
+	- made relevant classes serializable
+	- implemented on ImageManager:
+		1. Removes desynced files on load
+		2. Prevents duplicate ImageFile
+	- implemented on GUI:
+		1. Viewing another directory from PicGrid
+		2. PicGrid correctly filters images (between directories, and between subfolder)
+		3. Screen positioning and dimensions of PicGrid and ImageScene
+		4. Button in ImageScene which opens OS's file explorer
+		5. Synced both name textbox and previous names combobox to most recent image's name
+		6. Alertboxes which alert user about invalid input/actions
+	- fixed many minor bugs, example: fix ability to read jpeg images
