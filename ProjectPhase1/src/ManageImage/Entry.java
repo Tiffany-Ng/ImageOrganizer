@@ -6,8 +6,8 @@ import java.util.Date;
 /**
  * The state of an ManageImage.ImageFile.
  *
- * @version 0.2
  * @author Amarnath Parthiban
+ * @version 0.2
  */
 public class Entry implements Serializable {
 
@@ -21,41 +21,24 @@ public class Entry implements Serializable {
      */
     private Date currDate;
 
-    private String imageName;
-
     /**
      * Construct a new ManageImage.Entry.
      *
      * @param entryName String
      */
-    public Entry(String entryName, String imageName) {
+    Entry(String entryName) {
 
         this.entryName = entryName;
-        this.imageName = imageName;
         this.currDate = new Date();
 
     }
 
-    public Date getDate() {
+    private Date getDate() {
         return this.currDate;
     }
 
-    public void setTimeStamp(Date newDate) {
-        this.currDate = newDate;
-    }
-
-    public String getEntryName() {
+    private String getEntryName() {
         return entryName;
-    }
-
-    public void setEntryName(String entryName) { this.entryName = entryName; }
-
-    public String getImageName() {
-        return imageName;
-    }
-
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
     }
 
     @Override

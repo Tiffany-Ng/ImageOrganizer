@@ -6,30 +6,39 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 
 public class ImageFile implements Serializable {
 
-    /** The File object of the image */
+    /**
+     * The File object of the image
+     */
     private File imageFile;
-    /** The list of image tags */
+    /**
+     * The list of image tags
+     */
     private ArrayList<String> tags;
-    /** The name without tags */
+    /**
+     * The name without tags
+     */
     private String name;
 
-    /** The history of the image */
+    /**
+     * The history of the image
+     */
     private Log log;
 
-    /** Extension of image */
+    /**
+     * Extension of image
+     */
     private String extension;
 
-    /** Directory of image */
+    /**
+     * Directory of image
+     */
     private File directory;
 
     private List<String> priorNames;
@@ -41,20 +50,20 @@ public class ImageFile implements Serializable {
      * @param imageFile The File object of the image
      * @throws InvalidFileException imageFile is an invalid image
      */
-    public ImageFile(File imageFile) throws IOException {
+    ImageFile(File imageFile) throws IOException {
         if (!imageFile.isFile()) {
             Main.logger.log(Level.SEVERE, "Invalid file path", new InvalidFileException("Invalid File"));
-        }else if (ImageIO.read(imageFile) == null) {
+        } else if (ImageIO.read(imageFile) == null) {
             Main.logger.log(
                     Level.SEVERE, "Directory not being read", new InvalidFileException("Invalid File"));
-        }else{
+        } else {
             this.imageFile = imageFile;
             tags = new ArrayList<>();
             priorNames = new ArrayList<>();
             log = new Log();
 
             setUpFromImageFile();
-            log.addEntry(new Entry("Set initial name", name));
+            log.addEntry(new Entry("Set initial name"));
             priorNames.add(nameWithTags());
         }
 
@@ -64,7 +73,7 @@ public class ImageFile implements Serializable {
     /**
      * Sets up instance variables from imageFile
      */
-    private void setUpFromImageFile(){
+    private void setUpFromImageFile() {
         List<String> tags = splitTags(imageFile.getName());
         this.tags = new ArrayList<>();
         this.tags.addAll(tags);
@@ -77,7 +86,7 @@ public class ImageFile implements Serializable {
      * @param rawName String
      * @return List of tags
      */
-    public List<String> splitTags(String rawName) {
+    private List<String> splitTags(String rawName) {
 
         int indexExtension = rawName.lastIndexOf(".");
         extension = rawName.substring(indexExtension);
@@ -87,16 +96,6 @@ public class ImageFile implements Serializable {
         name = nameParts[0];
 
         return Arrays.asList(nameParts).subList(1, nameParts.length);
-    }
-
-    /**
-     * Indicates if 'tag' is contained in this ManageImage.ImageFile
-     *
-     * @param tag The tag used as a search reference
-     * @return True if this ManageImage.ImageFile contains 'tag'
-     */
-    public boolean containsTag(String tag) {
-        return tags.contains(tag);
     }
 
     /**
@@ -117,15 +116,6 @@ public class ImageFile implements Serializable {
      */
     public Log getLog() {
         return log;
-    }
-
-    /**
-     * Get the extension of this image
-     *
-     * @return The extension of this image
-     */
-    public String getExtension() {
-        return extension;
     }
 
     /**
@@ -175,14 +165,14 @@ public class ImageFile implements Serializable {
                     "Name inappropriately contains \" @\"",
                     new InvalidNameException("Name contains \\\" @\\"));
             return false;
-        }else if(newName.equals(this.name)){
+        } else if (newName.equals(this.name)) {
             return false;
-        }else{
+        } else {
             String oldName = this.name;
             this.name = newName;
 
-            boolean success =updateFile("Image \"" + oldName + "\" was renamed to \"" + newName + "\"");
-            if(success){
+            boolean success = updateFile("Image \"" + oldName + "\" was renamed to \"" + newName + "\"");
+            if (success) {
                 priorNames.remove(nameWithTags());
                 priorNames.add(nameWithTags());
             }
@@ -204,7 +194,7 @@ public class ImageFile implements Serializable {
         tags.addAll(priorTags);
 
         boolean success = updateFile("Reverted " + getName() + " to prior tags: " + nameWithTags());
-        if(success){
+        if (success) {
             priorNames.add(priorNames.remove(entryNumber));
         }
         return success;
@@ -230,7 +220,7 @@ public class ImageFile implements Serializable {
                     Level.SEVERE,
                     "Proper file path need to be selected",
                     new InvalidFileException("Invalid directory"));
-        }else{
+        } else {
             directory = newDirectory;
             success = updateFile("Moved image \"" + name + "\" to \"" + newDirectory.toString() + "\"");
         }
@@ -250,26 +240,13 @@ public class ImageFile implements Serializable {
         if (tag.contains(" @")) {
             Main.logger.log(
                     Level.SEVERE, "Invalid tag name", new InvalidNameException("Tag contains \" @\""));
-        }else if (!tags.contains(tag)) {
+        } else if (!tags.contains(tag)) {
             tags.add(tag);
             success = updateFile("Added tag \"" + tag + "\" to image \"" + name + "\"");
-            if(success) priorNames.add(nameWithTags());
-            if (!TagManager.tags.contains(tag)) TagManager.add(tag);
+            if (success) priorNames.add(nameWithTags());
+            if (!TagManager.getTags().contains(tag)) TagManager.add(tag);
         }
         return success;
-    }
-
-    /**
-     * Adds tags to image
-     * <p>Precondition: tag in tags does not contain " @"
-     *
-     * @param tags list of tags to add
-     * @throws InvalidNameException tag in tags contains " @"
-     */
-    public void addTag(String[] tags) {
-        for (String tag : tags) {
-            addTag(tag);
-        }
     }
 
     /**
@@ -284,7 +261,7 @@ public class ImageFile implements Serializable {
             tags.remove(tag);
             // TagManager.remove(tag);
             success = updateFile("Removed tag \"" + tag + "\" from image \"" + name + "\"");
-            if(success) priorNames.add(nameWithTags());
+            if (success) priorNames.add(nameWithTags());
         }
         return success;
     }
@@ -312,8 +289,7 @@ public class ImageFile implements Serializable {
                                     + oldName
                                     + " -> "
                                     + newName
-                                    + System.lineSeparator(),
-                            nameWithTags()));
+                                    + System.lineSeparator()));
         } else {
             setUpFromImageFile();
             Main.logger.log(

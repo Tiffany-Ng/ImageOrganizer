@@ -44,8 +44,8 @@ class DirChooser {
      * Lets user to choose a directory and then moves the ImageFile to chosen directory.
      *
      * @param currentStage the Stage that the user is in
-     * @param imageToMove the ImageFile to move
-     * @param dirText the Text to display the directory of the ImageFile
+     * @param imageToMove  the ImageFile to move
+     * @param dirText      the Text to display the directory of the ImageFile
      */
     static void dirChooser(Stage currentStage, ImageFile imageToMove, Text dirText, ImageScene is) {
         imageScene = is;
@@ -59,11 +59,11 @@ class DirChooser {
      * If True, ImageFile will be moved to the selected directory.
      * If False, PicGrid will be shown.
      *
-     * @param button the 'Go' button
-     * @param file True if a file was given when dirChooser is called
+     * @param button       the 'Go' button
+     * @param file         True if a file was given when dirChooser is called
      * @param currentStage the Stage that the user is in
-     * @param chooser the Stage of the directory chooser
-     * @param error the error message to be shown if user chose an invalid directory
+     * @param chooser      the Stage of the directory chooser
+     * @param error        the error message to be shown if user chose an invalid directory
      * @param dirTextField the TextField for showing the chosen directory
      */
     private static void btmMethod(Button button, boolean file, Stage currentStage, Stage chooser, Text error, TextField dirTextField) {
@@ -77,7 +77,7 @@ class DirChooser {
                                 boolean success = image.move(directory);
                                 directoryText.setText(image.getDirectory().toString());
                                 imageScene.updateLog();
-                                if(!success){
+                                if (!success) {
                                     Alert alert = new Alert(Alert.AlertType.ERROR);
                                     alert.setTitle("Move Directory Error");
                                     alert.setHeaderText("Failed to move this image to " + directory.toString());
@@ -91,7 +91,7 @@ class DirChooser {
                         } else {
                             error.setVisible(true);
                         }
-                    }else {
+                    } else {
                         directory = new File(dirTextField.getText());
 
                         if (directory.isDirectory()) {
@@ -112,7 +112,7 @@ class DirChooser {
     /**
      * Sets the stage except for the goBtn.
      *
-     * @param file True if a file was given when dirChooser is called
+     * @param file         True if a file was given when dirChooser is called
      * @param currentStage the Stage that the user is in
      */
     private static void genericChooser(Stage currentStage, boolean file) {

@@ -42,11 +42,6 @@ class ImageScene {
     private Scene imageScene;
 
     /**
-     * Main pane of the scene.
-     */
-    private GridPane g;
-
-    /**
      * All the logs in a text box.
      */
     private TextArea log;
@@ -54,7 +49,7 @@ class ImageScene {
     /**
      * Image's name
      */
-    TextField name;
+    private TextField name;
 
     /**
      * Pane to hold clickable tags.
@@ -89,7 +84,8 @@ class ImageScene {
         this.image = image;
 
         // inspired from https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm
-        this.g = gridSetup();
+        GridPane g;
+        g = gridSetup();
         imageScene = new Scene(g);
 
         this.directory = directory;
@@ -101,8 +97,8 @@ class ImageScene {
 
         // cite: https://stackoverflow.com/questions/3680221/how-can-i-get-screen-resolution-in-java
         Rectangle screenSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
-        prevScene.setX((screenSize.getWidth() - prevScene.getWidth())/2);
-        prevScene.setY((screenSize.getHeight() - prevScene.getHeight())/2);
+        prevScene.setX((screenSize.getWidth() - prevScene.getWidth()) / 2);
+        prevScene.setY((screenSize.getHeight() - prevScene.getHeight()) / 2);
         prevScene.setResizable(false);
     }
 
@@ -117,7 +113,7 @@ class ImageScene {
         updateLog();
         imageNameUpdate();
 
-        if(!success){
+        if (!success) {
             // http://code.makery.ch/blog/javafx-dialogs-official/
             createAlert("Invalid Name", "The name you entered is invalid.",
                     "A name should not contain ' @' and the name " + name.getText() + " must be available");
@@ -125,7 +121,7 @@ class ImageScene {
 
     }
 
-    private void createAlert(String title, String header, String content){
+    private void createAlert(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(header);
@@ -137,9 +133,8 @@ class ImageScene {
      * Adding the ability to revert to an older name on the GUI
      *
      * @param revertName Button that initiates action
-     * @param name       The new (changed)name to be displayed the textField
      */
-    private void revertOldTagName(Button revertName, TextField name) {
+    private void revertOldTagName(Button revertName) {
         revertName.setOnAction(
                 event -> {
                     if (!imageNames.getSelectionModel().isEmpty()
@@ -151,7 +146,7 @@ class ImageScene {
                         Collections.reverse(allNames);
 
                         boolean success = image.revertName(allNames.indexOf(imageNames.getValue()));
-                        if(!success){
+                        if (!success) {
                             createAlert("Revert Error", "The revert is invalid",
                                     "The file name " + imageNames.getValue() + " must be available");
                         }
@@ -168,8 +163,8 @@ class ImageScene {
      * @param newTag field which contains the new tag name
      * @return true if valid tag name.
      */
-    private boolean checkValidTagName(ComboBox newTag) {
-        return (newTag.getValue() instanceof String) && ((String) newTag.getValue()).length() != 0;
+    private boolean checkValidTagName(ComboBox<String> newTag) {
+        return newTag != null && (newTag.getValue()).length() != 0;
     }
 
 
@@ -193,7 +188,7 @@ class ImageScene {
     /**
      * Update the log with its new information.
      */
-    public void updateLog() {
+    void updateLog() {
 
         Log imageLog = image.getLog();
         StringBuilder logs = new StringBuilder();
@@ -239,12 +234,12 @@ class ImageScene {
             tag.setOnAction(
                     e -> {
                         boolean success = image.removeTag(tag.getText());
-                        if(success) {
+                        if (success) {
                             f.getChildren().remove(tag);
                             updateLog();
                             imageNameUpdate();
-                        }else{
-                            createAlert("Remove Tag Error", "The tag '"+tag.getText()+"' was not removed successfully",
+                        } else {
+                            createAlert("Remove Tag Error", "The tag '" + tag.getText() + "' was not removed successfully",
                                     "Tag name contains ' @' or the file name without the tag is likely occupied");
                         }
                     });
@@ -299,9 +294,7 @@ class ImageScene {
 
         Button rename = new Button("Rename");
         rename.setOnAction(
-            e -> {
-                this.renameImageFile();
-                });
+                e -> this.renameImageFile());
 
 
         back.setOnAction(
@@ -314,7 +307,7 @@ class ImageScene {
         imageNames.getSelectionModel().selectFirst();
 
         Button revertName = new Button("Revert");
-        this.revertOldTagName(revertName, name);  // gives functionality to the Button
+        this.revertOldTagName(revertName);  // gives functionality to the Button
 
         HBox imageName = new HBox();
         imageName.getChildren().addAll(name, rename, imageNames, revertName);
@@ -379,9 +372,9 @@ class ImageScene {
 
         // flow.getChildren().add(changeDir);
 
-        ComboBox newTag = new ComboBox();
+        ComboBox<String> newTag = new ComboBox<>();
         newTag.setEditable(true);
-        newTag.getItems().addAll(TagManager.tags);
+        newTag.getItems().addAll(TagManager.getTags());
 
         newTag
                 .getEditor()
@@ -396,11 +389,11 @@ class ImageScene {
         addTag.setOnAction(
                 e -> {
                     if (checkValidTagName(newTag)) {   // TODO: change this if-clause
-                        boolean success = image.addTag((String) newTag.getValue());
-                        if(success) {
+                        boolean success = image.addTag(newTag.getValue());
+                        if (success) {
                             newTag.setValue("");
-                        }else{
-                            createAlert("Add Tag Error", "The tag '" +newTag.getValue()+ "' was not added successfully",
+                        } else {
+                            createAlert("Add Tag Error", "The tag '" + newTag.getValue() + "' was not added successfully",
                                     "Tag name contains ' @', the tag already exists, or the file name with the additional tag is occupied");
                         }
                     }
@@ -414,7 +407,7 @@ class ImageScene {
         addToAll.setOnAction(
                 e -> {
                     if (checkValidTagName(newTag)) {
-                        ImageManager.addGlobalTag((String) newTag.getValue());
+                        ImageManager.addGlobalTag(newTag.getValue());
                         newTag.setValue("");
                     }
                     new PicGrid(prevScene, this.directory).picGrid();
@@ -424,7 +417,7 @@ class ImageScene {
         deleteFromAll.setOnAction(
                 e -> {
                     if (checkValidTagName(newTag)) {
-                        ImageManager.deleteGlobalTag((String) newTag.getValue());
+                        ImageManager.deleteGlobalTag(newTag.getValue());
                         newTag.setValue("");
                     }
                     new PicGrid(prevScene, this.directory).picGrid();

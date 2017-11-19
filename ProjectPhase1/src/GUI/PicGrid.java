@@ -64,19 +64,18 @@ public class PicGrid {
 
             viewImage.setOnAction(
                     e -> {
-                        ImageScene toScene = null;
                         try {
-                            toScene = new ImageScene(img, dir, currentStg);
+                            ImageScene toScene = new ImageScene(img, dir, currentStg);
+                            currentStg.setScene(toScene.getImageScene());
                         } catch (IOException e1) {
                             e1.printStackTrace();
                         }
-                        currentStg.setScene(toScene.getImageScene());
                     });
 
             if (img.getDirectory().equals(dir)) {
                 sameDirectory.add(viewImage);
                 changeDirPoint += 1;
-            }else{
+            } else {
                 differentDirectory.add(viewImage);
             }
         }
@@ -149,7 +148,7 @@ public class PicGrid {
     /**
      * Returns the ImageFiles displayed in PicGrid
      *
-     * @return  ArrayList<ImageFile> the ImageFiles displayed in PicGrid
+     * @return ArrayList<ImageFile> the ImageFiles displayed in PicGrid
      */
     public static ArrayList<ImageFile> getDisplayedFiles() {
         ArrayList<ImageFile> list = ImageManager.getImageFilesByDirectory(PicGrid.dir);

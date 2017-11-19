@@ -720,3 +720,10 @@ Fix: Combobox is updated after rename
 Person: Allan
 
 Fixed rename alertbox, changing directory updates log display
+
+#########
+#Log 81:
+Person: Allan
+
+Fixed most yellow warnings, reformatted code
+

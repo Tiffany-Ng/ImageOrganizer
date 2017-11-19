@@ -1,7 +1,5 @@
 package ManageImage;
 
-import ManageImage.Entry;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,8 +9,8 @@ import java.util.List;
  * A ManageImage.Log of all changes to an ManageImage.ImageFile.
  * A ManageImage.Log is able to iterate through every ManageImage.Entry it has recorded.
  *
- * @version 0.1
  * @author Amarnath Parthiban
+ * @version 0.1
  */
 public class Log implements Iterable<Entry>, Serializable {
 
@@ -24,26 +22,9 @@ public class Log implements Iterable<Entry>, Serializable {
     /**
      * Construct a new ManageImage.Log.
      */
-    public Log() {
+    Log() {
 
         history = new ArrayList<>();
-
-    }
-
-    /**
-     * Get the most recent entry in the history.
-     *
-     * @return ManageImage.Entry
-     */
-    public Entry recentEntry() {
-
-        return history.get(history.size() -1 );  //TODO: Will need to convert into suitable redable format.
-
-    }
-
-    public Entry getEntry(int num) {
-
-        return history.get(num);
 
     }
 
