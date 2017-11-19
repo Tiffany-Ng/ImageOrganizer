@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class Main extends Application {
 
-    //Citation for all logger related code: https://www.loggly.com/ultimate-guide/java-logging-basics/ Date: Nov 16, 2017
+    //Citation for all logger related code, adapted from: https://www.loggly.com/ultimate-guide/java-logging-basics/ Date: Nov 16, 2017
     public static Logger logger = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] args) {
@@ -35,6 +35,11 @@ public class Main extends Application {
         launch(args);
     }
 
+    /**
+     * Opens DirChooser, loads prior ImageManager.imageFiles and TagManager.tags.
+     *
+     * @param currentStage the stage user is in.
+     */
     @Override
     public void start(Stage currentStage) {
         ImageManager.load();
@@ -42,6 +47,9 @@ public class Main extends Application {
         DirChooser.dirChooser(currentStage);
     }
 
+    /**
+     * Saves  ImageManager.imageFiles and TagManager.tags to files when program closes.
+     */
     @Override
     public void stop() {
         ImageManager.save();
