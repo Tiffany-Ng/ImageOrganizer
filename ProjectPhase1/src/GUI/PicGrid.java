@@ -20,6 +20,11 @@ import java.util.List;
 
 /**
  * Shows a list of thumbnails of all images under the directory.
+ *
+ * @author Allan Chang 1003235983
+ * @author Prynciss Ng 1003136091
+ * @author Amarnath Parthiban 1003193518
+ * @author Akshat Nigam 1002922732
  */
 public class PicGrid {
 

@@ -11,36 +11,34 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 
+/** // TODO ADD A DESCRPITION
+ *
+ * @author Allan Chang 1003235983
+ * @author Prynciss Ng 1003136091
+ * @author Amarnath Parthiban 1003193518
+ * @author Akshat Nigam 1002922732
+ */
 public class ImageFile implements Serializable {
 
-    /**
-     * The File object of the image
-     */
+    /** The File object of the image */
     private File imageFile;
-    /**
-     * The list of image tags
-     */
+
+    /** The list of image tags*/
     private ArrayList<String> tags;
-    /**
-     * The name without tags
-     */
+
+    /** The name without tags */
     private String name;
 
-    /**
-     * The history of the image
-     */
+    /** The history of the image */
     private Log log;
 
-    /**
-     * Extension of image
-     */
+    /** Extension of image */
     private String extension;
 
-    /**
-     * Directory of image
-     */
+    /** Directory of image */
     private File directory;
 
+    /** Prior name that the imaged held */
     private List<String> priorNames;
 
     /**

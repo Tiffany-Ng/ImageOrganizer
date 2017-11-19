@@ -29,47 +29,35 @@ import java.util.logging.Level;
 /**
  * GUI of an individual image's information.
  *
+ * @author Allan Chang 1003235983
+ * @author Prynciss Ng 1003136091
+ * @author Amarnath Parthiban 1003193518
+ * @author Akshat Nigam 1002922732
  */
 class ImageScene {
 
-    /**
-     * The image used .
-     */
+    /** The image used. */
     private ImageFile image;
 
-    /**
-     * The actual scene which hold all the elements.
-     */
+    /** The actual scene which hold all the elements.*/
     private Scene imageScene;
 
-    /**
-     * All the logs in a text box.
-     */
+    /** All the logs in a text box.*/
     private TextArea log;
 
-    /**
-     * Image's name
-     */
+    /** Image's name*/
     private TextField name;
 
-    /**
-     * Pane to hold clickable tags.
-     */
+    /** Pane to hold clickable tags. */
     private FlowPane f;
 
-    /**
-     * The directory that the user first opened
-     */
+    /** The directory that the user first opened */
     private File directory;
 
-    /**
-     * The previous picGrid scene
-     */
+    /** The previous picGrid scene */
     private Stage prevScene;
 
-    /**
-     * All names the image has had.
-     */
+    /** All names the image has had. */
     private ComboBox<String> imageNames;
 
     /**

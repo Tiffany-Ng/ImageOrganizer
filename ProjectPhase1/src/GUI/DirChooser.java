@@ -25,6 +25,11 @@ import java.util.logging.Level;
  * Pass in a Stage, an ImageFile, and a Text to select a directory for the ImageFile to transfer to. It will also update the Text to show
  * the new directory.
  * Functionality of panes from: https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm Date: Nov 6, 2017
+ *
+ * @author Allan Chang 1003235983
+ * @author Prynciss Ng 1003136091
+ * @author Amarnath Parthiban 1003193518
+ * @author Akshat Nigam 1002922732
  */
 class DirChooser {
     /**
