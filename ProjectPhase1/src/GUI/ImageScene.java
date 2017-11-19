@@ -218,7 +218,7 @@ class ImageScene {
      */
     private FlowPane addClickableTags() {
 
-        // https://stackoverflow.com/questions/37378973/implement-tags-bar-in-javafx
+        // taken from https://stackoverflow.com/questions/37378973/implement-tags-bar-in-javafx
         List<String> tags = image.getTags();
         f.getChildren().removeAll(f.getChildren());
 
@@ -262,13 +262,15 @@ class ImageScene {
 
         // image in form of a viewable icon
         ImageView icon = new ImageView();
+
+        // ratio preserve solution
         // https://stackoverflow.com/questions/27894945/how-do-i-resize-an-imageview-image-in-javafx
         icon.setFitWidth(720);
         icon.setFitHeight(480);
         icon.setPreserveRatio(true);
 
         // needs the "file://" because image will not understand it is a directory
-        // https://stackoverflow.com/questions/8474694/java-url-unknown-protocol-c
+        // solution found at https://stackoverflow.com/questions/8474694/java-url-unknown-protocol-c
         icon.setImage(new Image("file:///" + image.getFile().toString()));
         layout.add(icon, 1, 2, 4, 2);
 
@@ -367,8 +369,6 @@ class ImageScene {
         // https://stackoverflow.com/questions/33339427/javafx-have-multiple-panes-in-one-scene
         flow.getChildren().add(dir);
         flow.setAlignment(Pos.CENTER_LEFT);
-
-        // flow.getChildren().add(changeDir);
 
         ComboBox<String> newTag = new ComboBox<>();
         newTag.setEditable(true);
