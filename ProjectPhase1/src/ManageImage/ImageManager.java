@@ -247,8 +247,8 @@ public class ImageManager implements Serializable {
      * @param tag The tag to delete from TagManager.tags and ImageFiles all containing that tag.
      */
     public static void deleteGlobalTag(String tag) {
-
         ArrayList<ImageFile> list = PicGrid.getDisplayedFiles();
+
         for (ImageFile file : list) {
             file.removeTag(tag);
         }
@@ -265,7 +265,5 @@ public class ImageManager implements Serializable {
         ArrayList<ImageFile> list = PicGrid.getDisplayedFiles();
 
         for (ImageFile file : list) file.addTag(tag);
-
-
     }
 }

@@ -77,11 +77,11 @@ class DirChooser {
      * If True, ImageFile will be moved to the selected directory.
      * If False, PicGrid will be shown.
      *
-     * @param button       the 'Go' button
-     * @param file         True if a file was given when dirChooser is called
+     * @param button  the 'Go' button
+     * @param file True if a file was given when dirChooser is called
      * @param currentStage the Stage that the user is in
-     * @param chooser      the Stage of the directory chooser
-     * @param error        the error message to be shown if user chose an invalid directory
+     * @param chooser  the Stage of the directory chooser
+     * @param error the error message to be shown if user chose an invalid directory
      * @param dirTextField the TextField for showing the chosen directory
      */
     private static void btmMethod(Button button, boolean file, Stage currentStage, Stage chooser, Text error, TextField dirTextField) {
@@ -127,7 +127,7 @@ class DirChooser {
     /**
      * Sets the stage except for the goBtn.
      *
-     * @param file         True if a file was given when dirChooser is called
+     * @param file True if a file was given when dirChooser is called
      * @param currentStage the Stage that the user is in
      */
     private static void genericChooser(Stage currentStage, boolean file) {
@@ -169,7 +169,7 @@ class DirChooser {
 
         dirChooserBtn.setOnAction(
                 e -> {
-                    // Adapted from: https://docs.oracle.com/javafx/2/ui_controls/file-chooser.html (Date: Nov 5, 2017)
+                    // Adapted from: https://docs.oracle.com/javafx/2/ui_controls/file-chooser.html Date: Nov 5, 2017
                     DirectoryChooser dirChooser = new DirectoryChooser();
                     File directory = dirChooser.showDialog(currentStage);
                     if (directory != null) {
@@ -182,6 +182,7 @@ class DirChooser {
 
         chooser.setMaximized(false);
         chooser.setScene(scene);
+        //Cite: https://www.programcreek.com/java-api-examples/index.php?class=javafx.stage.Stage&method=showAndWait Date: Nov 5, 2017
         chooser.initModality(Modality.APPLICATION_MODAL);
         chooser.show();
     }
