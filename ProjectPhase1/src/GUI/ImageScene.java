@@ -162,7 +162,7 @@ class ImageScene {
      * @return true if valid tag name.
      */
     private boolean checkValidTagName(ComboBox<String> newTag) {
-        return newTag != null && (newTag.getValue()).length() != 0;
+        return newTag.getValue() != null && (newTag.getValue()).length() != 0;
     }
 
 
