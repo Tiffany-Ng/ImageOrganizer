@@ -20,9 +20,11 @@ Prynciss Ng (Please note that 'Tiffany Ng'/ 'Prynciss Ng Porche' in git log is t
 	- implemented PicGrid.java
 		- Display of images under or in a directory in a grid format, leads to ImageScene on click
 		- Ability to change the list of images (option of in/under a chosen directory) with a click of a button	
+		- getDisplayFiles
 	- implemented in ImageManager
 		- save/load so information persists after program is quit and reopened
-		- DeleteGlobalTag/addGlobalTag
+		- DeleteGlobalTag/addGlobalTag (only applies to the visiable images in PicGrid - depends if user chose
+			to view images in the parent folder or images including sub-folders as well)
 	- implemented in ImageScene
 		- Add all/delete all buttons to/from global tags (partial)
 	- Creation/implementation of Logger
