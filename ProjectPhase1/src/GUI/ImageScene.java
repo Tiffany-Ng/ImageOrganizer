@@ -354,6 +354,7 @@ class ImageScene {
                         Main.logger.log(Level.SEVERE, "Can't open directory", ex);
                     }
                 });
+        
 
         // button for changing the directory
         Button changeDir = new Button();
