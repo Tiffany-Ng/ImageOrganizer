@@ -751,3 +751,9 @@ Person: Prynciss
 
 Global add/delete tag has error sometimes doesn't show up, fixed.
 
+#########
+#Log 86:
+Person: Prynciss
+
+Put back alertbox for open directory button
+

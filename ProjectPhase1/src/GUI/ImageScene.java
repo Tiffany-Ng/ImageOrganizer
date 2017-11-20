@@ -342,15 +342,11 @@ class ImageScene {
         openDir.setOnAction(
                 e -> {
                     try {
-                        if (Desktop.isDesktopSupported()) {
-                            Desktop.getDesktop().open(image.getDirectory());
-                        }
-                        else{
-                            // try running on the command line of linux
-                            Runtime rt = Runtime.getRuntime();
-                            Process pr = rt.exec("gnome-open " + directory.getText());  // todo with nautulus
-                        }
+                      //Adapted from: https://stackoverflow.com/questions/7357969/how-to-use-java-code-to-open-windows-file-explorer-and-highlight-the-specified-f Date: Nov 19, 2017
+                      Runtime.getRuntime().exec("explorer.exe /select," + image.getFile().getAbsolutePath());
                     } catch (IOException ex) {
+                      createAlert("Open directory error", "Execution failed",
+                              "The execution is not supported on this computer");
                         Main.logger.log(Level.SEVERE, "Can't open directory", ex);
                     }
                 });
