@@ -162,7 +162,7 @@ class ImageScene {
      * @return true if valid tag name.
      */
     private boolean checkValidTagName(ComboBox<String> newTag) {
-        return newTag != null && (newTag.getValue()).length() != 0;
+        return newTag.getValue() != null && (newTag.getValue()).length() != 0;
     }
 
 
@@ -342,11 +342,19 @@ class ImageScene {
         openDir.setOnAction(
                 e -> {
                     try {
-                        Desktop.getDesktop().open(image.getDirectory());
+                        if (Desktop.isDesktopSupported()) {
+                            Desktop.getDesktop().open(image.getDirectory());
+                        }
+                        else{
+                            // try running on the command line of linux
+                            Runtime rt = Runtime.getRuntime();
+                            Process pr = rt.exec("gnome-open " + directory.getText());  // todo with nautulus
+                        }
                     } catch (IOException ex) {
                         Main.logger.log(Level.SEVERE, "Can't open directory", ex);
                     }
                 });
+        
 
         // button for changing the directory
         Button changeDir = new Button();
