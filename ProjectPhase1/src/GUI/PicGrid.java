@@ -178,10 +178,9 @@ public class PicGrid {
     public static ArrayList<ImageFile> getDisplayedFiles() {
         ArrayList<ImageFile> list = ImageManager.getImageFilesByDirectory(PicGrid.dir);
 
+
         if (!(PicGrid.changeDirPoint == PicGrid.imageButtons.size()) && !PicGrid.showAll) {
-            List<ImageFile> toAdd = list.subList(PicGrid.changeDirPoint, list.size());
-            list.clear();
-            list.addAll(toAdd);
+            list.removeAll(list.subList(PicGrid.changeDirPoint, list.size()));
         }
 
         return list;

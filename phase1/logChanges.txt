@@ -739,3 +739,9 @@ Person: Allan
 
 Added citation/javadocs
 
+#########
+#Log 84:
+Person: Prynciss
+
+Global add/delete tag has error if only in parent directory, fixed.
+
