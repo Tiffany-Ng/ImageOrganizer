@@ -177,7 +177,7 @@ public class PicGrid {
     public static ArrayList<ImageFile> getDisplayedFiles() {
         ArrayList<ImageFile> list = ImageManager.getImageFilesByDirectory(PicGrid.dir);
 
-        if (!showAll && changeDirPoint != list.size())
+        if (!showAll)
             for (ImageFile file : ImageManager.getImageFilesByDirectory(PicGrid.dir))
                 if (!file.getDirectory().equals(dir))
                     list.remove(file);
