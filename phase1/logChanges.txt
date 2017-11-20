@@ -745,3 +745,9 @@ Person: Prynciss
 
 Global add/delete tag has error if only in parent directory, fixed.
 
+#########
+#Log 85:
+Person: Prynciss
+
+Global add/delete tag has error sometimes doesn't show up, fixed.
+

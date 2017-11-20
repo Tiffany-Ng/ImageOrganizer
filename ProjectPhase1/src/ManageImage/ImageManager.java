@@ -265,5 +265,7 @@ public class ImageManager implements Serializable {
         ArrayList<ImageFile> list = PicGrid.getDisplayedFiles();
 
         for (ImageFile file : list) file.addTag(tag);
+
+
     }
 }

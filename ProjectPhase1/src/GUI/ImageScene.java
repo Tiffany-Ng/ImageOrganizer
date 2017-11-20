@@ -409,6 +409,7 @@ class ImageScene {
                         newTag.setValue("");
                     }
                     new PicGrid(prevScene, this.directory).picGrid();
+
                 });
 
         Button deleteFromAll = new Button("Delete from All");

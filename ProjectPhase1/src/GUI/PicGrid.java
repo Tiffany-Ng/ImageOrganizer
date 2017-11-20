@@ -16,7 +16,6 @@ import ManageImage.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Shows a list of thumbnails of all images under the directory.
@@ -178,10 +177,10 @@ public class PicGrid {
     public static ArrayList<ImageFile> getDisplayedFiles() {
         ArrayList<ImageFile> list = ImageManager.getImageFilesByDirectory(PicGrid.dir);
 
-
-        if (!(PicGrid.changeDirPoint == PicGrid.imageButtons.size()) && !PicGrid.showAll) {
-            list.removeAll(list.subList(PicGrid.changeDirPoint, list.size()));
-        }
+        if (!showAll && changeDirPoint != list.size())
+            for (ImageFile file : ImageManager.getImageFilesByDirectory(PicGrid.dir))
+                if (!file.getDirectory().equals(dir))
+                    list.remove(file);
 
         return list;
     }
