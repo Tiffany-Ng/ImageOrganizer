@@ -1,4 +1,10 @@
+# ignore any intelliJ personal settings
 *.iml
-*.ser
 **/.idea
 **/out
+
+# ignore local serializable file created
+*.ser
+
+# ignore any .class
+*.class
