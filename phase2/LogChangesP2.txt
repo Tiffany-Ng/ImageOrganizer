@@ -1,0 +1,13 @@
+#########
+#Log 1:
+
+Person: Prynciss
+
+Added .gitignore file
+
+#########
+#Log 2:
+
+Person: Prynciss
+
+Changed PicGrid and ImageManager, following the Single Responsibility Principle. Added ImageManger.getImageFilesInSubDirectory, ImageManger.getImageFilesInParentDirectory, and ImageManger.getDisplayedFiles.

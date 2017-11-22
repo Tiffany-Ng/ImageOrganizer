@@ -95,6 +95,7 @@ class DirChooser {
                                 directoryText.setText(image.getDirectory().toString());
                                 imageScene.updateLog();
                                 if (!success) {
+                                    // taken from http://code.makery.ch/blog/javafx-dialogs-official/
                                     Alert alert = new Alert(Alert.AlertType.ERROR);
                                     alert.setTitle("Move Directory Error");
                                     alert.setHeaderText("Failed to move this image to " + directory.toString());

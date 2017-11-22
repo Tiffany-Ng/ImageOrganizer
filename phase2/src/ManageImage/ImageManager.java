@@ -86,7 +86,7 @@ public class ImageManager implements Serializable {
      * @param directory the directory that contains returned images
      * @return the images stored in directory
      */
-    public static ArrayList<ImageFile> getImageFilesByDirectory(File directory) {
+    private static ArrayList<ImageFile> getImageFilesByDirectory(File directory) {
 
         // cite:
         // https://stackoverflow.com/questions/4746671/how-to-check-if-a-given-path-is-possible-child-of-another-path
@@ -99,6 +99,38 @@ public class ImageManager implements Serializable {
                 filteredImages.add(imageFile);
             }
         }
+        return filteredImages;
+    }
+
+    /**
+     * Get images stored in directory (only in sub-folders)
+     * <p>Assumes stored images and directory all use absolute paths</p>
+     *
+     * @param directory the directory that contains returned images
+     * @return the images stored in directory (only in sub-folders)
+     */
+    public static ArrayList<ImageFile> getImageFilesInSubDirectory(File directory) {
+        ArrayList<ImageFile> filteredImages = getImageFilesByDirectory(directory);
+        for (ImageFile imageFile : imageFiles) {
+            if (imageFile.getDirectory().equals(directory)) {
+                filteredImages.remove(imageFile);
+            }
+        }
+        return filteredImages;
+    }
+
+    /**
+     * Get images stored in directory (only in parent folder)
+     * <p>Assumes stored images and directory all use absolute paths</p>
+     *
+     * @param directory the directory that contains returned images
+     * @return the images stored in directory (only in parent folder)
+     */
+    public static ArrayList<ImageFile> getImageFilesInParentDirectory(File directory) {
+        ArrayList<ImageFile> filteredImages = getImageFilesByDirectory(directory);
+
+        filteredImages.removeAll(getImageFilesInSubDirectory(directory));
+
         return filteredImages;
     }
 
@@ -247,13 +279,11 @@ public class ImageManager implements Serializable {
      * @param tag The tag to delete from TagManager.tags and ImageFiles all containing that tag.
      */
     public static void deleteGlobalTag(String tag) {
-        ArrayList<ImageFile> list = PicGrid.getDisplayedFiles();
+        ArrayList<ImageFile> list = getDisplayedFiles(PicGrid.getShowAll(), PicGrid.getDirectory());
 
-        for (ImageFile file : list) {
+        for (ImageFile file : list)
             file.removeTag(tag);
-        }
-        if (TagManager.getTags().contains(tag))
-            TagManager.getTags().remove(tag);
+
     }
 
     /**
@@ -262,8 +292,21 @@ public class ImageManager implements Serializable {
      * @param tag The tag to add to TagManager.tags and ImageFiles
      */
     public static void addGlobalTag(String tag) {
-        ArrayList<ImageFile> list = PicGrid.getDisplayedFiles();
+        ArrayList<ImageFile> list = getDisplayedFiles(PicGrid.getShowAll(), PicGrid.getDirectory());
 
         for (ImageFile file : list) file.addTag(tag);
+    }
+
+    /**
+     * Returns the displayed ImageFiles in PicGrid
+     *
+     * @return ArrayList<ImageFile> the displayed ImageFiles in PicGrid
+     */
+    private static ArrayList<ImageFile> getDisplayedFiles(boolean showAll, File directory) {
+        ArrayList<ImageFile> list = getImageFilesByDirectory(directory);
+        if (!showAll)
+            list.removeAll(getImageFilesInSubDirectory(directory));
+
+        return list;
     }
 }

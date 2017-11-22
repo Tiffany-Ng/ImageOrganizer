@@ -38,11 +38,6 @@ public class PicGrid {
     private static File dir;
 
     /**
-     * The index in imageButtons where the directory of all ImageFiles after that point is not in the chosen parent directory but the sub-folders
-     */
-    private static int changeDirPoint = 0;
-
-    /**
      * True if user wants to see all images under the chosen directory (includes sub-folders)
      */
     private static boolean showAll = true;
@@ -50,12 +45,19 @@ public class PicGrid {
     /**
      * Stores the buttons with image which leads to ImageScene on click
      */
-    private static ArrayList<Button> imageButtons = new ArrayList<>();
+    private ArrayList<Button> imageButtons = new ArrayList<>();
+
+    /**
+     * Stores the buttons with image in sub-folders which leads to ImageScene on click
+     */
+    private ArrayList<Button> subDirImageButtons = new ArrayList<>();
 
     PicGrid(Stage currentStg, File dir) {
         PicGrid.currentStg = currentStg;
         PicGrid.dir = dir;
-        imageButtons = gatherImages();
+        imageButtons = gatherImages(ImageManager.getImageFilesInParentDirectory(dir));
+        subDirImageButtons = gatherImages(ImageManager.getImageFilesInSubDirectory(dir));
+        imageButtons.addAll(subDirImageButtons);
     }
 
     /**
@@ -63,11 +65,10 @@ public class PicGrid {
      *
      * @return ArrayList an array list of all clickable image buttons
      */
-    private static ArrayList<Button> gatherImages() {
-        ArrayList<Button> sameDirectory = new ArrayList<>();
-        ArrayList<Button> differentDirectory = new ArrayList<>();
-        changeDirPoint = 0;
-        for (ImageFile img : ImageManager.getImageFilesByDirectory(dir)) {
+    private static ArrayList<Button> gatherImages(ArrayList<ImageFile> files) {
+        ArrayList<Button> buttons = new ArrayList<>();
+
+        for (ImageFile img : files) {
 
             Image image = new Image("file:///" + img.getFile().toString(), 200, 200, true, true, true);
             ImageView view = new ImageView(image);
@@ -95,22 +96,17 @@ public class PicGrid {
                         }
                     });
 
-            if (img.getDirectory().equals(dir)) {
-                sameDirectory.add(viewImage);
-                changeDirPoint += 1;
-            } else {
-                differentDirectory.add(viewImage);
-            }
-        }
+            buttons.add(viewImage);
 
-        sameDirectory.addAll(differentDirectory);
-        return sameDirectory;
+        }
+        return buttons;
     }
 
     /**
      * Sets the pane and ImageFiles for GUI in a grid like format.
      * Functionality of panes from: https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm Date:  Nov 9, 2017
      */
+
     void picGrid() {
 
         currentStg.setTitle("Image Viewer - List images");
@@ -140,21 +136,21 @@ public class PicGrid {
         pane.getChildren().add(chooseDirectory);
 
         // Only show the option of showing ImageFiles in or under directory if the parent directory has sub-folders
-        if (!(changeDirPoint == imageButtons.size())) {
+        if (subDirImageButtons.size() != 0) {
             Button show;
             if (!showAll) show = new Button("Press to show all images under this directory (includes subfolder)");
             else show = new Button("Press to show images in this directory (only parent folder)");
 
             show.setOnAction(
                     e -> {
-                        if (!showAll) {
-                            showAll = true;
-                            show.setText("Press to show images in this directory (only parent folder)");
-                            pane.getChildren().addAll(imageButtons.subList(changeDirPoint, imageButtons.size()));
-                        } else {
+                        if (showAll) {
                             showAll = false;
+                            show.setText("Press to show images in this directory (only parent folder)");
+                            pane.getChildren().removeAll(subDirImageButtons);
+                        } else {
+                            showAll = true;
                             show.setText("Press to show all images under this directory (includes subfolder)");
-                            pane.getChildren().removeAll(imageButtons.subList(changeDirPoint, imageButtons.size()));
+                            pane.getChildren().addAll(subDirImageButtons);
                         }
                     });
             pane.getChildren().add(show);
@@ -165,23 +161,26 @@ public class PicGrid {
         pane.getChildren().add(currentDirectory);
 
         pane.getChildren().addAll(imageButtons);
-        if (!showAll)
-            pane.getChildren().removeAll(imageButtons.subList(changeDirPoint, imageButtons.size()));
+
+        if (!showAll && subDirImageButtons.size() != 0)
+            pane.getChildren().removeAll(subDirImageButtons);
     }
 
     /**
-     * Returns the ImageFiles displayed in PicGrid
+     * Returns true if user chose to view all images (in and under directory), false if viewing only in parent folder
      *
-     * @return ArrayList<ImageFile> the ImageFiles displayed in PicGrid
+     * @return boolean true if user chose to view all images (in and under directory), false if viewing only in parent folder
      */
-    public static ArrayList<ImageFile> getDisplayedFiles() {
-        ArrayList<ImageFile> list = ImageManager.getImageFilesByDirectory(PicGrid.dir);
+    public static boolean getShowAll() {
+        return showAll;
+    }
 
-        if (!showAll)
-            for (ImageFile file : ImageManager.getImageFilesByDirectory(PicGrid.dir))
-                if (!file.getDirectory().equals(dir))
-                    list.remove(file);
-
-        return list;
+    /**
+     * Returns the chosen directory by the user
+     *
+     * @return boolean true if user chose to view all images (in and under directory), false if viewing only in parent folder
+     */
+    public static File getDirectory() {
+        return dir;
     }
 }
