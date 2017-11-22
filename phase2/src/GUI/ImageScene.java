@@ -310,7 +310,7 @@ class ImageScene {
         // https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm
         imageNames = new ComboBox<>();
         imageNameUpdate();
-        imageNames.setMaxWidth(550);
+        imageNames.setMaxWidth(380);
         imageNames.getSelectionModel().selectFirst();
 
         Button revertName = new Button("Revert");
@@ -349,6 +349,8 @@ class ImageScene {
 
         // image directory
         Text directory = new Text();
+        // Retrieved from: https://stackoverflow.com/questions/12737829/javafx-textfield-resize-to-text-length Date: Nov 21, 2017
+        directory.setWrappingWidth(280);
         directory.setText(image.getDirectory().toString());
 
         // button for opening the directory

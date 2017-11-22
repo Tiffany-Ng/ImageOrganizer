@@ -18,3 +18,11 @@ Changed PicGrid and ImageManager, following the Single Responsibility Principle.
 Person: Prynciss
 
 Implemented FilterStrategy interface and BlackAndWhiteFilter class, added button in ImageScene for applying filter, added ImageScene.setFilterStrategy and ImageScene.applyFilter.
+
+#########
+#Log 4:
+
+Person: Prynciss
+
+Fixed the bug where if the directory is too long, it will push the 'Open Directory' and 'Choose Directory' button out of the screen.
+Fixed bug where if name of image is too long, the comboBox will move Nodes to the right.
