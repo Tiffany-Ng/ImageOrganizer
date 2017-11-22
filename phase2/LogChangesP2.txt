@@ -11,3 +11,10 @@ Added .gitignore file
 Person: Prynciss
 
 Changed PicGrid and ImageManager, following the Single Responsibility Principle. Added ImageManger.getImageFilesInSubDirectory, ImageManger.getImageFilesInParentDirectory, and ImageManger.getDisplayedFiles.
+
+#########
+#Log 3:
+
+Person: Prynciss
+
+Implemented FilterStrategy interface and BlackAndWhiteFilter class, added button in ImageScene for applying filter, added ImageScene.setFilterStrategy and ImageScene.applyFilter.

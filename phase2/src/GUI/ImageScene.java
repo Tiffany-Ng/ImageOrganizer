@@ -61,6 +61,16 @@ class ImageScene {
     private ComboBox<String> imageNames;
 
     /**
+     * FilterStrategy for  applying filter to images
+     */
+    private static FilterStrategy strategy;
+
+    /**
+     * image in form of a viewable icon
+     */
+    private ImageView icon = new ImageView();
+
+    /**
      * Construct the GUI view of an image
      *
      * @param image     particular image in a directory
@@ -260,9 +270,6 @@ class ImageScene {
         layout.setVgap(6);
         layout.setPadding(new Insets(10, 10, 10, 10));
 
-        // image in form of a viewable icon
-        ImageView icon = new ImageView();
-
         // ratio preserve solution
         // https://stackoverflow.com/questions/27894945/how-do-i-resize-an-imageview-image-in-javafx
         icon.setFitWidth(720);
@@ -309,8 +316,16 @@ class ImageScene {
         Button revertName = new Button("Revert");
         this.revertOldTagName(revertName);  // gives functionality to the Button
 
+        Button filter = new Button("Filter");
+        filter.setOnAction(
+                e -> {
+                    setFilterStrategy(new BlackAndWhiteFilter());
+                    icon = applyFilter(icon);
+                }
+        );
+
         HBox imageName = new HBox();
-        imageName.getChildren().addAll(name, rename, imageNames, revertName);
+        imageName.getChildren().addAll(name, rename, imageNames, revertName, filter);
         imageName.setSpacing(5.0);
         layout.add(imageName, 1, 0, 1, 1);
 
@@ -461,5 +476,23 @@ class ImageScene {
         return flow;
     }
 
+
+    /**
+     * Sets the FilterStrategy
+     *
+     * @param chosenStrategy the FilterStrategy that is being used, could be different kinds of filter.
+     */
+    private void setFilterStrategy(FilterStrategy chosenStrategy) {
+        strategy = chosenStrategy;
+    }
+
+    /**
+     * Returns the chosen directory by the user
+     *
+     * @return ImageView the ImageView after filter has been applied to it
+     */
+    private static ImageView applyFilter(ImageView imageView) {
+        return strategy.applyFilter(imageView);
+    }
 
 }
