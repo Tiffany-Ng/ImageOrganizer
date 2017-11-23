@@ -1,6 +1,6 @@
 package ManageImage;
 
-import guiController.Main;
+import guiView.Main;
 
 import javax.imageio.ImageIO;
 import java.io.File;

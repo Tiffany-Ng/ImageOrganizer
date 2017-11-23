@@ -1,6 +1,6 @@
 package ManageImage;
 
-import guiController.Main;
+import guiView.Main;
 
 import java.io.*;
 import java.util.LinkedList;

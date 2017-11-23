@@ -3,8 +3,6 @@ package guiView;
 import guiController.*;
 import ManageImage.ImageFile;
 import ManageImage.ImageManager;
-import guiController.Main;
-import guiController.PicGrid;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -21,6 +19,19 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 
+
+/**
+ * A stage that pops up when dirChooser is called.
+ * There are two usages, pass in only a Stage to select a directory to open. It will then lead to PicGrid for a list of ImageFiles to show.
+ * Pass in a Stage, an ImageFile, and a Text to select a directory for the ImageFile to transfer to. It will also update the Text to show
+ * the new directory.
+ * Functionality of panes from: https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm Date: Nov 6, 2017
+ *
+ * @author Allan Chang 1003235983
+ * @author Prynciss Ng 1003136091
+ * @author Amarnath Parthiban 1003193518
+ * @author Akshat Nigam 1002922732
+ */
 public class DirView {
     /**
      * ImageFile for when changing the directory
@@ -43,9 +54,6 @@ public class DirView {
      * Chosen directory by the user
      */
     private static File directory;
-
-    // TODO write doc
-//    private static DirController dirController = new DirController();
 
 
     /**
@@ -107,7 +115,7 @@ public class DirView {
         pane.add(instruction, 4, 6);
         pane.add(goBtn, 5, 8);
 
-        DirController.openDirectoryChooser(dirChooserBtn, dirTextField, error, currentStage);
+        Controller.openDirectoryChooser(dirChooserBtn, dirTextField, error, currentStage);
 
         btmMethod(goBtn, file, currentStage, chooser, error, dirTextField);
 
@@ -180,7 +188,7 @@ public class DirView {
      * @param imageToMove  the ImageFile to move
      * @param dirText      the Text to display the directory of the ImageFile
      */
-    public static void dirChooser(Stage currentStage, ImageFile imageToMove, Text dirText, ImageScene is) {  // TODO: for moving an image file, probably the view
+    static void dirChooser(Stage currentStage, ImageFile imageToMove, Text dirText, ImageScene is) {
         imageScene = is;
         guiSetup(currentStage, true);
         image = imageToMove;
