@@ -319,7 +319,7 @@ public class ImageScene {
         Button filter = new Button("Filter");   // TODo should be in controller
         filter.setOnAction(
                 e -> {
-                    setFilterStrategy(new BlackAndWhiteFilter());
+                    setFilterStrategy(new InvertColoursFilter());
                     icon = applyFilter(icon);
                 }
         );
