@@ -1,7 +1,7 @@
 package ManageImage;
 
-import GUI.Main;
-import GUI.PicGrid;
+import guiController.Main;
+import guiController.PicGrid;
 
 import java.io.*;
 import java.nio.file.Path;
