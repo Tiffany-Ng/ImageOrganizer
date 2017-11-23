@@ -1,6 +1,6 @@
 package guiView;
 
-import guiController.Controller;
+import guiController.*;
 import javafx.geometry.Insets;
 import javafx.scene.CacheHint;
 import javafx.scene.Scene;
@@ -41,7 +41,7 @@ public class PicGrid {
     /**
      * True if user wants to see all images under the chosen directory (includes sub-folders)
      */
-    private static boolean showAll = true;
+    public static boolean showAll = true;
 
     /**
      * Stores the buttons with image which leads to ImageScene on click
@@ -87,7 +87,7 @@ public class PicGrid {
             viewImage.setCache(true);
             viewImage.setCacheHint(CacheHint.SPEED);
 
-            viewImage.setOnAction(   // TODO: possibly in controller...(np)
+            viewImage.setOnAction(
                     e -> {
                         try {
                             ImageScene toScene = new ImageScene(img, dir, currentStg);
@@ -132,30 +132,11 @@ public class PicGrid {
         currentStg.setScene(scene);
 
         Button chooseDirectory = new Button("Select directory");
-        chooseDirectory.setOnAction(e -> Controller.dirChooser(currentStg));
+        chooseDirectory.setOnAction(e -> dirController.dirChooser(currentStg));
 
         pane.getChildren().add(chooseDirectory);
 
-        // Only show the option of showing ImageFiles in or under directory if the parent directory has sub-folders
-        if (subDirImageButtons.size() != 0) {   // TODO: put this in the controller
-            Button show;
-            if (!showAll) show = new Button("Press to show all images under this directory (includes subfolder)");
-            else show = new Button("Press to show images in this directory (only parent folder)");
-
-            show.setOnAction(
-                    e -> {
-                        if (showAll) {
-                            showAll = false;
-                            show.setText("Press to show images in this directory (only parent folder)");
-                            pane.getChildren().removeAll(subDirImageButtons);
-                        } else {
-                            showAll = true;
-                            show.setText("Press to show all images under this directory (includes subfolder)");
-                            pane.getChildren().addAll(subDirImageButtons);
-                        }
-                    });
-            pane.getChildren().add(show);
-        }
+        picGrigController.activateDirectoryFolders(subDirImageButtons, pane);
 
         Label currentDirectory = new Label("Parent directory: " + dir.toString());
         currentDirectory.setMinWidth(2000);
