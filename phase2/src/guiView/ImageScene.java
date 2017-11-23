@@ -1,5 +1,6 @@
 package guiView;
 
+import guiController.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -108,62 +109,63 @@ public class ImageScene {
     private void renameImageFile() {
 
         boolean success = image.rename(name.getText());
-        addClickableTags();
-        updateLog();
-        imageNameUpdate();
+        imageSceneController.addClickableTags( image, imageNames, f, log, name);
+        imageSceneController.updateLog(image, log);
+        imageSceneController.imageNameUpdate(imageNames, image, name);
 
         if (!success) {
 
-            createAlert("Invalid Name", "The name you entered is invalid.",
+           imageSceneController.createAlert("Invalid Name", "The name you entered is invalid.",
                     "A name should not contain ' @' and the name " + name.getText() + " must be available");
         }
 
     }
 
-    /**
-     * Create a generic Alert using the information provided.
-     *
-     * @param title String: window title
-     * @param header String
-     * @param content String
-     */
-    private void createAlert(String title, String header, String content) {
+//    /**   // TODO: 1
+//     * Create a generic Alert using the information provided.
+//     *
+//     * @param title String: window title
+//     * @param header String
+//     * @param content String
+//     */
+//    private void createAlert(String title, String header, String content) {
+//
+//        // taken from http://code.makery.ch/blog/javafx-dialogs-official/
+//        Alert alert = new Alert(Alert.AlertType.ERROR);
+//        alert.setTitle(title);
+//        alert.setHeaderText(header);
+//        alert.setContentText(content);
+//        alert.showAndWait();
+//    }
 
-        // taken from http://code.makery.ch/blog/javafx-dialogs-official/
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
 
-    /**
-     * Adding the ability to revert to an older name on the guiController
-     *
-     * @param revertName Button that initiates action
-     */
-    private void revertOldTagName(Button revertName) {    // TODO: should be in controller
-        revertName.setOnAction(
-                event -> {
-                    if (!imageNames.getSelectionModel().isEmpty()
-                            && !image.nameWithTags().equals(imageNames.getValue())) {
-
-                        ArrayList<String> allNames = new ArrayList<>(imageNames.getItems());
-
-                        //Cite: https://stackoverflow.com/questions/14987971/added-elements-in-arraylist-in-the-reverse-order-in-java
-                        Collections.reverse(allNames);
-
-                        boolean success = image.revertName(allNames.indexOf(imageNames.getValue()));
-                        if (!success) {
-                            createAlert("Revert Error", "The revert is invalid",
-                                    "The file name " + imageNames.getValue() + " must be available");
-                        }
-                        updateLog();
-                        addClickableTags();
-                        imageNameUpdate();
-                    }
-                });
-    }
+//    /**  // TODO: 2
+//     * Adding the ability to revert to an older name on the guiController
+//     *
+//     * @param revertName Button that initiates action
+//     */
+//    private void revertOldTagName(Button revertName) {    // TODO: should be in controller
+//        revertName.setOnAction(
+//                event -> {
+//                    if (!imageNames.getSelectionModel().isEmpty()
+//                            && !image.nameWithTags().equals(imageNames.getValue())) {
+//
+//                        ArrayList<String> allNames = new ArrayList<>(imageNames.getItems());
+//
+//                        //Cite: https://stackoverflow.com/questions/14987971/added-elements-in-arraylist-in-the-reverse-order-in-java
+//                        Collections.reverse(allNames);
+//
+//                        boolean success = image.revertName(allNames.indexOf(imageNames.getValue()));
+//                        if (!success) {
+//                            createAlert("Revert Error", "The revert is invalid",
+//                                    "The file name " + imageNames.getValue() + " must be available");
+//                        }
+//                        updateLog();
+//                        addClickableTags();
+//                        imageNameUpdate();
+//                    }
+//                });
+//    }
 
     /**
      * Check if the string entered by the user on the guiController is a valid tag
@@ -176,24 +178,24 @@ public class ImageScene {
     }
 
 
-    /**
-     * Update the comboBox of image names and the text box name.
-     */
-    private void imageNameUpdate() {  // TODO: not in the right package
+//    /**
+//     * Update the comboBox of image names and the text box name.
+//     */
+//    private void imageNameUpdate() {  // TODO: not in the right package
+//
+//        name.setText(ZA.getName());
+//        imageNames.getItems().clear();
+//
+//        for (String name : image.getPriorNames()) {
+//            imageNames.getItems().add(name);
+//        }
+//        if (!imageNames.getItems().isEmpty()) {
+//            Collections.reverse(imageNames.getItems());
+//            imageNames.getSelectionModel().selectFirst();
+//        }
+//    }
 
-        name.setText(image.getName());
-        imageNames.getItems().clear();
-
-        for (String name : image.getPriorNames()) {
-            imageNames.getItems().add(name);
-        }
-        if (!imageNames.getItems().isEmpty()) {
-            Collections.reverse(imageNames.getItems());
-            imageNames.getSelectionModel().selectFirst();
-        }
-    }
-
-    /**
+    /**  // TODO: COPY  ... Kept this because of DirVies's call
      * Update the log with its new information.
      */
     public void updateLog() {   // TODO: should be in the controller
@@ -221,41 +223,41 @@ public class ImageScene {
         return imageScene;
     }
 
-    /**
-     * Add all tags image has into a clickable section of the scene.
-     *
-     * @return FlowPane
-     */
-    private FlowPane addClickableTags() {
-
-        // taken from https://stackoverflow.com/questions/37378973/implement-tags-bar-in-javafx
-        List<String> tags = image.getTags();
-        f.getChildren().removeAll(f.getChildren());
-
-        ImageView i = new ImageView(new Image("file:///" + "x.jpeg"));
-
-        for (String t : tags) {
-
-            // makes all tags as clickable buttons
-            Button tag = new Button(t, i);
-
-            tag.setOnAction(
-                    e -> {
-                        boolean success = image.removeTag(tag.getText());
-                        if (success) {
-                            f.getChildren().remove(tag);
-                            updateLog();
-                            imageNameUpdate();
-                        } else {
-                            createAlert("Remove Tag Error", "The tag '" + tag.getText() + "' was not removed successfully",
-                                    "Tag name contains ' @' or the file name without the tag is likely occupied");
-                        }
-                    });
-
-            f.getChildren().add(tag);
-        }
-        return f;
-    }
+//    /**
+//     * Add all tags image has into a clickable section of the scene.
+//     *
+//     * @return FlowPane
+//     */
+//    private FlowPane addClickableTags() {
+//
+//        // taken from https://stackoverflow.com/questions/37378973/implement-tags-bar-in-javafx
+//        List<String> tags = image.getTags();
+//        f.getChildren().removeAll(f.getChildren());
+//
+//        ImageView i = new ImageView(new Image("file:///" + "x.jpeg"));
+//
+//        for (String t : tags) {
+//
+//            // makes all tags as clickable buttons
+//            Button tag = new Button(t, i);
+//
+//            tag.setOnAction(
+//                    e -> {
+//                        boolean success = image.removeTag(tag.getText());
+//                        if (success) {
+//                            f.getChildren().remove(tag);
+//                            imageSceneController.updateLog(image, log);
+//                            imageNameUpdate();
+//                        } else {
+//                            imageSceneController.createAlert("Remove Tag Error", "The tag '" + tag.getText() + "' was not removed successfully",
+//                                    "Tag name contains ' @' or the file name without the tag is likely occupied");
+//                        }
+//                    });
+//
+//            f.getChildren().add(tag);
+//        }
+//        return f;
+//    }
 
 
     /**
@@ -282,8 +284,8 @@ public class ImageScene {
         layout.add(icon, 1, 2, 4, 2);
 
         // flowPane for image information
-        VBox f = vBoxSetup();
-        layout.add(f, 6, 2, 2, 2);
+//        VBox f = vBoxSetup();  // TODO: moved
+//        layout.add(f, 6, 2, 2, 2);
 
         // go to screen with all images
         Button back = new Button();
@@ -309,12 +311,16 @@ public class ImageScene {
 
         // https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm
         imageNames = new ComboBox<>();
-        imageNameUpdate();
+        imageSceneController.imageNameUpdate(imageNames, image, name);
         imageNames.setMaxWidth(380);
         imageNames.getSelectionModel().selectFirst();
 
         Button revertName = new Button("Revert");
-        this.revertOldTagName(revertName);  // gives functionality to the Button
+        imageSceneController.revertOldTagName( revertName, imageNames, image, log, f, name);  // gives functionality to the Button
+
+
+        VBox f = vBoxSetup();  // TODO: moved HERE
+        layout.add(f, 6, 2, 2, 2);
 
         Button filter = new Button("Filter");   // TODo should be in controller
         filter.setOnAction(
@@ -356,7 +362,7 @@ public class ImageScene {
         // button for opening the directory
         Button openDir = new Button();
         openDir.setText("Open Directory");
-        openDir.setOnAction(   // TODO: Controller maybe?
+        openDir.setOnAction(   // TODO: dirController maybe?
                 e -> {
                     try {
 
@@ -364,7 +370,7 @@ public class ImageScene {
                       Runtime.getRuntime().exec("explorer.exe /select," + image.getFile().getAbsolutePath());
 
                     } catch (IOException ex) {
-                      createAlert("Open directory error", "Execution failed",
+                      imageSceneController.createAlert("Open directory error", "Execution failed",
                               "The execution is not supported on this computer");
                         Main.logger.log(Level.SEVERE, "Can't open directory", ex);
                     }
@@ -414,14 +420,14 @@ public class ImageScene {
                         if (success) {
                             newTag.setValue("");
                         } else {
-                            createAlert("Add Tag Error", "The tag '" + newTag.getValue() + "' was not added successfully",
+                            imageSceneController.createAlert("Add Tag Error", "The tag '" + newTag.getValue() + "' was not added successfully",
                                     "Tag name contains ' @', the tag already exists, or the file name with the additional tag is occupied");
                         }
                     }
 
-                    addClickableTags();
-                    updateLog();
-                    imageNameUpdate();
+                    imageSceneController.addClickableTags(image, imageNames, f, log, name);
+                    imageSceneController.updateLog(image, log);
+                    imageSceneController.imageNameUpdate(imageNames, image, name);
                 });
 
         Button addToAll = new Button("Add to All");
@@ -459,14 +465,14 @@ public class ImageScene {
         f = new FlowPane(Orientation.HORIZONTAL, 7, 5);
         f.setPadding(new Insets(5));
         f.setPrefHeight(480 / 2.5);
-        f = addClickableTags();
+        f = imageSceneController.addClickableTags(image, imageNames, f, log, name);
 
         flow.getChildren().add(new ScrollPane(f));
 
         log = new TextArea();
 
         // image log
-        updateLog();
+        imageSceneController.updateLog(image, log);
 
         log.setWrapText(true);
         log.setEditable(false);

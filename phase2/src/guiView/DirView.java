@@ -115,7 +115,7 @@ public class DirView {
         pane.add(instruction, 4, 6);
         pane.add(goBtn, 5, 8);
 
-        Controller.openDirectoryChooser(dirChooserBtn, dirTextField, error, currentStage);
+        dirController.openDirectoryChooser(dirChooserBtn, dirTextField, error, currentStage);
 
         btmMethod(goBtn, file, currentStage, chooser, error, dirTextField);
 
