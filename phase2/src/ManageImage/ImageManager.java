@@ -21,62 +21,24 @@ import java.util.logging.Level;
 public class ImageManager implements Serializable {
 
     /**
-     * The list of all imageFiles stored
+     * The manager that stores imageFiles
      */
-    private static ArrayList<ImageFile> imageFiles = new ArrayList<>();
+    private static Manager<ImageFile> manager = new Manager<ImageFile>("out.ser") {
+    };
 
     /**
      * Loads imageFiles from out.ser
-     * <p>
-     * Adapted: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
-     * Date: Nov 9, 2017
-     * </p>
      */
     @SuppressWarnings("unchecked")
     public static void load() {
-        try {
-
-            FileInputStream inputStream = new FileInputStream("out.ser");
-            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            imageFiles = (ArrayList<ManageImage.ImageFile>) objectInputStream.readObject();
-            Set<ImageFile> removeDuplicates = new HashSet<>();
-
-            // remove duplicate Images from ser file
-            removeDuplicates.addAll(imageFiles);
-            imageFiles.clear();
-            imageFiles.addAll(removeDuplicates);
-            objectInputStream.close();
-            imageFiles.removeIf(imageFile -> !imageFile.getFile().exists());
-
-        } catch (IOException e) {
-            Main.logger.log(Level.SEVERE, "ImageManager serialized file incorrectly read", e);
-        } catch (ClassNotFoundException e) {
-            Main.logger.log(Level.SEVERE, "ImageManager class path not realized", e);
-        }
+        manager.load();
     }
 
     /**
      * Saves imageFiles to out.ser
-     * <p>
-     * Adapted: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
-     * Date: Nov 9, 2017
-     * </p>
      */
     public static void save() {
-        try {
-
-            FileOutputStream fileOutputStream = new FileOutputStream("out.ser");
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(imageFiles);
-            objectOutputStream.close();
-
-            imageFiles.clear();
-
-        } catch (FileNotFoundException e) {
-            Main.logger.log(Level.SEVERE, "ImageManager serialized file not found for writing", e);
-        } catch (IOException e) {
-            Main.logger.log(Level.SEVERE, "ImageManager serialized file incorrectly read", e);
-        }
+        manager.save();
     }
 
     /**
@@ -91,6 +53,7 @@ public class ImageManager implements Serializable {
         // cite:
         // https://stackoverflow.com/questions/4746671/how-to-check-if-a-given-path-is-possible-child-of-another-path
         ArrayList<ImageFile> filteredImages = new ArrayList<>();
+        LinkedList<ImageFile> imageFiles = manager.getAll();
         for (ImageFile imageFile : imageFiles) {
             File imageDirectory = imageFile.getDirectory();
             Path child = Paths.get(imageDirectory.toString()).toAbsolutePath();
@@ -111,6 +74,7 @@ public class ImageManager implements Serializable {
      */
     public static ArrayList<ImageFile> getImageFilesInSubDirectory(File directory) {
         ArrayList<ImageFile> filteredImages = getImageFilesByDirectory(directory);
+        LinkedList<ImageFile> imageFiles = manager.getAll();
         for (ImageFile imageFile : imageFiles) {
             if (imageFile.getDirectory().equals(directory)) {
                 filteredImages.remove(imageFile);
@@ -140,20 +104,12 @@ public class ImageManager implements Serializable {
      * @param imageInsert the image which will be added
      */
     private static void addImage(ImageFile imageInsert) {
-
-        boolean match = false;
-        for (ImageFile imageFile : imageFiles) {
-            if (imageFile.equals(imageInsert)) {
-                match = true;
-                break;
+        boolean added = manager.add(imageInsert);
+        if(added){
+            LinkedList<String> tags = new LinkedList<>(imageInsert.getTags());
+            for(String tag : tags) {
+                TagManager.add(tag);
             }
-        }
-        if (!match) {
-            ImageManager.imageFiles.add(imageInsert);
-            for (String tag : imageInsert.getTags())
-                if (!TagManager.getTags().contains(tag)) {
-                    TagManager.getTags().add(tag);
-                }
         }
     }
 

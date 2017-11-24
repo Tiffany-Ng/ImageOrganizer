@@ -40,3 +40,10 @@ implemented basic separation of Controller and View for DirChooser (MVC implemen
 Person: Amarnath
 
 PicGrid and ImageScene are now only created once.
+
+#########
+#Log 7:
+
+Person: Allan
+
+TagManager and ImageManager inherit the same class Manager

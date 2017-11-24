@@ -15,59 +15,27 @@ import java.util.logging.Level;
  * @author Amarnath Parthiban 1003193518
  * @author Akshat Nigam 1002922732
  */
-public class TagManager implements Serializable {
+public class TagManager {
 
     /**
-     * the tags that a ManageImage.TagManager stores
+     * the manager that stores tags
      */
-    private static LinkedList<String> tags = new LinkedList<>();
+    private static Manager<String> manager = new Manager<String>("tags.ser") {
+    };
 
     /**
      * Loads tags from tags.ser
-     * <p>
-     * Adapted: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
-     * Date: Nov 9, 2017
-     * </p>
      */
     @SuppressWarnings("unchecked")
     public static void load() {
-        try {
-
-            FileInputStream inputStream = new FileInputStream("tags.ser");
-            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            tags = (java.util.LinkedList<String>) objectInputStream.readObject();
-            objectInputStream.close();
-
-        } catch (FileNotFoundException e) {
-            Main.logger.log(Level.SEVERE, "Serializable file path not found", e);
-        } catch (IOException e) {
-            Main.logger.log(Level.SEVERE, "Improper file reading", e);
-        } catch (ClassNotFoundException e) {
-            Main.logger.log(Level.SEVERE, "Improper class path", e);
-        }
+        manager.load();
     }
 
     /**
      * Saves tags to tags.ser
-     * <p>
-     * Adapted from: http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
-     * Date: Nov 9, 2017
-     * </p>
      */
     public static void save() {
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream("tags.ser");
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(tags);
-            objectOutputStream.close();
-
-            tags.clear();
-        } catch (FileNotFoundException e) {
-            System.out.println("No file");
-
-        } catch (IOException e) {
-            System.out.println("IO Exception");
-        }
+        manager.save();
     }
 
     /**
@@ -76,7 +44,7 @@ public class TagManager implements Serializable {
      * @return LinkedList<String> the global tags
      */
     public static LinkedList<String> getTags() {
-        return tags;
+        return manager.getAll();
     }
 
     /**
@@ -85,8 +53,6 @@ public class TagManager implements Serializable {
      * @param tag the tag to be added to ManageImage.TagManager
      */
     static void add(String tag) {
-        if (!tags.contains(tag)) {
-            tags.add(tag);
-        }
+        manager.add(tag);
     }
 }
