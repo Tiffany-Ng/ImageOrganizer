@@ -45,7 +45,9 @@ public class Main extends Application {
     public void start(Stage currentStage) {
         ImageManager.load();
         TagManager.load();
-        dirController.dirChooser(currentStage);   // TODO: pretty much initiates the program
+        SceneManager sM =  new SceneManager(currentStage);
+        sM.dirChooser();
+        //dirController.dirChooser(currentStage);   // TODO: pretty much initiates the program
     }
 
     /**

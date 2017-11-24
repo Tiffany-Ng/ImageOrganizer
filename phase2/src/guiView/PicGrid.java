@@ -53,12 +53,19 @@ public class PicGrid {
      */
     private ArrayList<Button> subDirImageButtons = new ArrayList<>();
 
-    public PicGrid(Stage currentStg, File dir) {
+    public PicGrid(Stage currentStg) {
+
         PicGrid.currentStg = currentStg;
+
+    }
+
+    public void initialize(File dir) {
+
         PicGrid.dir = dir;
         imageButtons = gatherImages(ImageManager.getImageFilesInParentDirectory(dir));
         subDirImageButtons = gatherImages(ImageManager.getImageFilesInSubDirectory(dir));
         imageButtons.addAll(subDirImageButtons);
+
     }
 
     /**
@@ -89,12 +96,9 @@ public class PicGrid {
 
             viewImage.setOnAction(
                     e -> {
-                        try {
-                            ImageScene toScene = new ImageScene(img, dir, currentStg);
-                            currentStg.setScene(toScene.getImageScene());
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
-                        }
+
+                        SceneManager.swapToImageScene(img, dir);
+
                     });
 
             buttons.add(viewImage);

@@ -165,8 +165,7 @@ public class DirView {
                         if (directory.isDirectory()) {
                             ImageManager.createImagesFromDirectory( directory.toString());
 
-                            PicGrid p = new PicGrid(currentStage, directory);
-                            p.picGrid();
+                            SceneManager.swapToPicGrid(directory);
 
                             currentStage.show();
                             chooser.hide();

@@ -33,3 +33,10 @@ Fixed bug where if name of image is too long, the comboBox will move Nodes to th
 Person: Akshat
 
 implemented basic separation of Controller and View for DirChooser (MVC implementation part 1)
+
+#########
+#Log 6:
+
+Person: Amarnath
+
+PicGrid and ImageScene are now only created once.

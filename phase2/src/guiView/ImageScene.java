@@ -71,15 +71,20 @@ public class ImageScene {
      */
     private ImageView icon = new ImageView();
 
+    public ImageScene(Stage stage) {
+
+        this.prevScene = stage;
+
+    }
+
     /**
      * Construct the guiController view of an image
      *
      * @param image     particular image in a directory
      * @param directory Location of the file containing images
-     * @param prevScene Reference to guiController with all images in a directory
      * @throws IOException Case when invalid directory
      */
-    ImageScene(ImageFile image, File directory, Stage prevScene) throws IOException {
+    public void initialize(ImageFile image, File directory) throws IOException {
 
         this.image = image;
 
@@ -89,17 +94,12 @@ public class ImageScene {
         imageScene = new Scene(g);
 
         this.directory = directory;
-        this.prevScene = prevScene;
-
-        prevScene.setMaximized(false);
-        prevScene.setWidth(1325);
-        prevScene.setHeight(750);
 
         // cite: https://stackoverflow.com/questions/3680221/how-can-i-get-screen-resolution-in-java
-        Rectangle screenSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
-        prevScene.setX((screenSize.getWidth() - prevScene.getWidth()) / 2);
-        prevScene.setY((screenSize.getHeight() - prevScene.getHeight()) / 2);
-        prevScene.setResizable(false);
+        // Rectangle screenSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+        // prevScene.setX((screenSize.getWidth() - prevScene.getWidth()) / 2);
+        // prevScene.setY((screenSize.getHeight() - prevScene.getHeight()) / 2);
+        // prevScene.setResizable(false);
     }
 
     /**
@@ -115,7 +115,7 @@ public class ImageScene {
 
         if (!success) {
 
-           imageSceneController.createAlert("Invalid Name", "The name you entered is invalid.",
+            imageSceneController.createAlert("Invalid Name", "The name you entered is invalid.",
                     "A name should not contain ' @' and the name " + name.getText() + " must be available");
         }
 
@@ -307,7 +307,7 @@ public class ImageScene {
 
 
         back.setOnAction(     // Todo: should be in controller
-                e -> new PicGrid(prevScene, this.directory).picGrid());
+                e -> SceneManager.swapToPicGrid(this.directory)); //new PicGrid(prevScene, this.directory).picGrid());
 
         // https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm
         imageNames = new ComboBox<>();
@@ -366,16 +366,16 @@ public class ImageScene {
                 e -> {
                     try {
 
-                      //Adapted from: https://stackoverflow.com/questions/7357969/how-to-use-java-code-to-open-windows-file-explorer-and-highlight-the-specified-f Date: Nov 19, 2017
-                      Runtime.getRuntime().exec("explorer.exe /select," + image.getFile().getAbsolutePath());
+                        //Adapted from: https://stackoverflow.com/questions/7357969/how-to-use-java-code-to-open-windows-file-explorer-and-highlight-the-specified-f Date: Nov 19, 2017
+                        Runtime.getRuntime().exec("explorer.exe /select," + image.getFile().getAbsolutePath());
 
                     } catch (IOException ex) {
-                      imageSceneController.createAlert("Open directory error", "Execution failed",
-                              "The execution is not supported on this computer");
+                        imageSceneController.createAlert("Open directory error", "Execution failed",
+                                "The execution is not supported on this computer");
                         Main.logger.log(Level.SEVERE, "Can't open directory", ex);
                     }
                 });
-        
+
 
         // button for changing the directory
         Button changeDir = new Button();
@@ -437,7 +437,7 @@ public class ImageScene {
                         ImageManager.addGlobalTag(newTag.getValue());
                         newTag.setValue("");
                     }
-                    new PicGrid(prevScene, this.directory).picGrid();
+                    SceneManager.swapToPicGrid(this.directory);
 
                 });
 
@@ -448,7 +448,7 @@ public class ImageScene {
                         ImageManager.deleteGlobalTag(newTag.getValue());
                         newTag.setValue("");
                     }
-                    new PicGrid(prevScene, this.directory).picGrid();
+                    SceneManager.swapToPicGrid(this.directory);
                 });
 
         tagBox.getChildren().addAll(newTag, addTag, addToAll, deleteFromAll);
