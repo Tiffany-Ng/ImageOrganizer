@@ -286,7 +286,7 @@ public class ImageFile implements Serializable {
             }
         }
 
-        success = updateFile("Added tag \"" + tagList.toString() + "\" to image \"" + name + "\"");
+        success = updateFile("Added tags \"" + tagList.toString() + "\" to image \"" + name + "\"");
         if (success) priorNames.add(nameWithTags());
         return success;
     }
@@ -324,7 +324,7 @@ public class ImageFile implements Serializable {
             }
         }
 
-        success = updateFile("Removed tag \"" + tagList.toString() + "\" from image \"" + name + "\"");
+        success = updateFile("Removed tags \"" + tagList.toString() + "\" from image \"" + name + "\"");
         if (success) priorNames.add(nameWithTags());
         return success;
     }
