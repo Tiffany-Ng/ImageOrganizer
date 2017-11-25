@@ -81,21 +81,25 @@ public class ImageSceneView {
      */
     private static FilterStrategy strategy;
     /**
+     * Indicates if the picture is currently inverted
+     */
+    private boolean inverted;
+    /**
      * The hue of the customFilter
      */
-    Slider hue;
+    private Slider hue;
     /**
      * The contrast of the customFilter
      */
-    Slider contrast;
+    private Slider contrast;
     /**
      * The brightness of the customFilter
      */
-    Slider brightness;
+    private Slider brightness;
     /**
      * The saturation of the customFilter
      */
-    Slider saturation;
+    private Slider saturation;
 
     /**
      * image in form of a viewable icon
@@ -105,12 +109,12 @@ public class ImageSceneView {
     /**
      * ArrayList for adding multiple tags
      */
-    ArrayList<String> tagsToAdd = new ArrayList<>();
+    private ArrayList<String> tagsToAdd = new ArrayList<>();
 
     /**
      * ArrayList for deleting multiple tags
      */
-    ArrayList<String> tagsToDelete = new ArrayList<>();
+    private ArrayList<String> tagsToDelete = new ArrayList<>();
 
     public ImageSceneView(Stage stage) {
 
@@ -510,6 +514,9 @@ public class ImageSceneView {
      * @return ImageView the ImageView after filter has been applied to it
      */
     private ImageView applyFilter(ImageView imageView) {
+        if(inverted){
+            imageView.setImage(image.getImage());
+        }
         if (strategy instanceof CustomFilter) {
             double brightnessVal = brightness.getValue();
             double contrastVal = contrast.getValue();
@@ -517,7 +524,9 @@ public class ImageSceneView {
             double saturationVal = saturation.getValue();
             return ((CustomFilter) strategy).applyFilter(imageView, brightnessVal, contrastVal, hueVal, saturationVal);
         } else {
-            imageView.setImage(image.getImage());
+            if(strategy instanceof InvertColoursFilter){
+                inverted = true;
+            }
             return strategy.applyFilter(imageView);
         }
     }

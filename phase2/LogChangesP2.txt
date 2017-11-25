@@ -99,3 +99,12 @@ Person: Akshat
 Flaw: File names not explicit to show difference between view and controller
 
 Fix: made file names explicit to show difference between view and controller.
+
+#########
+#Log 15:
+
+Person: Allan
+
+Flaw: CustomFilter applies filter on inverted picture if inverted was the previous filter
+
+Fix: ImageScene reloads image on the filter after an inverted filter
