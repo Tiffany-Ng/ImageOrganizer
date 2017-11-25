@@ -88,11 +88,12 @@ public class ImageScene {
 
         this.image = image;
 
+
         // inspired from https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm
         GridPane g;
+        imageSceneController.setImage(image);
         g = gridSetup();
         imageScene = new Scene(g);
-
         this.directory = directory;
 
         // cite: https://stackoverflow.com/questions/3680221/how-can-i-get-screen-resolution-in-java
@@ -109,9 +110,9 @@ public class ImageScene {
     private void renameImageFile() {
 
         boolean success = image.rename(name.getText());
-        imageSceneController.addClickableTags( image, imageNames, f, log, name);
-        imageSceneController.updateLog(image, log);
-        imageSceneController.imageNameUpdate(imageNames, image, name);
+        imageSceneController.addClickableTags( imageNames, log, name);
+        imageSceneController.updateLog(log);
+        imageSceneController.imageNameUpdate(imageNames, name);
 
         if (!success) {
 
@@ -121,51 +122,6 @@ public class ImageScene {
 
     }
 
-//    /**   // TODO: 1
-//     * Create a generic Alert using the information provided.
-//     *
-//     * @param title String: window title
-//     * @param header String
-//     * @param content String
-//     */
-//    private void createAlert(String title, String header, String content) {
-//
-//        // taken from http://code.makery.ch/blog/javafx-dialogs-official/
-//        Alert alert = new Alert(Alert.AlertType.ERROR);
-//        alert.setTitle(title);
-//        alert.setHeaderText(header);
-//        alert.setContentText(content);
-//        alert.showAndWait();
-//    }
-
-
-//    /**  // TODO: 2
-//     * Adding the ability to revert to an older name on the guiController
-//     *
-//     * @param revertName Button that initiates action
-//     */
-//    private void revertOldTagName(Button revertName) {    // TODO: should be in controller
-//        revertName.setOnAction(
-//                event -> {
-//                    if (!imageNames.getSelectionModel().isEmpty()
-//                            && !image.nameWithTags().equals(imageNames.getValue())) {
-//
-//                        ArrayList<String> allNames = new ArrayList<>(imageNames.getItems());
-//
-//                        //Cite: https://stackoverflow.com/questions/14987971/added-elements-in-arraylist-in-the-reverse-order-in-java
-//                        Collections.reverse(allNames);
-//
-//                        boolean success = image.revertName(allNames.indexOf(imageNames.getValue()));
-//                        if (!success) {
-//                            createAlert("Revert Error", "The revert is invalid",
-//                                    "The file name " + imageNames.getValue() + " must be available");
-//                        }
-//                        updateLog();
-//                        addClickableTags();
-//                        imageNameUpdate();
-//                    }
-//                });
-//    }
 
     /**
      * Check if the string entered by the user on the guiController is a valid tag
@@ -177,23 +133,6 @@ public class ImageScene {
         return newTag.getValue() != null && (newTag.getValue()).length() != 0;
     }
 
-
-//    /**
-//     * Update the comboBox of image names and the text box name.
-//     */
-//    private void imageNameUpdate() {  // TODO: not in the right package
-//
-//        name.setText(ZA.getName());
-//        imageNames.getItems().clear();
-//
-//        for (String name : image.getPriorNames()) {
-//            imageNames.getItems().add(name);
-//        }
-//        if (!imageNames.getItems().isEmpty()) {
-//            Collections.reverse(imageNames.getItems());
-//            imageNames.getSelectionModel().selectFirst();
-//        }
-//    }
 
     /**  // TODO: COPY  ... Kept this because of DirVies's call
      * Update the log with its new information.
@@ -223,42 +162,6 @@ public class ImageScene {
         return imageScene;
     }
 
-//    /**
-//     * Add all tags image has into a clickable section of the scene.
-//     *
-//     * @return FlowPane
-//     */
-//    private FlowPane addClickableTags() {
-//
-//        // taken from https://stackoverflow.com/questions/37378973/implement-tags-bar-in-javafx
-//        List<String> tags = image.getTags();
-//        f.getChildren().removeAll(f.getChildren());
-//
-//        ImageView i = new ImageView(new Image("file:///" + "x.jpeg"));
-//
-//        for (String t : tags) {
-//
-//            // makes all tags as clickable buttons
-//            Button tag = new Button(t, i);
-//
-//            tag.setOnAction(
-//                    e -> {
-//                        boolean success = image.removeTag(tag.getText());
-//                        if (success) {
-//                            f.getChildren().remove(tag);
-//                            imageSceneController.updateLog(image, log);
-//                            imageNameUpdate();
-//                        } else {
-//                            imageSceneController.createAlert("Remove Tag Error", "The tag '" + tag.getText() + "' was not removed successfully",
-//                                    "Tag name contains ' @' or the file name without the tag is likely occupied");
-//                        }
-//                    });
-//
-//            f.getChildren().add(tag);
-//        }
-//        return f;
-//    }
-
 
     /**
      * Setup of the whole screen combining all smaller elements and layouts.
@@ -282,10 +185,6 @@ public class ImageScene {
         // solution found at https://stackoverflow.com/questions/8474694/java-url-unknown-protocol-c
         icon.setImage(new Image("file:///" + image.getFile().toString()));
         layout.add(icon, 1, 2, 4, 2);
-
-        // flowPane for image information
-//        VBox f = vBoxSetup();  // TODO: moved
-//        layout.add(f, 6, 2, 2, 2);
 
         // go to screen with all images
         Button back = new Button();
@@ -311,12 +210,12 @@ public class ImageScene {
 
         // https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm
         imageNames = new ComboBox<>();
-        imageSceneController.imageNameUpdate(imageNames, image, name);
+        imageSceneController.imageNameUpdate(imageNames, name);
         imageNames.setMaxWidth(380);
         imageNames.getSelectionModel().selectFirst();
 
         Button revertName = new Button("Revert");
-        imageSceneController.revertOldTagName( revertName, imageNames, image, log, f, name);  // gives functionality to the Button
+        imageSceneController.revertOldTagName( revertName, imageNames, log,  name);  // gives functionality to the Button
 
 
         VBox f = vBoxSetup();  // TODO: moved HERE
@@ -425,9 +324,9 @@ public class ImageScene {
                         }
                     }
 
-                    imageSceneController.addClickableTags(image, imageNames, f, log, name);
-                    imageSceneController.updateLog(image, log);
-                    imageSceneController.imageNameUpdate(imageNames, image, name);
+                    imageSceneController.addClickableTags(imageNames,  log, name);
+                    imageSceneController.updateLog(log);
+                    imageSceneController.imageNameUpdate(imageNames, name);
                 });
 
         Button addToAll = new Button("Add to All");
@@ -463,16 +362,17 @@ public class ImageScene {
         flow.getChildren().add(instruction);
 
         f = new FlowPane(Orientation.HORIZONTAL, 7, 5);
+        imageSceneController.setF(f);
         f.setPadding(new Insets(5));
         f.setPrefHeight(480 / 2.5);
-        f = imageSceneController.addClickableTags(image, imageNames, f, log, name);
+        f = imageSceneController.addClickableTags(imageNames, log, name);
 
         flow.getChildren().add(new ScrollPane(f));
 
         log = new TextArea();
 
         // image log
-        imageSceneController.updateLog(image, log);
+        imageSceneController.updateLog(log);
 
         log.setWrapText(true);
         log.setEditable(false);

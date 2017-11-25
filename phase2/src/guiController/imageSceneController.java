@@ -20,6 +20,17 @@ import java.util.List;
 
 public class imageSceneController {
 
+    private static FlowPane f;
+
+    private static ImageFile image;
+
+    public static void setF(FlowPane f) {
+        imageSceneController.f = f;
+    }
+
+    public static void setImage(ImageFile image) {
+        imageSceneController.image = image;
+    }
 
     /**
      * Create a generic Alert using the information provided.
@@ -42,7 +53,7 @@ public class imageSceneController {
     /**
      * Update the log with its new information.
      */
-    public static void updateLog(ImageFile image, TextArea log) {   // TODO: should be in the controller
+    public static void updateLog(TextArea log) {   // TODO: should be in the controller
 
         Log imageLog = image.getLog();
         StringBuilder logs = new StringBuilder();
@@ -61,7 +72,7 @@ public class imageSceneController {
     /**
      * Update the comboBox of image names and the text box name.
      */
-    static public void imageNameUpdate(ComboBox<String> imageNames, ImageFile image,TextField name) {  // TODO: not in the right package
+    static public void imageNameUpdate(ComboBox<String> imageNames, TextField name) {  // TODO: not in the right package
 
         name.setText(image.getName());
         imageNames.getItems().clear();
@@ -81,7 +92,7 @@ public class imageSceneController {
      *
      * @return FlowPane
      */
-    public static FlowPane addClickableTags(ImageFile image, ComboBox<String> imageNames, FlowPane f, TextArea log, TextField name) {  // TODO: change horrible name f
+    public static FlowPane addClickableTags( ComboBox<String> imageNames, TextArea log, TextField name) {  // TODO: change horrible name f
 
         // taken from https://stackoverflow.com/questions/37378973/implement-tags-bar-in-javafx
         List<String> tags = image.getTags();
@@ -99,8 +110,8 @@ public class imageSceneController {
                         boolean success = image.removeTag(tag.getText());
                         if (success) {
                             f.getChildren().remove(tag);
-                            imageSceneController.updateLog(image, log);
-                            imageNameUpdate(imageNames, image, name);
+                            imageSceneController.updateLog( log);
+                            imageNameUpdate(imageNames, name);
                         } else {
                             imageSceneController.createAlert("Remove Tag Error", "The tag '" + tag.getText() + "' was not removed successfully",
                                     "Tag name contains ' @' or the file name without the tag is likely occupied");
@@ -118,7 +129,7 @@ public class imageSceneController {
      *
      * @param revertName Button that initiates action
      */
-    public static void revertOldTagName(Button revertName, ComboBox<String> imageNames, ImageFile image, TextArea log, FlowPane f, TextField name) {    // TODO: should be in controller
+    public static void revertOldTagName(Button revertName, ComboBox<String> imageNames, TextArea log,  TextField name) {    // TODO: should be in controller
         revertName.setOnAction(
                 event -> {
                     if (!imageNames.getSelectionModel().isEmpty()
@@ -134,9 +145,9 @@ public class imageSceneController {
                             createAlert("Revert Error", "The revert is invalid",
                                     "The file name " + imageNames.getValue() + " must be available");
                         }
-                        updateLog(image, log);
-                        addClickableTags( image, imageNames, f, log, name);
-                        imageNameUpdate(imageNames, image, name);
+                        updateLog(log);
+                        addClickableTags( imageNames, log, name);
+                        imageNameUpdate(imageNames, name);
                     }
                 });
     }
