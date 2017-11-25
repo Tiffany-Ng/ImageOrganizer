@@ -63,6 +63,22 @@ public class ImageScene {
      * FilterStrategy for  applying filter to images
      */
     private static FilterStrategy strategy;
+    /**
+     * The hue of the customFilter
+     */
+    Slider hue;
+    /**
+     * The contrast of the customFilter
+     */
+    Slider contrast;
+    /**
+     * The brightness of the customFilter
+     */
+    Slider brightness;
+    /**
+     * The saturation of the customFilter
+     */
+    Slider saturation;
 
     /**
      * image in form of a viewable icon
@@ -224,20 +240,46 @@ public class ImageScene {
                 FXCollections.observableArrayList(
                         "Normal",
                         "Black and White",
-                        "Invert"
+                        "Invert",
+                        "Custom"
                 );
         ComboBox<String> comboBox = new ComboBox(options);// TODo should be in controller
         comboBox.setValue("Normal");
+
+        HBox customFilter = new HBox();
+        Text hueText = new Text("Hue:");
+        hue = new Slider(-1, 1, 0);
+        hue.valueProperty().addListener(e->{applyFilter(icon);});
+        customFilter.getChildren().addAll(hueText, hue);
+        Text brightnessText = new Text("Brightness:");
+        brightness = new Slider(-1, 1, 0);
+        brightness.valueProperty().addListener(e->{applyFilter(icon);});
+        customFilter.getChildren().addAll(brightnessText, brightness);
+        Text saturationText = new Text("Saturation:");
+        saturation = new Slider(-1, 1, 0);
+        saturation.valueProperty().addListener(e->{applyFilter(icon);});
+        customFilter.getChildren().addAll(saturationText, saturation);
+        Text contrastText = new Text("Contrast:");
+        contrast = new Slider(-1, 1, 0);
+        contrast.valueProperty().addListener(e->{applyFilter(icon);});
+        customFilter.getChildren().addAll(contrastText, contrast);
+        customFilter.setVisible(false);
+
         //cite: https://stackoverflow.com/questions/41323945/javafx-combobox-add-listener-on-selected-item-value Nov 25, 2017
         comboBox.valueProperty().addListener((fields, oldValue, newValue) -> {
+            if(newValue.equals("Custom")){
+                customFilter.setVisible(true);
+            }else{
+                customFilter.setVisible(false);
+            }
             setFilterStrategy(newValue);
             applyFilter(icon);
         });
 
-
         HBox imageName = new HBox();
         imageName.getChildren().addAll(name, rename, imageNames, revertName, comboBox);
         imageName.setSpacing(5.0);
+        layout.add(customFilter, 6, 0, 1, 1);
         layout.add(imageName, 1, 0, 1, 1);
 
         layout.setPrefHeight(700);
@@ -406,7 +448,10 @@ public class ImageScene {
                 break;
             case "Invert":
                 strategy = new InvertColoursFilter();
-
+                break;
+            case "Custom":
+                strategy = new CustomFilter();
+                break;
         }
     }
 
@@ -415,8 +460,16 @@ public class ImageScene {
      *
      * @return ImageView the ImageView after filter has been applied to it
      */
-    private static ImageView applyFilter(ImageView image) {
-        return strategy.applyFilter(image);
+    private ImageView applyFilter(ImageView image) {
+        if(strategy instanceof CustomFilter){
+            double brightnessVal = brightness.getValue();
+            double contrastVal = contrast.getValue();
+            double hueVal = hue.getValue();
+            double saturationVal = saturation.getValue();
+            return ((CustomFilter)strategy).applyFilter(image, brightnessVal, contrastVal, hueVal, saturationVal);
+        }else{
+            return strategy.applyFilter(image);
+        }
     }
 
 }

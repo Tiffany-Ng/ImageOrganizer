@@ -63,3 +63,10 @@ Person: Allan
 Flaw: Changes were not saved
 
 Fix: Manager saves changes on exit
+
+#########
+#Log 10:
+
+Person: Allan
+
+User can add filters with custom settings
