@@ -151,7 +151,7 @@ public class imageSceneController {
      *
      * @param revertName Button that initiates action
      */
-    public static void revertOldTagName(Button revertName, ComboBox<String> imageNames, TextArea log, TextField name, ArrayList<String> toAdd, ArrayList<String> toDelete) {    // TODO: should be in controller
+    public static void revertOldTagName(Button revertName, ComboBox<String> imageNames, TextArea log, TextField name, ArrayList<String> toAdd, ArrayList<String> toDelete) {
         revertName.setOnAction(
                 event -> {
                     if (!imageNames.getSelectionModel().isEmpty()

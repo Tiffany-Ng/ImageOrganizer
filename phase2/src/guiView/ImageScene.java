@@ -128,7 +128,7 @@ public class ImageScene {
     public void initialize(ImageFile image, File directory) throws IOException {
 
         this.image = image;
-
+        log = new TextArea();
 
         // inspired from https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm
         GridPane g;
@@ -459,10 +459,6 @@ public class ImageScene {
             tagsToDelete.clear();
         });
 
-//        Text instruction = new Text();
-//        instruction.setText("Want to delete a tag? SELECT IT!");
-
-
         flow.getChildren().add(change);
 
         f = new FlowPane(Orientation.VERTICAL, 7, 5);
@@ -473,9 +469,6 @@ public class ImageScene {
 
         flow.getChildren().add(new ScrollPane(f));
 
-        log = new TextArea();
-
-        // image log
         imageSceneController.updateLog(log);
 
         log.setWrapText(true);

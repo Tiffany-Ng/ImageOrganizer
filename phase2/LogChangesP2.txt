@@ -84,6 +84,9 @@ Fixed formatting of PicGrid and bug for invertFilter.
 
 #########
 #Log 13:
-Person: Prynciss
 
-Added multiple add/delete tags on GUI and backend. Problems with revert.
+Person: Akshat
+
+Flaw: Never button caused a null pointer exception.
+
+Fix: Variable not declared in the right place.
