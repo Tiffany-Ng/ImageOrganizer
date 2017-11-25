@@ -1,7 +1,7 @@
 package ManageImage;
 
 import guiView.Main;
-import guiView.PicGrid;
+import guiView.PicGridView;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -235,7 +235,7 @@ public class ImageManager implements Serializable {
      * @param tag The tag to delete from TagManager.tags and ImageFiles all containing that tag.
      */
     public static void deleteGlobalTag(String tag) {
-        ArrayList<ImageFile> list = getDisplayedFiles(PicGrid.getShowAll(), PicGrid.getDirectory());
+        ArrayList<ImageFile> list = getDisplayedFiles(PicGridView.getShowAll(), PicGridView.getDirectory());
 
         for (ImageFile file : list)
             file.removeTag(tag);
@@ -248,15 +248,15 @@ public class ImageManager implements Serializable {
      * @param tag The tag to add to TagManager.tags and ImageFiles
      */
     public static void addGlobalTag(String tag) {
-        ArrayList<ImageFile> list = getDisplayedFiles(PicGrid.getShowAll(), PicGrid.getDirectory());
+        ArrayList<ImageFile> list = getDisplayedFiles(PicGridView.getShowAll(), PicGridView.getDirectory());
 
         for (ImageFile file : list) file.addTag(tag);
     }
 
     /**
-     * Returns the displayed ImageFiles in PicGrid
+     * Returns the displayed ImageFiles in PicGridView
      *
-     * @return ArrayList<ImageFile> the displayed ImageFiles in PicGrid
+     * @return ArrayList<ImageFile> the displayed ImageFiles in PicGridView
      */
     private static ArrayList<ImageFile> getDisplayedFiles(boolean showAll, File directory) {
         ArrayList<ImageFile> list = getImageFilesByDirectory(directory);

@@ -11,7 +11,7 @@ import java.io.File;
 
 /**  // TODO: change doc
  * A stage that pops up when dirChooser is called.
- * There are two usages, pass in only a Stage to select a directory to open. It will then lead to PicGrid for a list of ImageFiles to show.
+ * There are two usages, pass in only a Stage to select a directory to open. It will then lead to PicGridView for a list of ImageFiles to show.
  * Pass in a Stage, an ImageFile, and a Text to select a directory for the ImageFile to transfer to. It will also update the Text to show
  * the new directory.
  * Functionality of panes from: https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm Date: Nov 6, 2017
@@ -26,7 +26,7 @@ public class dirController {
 
 
     /**
-     * Lets user to choose a directory and then shows PicGrid.
+     * Lets user to choose a directory and then shows PicGridView.
      *
      * @param currentStage the Stage that the user is in
      */

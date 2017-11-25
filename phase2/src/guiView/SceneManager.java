@@ -10,14 +10,14 @@ import java.io.IOException;
 public class SceneManager {
 
     private static Stage stage;
-    private static PicGrid picGrid;
-    private static ImageScene imageScene;
+    private static PicGridView picGrid;
+    private static ImageSceneView imageScene;
 
     public SceneManager(Stage stage) {
 
         SceneManager.stage = stage;
-        picGrid = new PicGrid(stage);
-        imageScene = new ImageScene(stage);
+        picGrid = new PicGridView(stage);
+        imageScene = new ImageSceneView(stage);
 
     }
 

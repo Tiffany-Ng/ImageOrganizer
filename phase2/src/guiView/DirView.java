@@ -22,7 +22,7 @@ import java.util.logging.Level;
 
 /**
  * A stage that pops up when dirChooser is called.
- * There are two usages, pass in only a Stage to select a directory to open. It will then lead to PicGrid for a list of ImageFiles to show.
+ * There are two usages, pass in only a Stage to select a directory to open. It will then lead to PicGridView for a list of ImageFiles to show.
  * Pass in a Stage, an ImageFile, and a Text to select a directory for the ImageFile to transfer to. It will also update the Text to show
  * the new directory.
  * Functionality of panes from: https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm Date: Nov 6, 2017
@@ -42,7 +42,7 @@ public class DirView {
     /**
      * Scene of the image selected
      */
-    private static ImageScene imageScene;
+    private static ImageSceneView imageScene;
 
 
     /**
@@ -129,7 +129,7 @@ public class DirView {
     /** // TODO: unsure about this method, talk to Allan about it
      * Sets the 'Go' button method according to if an ImageFile was passed when dirChooser is called.
      * If True, ImageFile will be moved to the selected directory.
-     * If False, PicGrid will be shown.
+     * If False, PicGridView will be shown.
      *
      * @param button  the 'Go' button
      * @param file True if a file was given when dirChooser is called
@@ -187,7 +187,7 @@ public class DirView {
      * @param imageToMove  the ImageFile to move
      * @param dirText      the Text to display the directory of the ImageFile
      */
-    static void dirChooser(Stage currentStage, ImageFile imageToMove, Text dirText, ImageScene is) {
+    static void dirChooser(Stage currentStage, ImageFile imageToMove, Text dirText, ImageSceneView is) {
         imageScene = is;
         guiSetup(currentStage, true);
         image = imageToMove;

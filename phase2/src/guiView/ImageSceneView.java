@@ -34,7 +34,7 @@ import java.util.logging.Level;
  * @author Amarnath Parthiban 1003193518
  * @author Akshat Nigam 1002922732
  */
-public class ImageScene {
+public class ImageSceneView {
 
     /**
      * The image used.
@@ -112,7 +112,7 @@ public class ImageScene {
      */
     ArrayList<String> tagsToDelete = new ArrayList<>();
 
-    public ImageScene(Stage stage) {
+    public ImageSceneView(Stage stage) {
 
         this.prevScene = stage;
 
@@ -248,7 +248,7 @@ public class ImageScene {
 
 
         back.setOnAction(     // Todo: should be in controller
-                e -> SceneManager.swapToPicGrid(this.directory)); //new PicGrid(prevScene, this.directory).picGrid());
+                e -> SceneManager.swapToPicGrid(this.directory)); //new PicGridView(prevScene, this.directory).picGrid());
 
         // https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm
         imageNames = new ComboBox<>();

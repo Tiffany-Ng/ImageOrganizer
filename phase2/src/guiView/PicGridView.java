@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import ManageImage.*;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -26,7 +25,7 @@ import java.util.ArrayList;
  * @author Amarnath Parthiban 1003193518
  * @author Akshat Nigam 1002922732
  */
-public class PicGrid {
+public class PicGridView {
 
     /**
      * The main stage to show the user
@@ -44,24 +43,24 @@ public class PicGrid {
     public static boolean showAll = true;
 
     /**
-     * Stores the buttons with image which leads to ImageScene on click
+     * Stores the buttons with image which leads to ImageSceneView on click
      */
     private ArrayList<Button> imageButtons = new ArrayList<>();
 
     /**
-     * Stores the buttons with image in sub-folders which leads to ImageScene on click
+     * Stores the buttons with image in sub-folders which leads to ImageSceneView on click
      */
     private ArrayList<Button> subDirImageButtons = new ArrayList<>();
 
-    public PicGrid(Stage currentStg) {
+    public PicGridView(Stage currentStg) {
 
-        PicGrid.currentStg = currentStg;
+        PicGridView.currentStg = currentStg;
 
     }
 
     public void initialize(File dir) {
 
-        PicGrid.dir = dir;
+        PicGridView.dir = dir;
         imageButtons = gatherImages(ImageManager.getImageFilesInParentDirectory(dir));
         subDirImageButtons = gatherImages(ImageManager.getImageFilesInSubDirectory(dir));
         imageButtons.addAll(subDirImageButtons);

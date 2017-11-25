@@ -90,3 +90,12 @@ Person: Akshat
 Flaw: Never button caused a null pointer exception.
 
 Fix: Variable not declared in the right place.
+
+#########
+#Log 14:
+
+Person: Akshat
+
+Flaw: File names not explicit to show difference between view and controller
+
+Fix: made file names explicit to show difference between view and controller.

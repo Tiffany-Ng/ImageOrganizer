@@ -1,6 +1,6 @@
 package guiController;
 
-import guiView.PicGrid;
+import guiView.PicGridView;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
 
@@ -14,17 +14,17 @@ public class picGrigController {
 
         if (subDirImageButtons.size() != 0) {   // TODO: put this in the controller
             Button show;
-            if (!PicGrid.showAll) show = new Button("Press to show all images under this directory (includes subfolder)");
+            if (!PicGridView.showAll) show = new Button("Press to show all images under this directory (includes subfolder)");
             else show = new Button("Press to show images in this directory (only parent folder)");
 
             show.setOnAction(
                     e -> {
-                        if (PicGrid.showAll) {
-                            PicGrid.showAll = false;
+                        if (PicGridView.showAll) {
+                            PicGridView.showAll = false;
                             show.setText("Press to show images in this directory (only parent folder)");
                             pane.getChildren().removeAll(subDirImageButtons);
                         } else {
-                            PicGrid.showAll = true;
+                            PicGridView.showAll = true;
                             show.setText("Press to show all images under this directory (includes subfolder)");
                             pane.getChildren().addAll(subDirImageButtons);
                         }
