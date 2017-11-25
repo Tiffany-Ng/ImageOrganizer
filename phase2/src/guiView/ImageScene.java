@@ -1,6 +1,8 @@
 package guiView;
 
 import guiController.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -19,11 +21,7 @@ import ManageImage.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.io.File;
 import java.util.logging.Level;
 
@@ -183,7 +181,7 @@ public class ImageScene {
 
         // needs the "file://" because image will not understand it is a directory
         // solution found at https://stackoverflow.com/questions/8474694/java-url-unknown-protocol-c
-        icon.setImage(new Image("file:///" + image.getFile().toString()));
+        icon.setImage(image.getImage());
         layout.add(icon, 1, 2, 4, 2);
 
         // go to screen with all images
@@ -221,16 +219,24 @@ public class ImageScene {
         VBox f = vBoxSetup();  // TODO: moved HERE
         layout.add(f, 6, 2, 2, 2);
 
-        Button filter = new Button("Filter");   // TODo should be in controller
-        filter.setOnAction(
-                e -> {
-                    setFilterStrategy(new InvertColoursFilter());
-                    icon = applyFilter(icon);
-                }
-        );
+        // cite: https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm Nov 25, 2017
+        ObservableList<String> options =
+                FXCollections.observableArrayList(
+                        "Normal",
+                        "Black and White",
+                        "Invert"
+                );
+        ComboBox<String> comboBox = new ComboBox(options);// TODo should be in controller
+        comboBox.setValue("Normal");
+        //cite: https://stackoverflow.com/questions/41323945/javafx-combobox-add-listener-on-selected-item-value Nov 25, 2017
+        comboBox.valueProperty().addListener((fields, oldValue, newValue) -> {
+            setFilterStrategy(newValue);
+            applyFilter(icon);
+        });
+
 
         HBox imageName = new HBox();
-        imageName.getChildren().addAll(name, rename, imageNames, revertName, filter);
+        imageName.getChildren().addAll(name, rename, imageNames, revertName, comboBox);
         imageName.setSpacing(5.0);
         layout.add(imageName, 1, 0, 1, 1);
 
@@ -390,8 +396,18 @@ public class ImageScene {
      *
      * @param chosenStrategy the FilterStrategy that is being used, could be different kinds of filter.
      */
-    private void setFilterStrategy(FilterStrategy chosenStrategy) {
-        strategy = chosenStrategy;
+    private void setFilterStrategy(String chosenStrategy) {
+        switch(chosenStrategy){
+            case "Normal":
+                strategy = new NormalFilter();
+                break;
+            case "Black and White":
+                strategy = new BlackAndWhiteFilter();
+                break;
+            case "Invert":
+                strategy = new InvertColoursFilter();
+
+        }
     }
 
     /**
@@ -399,8 +415,8 @@ public class ImageScene {
      *
      * @return ImageView the ImageView after filter has been applied to it
      */
-    private static ImageView applyFilter(ImageView imageView) {
-        return strategy.applyFilter(imageView);
+    private static ImageView applyFilter(ImageView image) {
+        return strategy.applyFilter(image);
     }
 
 }

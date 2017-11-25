@@ -42,15 +42,15 @@ public abstract class Manager<T> implements Serializable {
         try {
             FileInputStream inputStream = new FileInputStream(fileName);
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            items = (java.util.LinkedList<T>) objectInputStream.readObject();
+            //items = (java.util.LinkedList<T>) objectInputStream.readObject();
             objectInputStream.close();
         } catch (FileNotFoundException e) {
             Main.logger.log(Level.SEVERE, "Serializable file path not found", e);
         } catch (IOException e) {
             Main.logger.log(Level.SEVERE, "Improper file reading", e);
-        } catch (ClassNotFoundException e) {
-            Main.logger.log(Level.SEVERE, "Improper class path", e);
-        }
+        } //catch (ClassNotFoundException e) {
+//            Main.logger.log(Level.SEVERE, "Improper class path", e);
+//        }
     }
 
     /**

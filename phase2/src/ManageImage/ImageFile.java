@@ -1,6 +1,8 @@
 package ManageImage;
 
 import guiView.Main;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -350,6 +352,17 @@ public class ImageFile implements Serializable {
         return object instanceof ImageFile
                 && ((ImageFile) object).getFile().equals(imageFile)
                 && ((ImageFile) object).getDirectory().equals(this.getDirectory());
+    }
+
+    /**
+     * Returns the Image of this ImageFile, creates a new Image every time so filter does not reference the original image.
+     *
+     * @return the Image that the GUI uses to display the image.
+     */
+    public Image getImage() {
+
+        return new Image("file:///" + this.getFile().toString());
+
     }
 }
 
