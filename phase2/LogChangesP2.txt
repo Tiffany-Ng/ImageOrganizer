@@ -54,3 +54,12 @@ TagManager and ImageManager inherit the same class Manager
 Person: Prynciss
 
 Added combobox for applying filters to images.
+
+#########
+#Log 9:
+
+Person: Allan
+
+Flaw: Changes were not saved
+
+Fix: Manager saves changes on exit
