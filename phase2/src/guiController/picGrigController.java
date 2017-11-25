@@ -77,6 +77,11 @@ public class picGrigController {
             });
         }
 
+        ListView<CheckBox> imageView = new ListView<>();
+        imageView.getItems().addAll(imageCheckBox);
+
+        g.add(imageView, 3, 1, 1, 1);
+
         Button add = new Button("Add to");
         Button remove = new Button("Remove from");
 
