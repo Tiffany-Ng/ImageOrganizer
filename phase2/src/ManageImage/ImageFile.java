@@ -267,6 +267,31 @@ public class ImageFile implements Serializable {
     }
 
     /**
+     * Adds tag to image
+     * <p>Precondition: tag does not contain " @". Images cannot have duplicate tags</p>
+     *
+     * @param tagList to add
+     * @return Indicates if the tag insertion was successful
+     */
+    public boolean addTag(ArrayList<String> tagList) {
+        boolean success = false;
+        for(String tag : tagList) {
+            if (tag.contains(" @")) {
+                Main.logger.log(
+                        Level.SEVERE, "Invalid tag name", new InvalidNameException("Tag contains \" @\""));
+            } else if (!tags.contains(tag)) {
+                tags.add(tag);
+
+                if (!TagManager.getTags().contains(tag)) TagManager.add(tag);
+            }
+        }
+
+        success = updateFile("Added tag \"" + tagList.toString() + "\" to image \"" + name + "\"");
+        if (success) priorNames.add(nameWithTags());
+        return success;
+    }
+
+    /**
      * Removes tag from image
      *
      * @param tag tag to remove
@@ -280,6 +305,27 @@ public class ImageFile implements Serializable {
             success = updateFile("Removed tag \"" + tag + "\" from image \"" + name + "\"");
             if (success) priorNames.add(nameWithTags());
         }
+        return success;
+    }
+
+    /**
+     * Removes tag from image
+     *
+     * @param tagList tag to remove
+     * @return Indicates if the tag removal was successful
+     */
+    public boolean removeTag(ArrayList<String> tagList) {
+        boolean success = false;
+        for(String tag: tagList) {
+            if (tag.contains(tag)) {
+                tags.remove(tag);
+                // TagManager.remove(tag);
+
+            }
+        }
+
+        success = updateFile("Removed tag \"" + tagList.toString() + "\" from image \"" + name + "\"");
+        if (success) priorNames.add(nameWithTags());
         return success;
     }
 

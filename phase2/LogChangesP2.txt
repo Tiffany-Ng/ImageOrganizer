@@ -81,3 +81,9 @@ User can add filters with custom settings
 Person: Prynciss
 
 Fixed formatting of PicGrid and bug for invertFilter.
+
+#########
+#Log 13:
+Person: Prynciss
+
+Added multiple add/delete tags on GUI and backend. Problems with revert.

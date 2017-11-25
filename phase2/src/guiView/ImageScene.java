@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 /**
@@ -35,28 +36,44 @@ import java.util.logging.Level;
  */
 public class ImageScene {
 
-    /** The image used. */
+    /**
+     * The image used.
+     */
     private ImageFile image;
 
-    /** The actual scene which hold all the elements.*/
+    /**
+     * The actual scene which hold all the elements.
+     */
     private Scene imageScene;
 
-    /** All the logs in a text box.*/
+    /**
+     * All the logs in a text box.
+     */
     private TextArea log;
 
-    /** Image's name*/
+    /**
+     * Image's name
+     */
     private TextField name;
 
-    /** Pane to hold clickable tags. */
+    /**
+     * Pane to hold clickable tags.
+     */
     private FlowPane f;
 
-    /** The directory that the user first opened */
+    /**
+     * The directory that the user first opened
+     */
     private File directory;
 
-    /** The previous picGrid scene */
+    /**
+     * The previous picGrid scene
+     */
     private Stage prevScene;
 
-    /** All names the image has had. */
+    /**
+     * All names the image has had.
+     */
     private ComboBox<String> imageNames;
 
     /**
@@ -84,6 +101,16 @@ public class ImageScene {
      * image in form of a viewable icon
      */
     private ImageView icon = new ImageView();
+
+    /**
+     * ArrayList for adding multiple tags
+     */
+    ArrayList<String> tagsToAdd = new ArrayList<>();
+
+    /**
+     * ArrayList for deleting multiple tags
+     */
+    ArrayList<String> tagsToDelete = new ArrayList<>();
 
     public ImageScene(Stage stage) {
 
@@ -124,7 +151,7 @@ public class ImageScene {
     private void renameImageFile() {
 
         boolean success = image.rename(name.getText());
-        imageSceneController.addClickableTags( imageNames, log, name);
+        imageSceneController.addClickableTags(imageNames, log, name, tagsToAdd, tagsToDelete);
         imageSceneController.updateLog(log);
         imageSceneController.imageNameUpdate(imageNames, name);
 
@@ -143,12 +170,13 @@ public class ImageScene {
      * @param newTag field which contains the new tag name
      * @return true if valid tag name.
      */
-    private boolean checkValidTagName(ComboBox<String> newTag) {
-        return newTag.getValue() != null && (newTag.getValue()).length() != 0;
+    private boolean checkValidTagName(String newTag) {
+        return newTag != null && newTag.length() != 0;
     }
 
 
-    /**  // TODO: COPY  ... Kept this because of DirVies's call
+    /**
+     * // TODO: COPY  ... Kept this because of DirVies's call
      * Update the log with its new information.
      */
     public void updateLog() {   // TODO: should be in the controller
@@ -229,7 +257,7 @@ public class ImageScene {
         imageNames.getSelectionModel().selectFirst();
 
         Button revertName = new Button("Revert");
-        imageSceneController.revertOldTagName( revertName, imageNames, log,  name);  // gives functionality to the Button
+        imageSceneController.revertOldTagName(revertName, imageNames, log, name, tagsToAdd, tagsToDelete);  // gives functionality to the Button
 
 
         VBox f = vBoxSetup();  // TODO: moved HERE
@@ -249,27 +277,36 @@ public class ImageScene {
         HBox customFilter = new HBox();
         Text hueText = new Text("Hue:");
         hue = new Slider(-1, 1, 0);
-        hue.valueProperty().addListener(e->{applyFilter(icon);});
+        hue.valueProperty().addListener(e -> {
+            applyFilter(icon);
+        });
         customFilter.getChildren().addAll(hueText, hue);
         Text brightnessText = new Text("Brightness:");
         brightness = new Slider(-1, 1, 0);
-        brightness.valueProperty().addListener(e->{applyFilter(icon);});
+        brightness.valueProperty().addListener(e -> {
+            applyFilter(icon);
+        });
         customFilter.getChildren().addAll(brightnessText, brightness);
         Text saturationText = new Text("Saturation:");
         saturation = new Slider(-1, 1, 0);
-        saturation.valueProperty().addListener(e->{applyFilter(icon);});
+        saturation.valueProperty().addListener(e -> {
+            applyFilter(icon);
+        });
         customFilter.getChildren().addAll(saturationText, saturation);
         Text contrastText = new Text("Contrast:");
         contrast = new Slider(-1, 1, 0);
-        contrast.valueProperty().addListener(e->{applyFilter(icon);});
+        contrast.valueProperty().addListener(e -> {
+            applyFilter(icon);
+        });
         customFilter.getChildren().addAll(contrastText, contrast);
         customFilter.setVisible(false);
 
         //cite: https://stackoverflow.com/questions/41323945/javafx-combobox-add-listener-on-selected-item-value Nov 25, 2017
         comboBox.valueProperty().addListener((fields, oldValue, newValue) -> {
-            if(newValue.equals("Custom")){
+            if (newValue.equals("Custom")) {
+                icon.setImage(image.getImage());
                 customFilter.setVisible(true);
-            }else{
+            } else {
                 customFilter.setVisible(false);
             }
             setFilterStrategy(newValue);
@@ -346,33 +383,36 @@ public class ImageScene {
         flow.getChildren().add(dir);
         flow.setAlignment(Pos.CENTER_LEFT);
 
-        ComboBox<String> newTag = new ComboBox<>();
-        newTag.setEditable(true);
-        newTag.getItems().addAll(TagManager.getTags());
+//        ComboBox<String> newTag = new ComboBox<>();
+//        newTag.setEditable(true);
+//        newTag.getItems().addAll(TagManager.getTags());
+//
+//        newTag
+//                .getEditor()
+//                .setOnMouseClicked(
+//                        e -> {
+//                            newTag.show();
+//                            newTag.setVisibleRowCount(10);
+//                        });
 
-        newTag
-                .getEditor()
-                .setOnMouseClicked(
-                        e -> {
-                            newTag.show();
-                            newTag.setVisibleRowCount(10);
-                        });
+        //https://docs.oracle.com/javafx/2/ui_controls/text-field.htm
+        TextField newTag = new TextField();
 
         HBox tagBox = new HBox();
         Button addTag = new Button("+");
         addTag.setOnAction(   // TODO: in controller
                 e -> {
-                    if (checkValidTagName(newTag)) {
-                        boolean success = image.addTag(newTag.getValue());
+                    if (checkValidTagName(newTag.getText())) {
+                        boolean success = image.addTag(newTag.getText());
                         if (success) {
-                            newTag.setValue("");
+                            newTag.setText("");
                         } else {
-                            imageSceneController.createAlert("Add Tag Error", "The tag '" + newTag.getValue() + "' was not added successfully",
+                            imageSceneController.createAlert("Add Tag Error", "The tag '" + newTag.getText() + "' was not added successfully",
                                     "Tag name contains ' @', the tag already exists, or the file name with the additional tag is occupied");
                         }
                     }
 
-                    imageSceneController.addClickableTags(imageNames,  log, name);
+                    imageSceneController.addClickableTags(imageNames, log, name, tagsToAdd, tagsToDelete);
                     imageSceneController.updateLog(log);
                     imageSceneController.imageNameUpdate(imageNames, name);
                 });
@@ -380,9 +420,9 @@ public class ImageScene {
         Button addToAll = new Button("Add to All");
         addToAll.setOnAction(   // TODO: in controller
                 e -> {
-                    if (checkValidTagName(newTag)) {
-                        ImageManager.addGlobalTag(newTag.getValue());
-                        newTag.setValue("");
+                    if (checkValidTagName(newTag.getText())) {
+                        ImageManager.addGlobalTag(newTag.getText());
+                        newTag.setText("");
                     }
                     SceneManager.swapToPicGrid(this.directory);
 
@@ -391,9 +431,9 @@ public class ImageScene {
         Button deleteFromAll = new Button("Delete from All");
         deleteFromAll.setOnAction(   // TODO: in controller
                 e -> {
-                    if (checkValidTagName(newTag)) {
-                        ImageManager.deleteGlobalTag(newTag.getValue());
-                        newTag.setValue("");
+                    if (checkValidTagName(newTag.getText())) {
+                        ImageManager.deleteGlobalTag(newTag.getText());
+                        newTag.setText("");
                     }
                     SceneManager.swapToPicGrid(this.directory);
                 });
@@ -403,17 +443,33 @@ public class ImageScene {
 
         flow.getChildren().add(tagBox);
 
-        Text instruction = new Text();
-        instruction.setText("Want to delete a tag? SELECT IT!");
+        Button change = new Button("Change");
+
+        change.setOnAction(e -> {
+            if (tagsToAdd.size() != 0)
+                image.addTag(tagsToAdd);
+            if (tagsToDelete.size() != 0)
+                image.removeTag(tagsToDelete);
+
+            imageSceneController.addClickableTags(imageNames, log, name, tagsToAdd, tagsToDelete);
+            imageSceneController.updateLog(log);
+            imageSceneController.imageNameUpdate(imageNames, name);
+
+            tagsToAdd.clear();
+            tagsToDelete.clear();
+        });
+
+//        Text instruction = new Text();
+//        instruction.setText("Want to delete a tag? SELECT IT!");
 
 
-        flow.getChildren().add(instruction);
+        flow.getChildren().add(change);
 
-        f = new FlowPane(Orientation.HORIZONTAL, 7, 5);
+        f = new FlowPane(Orientation.VERTICAL, 7, 5);
         imageSceneController.setF(f);
         f.setPadding(new Insets(5));
         f.setPrefHeight(480 / 2.5);
-        f = imageSceneController.addClickableTags(imageNames, log, name);
+        f = imageSceneController.addClickableTags(imageNames, log, name, tagsToAdd, tagsToDelete);
 
         flow.getChildren().add(new ScrollPane(f));
 
@@ -439,7 +495,7 @@ public class ImageScene {
      * @param chosenStrategy the FilterStrategy that is being used, could be different kinds of filter.
      */
     private void setFilterStrategy(String chosenStrategy) {
-        switch(chosenStrategy){
+        switch (chosenStrategy) {
             case "Normal":
                 strategy = new NormalFilter();
                 break;

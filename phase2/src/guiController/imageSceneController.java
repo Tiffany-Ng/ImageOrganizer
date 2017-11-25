@@ -3,19 +3,21 @@ package guiController;
 import ManageImage.Entry;
 import ManageImage.ImageFile;
 import ManageImage.Log;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
+import ManageImage.TagManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.TextField;
 
 
+import javax.swing.text.html.HTML;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class imageSceneController {
@@ -35,8 +37,8 @@ public class imageSceneController {
     /**
      * Create a generic Alert using the information provided.
      *
-     * @param title String: window title
-     * @param header String
+     * @param title   String: window title
+     * @param header  String
      * @param content String
      */
     public static void createAlert(String title, String header, String content) {
@@ -92,34 +94,54 @@ public class imageSceneController {
      *
      * @return FlowPane
      */
-    public static FlowPane addClickableTags( ComboBox<String> imageNames, TextArea log, TextField name) {  // TODO: change horrible name f
+    public static FlowPane addClickableTags(ComboBox<String> imageNames, TextArea log, TextField name, ArrayList<String> toAdd, ArrayList<String> toDelete) {  // TODO: change horrible name f
+
+        f.getChildren().clear();
+        //https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm
+        LinkedList<String> tags = TagManager.getTags();
+        ArrayList<CheckBox> checkBoxes = new ArrayList<>();
+        for (String tag : tags) {
+            CheckBox checkBox = new CheckBox(tag);
+            checkBoxes.add(checkBox);
+            if(image.getTags().contains(tag))
+                checkBox.setSelected(true);
+
+            checkBox.setOnAction(e ->{
+                if(checkBox.isSelected())
+                    toAdd.add(checkBox.getText());
+                else
+                    toDelete.add(checkBox.getText());
+            });
+        }
+        f.getChildren().addAll(checkBoxes);
+
 
         // taken from https://stackoverflow.com/questions/37378973/implement-tags-bar-in-javafx
-        List<String> tags = image.getTags();
-        f.getChildren().removeAll(f.getChildren());
-
-        ImageView i = new ImageView(new Image("file:///" + "x.jpeg"));
-
-        for (String t : tags) {
-
-            // makes all tags as clickable buttons
-            Button tag = new Button(t, i);
-
-            tag.setOnAction(
-                    e -> {
-                        boolean success = image.removeTag(tag.getText());
-                        if (success) {
-                            f.getChildren().remove(tag);
-                            imageSceneController.updateLog( log);
-                            imageNameUpdate(imageNames, name);
-                        } else {
-                            imageSceneController.createAlert("Remove Tag Error", "The tag '" + tag.getText() + "' was not removed successfully",
-                                    "Tag name contains ' @' or the file name without the tag is likely occupied");
-                        }
-                    });
-
-            f.getChildren().add(tag);
-        }
+//        List<String> tags = image.getTags();
+//        f.getChildren().removeAll(f.getChildren());
+//
+//        ImageView i = new ImageView(new Image("file:///" + "x.jpeg"));
+//
+//        for (String t : tags) {
+//
+//            // makes all tags as clickable buttons
+//            Button tag = new Button(t, i);
+//
+//            tag.setOnAction(
+//                    e -> {
+//                        boolean success = image.removeTag(tag.getText());
+//                        if (success) {
+//                            f.getChildren().remove(tag);
+//                            imageSceneController.updateLog(log);
+//                            imageNameUpdate(imageNames, name);
+//                        } else {
+//                            imageSceneController.createAlert("Remove Tag Error", "The tag '" + tag.getText() + "' was not removed successfully",
+//                                    "Tag name contains ' @' or the file name without the tag is likely occupied");
+//                        }
+//                    });
+//
+//            f.getChildren().add(tag);
+//       }
         return f;
     }
 
@@ -129,7 +151,7 @@ public class imageSceneController {
      *
      * @param revertName Button that initiates action
      */
-    public static void revertOldTagName(Button revertName, ComboBox<String> imageNames, TextArea log,  TextField name) {    // TODO: should be in controller
+    public static void revertOldTagName(Button revertName, ComboBox<String> imageNames, TextArea log, TextField name, ArrayList<String> toAdd, ArrayList<String> toDelete) {    // TODO: should be in controller
         revertName.setOnAction(
                 event -> {
                     if (!imageNames.getSelectionModel().isEmpty()
@@ -146,7 +168,7 @@ public class imageSceneController {
                                     "The file name " + imageNames.getValue() + " must be available");
                         }
                         updateLog(log);
-                        addClickableTags( imageNames, log, name);
+                        addClickableTags(imageNames, log, name, toAdd, toDelete);
                         imageNameUpdate(imageNames, name);
                     }
                 });
