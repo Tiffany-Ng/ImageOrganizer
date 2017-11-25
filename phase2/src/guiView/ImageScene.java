@@ -460,16 +460,15 @@ public class ImageScene {
      *
      * @return ImageView the ImageView after filter has been applied to it
      */
-    private ImageView applyFilter(ImageView image) {
-        if(strategy instanceof CustomFilter){
+    private ImageView applyFilter(ImageView imageView) {
+        if (strategy instanceof CustomFilter) {
             double brightnessVal = brightness.getValue();
             double contrastVal = contrast.getValue();
             double hueVal = hue.getValue();
             double saturationVal = saturation.getValue();
-            return ((CustomFilter)strategy).applyFilter(image, brightnessVal, contrastVal, hueVal, saturationVal);
-        }else{
-            return strategy.applyFilter(image);
+            return ((CustomFilter) strategy).applyFilter(imageView, brightnessVal, contrastVal, hueVal, saturationVal);
+        } else {
+            return strategy.applyFilter(imageView);
         }
     }
-
 }
