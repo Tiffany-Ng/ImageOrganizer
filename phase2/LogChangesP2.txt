@@ -75,3 +75,9 @@ FilterStrategy now allows for direct image manipulation instead of only applying
 Person: Allan
 
 User can add filters with custom settings
+
+#########
+#Log 12:
+Person: Prynciss
+
+Fixed formatting of PicGrid and bug for invertFilter.

@@ -279,7 +279,7 @@ public class ImageScene {
         HBox imageName = new HBox();
         imageName.getChildren().addAll(name, rename, imageNames, revertName, comboBox);
         imageName.setSpacing(5.0);
-        layout.add(customFilter, 6, 0, 1, 1);
+        layout.add(customFilter, 1, 2, 1, 1);
         layout.add(imageName, 1, 0, 1, 1);
 
         layout.setPrefHeight(700);
@@ -468,6 +468,7 @@ public class ImageScene {
             double saturationVal = saturation.getValue();
             return ((CustomFilter) strategy).applyFilter(imageView, brightnessVal, contrastVal, hueVal, saturationVal);
         } else {
+            imageView.setImage(image.getImage());
             return strategy.applyFilter(imageView);
         }
     }
