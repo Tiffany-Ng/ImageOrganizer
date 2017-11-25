@@ -1,6 +1,5 @@
 package guiView;
 
-import javafx.scene.control.Alert;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.*;
 import javafx.scene.paint.Color;
@@ -37,30 +36,25 @@ class InvertColoursFilter implements FilterStrategy{
     @Override
     public ImageView applyFilter(ImageView imageView) {
 
-//        Image image = imageView.getImage();
-//        PixelReader pixelReader = image.getPixelReader();
-//
-//        int width = (int) image.getWidth();
-//        int height = (int) image.getHeight();
-//
-//        WritableImage writableImage = new WritableImage(width, height);
-//        PixelWriter pixelWriter = writableImage.getPixelWriter();
-//
-//        for (int x = 0; x < width; x++) {
-//            for (int y = 0; y < height; y++) {
-//
-//                Color color = pixelReader.getColor(x, y);
-//                pixelWriter.setColor(x, y, color.invert());
-//
-//            }
-//        }
-//
-//        imageView.setImage(writableImage);
+        Image image = imageView.getImage();
+        PixelReader pixelReader = image.getPixelReader();
 
-        // Adapted from: https://stackoverflow.com/questions/43068319/how-to-create-javafx-16-bit-greyscale-images Date: Nov 21, 207
+        int width = (int) image.getWidth();
+        int height = (int) image.getHeight();
 
-        ColorAdjust colorAdjust = new ColorAdjust(-.5,0.12,.5,0.5);
-        imageView.setEffect(colorAdjust);
+        WritableImage writableImage = new WritableImage(width, height);
+        PixelWriter pixelWriter = writableImage.getPixelWriter();
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+
+                Color color = pixelReader.getColor(x, y);
+                pixelWriter.setColor(x, y, color.invert());
+
+            }
+        }
+
+        imageView.setImage(writableImage);
 
         return imageView;
 

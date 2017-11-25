@@ -415,8 +415,9 @@ public class ImageScene {
      *
      * @return ImageView the ImageView after filter has been applied to it
      */
-    private static ImageView applyFilter(ImageView image) {
-        return strategy.applyFilter(image);
+    private ImageView applyFilter(ImageView imageView) {
+        imageView.setImage(image.getImage());
+        return strategy.applyFilter(imageView);
     }
 
 }

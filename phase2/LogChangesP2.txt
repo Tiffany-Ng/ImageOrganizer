@@ -63,3 +63,10 @@ Person: Allan
 Flaw: Changes were not saved
 
 Fix: Manager saves changes on exit
+
+#########
+#Log 10:
+
+Person: Prynciss
+
+FilterStrategy now allows for direct image manipulation instead of only applying changes in ImageView.
