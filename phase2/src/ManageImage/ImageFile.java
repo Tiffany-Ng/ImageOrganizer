@@ -261,7 +261,7 @@ public class ImageFile implements Serializable {
             tags.add(tag);
             success = updateFile("Added tag \"" + tag + "\" to image \"" + name + "\"");
             if (success) priorNames.add(nameWithTags());
-            if (!TagManager.getTags().contains(tag)) TagManager.add(tag);
+            TagManager.add(tag);
         }
         return success;
     }
