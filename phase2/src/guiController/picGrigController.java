@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -24,7 +25,7 @@ import java.util.LinkedList;
 
 public class picGrigController {
 
-    public static void independentTags(File dir) {
+    public static void independentTags(File dir) { // #TODO create tag option and updating
 
         Stage chooser = new Stage();
 
@@ -55,7 +56,37 @@ public class picGrigController {
             });
         }
 
+        CheckBox d = new CheckBox();
+
+        d.setOnAction(e -> {
+
+            if (d.isSelected()) {
+
+                selectedTags.addAll(tags);
+
+                for (CheckBox check : tagCheckBox) {
+
+                    check.setSelected(true);
+
+                }
+
+            }
+
+            else {
+
+                selectedTags.removeAll(tags);
+                for (CheckBox check : tagCheckBox) {
+
+                    check.setSelected(false);
+
+                }
+
+            }
+
+        });
+
         ListView<CheckBox> listView = new ListView<>();
+        listView.getItems().add(d);
         listView.getItems().addAll(tagCheckBox);
 
         g.add(listView, 1, 1, 1, 1);
@@ -63,6 +94,35 @@ public class picGrigController {
         ArrayList<ImageFile> images = ImageManager.getImageFilesInSubDirectory(dir);
         ArrayList<CheckBox> imageCheckBox = new ArrayList<>();
         ArrayList<ImageFile> imageSelected = new ArrayList<>();
+
+        CheckBox c = new CheckBox();
+
+        c.setOnAction(e -> {
+
+            if (c.isSelected()) {
+
+                imageSelected.addAll(images);
+
+                for (CheckBox check : imageCheckBox) {
+
+                    check.setSelected(true);
+
+                }
+
+            }
+
+            else {
+
+                imageSelected.removeAll(images);
+                for (CheckBox check : imageCheckBox) {
+
+                    check.setSelected(false);
+
+                }
+
+            }
+
+        });
 
         for (ImageFile image : images) {
             CheckBox checkBox = new CheckBox(image.getName());
@@ -82,6 +142,7 @@ public class picGrigController {
         }
 
         ListView<CheckBox> imageView = new ListView<>();
+        imageView.getItems().add(c);
         imageView.getItems().addAll(imageCheckBox);
 
         g.add(imageView, 3, 1, 1, 1);
@@ -113,7 +174,7 @@ public class picGrigController {
 
         Button deleteTags = new Button("Delete Tags");
         deleteTags.setMaxWidth(Double.MAX_VALUE);
-        
+
         deleteTags.setOnAction(e -> {
 
             for (String tag : selectedTags)
@@ -133,7 +194,6 @@ public class picGrigController {
 
         chooser.setMaximized(false);
         chooser.setScene(s);
-        //Cite: https://www.programcreek.com/java-api-examples/index.php?class=javafx.stage.Stage&method=showAndWait Date: Nov 5, 2017
         chooser.initModality(Modality.APPLICATION_MODAL);
         chooser.show();
 
