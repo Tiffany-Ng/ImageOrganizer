@@ -83,7 +83,28 @@ public class picGrigController {
         g.add(imageView, 3, 1, 1, 1);
 
         Button add = new Button("Add to");
+
+        add.setOnAction(e ->  {
+
+            for (ImageFile i : imageSelected) {
+
+                i.addTag(selectedTags);
+
+            }
+
+        });
+
+
         Button remove = new Button("Remove from");
+        remove.setOnAction(e -> {
+
+            for (ImageFile i : imageSelected) {
+
+                i.removeTag(selectedTags);
+
+            }
+
+        });
 
         VBox v = new VBox();
         v.getChildren().addAll(add, remove);

@@ -110,8 +110,15 @@ Flaw: CustomFilter applies filter on inverted picture if inverted was the previo
 Fix: ImageScene reloads image on the filter after an inverted filter
 
 #########
-#Log 15:
+#Log 16:
 
 Person: Amarnath
 
 Added independent tag managing window.
+
+#########
+#Log 17:
+
+Person: Amarnath
+
+Tags can be added and removed by multiple images.
