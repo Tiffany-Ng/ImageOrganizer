@@ -4,30 +4,24 @@ import ManageImage.Entry;
 import ManageImage.ImageFile;
 import ManageImage.Log;
 import ManageImage.TagManager;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 
 
-import javax.swing.text.html.HTML;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.List;
 
 public class imageSceneController {
 
-    private static FlowPane f;
+    private static FlowPane flowLayout;
 
     private static ImageFile image;
 
-    public static void setF(FlowPane f) {
-        imageSceneController.f = f;
+
+
+    public static void setFlowLayout(FlowPane flowLayout) {
+        imageSceneController.flowLayout = flowLayout;
     }
 
     public static void setImage(ImageFile image) {
@@ -94,9 +88,9 @@ public class imageSceneController {
      *
      * @return FlowPane
      */
-    public static FlowPane addClickableTags(ComboBox<String> imageNames, TextArea log, TextField name, ArrayList<String> toAdd, ArrayList<String> toDelete) {  // TODO: change horrible name f
+    public static FlowPane addClickableTags(ArrayList<String> toAdd, ArrayList<String> toDelete) {  // TODO: change horrible name flowLayout
 
-        f.getChildren().clear();
+        flowLayout.getChildren().clear();
         //https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm
         LinkedList<String> tags = TagManager.getTags();
         ArrayList<CheckBox> checkBoxes = new ArrayList<>();
@@ -113,36 +107,8 @@ public class imageSceneController {
                     toDelete.add(checkBox.getText());
             });
         }
-        f.getChildren().addAll(checkBoxes);
-
-
-        // taken from https://stackoverflow.com/questions/37378973/implement-tags-bar-in-javafx
-//        List<String> tags = image.getTags();
-//        f.getChildren().removeAll(f.getChildren());
-//
-//        ImageView i = new ImageView(new Image("file:///" + "x.jpeg"));
-//
-//        for (String t : tags) {
-//
-//            // makes all tags as clickable buttons
-//            Button tag = new Button(t, i);
-//
-//            tag.setOnAction(
-//                    e -> {
-//                        boolean success = image.removeTag(tag.getText());
-//                        if (success) {
-//                            f.getChildren().remove(tag);
-//                            imageSceneController.updateLog(log);
-//                            imageNameUpdate(imageNames, name);
-//                        } else {
-//                            imageSceneController.createAlert("Remove Tag Error", "The tag '" + tag.getText() + "' was not removed successfully",
-//                                    "Tag name contains ' @' or the file name without the tag is likely occupied");
-//                        }
-//                    });
-//
-//            f.getChildren().add(tag);
-//       }
-        return f;
+        flowLayout.getChildren().addAll(checkBoxes);
+        return flowLayout;
     }
 
 
@@ -168,9 +134,28 @@ public class imageSceneController {
                                     "The file name " + imageNames.getValue() + " must be available");
                         }
                         updateLog(log);
-                        addClickableTags(imageNames, log, name, toAdd, toDelete);
+                        addClickableTags( toAdd, toDelete);
                         imageNameUpdate(imageNames, name);
                     }
                 });
+    }
+
+
+    /**
+     * cite : https://stackoverflow.com/questions/13880638/how-do-i-pick-up-the-enter-key-being-pressed-in-javafx2
+     * rename the image to the name collected from the relevant texBox(on hitting enter)
+     */
+    public static void renameImageFile(TextField name, ArrayList<String> tagsToAdd, ArrayList<String> tagsToDelete, TextArea log, ComboBox imageNames) {
+
+        boolean success = image.rename(name.getText());
+        imageSceneController.addClickableTags(tagsToAdd, tagsToDelete);
+        imageSceneController.updateLog(log);
+        imageSceneController.imageNameUpdate(imageNames, name);
+
+        if (!success) {
+
+            imageSceneController.createAlert("Invalid Name", "The name you entered is invalid.",
+                    "A name should not contain ' @' and the name " + name.getText() + " must be available");
+        }
     }
 }

@@ -122,3 +122,10 @@ Added independent tag managing window.
 Person: Amarnath
 
 Tags can be added and removed by multiple images.
+
+#########
+#Log 18:
+
+Person: Akshat
+
+Fixed null pointer exception when deleteFromAll is clicked for the first time when image is opened.

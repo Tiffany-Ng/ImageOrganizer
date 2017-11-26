@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
@@ -34,7 +33,7 @@ import java.util.logging.Level;
  * @author Amarnath Parthiban 1003193518
  * @author Akshat Nigam 1002922732
  */
-public class ImageSceneView {
+class ImageSceneView {
 
     /**
      * The image used.
@@ -49,7 +48,7 @@ public class ImageSceneView {
     /**
      * All the logs in a text box.
      */
-    private TextArea log;
+    private static TextArea log;
 
     /**
      * Image's name
@@ -116,6 +115,10 @@ public class ImageSceneView {
      */
     private ArrayList<String> tagsToDelete = new ArrayList<>();
 
+    public static TextArea getLog() {
+        return log;
+    }
+
     public ImageSceneView(Stage stage) {
 
         this.prevScene = stage;
@@ -148,25 +151,6 @@ public class ImageSceneView {
         // prevScene.setResizable(false);
     }
 
-    /**
-     * cite : https://stackoverflow.com/questions/13880638/how-do-i-pick-up-the-enter-key-being-pressed-in-javafx2
-     * rename the image to the name collected from the relevant texBox(on hitting enter)
-     */
-    private void renameImageFile() {
-
-        boolean success = image.rename(name.getText());
-        imageSceneController.addClickableTags(imageNames, log, name, tagsToAdd, tagsToDelete);
-        imageSceneController.updateLog(log);
-        imageSceneController.imageNameUpdate(imageNames, name);
-
-        if (!success) {
-
-            imageSceneController.createAlert("Invalid Name", "The name you entered is invalid.",
-                    "A name should not contain ' @' and the name " + name.getText() + " must be available");
-        }
-
-    }
-
 
     /**
      * Check if the string entered by the user on the guiController is a valid tag
@@ -176,27 +160,6 @@ public class ImageSceneView {
      */
     private boolean checkValidTagName(String newTag) {
         return newTag != null && newTag.length() != 0;
-    }
-
-
-    /**
-     * // TODO: COPY  ... Kept this because of DirVies's call
-     * Update the log with its new information.
-     */
-    public void updateLog() {   // TODO: should be in the controller
-
-        Log imageLog = image.getLog();
-        StringBuilder logs = new StringBuilder();
-
-        // add all logs as a line
-        for (Entry e : imageLog) {
-
-            // https://stackoverflow.com/questions/15977295/control-for-displaying-multiline-text
-            logs.append(e.toString()).append(System.lineSeparator());
-        }
-
-        // represent log as textArea
-        log.setText(logs.toString());
     }
 
     /**
@@ -242,13 +205,13 @@ public class ImageSceneView {
         name.setOnKeyPressed(   // TODO: should be in the controller
                 k -> {
                     if (k.getCode().equals(KeyCode.ENTER)) {
-                        this.renameImageFile();
+                        imageSceneController.renameImageFile(name, tagsToAdd, tagsToDelete, log,imageNames);
                     }
                 });
 
         Button rename = new Button("Rename");
         rename.setOnAction(   // Todo; should be in controller
-                e -> this.renameImageFile());
+                e -> imageSceneController.renameImageFile(name, tagsToAdd, tagsToDelete, log,imageNames));
 
 
         back.setOnAction(     // Todo: should be in controller
@@ -342,10 +305,10 @@ public class ImageSceneView {
         flow.setSpacing(10);
 
         // image directory
-        Text directory = new Text();
+        Text dirText = new Text();
         // Retrieved from: https://stackoverflow.com/questions/12737829/javafx-textfield-resize-to-text-length Date: Nov 21, 2017
-        directory.setWrappingWidth(280);
-        directory.setText(image.getDirectory().toString());
+        dirText.setWrappingWidth(280);
+        dirText.setText(image.getDirectory().toString());
 
         // button for opening the directory
         Button openDir = new Button();
@@ -370,14 +333,14 @@ public class ImageSceneView {
         changeDir.setText("Change Directory");
 
         changeDir.setOnAction(
-                e -> DirView.dirChooser(prevScene, this.image, directory, this));
+                e -> DirView.dirChooser(prevScene, this.image, dirText, this));
 
         HBox dir = new HBox();
         dir.boundsInParentProperty();
         dir.setMaxWidth(flow.getMaxWidth());
         dir.setSpacing(8.0);
 
-        dir.getChildren().add(directory);
+        dir.getChildren().add(dirText);
         dir.getChildren().add(openDir);
         dir.getChildren().add(changeDir);
         changeDir.setAlignment(Pos.BASELINE_CENTER);
@@ -387,17 +350,6 @@ public class ImageSceneView {
         flow.getChildren().add(dir);
         flow.setAlignment(Pos.CENTER_LEFT);
 
-//        ComboBox<String> newTag = new ComboBox<>();
-//        newTag.setEditable(true);
-//        newTag.getItems().addAll(TagManager.getTags());
-//
-//        newTag
-//                .getEditor()
-//                .setOnMouseClicked(
-//                        e -> {
-//                            newTag.show();
-//                            newTag.setVisibleRowCount(10);
-//                        });
 
         //https://docs.oracle.com/javafx/2/ui_controls/text-field.htm
         TextField newTag = new TextField();
@@ -416,7 +368,7 @@ public class ImageSceneView {
                         }
                     }
 
-                    imageSceneController.addClickableTags(imageNames, log, name, tagsToAdd, tagsToDelete);
+                    imageSceneController.addClickableTags(tagsToAdd, tagsToDelete);
                     imageSceneController.updateLog(log);
                     imageSceneController.imageNameUpdate(imageNames, name);
                 });
@@ -455,7 +407,7 @@ public class ImageSceneView {
             if (tagsToDelete.size() != 0)
                 image.removeTag(tagsToDelete);
 
-            imageSceneController.addClickableTags(imageNames, log, name, tagsToAdd, tagsToDelete);
+            imageSceneController.addClickableTags(tagsToAdd, tagsToDelete);
             imageSceneController.updateLog(log);
             imageSceneController.imageNameUpdate(imageNames, name);
 
@@ -466,10 +418,10 @@ public class ImageSceneView {
         flow.getChildren().add(change);
 
         f = new FlowPane(Orientation.VERTICAL, 7, 5);
-        imageSceneController.setF(f);
+        imageSceneController.setFlowLayout(f);
         f.setPadding(new Insets(5));
         f.setPrefHeight(480 / 2.5);
-        f = imageSceneController.addClickableTags(imageNames, log, name, tagsToAdd, tagsToDelete);
+        f = imageSceneController.addClickableTags( tagsToAdd, tagsToDelete);
 
         flow.getChildren().add(new ScrollPane(f));
 

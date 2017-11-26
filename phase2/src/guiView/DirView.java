@@ -148,7 +148,7 @@ public class DirView {
                             try {
                                 boolean success = image.move(directory);
                                 directoryText.setText(image.getDirectory().toString());
-                                imageScene.updateLog();
+                                imageSceneController.updateLog(ImageSceneView.getLog());
 
                                 if (!success) {
                                     DirView.imageMovingFailed();
