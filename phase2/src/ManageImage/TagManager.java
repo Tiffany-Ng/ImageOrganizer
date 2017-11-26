@@ -52,7 +52,7 @@ public class TagManager {
      *
      * @param tag the tag to be added to ManageImage.TagManager
      */
-    static void add(String tag) {
+    public static void add(String tag) {
         manager.add(tag);
     }
 }

@@ -144,3 +144,10 @@ Tags can now be independently globally deleted.
 Person: Amarnath
 
 Can now select/deselect all tags with single click.
+
+#########
+#Log 21:
+
+Person: Amarnath
+
+Can now add custom tags independently.

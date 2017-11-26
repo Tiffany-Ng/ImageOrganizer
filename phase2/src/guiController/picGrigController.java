@@ -12,10 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -36,12 +34,14 @@ public class picGrigController {
         Scene s = new Scene(g);
 
         LinkedList<String> tags = TagManager.getTags();
-        ArrayList<CheckBox> tagCheckBox = new ArrayList<>();
+        ArrayList<HBox> tagCheckBox = new ArrayList<>();
         ArrayList<String> selectedTags = new ArrayList<>();
 
         for (String tag : tags) {
             CheckBox checkBox = new CheckBox(tag);
-            tagCheckBox.add(checkBox);
+            HBox v = new HBox();
+            v.getChildren().add(checkBox);
+            tagCheckBox.add(v);
 
             checkBox.setOnAction(e ->{
 
@@ -64,9 +64,9 @@ public class picGrigController {
 
                 selectedTags.addAll(tags);
 
-                for (CheckBox check : tagCheckBox) {
+                for (HBox hBox : tagCheckBox) {
 
-                    check.setSelected(true);
+                    ((CheckBox) hBox.getChildren().get(0)).setSelected(true);
 
                 }
 
@@ -75,9 +75,9 @@ public class picGrigController {
             else {
 
                 selectedTags.removeAll(tags);
-                for (CheckBox check : tagCheckBox) {
+                for (HBox hBox : tagCheckBox) {
 
-                    check.setSelected(false);
+                    ((CheckBox) hBox.getChildren().get(0)).setSelected(false);
 
                 }
 
@@ -85,8 +85,26 @@ public class picGrigController {
 
         });
 
-        ListView<CheckBox> listView = new ListView<>();
-        listView.getItems().add(d);
+        TextField newTag = new TextField();
+        newTag.setEditable(true);
+        newTag.setOnKeyPressed(k -> {
+
+            System.out.println(k.getText());
+
+            if (k.getCode().equals(KeyCode.ENTER)) { // #TODO add way to verify and update dynamically
+
+                TagManager.add(newTag.getText());
+
+            }
+
+        });
+
+        HBox firstElement = new HBox();
+
+        firstElement.getChildren().addAll(d, newTag);
+
+        ListView<HBox> listView = new ListView<>();
+        listView.getItems().add(firstElement);
         listView.getItems().addAll(tagCheckBox);
 
         g.add(listView, 1, 1, 1, 1);
