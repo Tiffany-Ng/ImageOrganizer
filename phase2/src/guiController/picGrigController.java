@@ -4,10 +4,14 @@ import ManageImage.ImageFile;
 import ManageImage.ImageManager;
 import ManageImage.TagManager;
 import guiView.PicGridView;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -83,6 +87,7 @@ public class picGrigController {
         g.add(imageView, 3, 1, 1, 1);
 
         Button add = new Button("Add to");
+        add.setMaxWidth(Double.MAX_VALUE);
 
         add.setOnAction(e ->  {
 
@@ -106,10 +111,25 @@ public class picGrigController {
 
         });
 
+        Button deleteTags = new Button("Delete Tags");
+        deleteTags.setMaxWidth(Double.MAX_VALUE);
+        
+        deleteTags.setOnAction(e -> {
+
+            for (String tag : selectedTags)
+                ImageManager.deleteGlobalTag(tag);
+
+        });
+
         VBox v = new VBox();
-        v.getChildren().addAll(add, remove);
+        v.getChildren().addAll(add, remove, deleteTags);
+        v.setAlignment(Pos.CENTER);
+        v.setSpacing(5);
 
         g.add(v, 2, 1, 1, 1);
+        GridPane.setValignment(v, VPos.CENTER);
+
+        g.setGridLinesVisible(true);
 
         chooser.setMaximized(false);
         chooser.setScene(s);
