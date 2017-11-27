@@ -51,9 +51,9 @@ class ImageSceneView {
     private static TextArea log;
 
     /**
-     * Image's name
+     * Image's imageNewName
      */
-    private TextField name;
+    private TextField imageNewName;
 
     /**
      * Pane to hold clickable tags.
@@ -79,22 +79,27 @@ class ImageSceneView {
      * FilterStrategy for  applying filter to images
      */
     private static FilterStrategy strategy;
+
     /**
      * Indicates if the picture is currently inverted
      */
     private boolean inverted;
+
     /**
      * The hue of the customFilter
      */
     private Slider hue;
+
     /**
      * The contrast of the customFilter
      */
     private Slider contrast;
+
     /**
      * The brightness of the customFilter
      */
     private Slider brightness;
+
     /**
      * The saturation of the customFilter
      */
@@ -153,16 +158,6 @@ class ImageSceneView {
 
 
     /**
-     * Check if the string entered by the user on the guiController is a valid tag
-     *
-     * @param newTag field which contains the new tag name
-     * @return true if valid tag name.
-     */
-    private boolean checkValidTagName(String newTag) {
-        return newTag != null && newTag.length() != 0;
-    }
-
-    /**
      * * Return the scene which holds the elements.
      *
      * @return current interaction's screen
@@ -200,34 +195,28 @@ class ImageSceneView {
         back.setText("<- Back");
         layout.add(back, 0, 0, 1, 1);
 
-        name = new TextField(image.getName());
-        name.setEditable(true);
-        name.setOnKeyPressed(   // TODO: should be in the controller
-                k -> {
-                    if (k.getCode().equals(KeyCode.ENTER)) {
-                        imageSceneController.renameImageFile(name, tagsToAdd, tagsToDelete, log,imageNames);
-                    }
-                });
+        imageNewName = new TextField(image.getName());
+        imageNewName.setEditable(true);
+        imageSceneController.changeToNewName( imageNewName, tagsToAdd, tagsToDelete, log,imageNames);
 
         Button rename = new Button("Rename");
-        rename.setOnAction(   // Todo; should be in controller
-                e -> imageSceneController.renameImageFile(name, tagsToAdd, tagsToDelete, log,imageNames));
+        imageSceneController.renameButtonClick(rename, imageNewName, tagsToAdd, tagsToDelete, imageNames, log);
 
 
-        back.setOnAction(     // Todo: should be in controller
-                e -> SceneManager.swapToPicGrid(this.directory)); //new PicGridView(prevScene, this.directory).picGrid());
+        back.setOnAction(
+                e -> SceneManager.swapToPicGrid(this.directory));
 
         // https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm
         imageNames = new ComboBox<>();
-        imageSceneController.imageNameUpdate(imageNames, name);
+        imageSceneController.imageNameUpdate(imageNames, imageNewName);
         imageNames.setMaxWidth(380);
         imageNames.getSelectionModel().selectFirst();
 
         Button revertName = new Button("Revert");
-        imageSceneController.revertOldTagName(revertName, imageNames, log, name, tagsToAdd, tagsToDelete);  // gives functionality to the Button
+        imageSceneController.revertOldTagName(revertName, imageNames, log, imageNewName, tagsToAdd, tagsToDelete);  // gives functionality to the Button
 
 
-        VBox f = vBoxSetup();  // TODO: moved HERE
+        VBox f = vBoxSetup();
         layout.add(f, 6, 2, 2, 2);
 
         // cite: https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm Nov 25, 2017
@@ -238,7 +227,7 @@ class ImageSceneView {
                         "Invert",
                         "Custom"
                 );
-        ComboBox<String> comboBox = new ComboBox(options);// TODo should be in controller
+        ComboBox<String> comboBox = new ComboBox(options);
         comboBox.setValue("Normal");
 
         HBox customFilter = new HBox();
@@ -281,7 +270,7 @@ class ImageSceneView {
         });
 
         HBox imageName = new HBox();
-        imageName.getChildren().addAll(name, rename, imageNames, revertName, comboBox);
+        imageName.getChildren().addAll(imageNewName, rename, imageNames, revertName, comboBox);
         imageName.setSpacing(5.0);
         layout.add(customFilter, 1, 2, 1, 1);
         layout.add(imageName, 1, 0, 1, 1);
@@ -311,22 +300,9 @@ class ImageSceneView {
         dirText.setText(image.getDirectory().toString());
 
         // button for opening the directory
-        Button openDir = new Button();
-        openDir.setText("Open Directory");
-        openDir.setOnAction(   // TODO: dirController maybe?
-                e -> {
-                    try {
-
-                        //Adapted from: https://stackoverflow.com/questions/7357969/how-to-use-java-code-to-open-windows-file-explorer-and-highlight-the-specified-f Date: Nov 19, 2017
-                        Runtime.getRuntime().exec("explorer.exe /select," + image.getFile().getAbsolutePath());
-
-                    } catch (IOException ex) {
-                        imageSceneController.createAlert("Open directory error", "Execution failed",
-                                "The execution is not supported on this computer");
-                        Main.logger.log(Level.SEVERE, "Can't open directory", ex);
-                    }
-                });
-
+        Button openImgDir = new Button();
+        openImgDir.setText("Open Directory");
+        imageSceneController.openImageDirectory(openImgDir);
 
         // button for changing the directory
         Button changeDir = new Button();
@@ -341,7 +317,7 @@ class ImageSceneView {
         dir.setSpacing(8.0);
 
         dir.getChildren().add(dirText);
-        dir.getChildren().add(openDir);
+        dir.getChildren().add(openImgDir);
         dir.getChildren().add(changeDir);
         changeDir.setAlignment(Pos.BASELINE_CENTER);
 
@@ -356,43 +332,32 @@ class ImageSceneView {
 
         HBox tagBox = new HBox();
         Button addTag = new Button("+");
-        addTag.setOnAction(   // TODO: in controller
-                e -> {
-                    if (checkValidTagName(newTag.getText())) {
-                        boolean success = image.addTag(newTag.getText());
-                        if (success) {
-                            newTag.setText("");
-                        } else {
-                            imageSceneController.createAlert("Add Tag Error", "The tag '" + newTag.getText() + "' was not added successfully",
-                                    "Tag name contains ' @', the tag already exists, or the file name with the additional tag is occupied");
-                        }
-                    }
-
-                    imageSceneController.addClickableTags(tagsToAdd, tagsToDelete);
-                    imageSceneController.updateLog(log);
-                    imageSceneController.imageNameUpdate(imageNames, name);
-                });
+        imageSceneController.addTag(addTag, newTag, tagsToAdd, tagsToDelete, log,  imageNames, imageNewName);
 
         Button addToAll = new Button("Add to All");
-        addToAll.setOnAction(   // TODO: in controller
-                e -> {
-                    if (checkValidTagName(newTag.getText())) {
-                        ImageManager.addGlobalTag(newTag.getText());
-                        newTag.setText("");
-                    }
-                    SceneManager.swapToPicGrid(this.directory);
-
-                });
+        imageSceneController.setDirectory(this.directory);
+        imageSceneController.addTagAllImages(addToAll, newTag, directory);
+//        addToAll.setOnAction(   // TODO: Fix button add to all exception
+//                e -> {
+//                    if (checkValidTagName(newTag.getText())) {
+//                        ImageManager.addGlobalTag(newTag.getText());
+//                        newTag.setText("");
+//                    }
+//                    SceneManager.swapToPicGrid(this.directory);
+//
+//                });
 
         Button deleteFromAll = new Button("Delete from All");
-        deleteFromAll.setOnAction(   // TODO: in controller
-                e -> {
-                    if (checkValidTagName(newTag.getText())) {
-                        ImageManager.deleteGlobalTag(newTag.getText());
-                        newTag.setText("");
-                    }
-                    SceneManager.swapToPicGrid(this.directory);
-                });
+        imageSceneController.setDirectory(this.directory);
+        imageSceneController.deleteTagAllImages(deleteFromAll, newTag, directory);
+//        deleteFromAll.setOnAction(   // TODO:  Fix button remove from all exception
+//                e -> {
+//                    if (checkValidTagName(newTag.getText())) {
+//                        ImageManager.deleteGlobalTag(newTag.getText());
+//                        newTag.setText("");
+//                    }
+//                    SceneManager.swapToPicGrid(this.directory);
+//                });
 
         tagBox.getChildren().addAll(newTag, addTag, addToAll, deleteFromAll);
         tagBox.setSpacing(5.0);
@@ -409,7 +374,7 @@ class ImageSceneView {
 
             imageSceneController.addClickableTags(tagsToAdd, tagsToDelete);
             imageSceneController.updateLog(log);
-            imageSceneController.imageNameUpdate(imageNames, name);
+            imageSceneController.imageNameUpdate(imageNames, imageNewName);
 
             tagsToAdd.clear();
             tagsToDelete.clear();

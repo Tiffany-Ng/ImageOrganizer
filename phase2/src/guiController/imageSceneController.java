@@ -1,16 +1,19 @@
 package guiController;
 
-import ManageImage.Entry;
-import ManageImage.ImageFile;
-import ManageImage.Log;
-import ManageImage.TagManager;
+import ManageImage.*;
+import guiView.Main;
+import guiView.SceneManager;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.FlowPane;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.logging.Level;
 
 public class imageSceneController {
 
@@ -18,7 +21,11 @@ public class imageSceneController {
 
     private static ImageFile image;
 
+    private static File directory;
 
+    public static void setDirectory(File directory) {
+        imageSceneController.directory = directory;
+    }
 
     public static void setFlowLayout(FlowPane flowLayout) {
         imageSceneController.flowLayout = flowLayout;
@@ -26,6 +33,16 @@ public class imageSceneController {
 
     public static void setImage(ImageFile image) {
         imageSceneController.image = image;
+    }
+
+    /**
+     * Check if the string entered by the user on the guiController is a valid tag
+     *
+     * @param newTag field which contains the new tag imageNewName
+     * @return true if valid tag imageNewName.
+     */
+    private static boolean checkValidTagName(String newTag) {
+        return newTag != null && newTag.length() != 0;
     }
 
     /**
@@ -157,5 +174,79 @@ public class imageSceneController {
             imageSceneController.createAlert("Invalid Name", "The name you entered is invalid.",
                     "A name should not contain ' @' and the name " + name.getText() + " must be available");
         }
+    }
+
+
+    public static void changeToNewName(TextField imageNewName, ArrayList<String> tagsToAdd, ArrayList<String> tagsToDelete, TextArea log, ComboBox imageNames){
+        imageNewName.setOnKeyPressed(   // TODO: should be in the controller
+                k -> {
+                    if (k.getCode().equals(KeyCode.ENTER)) {
+                        imageSceneController.renameImageFile(imageNewName, tagsToAdd, tagsToDelete, log,imageNames);
+                    }
+                });
+    }
+
+    public static void renameButtonClick(Button rename, TextField imageNewName, ArrayList<String> tagsToAdd, ArrayList<String> tagsToDelete, ComboBox imageNames, TextArea log){
+     rename.setOnAction(
+                e -> imageSceneController.renameImageFile(imageNewName, tagsToAdd, tagsToDelete, log,imageNames));
+    }
+
+    public static void openImageDirectory(Button openNewDir){
+        openNewDir.setOnAction(
+                e -> {
+                    try {
+                        //Adapted from: https://stackoverflow.com/questions/7357969/how-to-use-java-code-to-open-windows-file-explorer-and-highlight-the-specified-f Date: Nov 19, 2017
+                        Runtime.getRuntime().exec("explorer.exe /select," + image.getFile().getAbsolutePath());
+
+                    } catch (IOException ex) {
+                        imageSceneController.createAlert("Open directory error", "Execution failed",
+                                "The execution is not supported on this computer");
+                        Main.logger.log(Level.SEVERE, "Can't open directory", ex);
+                    }
+                });
+    }
+
+    public static void addTag(Button addTag, TextField newTag, ArrayList<String> tagsToAdd, ArrayList<String> tagsToDelete, TextArea log, ComboBox<String> imageNames, TextField imageNewName){
+        addTag.setOnAction(   // TODO: in controller
+                e -> {
+                    if (checkValidTagName(newTag.getText())) {
+                        boolean success = image.addTag(newTag.getText());
+                        if (success) {
+                            newTag.setText("");
+                        } else {
+                            imageSceneController.createAlert("Add Tag Error", "The tag '" + newTag.getText() + "' was not added successfully",
+                                    "Tag imageNewName contains ' @', the tag already exists, or the file imageNewName with the additional tag is occupied");
+                        }
+                    }
+
+                    imageSceneController.addClickableTags(tagsToAdd, tagsToDelete);
+                    imageSceneController.updateLog(log);
+                    imageSceneController.imageNameUpdate(imageNames, imageNewName);
+                });
+    }
+
+
+    public static void addTagAllImages(Button addToAll, TextField newTag, File directory){
+        addToAll.setOnAction(
+                e -> {
+                    if (checkValidTagName(newTag.getText())) {
+                        ImageManager.addGlobalTag(newTag.getText());
+                        newTag.setText("");
+                    }
+                    SceneManager.swapToPicGrid(directory);
+
+                });
+    }
+
+
+    public static void deleteTagAllImages(Button deleteFromAll, TextField newTag, File directory){
+        deleteFromAll.setOnAction(
+                e -> {
+                    if (checkValidTagName(newTag.getText())) {
+                        ImageManager.deleteGlobalTag(newTag.getText());
+                        newTag.setText("");
+                    }
+                    SceneManager.swapToPicGrid(directory);
+                });
     }
 }

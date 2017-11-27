@@ -151,3 +151,10 @@ Can now select/deselect all tags with single click.
 Person: Amarnath
 
 Can now add custom tags independently.
+
+#########
+#Log 22:
+
+Person: Akshat
+
+Further separation of view and controller implemented. Code in imageSceneView is more readable.
