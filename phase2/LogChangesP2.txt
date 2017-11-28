@@ -158,3 +158,17 @@ Can now add custom tags independently.
 Person: Akshat
 
 Further separation of view and controller implemented. Code in imageSceneView is more readable.
+
+#########
+#Log 23:
+
+Person: Amarnath
+
+Fixed the Null Pointer with manipulating selected tags.
+
+#########
+#Log 24:
+
+Person: Amarnath
+
+Independent tags updates dynamically when tag is added.

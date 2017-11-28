@@ -33,80 +33,10 @@ public class picGrigController {
 
         Scene s = new Scene(g);
 
-        LinkedList<String> tags = TagManager.getTags();
-        ArrayList<HBox> tagCheckBox = new ArrayList<>();
         ArrayList<String> selectedTags = new ArrayList<>();
-
-        for (String tag : tags) {
-            CheckBox checkBox = new CheckBox(tag);
-            HBox v = new HBox();
-            v.getChildren().add(checkBox);
-            tagCheckBox.add(v);
-
-            checkBox.setOnAction(e ->{
-
-                String currTag = checkBox.getText();
-
-                if(checkBox.isSelected())
-                    selectedTags.add(currTag);
-
-                else
-                    selectedTags.remove(currTag);
-
-            });
-        }
-
-        CheckBox d = new CheckBox();
-
-        d.setOnAction(e -> {
-
-            if (d.isSelected()) {
-
-                selectedTags.addAll(tags);
-
-                for (HBox hBox : tagCheckBox) {
-
-                    ((CheckBox) hBox.getChildren().get(0)).setSelected(true);
-
-                }
-
-            }
-
-            else {
-
-                selectedTags.removeAll(tags);
-                for (HBox hBox : tagCheckBox) {
-
-                    ((CheckBox) hBox.getChildren().get(0)).setSelected(false);
-
-                }
-
-            }
-
-        });
-
-        TextField newTag = new TextField();
-        newTag.setEditable(true);
-        newTag.setOnKeyPressed(k -> {
-
-            System.out.println(k.getText());
-
-            if (k.getCode().equals(KeyCode.ENTER)) { // #TODO add way to verify and update dynamically
-
-                TagManager.add(newTag.getText());
-
-            }
-
-        });
-
-        HBox firstElement = new HBox();
-
-        firstElement.getChildren().addAll(d, newTag);
-
         ListView<HBox> listView = new ListView<>();
-        listView.getItems().add(firstElement);
-        listView.getItems().addAll(tagCheckBox);
 
+        independentTags(selectedTags, listView);
         g.add(listView, 1, 1, 1, 1);
 
         ArrayList<ImageFile> images = ImageManager.getImageFilesInSubDirectory(dir);
@@ -170,10 +100,13 @@ public class picGrigController {
 
         add.setOnAction(e ->  {
 
-            for (ImageFile i : imageSelected) {
+            if (!imageSelected.isEmpty()) {
 
-                i.addTag(selectedTags);
+                for (ImageFile i : imageSelected) {
 
+                    i.addTag(selectedTags);
+
+                }
             }
 
         });
@@ -182,22 +115,24 @@ public class picGrigController {
         Button remove = new Button("Remove from");
         remove.setOnAction(e -> {
 
-            for (ImageFile i : imageSelected) {
+            if (!imageSelected.isEmpty()) {
 
-                i.removeTag(selectedTags);
+                for (ImageFile i : imageSelected) {
 
+                    i.removeTag(selectedTags);
+
+                }
             }
-
         });
 
         Button deleteTags = new Button("Delete Tags");
         deleteTags.setMaxWidth(Double.MAX_VALUE);
 
         deleteTags.setOnAction(e -> {
-
-            for (String tag : selectedTags)
-                ImageManager.deleteGlobalTag(tag);
-
+            if (!selectedTags.isEmpty()) {
+                for (String tag : selectedTags)
+                    ImageManager.deleteGlobalTag(tag);
+            }
         });
 
         VBox v = new VBox();
@@ -215,6 +150,81 @@ public class picGrigController {
         chooser.initModality(Modality.APPLICATION_MODAL);
         chooser.show();
 
+
+    }
+
+    private static void independentTags(ArrayList<String> selectedTags,  ListView<HBox> listView ) {
+
+        LinkedList<String> tags = TagManager.getTags();
+        ArrayList<HBox> tagCheckBox = new ArrayList<>();
+
+        for (String tag : tags) {
+            CheckBox checkBox = new CheckBox(tag);
+            HBox v = new HBox();
+            v.getChildren().add(checkBox);
+            tagCheckBox.add(v);
+
+            checkBox.setOnAction(e ->{
+
+                String currTag = checkBox.getText();
+
+                if(checkBox.isSelected())
+                    selectedTags.add(currTag);
+
+                else
+                    selectedTags.remove(currTag);
+
+            });
+        }
+
+        CheckBox d = new CheckBox();
+
+        d.setOnAction(e -> {
+
+            if (d.isSelected()) {
+
+                selectedTags.addAll(tags);
+
+                for (HBox hBox : tagCheckBox) {
+
+                    ((CheckBox) hBox.getChildren().get(0)).setSelected(true);
+
+                }
+
+            }
+
+            else {
+
+                selectedTags.removeAll(tags);
+                for (HBox hBox : tagCheckBox) {
+
+                    ((CheckBox) hBox.getChildren().get(0)).setSelected(false);
+
+                }
+
+            }
+
+        });
+
+        TextField newTag = new TextField();
+        newTag.setEditable(true);
+        newTag.setOnKeyPressed(k -> {
+
+            if (k.getCode().equals(KeyCode.ENTER)) { // #TODO add way to verify and update dynamically
+
+                TagManager.add(newTag.getText());
+                independentTags(selectedTags, listView);
+
+            }
+
+        });
+
+        HBox firstElement = new HBox();
+
+        firstElement.getChildren().addAll(d, newTag);
+
+        listView.getItems().add(firstElement);
+        listView.getItems().addAll(tagCheckBox);
 
     }
 
