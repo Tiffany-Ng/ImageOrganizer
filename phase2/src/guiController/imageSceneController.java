@@ -118,10 +118,15 @@ public class imageSceneController {
                 checkBox.setSelected(true);
 
             checkBox.setOnAction(e ->{
-                if(checkBox.isSelected())
-                    toAdd.add(checkBox.getText());
-                else
-                    toDelete.add(checkBox.getText());
+                String text = checkBox.getText();
+                if(checkBox.isSelected()) {
+                    toAdd.add(text);
+                    toDelete.remove(text);
+                }
+                else {
+                    toDelete.add(text);
+                    toAdd.remove(text);
+                }
             });
         }
         flowLayout.getChildren().addAll(checkBoxes);

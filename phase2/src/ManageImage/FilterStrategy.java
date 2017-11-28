@@ -1,4 +1,4 @@
-package guiView;
+package ManageImage;
 
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.*;

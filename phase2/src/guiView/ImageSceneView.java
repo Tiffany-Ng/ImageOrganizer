@@ -13,7 +13,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 
 import ManageImage.*;
@@ -23,7 +22,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.logging.Level;
 
 /**
  * guiController of an individual image's information.
@@ -74,16 +72,6 @@ class ImageSceneView {
      * All names the image has had.
      */
     private ComboBox<String> imageNames;
-
-    /**
-     * FilterStrategy for  applying filter to images
-     */
-    private static FilterStrategy strategy;
-
-    /**
-     * Indicates if the picture is currently inverted
-     */
-    private boolean inverted;
 
     /**
      * The hue of the customFilter
@@ -183,6 +171,8 @@ class ImageSceneView {
         // https://stackoverflow.com/questions/27894945/how-do-i-resize-an-imageview-image-in-javafx
         icon.setFitWidth(720);
         icon.setFitHeight(480);
+        icon.setEffect(null);
+        icon.setImage(image.getImage());
         icon.setPreserveRatio(true);
 
         // needs the "file://" because image will not understand it is a directory
@@ -234,25 +224,25 @@ class ImageSceneView {
         Text hueText = new Text("Hue:");
         hue = new Slider(-1, 1, 0);
         hue.valueProperty().addListener(e -> {
-            applyFilter(icon);
+            image.applyFilter(icon, brightness, contrast, hue, saturation);
         });
         customFilter.getChildren().addAll(hueText, hue);
         Text brightnessText = new Text("Brightness:");
         brightness = new Slider(-1, 1, 0);
         brightness.valueProperty().addListener(e -> {
-            applyFilter(icon);
+            image.applyFilter(icon, brightness, contrast, hue, saturation);
         });
         customFilter.getChildren().addAll(brightnessText, brightness);
         Text saturationText = new Text("Saturation:");
         saturation = new Slider(-1, 1, 0);
         saturation.valueProperty().addListener(e -> {
-            applyFilter(icon);
+            image.applyFilter(icon, brightness, contrast, hue, saturation);
         });
         customFilter.getChildren().addAll(saturationText, saturation);
         Text contrastText = new Text("Contrast:");
         contrast = new Slider(-1, 1, 0);
         contrast.valueProperty().addListener(e -> {
-            applyFilter(icon);
+            image.applyFilter(icon, brightness, contrast, hue, saturation);
         });
         customFilter.getChildren().addAll(contrastText, contrast);
         customFilter.setVisible(false);
@@ -265,8 +255,8 @@ class ImageSceneView {
             } else {
                 customFilter.setVisible(false);
             }
-            setFilterStrategy(newValue);
-            applyFilter(icon);
+            image.setFilterStrategy(newValue);
+            image.applyFilter(icon);
         });
 
         HBox imageName = new HBox();
@@ -403,48 +393,5 @@ class ImageSceneView {
     }
 
 
-    /**
-     * Sets the FilterStrategy
-     *
-     * @param chosenStrategy the FilterStrategy that is being used, could be different kinds of filter.
-     */
-    private void setFilterStrategy(String chosenStrategy) {
-        switch (chosenStrategy) {
-            case "Normal":
-                strategy = new NormalFilter();
-                break;
-            case "Black and White":
-                strategy = new BlackAndWhiteFilter();
-                break;
-            case "Invert":
-                strategy = new InvertColoursFilter();
-                break;
-            case "Custom":
-                strategy = new CustomFilter();
-                break;
-        }
-    }
 
-    /**
-     * Returns the chosen directory by the user
-     *
-     * @return ImageView the ImageView after filter has been applied to it
-     */
-    private ImageView applyFilter(ImageView imageView) {
-        if(inverted){
-            imageView.setImage(image.getImage());
-        }
-        if (strategy instanceof CustomFilter) {
-            double brightnessVal = brightness.getValue();
-            double contrastVal = contrast.getValue();
-            double hueVal = hue.getValue();
-            double saturationVal = saturation.getValue();
-            return ((CustomFilter) strategy).applyFilter(imageView, brightnessVal, contrastVal, hueVal, saturationVal);
-        } else {
-            if(strategy instanceof InvertColoursFilter){
-                inverted = true;
-            }
-            return strategy.applyFilter(imageView);
-        }
-    }
 }

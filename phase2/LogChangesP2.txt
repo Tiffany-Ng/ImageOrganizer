@@ -179,3 +179,10 @@ Independent tags updates dynamically when tag is added.
 Person: Amarnath
 
 Permenantly delete tags implemented.
+
+#########
+#Log 26:
+
+Person: Prynciss
+
+Moved FilterStrategy to ManageImage, ImageFile now handles strategy.

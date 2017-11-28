@@ -1,6 +1,7 @@
 package ManageImage;
 
 import guiView.Main;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -58,6 +59,16 @@ public class ImageFile implements Serializable {
      * Prior names and tags of the image
      */
     private List<String> priorNames;
+
+    /**
+     * FilterStrategy for  applying filter to images
+     */
+    private static FilterStrategy strategy;
+
+    /**
+     * Indicates if the picture is currently inverted
+     */
+    private boolean inverted;
 
     /**
      * Construct an image representing File imageFile
@@ -275,7 +286,7 @@ public class ImageFile implements Serializable {
      */
     public boolean addTag(ArrayList<String> tagList) {
         boolean success = false;
-        for(String tag : tagList) {
+        for (String tag : tagList) {
             if (tag.contains(" @")) {
                 Main.logger.log(
                         Level.SEVERE, "Invalid tag name", new InvalidNameException("Tag contains \" @\""));
@@ -316,7 +327,7 @@ public class ImageFile implements Serializable {
      */
     public boolean removeTag(ArrayList<String> tagList) {
         boolean success = false;
-        for(String tag: tagList) {
+        for (String tag : tagList) {
             if (tag.contains(tag)) {
                 tags.remove(tag);
                 // TagManager.remove(tag);
@@ -407,7 +418,66 @@ public class ImageFile implements Serializable {
      */
     public Image getImage() {
 
+        // needs the "file://" because image will not understand it is a directory
+        // solution found at https://stackoverflow.com/questions/8474694/java-url-unknown-protocol-c
         return new Image("file:///" + this.getFile().toString());
+
+    }
+
+    /**
+     * Sets the FilterStrategy
+     *
+     * @param chosenStrategy the FilterStrategy that is being used, could be different kinds of filter.
+     */
+    public void setFilterStrategy(String chosenStrategy) {
+        switch (chosenStrategy) {
+            case "Normal":
+                strategy = new NormalFilter();
+                break;
+            case "Black and White":
+                strategy = new BlackAndWhiteFilter();
+                break;
+            case "Invert":
+                strategy = new InvertColoursFilter();
+                break;
+            case "Custom":
+                strategy = new CustomFilter();
+                break;
+        }
+    }
+
+    /**
+     * Returns the chosen directory by the user
+     *
+     * @return ImageView the ImageView after filter has been applied to it
+     */
+    public ImageView applyFilter(ImageView imageView) {
+        if (inverted) {
+            imageView.setImage(this.getImage());
+        }
+
+        if (strategy instanceof InvertColoursFilter) {
+            inverted = true;
+        }
+        return strategy.applyFilter(imageView);
+
+    }
+
+    /**
+     * Returns the chosen directory by the user
+     *
+     * @return ImageView the ImageView after filter has been applied to it
+     */
+    public ImageView applyFilter(ImageView imageView, Slider brightness, Slider contrast, Slider hue, Slider saturation) {
+        if (inverted) {
+            imageView.setImage(this.getImage());
+        }
+        double brightnessVal = brightness.getValue();
+        double contrastVal = contrast.getValue();
+        double hueVal = hue.getValue();
+        double saturationVal = saturation.getValue();
+        return ((CustomFilter) strategy).applyFilter(imageView, brightnessVal, contrastVal, hueVal, saturationVal);
+
 
     }
 }
