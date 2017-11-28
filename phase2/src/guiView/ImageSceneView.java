@@ -31,7 +31,7 @@ import java.util.ArrayList;
  * @author Amarnath Parthiban 1003193518
  * @author Akshat Nigam 1002922732
  */
-class ImageSceneView {
+public class ImageSceneView {
 
     /**
      * The image used.
@@ -189,10 +189,15 @@ class ImageSceneView {
 
         imageNewName = new TextField(image.getName());
         imageNewName.setEditable(true);
-        imageSceneController.changeToNewName( imageNewName, tagsToAdd, tagsToDelete, log,imageNames);
+        imageSceneController.changeToNewName( imageNewName, log,imageNames);
+        imageSceneController.setTagsToAdd(tagsToAdd);  // TODO
+        imageSceneController.setTagsToDelete(tagsToDelete);  // TODO
+
 
         Button rename = new Button("Rename");
-        imageSceneController.renameButtonClick(rename, imageNewName, tagsToAdd, tagsToDelete, imageNames, log);
+        imageSceneController.renameButtonClick(rename, imageNewName, imageNames, log);
+        imageSceneController.setTagsToAdd(tagsToAdd);  // TODO
+
 
 
         back.setOnAction(
@@ -205,7 +210,9 @@ class ImageSceneView {
         imageNames.getSelectionModel().selectFirst();
 
         Button revertName = new Button("Revert");
-        imageSceneController.revertOldTagName(revertName, imageNames, log, imageNewName, tagsToAdd, tagsToDelete);  // gives functionality to the Button
+        imageSceneController.revertOldTagName(revertName, imageNames, log, imageNewName);  // gives functionality to the Button
+        imageSceneController.setTagsToAdd(tagsToAdd);  // TODO
+
 
 
         VBox f = vBoxSetup();
@@ -324,7 +331,10 @@ class ImageSceneView {
 
         HBox tagBox = new HBox();
         Button addTag = new Button("+");
-        imageSceneController.addTag(addTag, newTag, tagsToAdd, tagsToDelete, log,  imageNames, imageNewName);
+        imageSceneController.addTag(addTag, newTag, log,  imageNames, imageNewName);
+        imageSceneController.setTagsToAdd(tagsToAdd);  // TODO
+
+
 
         tagBox.getChildren().addAll(newTag, addTag);
         tagBox.setSpacing(5.0);
@@ -332,20 +342,20 @@ class ImageSceneView {
         flow.getChildren().add(tagBox);
 
         Button updateTags = new Button("Update tags");
-
-        updateTags.setOnAction(e -> {    // TODO: put in controller
-            if (tagsToAdd.size() != 0)
-                image.addTag(tagsToAdd);
-            if (tagsToDelete.size() != 0)
-                image.removeTag(tagsToDelete);
-
-            imageSceneController.addClickableTags(tagsToAdd, tagsToDelete);
-            imageSceneController.updateLog(log);
-            imageSceneController.imageNameUpdate(imageNames, imageNewName);
-
-            tagsToAdd.clear();
-            tagsToDelete.clear();
-        });
+        imageSceneController.updateTags(updateTags, log, imageNames, imageNewName);
+//        updateTags.setOnAction(e -> {    // TODO: put in controller
+//            if (tagsToAdd.size() != 0)
+//                image.addTag(tagsToAdd);
+//            if (tagsToDelete.size() != 0)
+//                image.removeTag(tagsToDelete);
+//
+//            imageSceneController.addClickableTags(tagsToAdd, tagsToDelete);
+//            imageSceneController.updateLog(log);
+//            imageSceneController.imageNameUpdate(imageNames, imageNewName);
+//
+//            tagsToAdd.clear();
+//            tagsToDelete.clear();
+//        });
 
         tagBox.getChildren().add(updateTags);
 
@@ -353,7 +363,10 @@ class ImageSceneView {
         imageSceneController.setFlowLayout(f);
         f.setPadding(new Insets(5));
         f.setPrefHeight(480 / 2.5);
-        f = imageSceneController.addClickableTags( tagsToAdd, tagsToDelete);
+        f = imageSceneController.addClickableTags();
+        imageSceneController.setTagsToAdd(tagsToAdd);  // TODO
+
+
 
         flow.getChildren().add(new ScrollPane(f));
 
@@ -368,7 +381,6 @@ class ImageSceneView {
 
         return flow;
     }
-
 
 
 }

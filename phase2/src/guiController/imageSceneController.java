@@ -1,8 +1,8 @@
 package guiController;
 
 import ManageImage.*;
+import guiView.ImageSceneView;
 import guiView.Main;
-import guiView.SceneManager;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.FlowPane;
@@ -21,11 +21,18 @@ public class imageSceneController {
 
     private static ImageFile image;
 
-    private static File directory;
+    private static ArrayList<String> tagsToAdd;
 
-    public static void setDirectory(File directory) {
-        imageSceneController.directory = directory;
+    private static ArrayList<String> tagsToDelete;
+
+    public static void setTagsToDelete(ArrayList<String> tagsToDelete) {
+        imageSceneController.tagsToDelete = tagsToDelete;
     }
+
+    public static void setTagsToAdd(ArrayList<String> tagsToAdd) {
+        imageSceneController.tagsToAdd = tagsToAdd;
+    }
+
 
     public static void setFlowLayout(FlowPane flowLayout) {
         imageSceneController.flowLayout = flowLayout;
@@ -107,7 +114,7 @@ public class imageSceneController {
      *
      * @return FlowPane
      */
-    public static FlowPane addClickableTags(ArrayList<String> toAdd, ArrayList<String> toDelete) {  // TODO: change horrible name flowLayout
+    public static FlowPane addClickableTags() {  // TODO: change horrible name flowLayout
 
         flowLayout.getChildren().clear();
         //https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm
@@ -122,12 +129,12 @@ public class imageSceneController {
             checkBox.setOnAction(e ->{
                 String text = checkBox.getText();
                 if(checkBox.isSelected()) {
-                    toAdd.add(text);
-                    toDelete.remove(text);
+                    tagsToAdd.add(text);
+                    tagsToDelete.remove(text);
                 }
                 else {
-                    toDelete.add(text);
-                    toAdd.remove(text);
+                    tagsToDelete.add(text);
+                    tagsToAdd.remove(text);
                 }
             });
         }
@@ -141,7 +148,7 @@ public class imageSceneController {
      *
      * @param revertName Button that initiates action
      */
-    public static void revertOldTagName(Button revertName, ComboBox<String> imageNames, TextArea log, TextField name, ArrayList<String> toAdd, ArrayList<String> toDelete) {
+    public static void revertOldTagName(Button revertName, ComboBox<String> imageNames, TextArea log, TextField name) {
         revertName.setOnAction(
                 event -> {
                     if (!imageNames.getSelectionModel().isEmpty()
@@ -158,7 +165,7 @@ public class imageSceneController {
                                     "The file name " + imageNames.getValue() + " must be available");
                         }
                         updateLog(log);
-                        addClickableTags( toAdd, toDelete);
+                        addClickableTags();
                         imageNameUpdate(imageNames, name);
                     }
                 });
@@ -169,10 +176,10 @@ public class imageSceneController {
      * cite : https://stackoverflow.com/questions/13880638/how-do-i-pick-up-the-enter-key-being-pressed-in-javafx2
      * rename the image to the name collected from the relevant texBox(on hitting enter)
      */
-    public static void renameImageFile(TextField name, ArrayList<String> tagsToAdd, ArrayList<String> tagsToDelete, TextArea log, ComboBox imageNames) {
+    public static void renameImageFile(TextField name, TextArea log, ComboBox imageNames) {
 
         boolean success = image.rename(name.getText());
-        imageSceneController.addClickableTags(tagsToAdd, tagsToDelete);
+        imageSceneController.addClickableTags();
         imageSceneController.updateLog(log);
         imageSceneController.imageNameUpdate(imageNames, name);
 
@@ -184,19 +191,19 @@ public class imageSceneController {
     }
 
 
-    public static void changeToNewName(TextField imageNewName, ArrayList<String> tagsToAdd, ArrayList<String> tagsToDelete, TextArea log, ComboBox imageNames){
+    public static void changeToNewName(TextField imageNewName, TextArea log, ComboBox imageNames){
         imageNewName.setOnKeyPressed(
                 k -> {
                     if (k.getCode().equals(KeyCode.ENTER)) {
-                        imageSceneController.renameImageFile(imageNewName, tagsToAdd, tagsToDelete, log,imageNames);
+                        imageSceneController.renameImageFile(imageNewName, log,imageNames);
                     }
                 });
     }
 
-    public static void renameButtonClick(Button rename, TextField imageNewName, ArrayList<String> tagsToAdd, ArrayList<String> tagsToDelete, ComboBox imageNames, TextArea log){
+    public static void renameButtonClick(Button rename, TextField imageNewName, ComboBox imageNames, TextArea log){
      rename.setOnAction(
                 e -> {
-                    imageSceneController.renameImageFile(imageNewName, tagsToAdd, tagsToDelete, log,imageNames);});
+                    imageSceneController.renameImageFile(imageNewName, log,imageNames);});
     }
 
     public static void openImageDirectory(Button openNewDir){
@@ -214,7 +221,7 @@ public class imageSceneController {
                 });
     }
 
-    public static void addTag(Button addTag, TextField newTag, ArrayList<String> tagsToAdd, ArrayList<String> tagsToDelete, TextArea log, ComboBox<String> imageNames, TextField imageNewName){
+    public static void addTag(Button addTag, TextField newTag, TextArea log, ComboBox<String> imageNames, TextField imageNewName){
         addTag.setOnAction(
                 e -> {
                     if (checkValidTagName(newTag.getText())) {
@@ -225,11 +232,31 @@ public class imageSceneController {
                             imageSceneController.createAlert("Add Tag Error", "The tag '" + newTag.getText() + "' was not added successfully",
                                     "Tag imageNewName contains ' @', the tag already exists, or the file imageNewName with the additional tag is occupied");
                         }
+                        imageSceneController.addClickableTags();
+                        imageSceneController.updateLog(log);
+                        imageSceneController.imageNameUpdate(imageNames, imageNewName);
                     }
 
-                    imageSceneController.addClickableTags(tagsToAdd, tagsToDelete);
-                    imageSceneController.updateLog(log);
-                    imageSceneController.imageNameUpdate(imageNames, imageNewName);
+
                 });
     }
+
+    public static void updateTags(Button updateTags, TextArea log, ComboBox imageNames, TextField imageNewName){
+        updateTags.setOnAction(e -> {
+            if (tagsToAdd.size() != 0)
+                image.addTag(tagsToAdd);
+            if (tagsToDelete.size() != 0)
+                image.removeTag(tagsToDelete);
+
+            imageSceneController.addClickableTags();
+            imageSceneController.updateLog(log);
+            imageSceneController.imageNameUpdate(imageNames, imageNewName);
+
+            tagsToAdd.clear();
+            tagsToDelete.clear();
+        });
+    }
+
+
+
 }
