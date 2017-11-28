@@ -185,6 +185,8 @@ class ImageSceneView {
         back.setText("<- Back");
         layout.add(back, 0, 0, 1, 1);
 
+        imageNames = new ComboBox<>();
+
         imageNewName = new TextField(image.getName());
         imageNewName.setEditable(true);
         imageSceneController.changeToNewName( imageNewName, tagsToAdd, tagsToDelete, log,imageNames);
@@ -197,7 +199,7 @@ class ImageSceneView {
                 e -> SceneManager.swapToPicGrid(this.directory));
 
         // https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm
-        imageNames = new ComboBox<>();
+
         imageSceneController.imageNameUpdate(imageNames, imageNewName);
         imageNames.setMaxWidth(380);
         imageNames.getSelectionModel().selectFirst();

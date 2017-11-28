@@ -21,7 +21,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class picGrigController {
+public class picGridController {
 
     public static void independentTags(File dir, Boolean showAll) { // #TODO create tag option and updating
 
