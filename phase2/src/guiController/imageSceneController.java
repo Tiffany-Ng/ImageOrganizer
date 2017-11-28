@@ -183,7 +183,7 @@ public class imageSceneController {
 
 
     public static void changeToNewName(TextField imageNewName, ArrayList<String> tagsToAdd, ArrayList<String> tagsToDelete, TextArea log, ComboBox imageNames){
-        imageNewName.setOnKeyPressed(   // TODO: should be in the controller
+        imageNewName.setOnKeyPressed(
                 k -> {
                     if (k.getCode().equals(KeyCode.ENTER)) {
                         imageSceneController.renameImageFile(imageNewName, tagsToAdd, tagsToDelete, log,imageNames);
@@ -212,7 +212,7 @@ public class imageSceneController {
     }
 
     public static void addTag(Button addTag, TextField newTag, ArrayList<String> tagsToAdd, ArrayList<String> tagsToDelete, TextArea log, ComboBox<String> imageNames, TextField imageNewName){
-        addTag.setOnAction(   // TODO: in controller
+        addTag.setOnAction(
                 e -> {
                     if (checkValidTagName(newTag.getText())) {
                         boolean success = image.addTag(newTag.getText());
@@ -227,31 +227,6 @@ public class imageSceneController {
                     imageSceneController.addClickableTags(tagsToAdd, tagsToDelete);
                     imageSceneController.updateLog(log);
                     imageSceneController.imageNameUpdate(imageNames, imageNewName);
-                });
-    }
-
-
-    public static void addTagAllImages(Button addToAll, TextField newTag){
-        addToAll.setOnAction(
-                e -> {
-                    if (checkValidTagName(newTag.getText())) {
-                        ImageManager.addGlobalTag(newTag.getText());
-                        newTag.setText("");
-                    }
-                    SceneManager.swapToPicGrid(directory);
-
-                });
-    }
-
-
-    public static void deleteTagAllImages(Button deleteFromAll, TextField newTag){
-        deleteFromAll.setOnAction(
-                e -> {
-                    if (checkValidTagName(newTag.getText())) {
-                        ImageManager.deleteGlobalTag(newTag.getText());
-                        newTag.setText("");
-                    }
-                    SceneManager.swapToPicGrid(directory);
                 });
     }
 }

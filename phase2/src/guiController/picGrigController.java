@@ -23,7 +23,7 @@ import java.util.LinkedList;
 
 public class picGrigController {
 
-    public static void independentTags(File dir) { // #TODO create tag option and updating
+    public static void independentTags(File dir, Boolean showAll) { // #TODO create tag option and updating
 
         Stage chooser = new Stage();
 
@@ -39,7 +39,11 @@ public class picGrigController {
         independentTags(selectedTags, listView);
         g.add(listView, 1, 1, 1, 1);
 
-        ArrayList<ImageFile> images = ImageManager.getImageFilesInSubDirectory(dir);
+        ArrayList<ImageFile> images;
+        if(showAll)
+            images = ImageManager.getImageFilesByDirectory(dir);
+        else
+            images = ImageManager.getImageFilesInParentDirectory(dir);
         ArrayList<CheckBox> imageCheckBox = new ArrayList<>();
         ArrayList<ImageFile> imageSelected = new ArrayList<>();
 

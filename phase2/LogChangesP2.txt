@@ -186,3 +186,10 @@ Permenantly delete tags implemented.
 Person: Prynciss
 
 Moved FilterStrategy to ManageImage, ImageFile now handles strategy.
+
+#########
+#Log 27:
+
+Person: Akshat
+
+Removed unnecessary buttons from GUI. Edit tag now shoes correct images.

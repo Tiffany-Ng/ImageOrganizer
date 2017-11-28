@@ -324,39 +324,14 @@ class ImageSceneView {
         Button addTag = new Button("+");
         imageSceneController.addTag(addTag, newTag, tagsToAdd, tagsToDelete, log,  imageNames, imageNewName);
 
-        Button addToAll = new Button("Add to All");
-        imageSceneController.setDirectory(this.directory);
-        imageSceneController.addTagAllImages(addToAll, newTag);
-//        addToAll.setOnAction(   // TODO: Fix button add to all exception
-//                e -> {
-//                    if (checkValidTagName(newTag.getText())) {
-//                        ImageManager.addGlobalTag(newTag.getText());
-//                        newTag.setText("");
-//                    }
-//                    SceneManager.swapToPicGrid(this.directory);
-//
-//                });
-
-        Button deleteFromAll = new Button("Delete from All");
-        imageSceneController.setDirectory(this.directory);
-        imageSceneController.deleteTagAllImages(deleteFromAll, newTag);
-//        deleteFromAll.setOnAction(   // TODO:  Fix button remove from all exception
-//                e -> {
-//                    if (checkValidTagName(newTag.getText())) {
-//                        ImageManager.deleteGlobalTag(newTag.getText());
-//                        newTag.setText("");
-//                    }
-//                    SceneManager.swapToPicGrid(this.directory);
-//                });
-
-        tagBox.getChildren().addAll(newTag, addTag, addToAll, deleteFromAll);
+        tagBox.getChildren().addAll(newTag, addTag);
         tagBox.setSpacing(5.0);
 
         flow.getChildren().add(tagBox);
 
-        Button change = new Button("Change");
+        Button updateTags = new Button("Update tags");
 
-        change.setOnAction(e -> {
+        updateTags.setOnAction(e -> {    // TODO: put in controller
             if (tagsToAdd.size() != 0)
                 image.addTag(tagsToAdd);
             if (tagsToDelete.size() != 0)
@@ -370,7 +345,7 @@ class ImageSceneView {
             tagsToDelete.clear();
         });
 
-        flow.getChildren().add(change);
+        tagBox.getChildren().add(updateTags);
 
         f = new FlowPane(Orientation.VERTICAL, 7, 5);
         imageSceneController.setFlowLayout(f);

@@ -142,7 +142,7 @@ public class PicGridView {
         picGrigController.activateDirectoryFolders(subDirImageButtons, pane);
 
         Button tagManage = new Button("Edit Tags");
-        tagManage.setOnAction(e -> picGrigController.independentTags(dir));  // TODO: in controller
+        tagManage.setOnAction(e -> picGrigController.independentTags(dir, PicGridView.getShowAll()));  // TODO: in controller
         pane.getChildren().add(tagManage);
 
         Label currentDirectory = new Label("Parent directory: " + dir.toString());

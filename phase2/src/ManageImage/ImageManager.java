@@ -48,7 +48,7 @@ public class ImageManager implements Serializable {
      * @param directory the directory that contains returned images
      * @return the images stored in directory
      */
-    private static ArrayList<ImageFile> getImageFilesByDirectory(File directory) {
+    public static ArrayList<ImageFile> getImageFilesByDirectory(File directory) {
 
         // cite:
         // https://stackoverflow.com/questions/4746671/how-to-check-if-a-given-path-is-possible-child-of-another-path
