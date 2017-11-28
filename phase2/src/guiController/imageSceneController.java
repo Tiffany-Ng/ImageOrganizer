@@ -87,8 +87,10 @@ public class imageSceneController {
      */
     static public void imageNameUpdate(ComboBox<String> imageNames, TextField name) {  // TODO: not in the right package
 
-        name.setText(image.getName());
-        imageNames.getItems().clear();
+        name.setText(image.getName());;
+        if(!(imageNames.getItems() == null)) {
+            imageNames.getItems().clear();
+        }
 
         for (String n : image.getPriorNames()) {
             imageNames.getItems().add(n);
@@ -193,7 +195,8 @@ public class imageSceneController {
 
     public static void renameButtonClick(Button rename, TextField imageNewName, ArrayList<String> tagsToAdd, ArrayList<String> tagsToDelete, ComboBox imageNames, TextArea log){
      rename.setOnAction(
-                e -> imageSceneController.renameImageFile(imageNewName, tagsToAdd, tagsToDelete, log,imageNames));
+                e -> {
+                    imageSceneController.renameImageFile(imageNewName, tagsToAdd, tagsToDelete, log,imageNames);});
     }
 
     public static void openImageDirectory(Button openNewDir){
