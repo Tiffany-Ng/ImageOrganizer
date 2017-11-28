@@ -193,3 +193,20 @@ Moved FilterStrategy to ManageImage, ImageFile now handles strategy.
 Person: Akshat
 
 Removed unnecessary buttons from GUI. Edit tag now shoes correct images.
+
+
+#########
+#Log 28:
+
+Person: Allan
+
+Flaw: PreviousNames can contain duplicate names
+Fix: Removed duplicate previous names per name change
+
+#########
+#Log 29:
+
+Person: Allan
+
+Flaw: Image name deletes already existing files in rename
+Fix: Check if image name exists before renaming

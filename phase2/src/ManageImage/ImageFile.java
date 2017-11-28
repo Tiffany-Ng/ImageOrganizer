@@ -271,7 +271,10 @@ public class ImageFile implements Serializable {
         } else if (!tags.contains(tag)) {
             tags.add(tag);
             success = updateFile("Added tag \"" + tag + "\" to image \"" + name + "\"");
-            if (success) priorNames.add(nameWithTags());
+            if (success){
+                priorNames.remove(nameWithTags());
+                priorNames.add(nameWithTags());
+            }
             TagManager.add(tag);
         }
         return success;
@@ -298,7 +301,10 @@ public class ImageFile implements Serializable {
         }
 
         success = updateFile("Added tags \"" + tagList.toString() + "\" to image \"" + name + "\"");
-        if (success) priorNames.add(nameWithTags());
+        if (success) {
+            priorNames.remove(nameWithTags());
+            priorNames.add(nameWithTags());
+        }
         return success;
     }
 
@@ -314,7 +320,10 @@ public class ImageFile implements Serializable {
             tags.remove(tag);
             // TagManager.remove(tag);
             success = updateFile("Removed tag \"" + tag + "\" from image \"" + name + "\"");
-            if (success) priorNames.add(nameWithTags());
+            if (success) {
+                priorNames.remove(nameWithTags());
+                priorNames.add(nameWithTags());
+            }
         }
         return success;
     }
@@ -336,7 +345,10 @@ public class ImageFile implements Serializable {
         }
 
         success = updateFile("Removed tags \"" + tagList.toString() + "\" from image \"" + name + "\"");
-        if (success) priorNames.add(nameWithTags());
+        if (success) {
+            priorNames.remove(nameWithTags());
+            priorNames.add(nameWithTags());
+        }
         return success;
     }
 
@@ -349,7 +361,12 @@ public class ImageFile implements Serializable {
     private boolean updateFile(String logMessage) {
         String oldName = imageFile.getName();
         File newImageFile = createLocation();
-        boolean success = imageFile.renameTo(newImageFile);
+        boolean success;
+        if(newImageFile.exists()){
+            success = false;
+        }else{
+            success = imageFile.renameTo(newImageFile);
+        }
         String newName = newImageFile.getName();
         if (success) {
             imageFile = newImageFile;
