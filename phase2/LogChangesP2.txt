@@ -172,3 +172,10 @@ Fixed the Null Pointer with manipulating selected tags.
 Person: Amarnath
 
 Independent tags updates dynamically when tag is added.
+
+#########
+#Log 25:
+
+Person: Amarnath
+
+Permenantly delete tags implemented.

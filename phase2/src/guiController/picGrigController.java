@@ -128,11 +128,14 @@ public class picGrigController {
         Button deleteTags = new Button("Delete Tags");
         deleteTags.setMaxWidth(Double.MAX_VALUE);
 
-        deleteTags.setOnAction(e -> {
+        deleteTags.setOnAction(e -> { //#TODO error with delete global tags, imageName retains name, MAYBE FIXED
             if (!selectedTags.isEmpty()) {
                 for (String tag : selectedTags)
                     ImageManager.deleteGlobalTag(tag);
             }
+            TagManager.getTags().removeAll(selectedTags);
+            selectedTags.clear();
+            independentTags(selectedTags, listView);
         });
 
         VBox v = new VBox();
@@ -155,6 +158,7 @@ public class picGrigController {
 
     private static void independentTags(ArrayList<String> selectedTags,  ListView<HBox> listView ) {
 
+        listView.getItems().clear();
         LinkedList<String> tags = TagManager.getTags();
         ArrayList<HBox> tagCheckBox = new ArrayList<>();
 
