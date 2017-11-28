@@ -361,7 +361,12 @@ public class ImageFile implements Serializable {
     private boolean updateFile(String logMessage) {
         String oldName = imageFile.getName();
         File newImageFile = createLocation();
-        boolean success = imageFile.renameTo(newImageFile);
+        boolean success;
+        if(newImageFile.exists()){
+            success = false;
+        }else{
+            success = imageFile.renameTo(newImageFile);
+        }
         String newName = newImageFile.getName();
         if (success) {
             imageFile = newImageFile;
