@@ -76,7 +76,7 @@ public class ImageFile implements Serializable {
      *
      * @param imageFile The File object of the image
      */
-    ImageFile(File imageFile) throws IOException {
+    public ImageFile(File imageFile) throws IOException {
         if (!imageFile.isFile()) {
             Main.logger.log(Level.SEVERE, "Invalid file path", new InvalidFileException("Invalid File"));
         } else if (ImageIO.read(imageFile) == null) {
