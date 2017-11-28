@@ -326,7 +326,7 @@ class ImageSceneView {
 
         Button addToAll = new Button("Add to All");
         imageSceneController.setDirectory(this.directory);
-        imageSceneController.addTagAllImages(addToAll, newTag, directory);
+        imageSceneController.addTagAllImages(addToAll, newTag);
 //        addToAll.setOnAction(   // TODO: Fix button add to all exception
 //                e -> {
 //                    if (checkValidTagName(newTag.getText())) {
@@ -339,7 +339,7 @@ class ImageSceneView {
 
         Button deleteFromAll = new Button("Delete from All");
         imageSceneController.setDirectory(this.directory);
-        imageSceneController.deleteTagAllImages(deleteFromAll, newTag, directory);
+        imageSceneController.deleteTagAllImages(deleteFromAll, newTag);
 //        deleteFromAll.setOnAction(   // TODO:  Fix button remove from all exception
 //                e -> {
 //                    if (checkValidTagName(newTag.getText())) {

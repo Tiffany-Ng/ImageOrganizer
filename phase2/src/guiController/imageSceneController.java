@@ -231,7 +231,7 @@ public class imageSceneController {
     }
 
 
-    public static void addTagAllImages(Button addToAll, TextField newTag, File directory){
+    public static void addTagAllImages(Button addToAll, TextField newTag){
         addToAll.setOnAction(
                 e -> {
                     if (checkValidTagName(newTag.getText())) {
@@ -244,7 +244,7 @@ public class imageSceneController {
     }
 
 
-    public static void deleteTagAllImages(Button deleteFromAll, TextField newTag, File directory){
+    public static void deleteTagAllImages(Button deleteFromAll, TextField newTag){
         deleteFromAll.setOnAction(
                 e -> {
                     if (checkValidTagName(newTag.getText())) {

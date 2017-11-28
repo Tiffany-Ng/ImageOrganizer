@@ -93,7 +93,7 @@ public class PicGridView {
             viewImage.setCache(true);
             viewImage.setCacheHint(CacheHint.SPEED);
 
-            viewImage.setOnAction(
+            viewImage.setOnAction(  // TODO: in controller
                     e -> {
 
                         SceneManager.swapToImageScene(img, dir);
@@ -135,14 +135,14 @@ public class PicGridView {
         currentStg.setScene(scene);
 
         Button chooseDirectory = new Button("Select directory");
-        chooseDirectory.setOnAction(e -> dirController.dirChooser(currentStg));
+        chooseDirectory.setOnAction(e -> dirController.dirChooser(currentStg));  // TODO: in controller
 
         pane.getChildren().add(chooseDirectory);
 
         picGrigController.activateDirectoryFolders(subDirImageButtons, pane);
 
         Button tagManage = new Button("Edit Tags");
-        tagManage.setOnAction(e -> picGrigController.independentTags(dir));
+        tagManage.setOnAction(e -> picGrigController.independentTags(dir));  // TODO: in controller
         pane.getChildren().add(tagManage);
 
         Label currentDirectory = new Label("Parent directory: " + dir.toString());
