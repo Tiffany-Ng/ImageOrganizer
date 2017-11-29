@@ -9,10 +9,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
@@ -101,6 +98,7 @@ public class picGridController {
         g.add(imageView, 3, 1, 1, 1);
 
         Button add = new Button("Add to");
+        add.setTooltip(new Tooltip("Add selected tags to selected images."));
         add.setMaxWidth(Double.MAX_VALUE);
 
         add.setOnAction(e ->  {
@@ -122,6 +120,7 @@ public class picGridController {
 
 
         Button remove = new Button("Remove from");
+        remove.setTooltip(new Tooltip("Remove selected tags from selected images."));
         remove.setOnAction(e -> {
 
             if (!imageSelected.isEmpty()) {
@@ -138,6 +137,7 @@ public class picGridController {
         });
 
         Button deleteTags = new Button("Delete Tags");
+        deleteTags.setTooltip(new Tooltip("Remove selected tags permanently."));
         deleteTags.setMaxWidth(Double.MAX_VALUE);
 
         deleteTags.setOnAction(e -> {
@@ -246,9 +246,19 @@ public class picGridController {
 
         });
 
+        Button add = new Button("+");
+        add.setTooltip(new Tooltip("Create new tag."));
+        add.setOnAction(e -> {
+
+            TagManager.add(newTag.getText());
+            independentTags(selectedTags, listView);
+
+        });
+
         HBox firstElement = new HBox();
 
-        firstElement.getChildren().addAll(d, newTag);
+        firstElement.getChildren().addAll(d, newTag, add);
+        firstElement.setSpacing(5);
 
         listView.getItems().add(firstElement);
         listView.getItems().addAll(tagCheckBox);
