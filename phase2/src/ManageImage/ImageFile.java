@@ -89,7 +89,7 @@ public class ImageFile implements Serializable {
             log = new Log();
 
             setUpFromImageFile();
-            log.addEntry(new Entry("Set initial name"));
+            //log.addEntry(new Entry("Set initial name"));
             priorNames.add(nameWithTags());
         }
 

@@ -1,6 +1,10 @@
 package ManageImage;
 
-import java.io.Serializable;
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -21,6 +25,8 @@ public class Log implements Iterable<Entry>, Serializable {
      */
     private List<Entry> history;
 
+    private static BufferedWriter out;
+
     /**
      * Construct a new Log.
      */
@@ -38,8 +44,29 @@ public class Log implements Iterable<Entry>, Serializable {
     void addEntry(Entry e) {
 
         history.add(e);
+        addToText(e);
 
     }
+
+    public static void addToText(Entry e) {
+
+        // taken from https://stackoverflow.com/questions/1625234/how-to-append-text-to-an-existing-file-in-java
+        try(FileWriter fw = new FileWriter("log.txt", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw))
+        {
+            out.println(e.toString()  + (System.lineSeparator()));
+
+        } catch (IOException e1) {
+
+            e1.printStackTrace();
+
+        }
+
+    }
+
+
+
 
     /**
      * The Iterator of Log, used to go through each Entry.
