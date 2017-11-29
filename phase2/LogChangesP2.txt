@@ -246,3 +246,10 @@ Person: Prynciss
 
 Implementation of lateral file moving - finished.
 
+#########
+#Log 35:
+
+Person: Prynciss
+
+Added JUnit tests in ImageFileTest.
+
