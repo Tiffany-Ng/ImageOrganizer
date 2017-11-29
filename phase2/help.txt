@@ -1,0 +1,11 @@
+Please follow the following steps to run the code on the command line:
+
+1. cd inside the 'src' directory. 'ls' should produce(JUnit/ManageImage/guiController/guiView)
+
+2. compile all the files using the following command: "javac guiView/Main.java".
+
+3. Run the program with the following command: "java guiView.Main".
+
+A directory chooser should pop-up. Select a directory, and have fun!
+
+There is a set of sample images (which can be selected via the GUI) in : JUnit->testImages 
