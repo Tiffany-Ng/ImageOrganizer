@@ -188,7 +188,7 @@ public class ImageManager implements Serializable {
             for (String dirName : checkForSubDirectory(directory)) {
 
                 // keep recurring through names list - and adding to the temp array
-                allImages.addAll(checkSubDirectories(directory + "/" + dirName));
+                allImages.addAll(checkSubDirectories(directory + System.lineSeparator() + dirName));
             }
 
             ArrayList<File> gather = findImages(directory);
