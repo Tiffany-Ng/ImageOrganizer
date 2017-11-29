@@ -4,10 +4,14 @@ import ManageImage.*;
 import guiView.ImageSceneView;
 import guiView.Main;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.FlowPane;
 
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -115,7 +119,7 @@ public class imageSceneController {
     static public void imageNameUpdate(ComboBox<String> imageNames, TextField name) {
 
         name.setText(image.getName());
-        if(!(imageNames.getItems() == null)) {
+        if (!(imageNames.getItems() == null)) {
             imageNames.getItems().clear();
         }
 
@@ -143,16 +147,15 @@ public class imageSceneController {
         for (String tag : tags) {
             CheckBox checkBox = new CheckBox(tag);
             checkBoxes.add(checkBox);
-            if(image.getTags().contains(tag))
+            if (image.getTags().contains(tag))
                 checkBox.setSelected(true);
 
-            checkBox.setOnAction(e ->{
+            checkBox.setOnAction(e -> {
                 String text = checkBox.getText();
-                if(checkBox.isSelected()) {
+                if (checkBox.isSelected()) {
                     tagsToAdd.add(text);
                     tagsToDelete.remove(text);
-                }
-                else {
+                } else {
                     tagsToDelete.add(text);
                     tagsToAdd.remove(text);
                 }
@@ -215,14 +218,14 @@ public class imageSceneController {
      * Change the image to the new-name decided by the user.
      *
      * @param imageNewName the container of the new name(user event is recorded with an enter)
-     * @param log Recorder of all changes made by a user
-     * @param imageNames A collection of the previous names that the image has had.
+     * @param log          Recorder of all changes made by a user
+     * @param imageNames   A collection of the previous names that the image has had.
      */
-    public static void changeToNewName(TextField imageNewName, TextArea log, ComboBox imageNames){
+    public static void changeToNewName(TextField imageNewName, TextArea log, ComboBox imageNames) {
         imageNewName.setOnKeyPressed(
                 k -> {
                     if (k.getCode().equals(KeyCode.ENTER)) {
-                        imageSceneController.renameImageFile(imageNewName, log,imageNames);
+                        imageSceneController.renameImageFile(imageNewName, log, imageNames);
                     }
                 });
     }
@@ -230,15 +233,16 @@ public class imageSceneController {
     /**
      * Change the image to the new-name decided by the user.
      *
-     * @param rename The button which records that a user has decided to change image name
+     * @param rename       The button which records that a user has decided to change image name
      * @param imageNewName the container of the new name(user event is recorded a button click)
-     * @param log Recorder of all changes made by a user
-     * @param imageNames A collection of the previous names that the image has had.
+     * @param log          Recorder of all changes made by a user
+     * @param imageNames   A collection of the previous names that the image has had.
      */
-    public static void renameButtonClick(Button rename, TextField imageNewName, ComboBox imageNames, TextArea log){
-     rename.setOnAction(
+    public static void renameButtonClick(Button rename, TextField imageNewName, ComboBox imageNames, TextArea log) {
+        rename.setOnAction(
                 e -> {
-                    imageSceneController.renameImageFile(imageNewName, log,imageNames);});
+                    imageSceneController.renameImageFile(imageNewName, log, imageNames);
+                });
     }
 
     /**
@@ -246,12 +250,22 @@ public class imageSceneController {
      *
      * @param openNewDir The button which records that a user wants to view the a new directory of images.
      */
-    public static void openImageDirectory(Button openNewDir){
+    public static void openImageDirectory(Button openNewDir) {
         openNewDir.setOnAction(
                 e -> {
                     try {
-                        //Adapted from: https://stackoverflow.com/questions/7357969/how-to-use-java-code-to-open-windows-file-explorer-and-highlight-the-specified-f Date: Nov 19, 2017
-                        Runtime.getRuntime().exec("explorer.exe /select," + image.getFile().getAbsolutePath());
+                        // https://www.mkyong.com/java/how-to-detect-os-in-java-systemgetpropertyosname/ Date: Nov 29 2017
+                        String OS = System.getProperty("os.name").toLowerCase();
+
+                        // This is for the Teaching Lab computers
+                        if (OS.contains("nix") || OS.contains("nux") || OS.indexOf("aix") > 0){
+                            // https://bb-2017-09.teach.cs.toronto.edu/t/cdf-computers-not-allowing-javafx-to-open-files/1786/4 Date: Nov 29 2017
+                            Runtime.getRuntime().exec("xdg-open " + image.getDirectory());
+                        }
+                        else{
+                            // https://stackoverflow.com/questions/15875295/open-a-folder-in-explorer-using-java Date: Nov 29 2017
+                            Desktop.getDesktop().open(image.getDirectory());
+                        }
 
                     } catch (IOException ex) {
                         imageSceneController.createAlert("Open directory error", "Execution failed",
@@ -264,13 +278,13 @@ public class imageSceneController {
     /**
      * Add a new tag to an image
      *
-     * @param addTag Button which adds the new tag to the image
-     * @param newTag Name of the new tah
-     * @param log  Recorder of all changes made by a user
-     * @param imageNames A collection of the previous names that the image has had.
+     * @param addTag       Button which adds the new tag to the image
+     * @param newTag       Name of the new tah
+     * @param log          Recorder of all changes made by a user
+     * @param imageNames   A collection of the previous names that the image has had.
      * @param imageNewName The new name of the image, including the newly added tag
      */
-    public static void addTag(Button addTag, TextField newTag, TextArea log, ComboBox<String> imageNames, TextField imageNewName){
+    public static void addTag(Button addTag, TextField newTag, TextArea log, ComboBox<String> imageNames, TextField imageNewName) {
         addTag.setOnAction(
                 e -> {
                     if (checkValidTagName(newTag.getText())) {
@@ -293,12 +307,12 @@ public class imageSceneController {
     /**
      * Records the tag changes made by a user based on the check-box selections.
      *
-     * @param updateTags Button which records all the tag changes for an image
-     * @param log Recorder of all changes made by a user
-     * @param imageNames A collection of the previous names that the image has had
+     * @param updateTags   Button which records all the tag changes for an image
+     * @param log          Recorder of all changes made by a user
+     * @param imageNames   A collection of the previous names that the image has had
      * @param imageNewName The new name of the image, reflecting all changes made to the tags
      */
-    public static void updateTags(Button updateTags, TextArea log, ComboBox imageNames, TextField imageNewName){
+    public static void updateTags(Button updateTags, TextArea log, ComboBox imageNames, TextField imageNewName) {
         updateTags.setOnAction(e -> {
             if (tagsToAdd.size() != 0)
                 image.addTag(tagsToAdd);
@@ -313,7 +327,6 @@ public class imageSceneController {
             tagsToDelete.clear();
         });
     }
-
 
 
 }
