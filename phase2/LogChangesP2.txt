@@ -239,3 +239,10 @@ Person: Prynciss
 
 Ongoing implementation of lateral file moving - not finished.
 
+#########
+#Log 34:
+
+Person: Prynciss
+
+Implementation of lateral file moving - finished.
+

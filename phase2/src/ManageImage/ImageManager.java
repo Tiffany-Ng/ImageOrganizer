@@ -148,7 +148,7 @@ public class ImageManager implements Serializable {
      * @param directory the path of the folder to search in.
      * @return The array list of names of sub-directories.
      */
-    private static ArrayList<String> checkForSubDirectory(String directory) {
+    public static ArrayList<String> checkForSubDirectory(String directory) {
 
         File folder = new File(directory);
         ArrayList<String> gatherSubDirectories = new ArrayList<>();
@@ -174,7 +174,7 @@ public class ImageManager implements Serializable {
      * @param directory the path of the folder to search in.
      * @return arrayList of all imageFiles(including those found in sub-directories).
      */
-    private static ArrayList<File> checkSubDirectories(String directory) {
+    public static ArrayList<File> checkSubDirectories(String directory) {
 
         // if no sub-directory, return findImages
         if (checkForSubDirectory(directory).isEmpty()) {

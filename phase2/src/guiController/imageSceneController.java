@@ -1,6 +1,7 @@
 package guiController;
 
 import ManageImage.*;
+import guiView.DirView;
 import guiView.ImageSceneView;
 import guiView.Main;
 import javafx.scene.control.*;
@@ -9,6 +10,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.text.Text;
 
 
 import java.awt.*;
@@ -17,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.Optional;
 import java.util.logging.Level;
 
 public class imageSceneController {
@@ -335,19 +338,66 @@ public class imageSceneController {
 
     /**
      * Moves the ImageFile up or down one directory
+     *
+     * @param moveBtn the Button to set the action to
+     * @param  up if the user chose to move the file up one directory
+     *  @param  directoryText the Text display of the directory of the image
      */
-    public static void moveFile(Button moveBtn, boolean up) throws IOException {
+    public static void moveFile(Button moveBtn, boolean up, Text directoryText) throws IOException {
         moveBtn.setOnAction(e -> {
             try {
-                if (up)
-                    image.move(image.getDirectory().getParentFile());
-                else
-                    image.move(image.getDirectory());
+                if (up) {
+                    move(directoryText, image.getDirectory().getParentFile());
+                } else {
+                    ArrayList<String> subDirectories = ImageManager.checkForSubDirectory(image.getDirectory().toString());
+
+                    if (subDirectories.size() > 1) {
+
+                        // Adapted from: http://code.makery.ch/blog/javafx-dialogs-official/ Date: Nov 29 2017
+                        ChoiceDialog<String> dialog = new ChoiceDialog(subDirectories.get(0), subDirectories);
+                        dialog.setTitle("Choose a subdirectory");
+                        dialog.setHeaderText("Look, a choice!");
+                        dialog.setContentText("Choose your directory:");
+
+                        Optional<String> result = dialog.showAndWait();
+                        //https://stackoverflow.com/questions/19762169/forward-slash-or-backslash Nov 29 2017
+                        result.ifPresent(choice -> {
+                            try {
+                                move(directoryText, new File(image.getDirectory() + System.getProperty("file.separator") + choice));
+                            } catch (IOException e1) {
+                                Main.logger.warning("Cannot move file");
+                            }
+                        });
+                    } else if (subDirectories.size() == 1) {
+                        move(directoryText, new File(image.getDirectory() + System.getProperty("file.separator") + subDirectories.get(0)));
+                    } else
+                        createAlert("Error - moving file", "Error!", "Cannot move file - target folder does not exist.");
+
+                }
 
             } catch (IOException e1) {
                 Main.logger.warning("Cannot move file");
             }
         });
+    }
+
+    /**
+     * Moves the ImageFile to the indicated directory
+     *
+     *  @param  directoryText the Text display of the directory of the image
+     *  @param  directory the directory to move the image to
+     */
+    private static void move(Text directoryText, File directory) throws IOException {
+        if (directory == null)
+            createAlert("Error - moving file", "Error!", "Cannot move file - target folder does not exist.");
+        else {
+            boolean success = image.move(directory);
+            directoryText.setText(image.getDirectory().toString());
+            imageSceneController.updateLog(ImageSceneView.getLog());
+            if (!success) {
+                createAlert("Error - moving file", "Error!", "Cannot move file - file with same name in targeted folder.");
+            }
+        }
     }
 
 

@@ -281,7 +281,7 @@ public class ImageSceneView {
      *
      * @return FlowPane
      */
-    private VBox vBoxSetup() {
+    private VBox vBoxSetup() throws IOException {
 
         // initial values
         VBox flow = new VBox();
@@ -308,10 +308,13 @@ public class ImageSceneView {
         // button for opening the parent directory
         Button moveUp = new Button();
         moveUp.setText("Move up one dir");
+        imageSceneController.moveFile(moveUp, true, dirText);
 
         // button for opening the parent directory
         Button moveDown = new Button();
         moveDown.setText("Move down one dir");
+        imageSceneController.moveFile(moveDown, false, dirText);
+
 
         // button for changing the directory
         Button changeDir = new Button();
@@ -324,7 +327,7 @@ public class ImageSceneView {
         dir.setMaxWidth(flow.getMaxWidth());
         dir.setSpacing(8.0);
 
-        dir.getChildren().addAll(openImgDir, openParentImgDir, changeDir);
+        dir.getChildren().addAll(openImgDir, openParentImgDir, changeDir, moveUp, moveDown);
         changeDir.setAlignment(Pos.BASELINE_CENTER);
 
         // nested panes implemented from

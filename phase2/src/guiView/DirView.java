@@ -61,7 +61,7 @@ public class DirView {
      * <p>
      * Common cause: similar image already exists in the same directory.
      */
-    private static void imageMovingFailed(){
+    public static void imageMovingFailed(){
         // taken from http://code.makery.ch/blog/javafx-dialogs-official/
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Move Directory Error");
