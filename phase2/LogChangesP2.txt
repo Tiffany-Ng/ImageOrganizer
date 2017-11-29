@@ -210,3 +210,11 @@ Person: Allan
 
 Flaw: Image name deletes already existing files in rename
 Fix: Check if image name exists before renaming
+
+#########
+#Log 30:
+
+Person: Prynciss
+
+Open directory button should work on mac and teaching lab computer now, but need to check.
+
