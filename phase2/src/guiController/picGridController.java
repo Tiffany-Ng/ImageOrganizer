@@ -114,6 +114,10 @@ public class picGridController {
                 }
             }
 
+
+            deselect(imageCheckBox, listView);
+
+
         });
 
 
@@ -128,6 +132,9 @@ public class picGridController {
 
                 }
             }
+
+            deselect(imageCheckBox, listView);
+
         });
 
         Button deleteTags = new Button("Delete Tags");
@@ -141,6 +148,9 @@ public class picGridController {
             TagManager.getTags().removeAll(selectedTags);
             selectedTags.clear();
             independentTags(selectedTags, listView);
+
+            deselect(imageCheckBox, listView);
+
         });
 
         VBox v = new VBox();
@@ -151,13 +161,21 @@ public class picGridController {
         g.add(v, 2, 1, 1, 1);
         GridPane.setValignment(v, VPos.CENTER);
 
-        g.setGridLinesVisible(true);
-
         chooser.setMaximized(false);
         chooser.setScene(s);
         chooser.initModality(Modality.APPLICATION_MODAL);
         chooser.show();
 
+
+    }
+
+    private static void deselect(ArrayList<CheckBox> imageCheckBox, ListView<HBox> listView) {
+
+        for (CheckBox check : imageCheckBox)
+            check.setSelected(false);
+
+        for (HBox h : listView.getItems())
+            ((CheckBox) h.getChildren().get(0)).setSelected(false);
 
     }
 
