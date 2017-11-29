@@ -112,7 +112,7 @@ public class ImageSceneView {
         return log;
     }
 
-    public ImageSceneView(Stage stage) {
+    ImageSceneView(Stage stage) {
 
         this.prevScene = stage;
 
@@ -190,13 +190,12 @@ public class ImageSceneView {
         imageNewName = new TextField(image.getName());
         imageNewName.setEditable(true);
         imageSceneController.changeToNewName( imageNewName, log,imageNames);
-        imageSceneController.setTagsToAdd(tagsToAdd);  // TODO
-        imageSceneController.setTagsToDelete(tagsToDelete);  // TODO
+        imageSceneController.setTagsToAdd(tagsToAdd);
+        imageSceneController.setTagsToDelete(tagsToDelete);
 
 
         Button rename = new Button("Rename");
         imageSceneController.renameButtonClick(rename, imageNewName, imageNames, log);
-        imageSceneController.setTagsToAdd(tagsToAdd);  // TODO
 
 
 
@@ -211,8 +210,6 @@ public class ImageSceneView {
 
         Button revertName = new Button("Revert");
         imageSceneController.revertOldTagName(revertName, imageNames, log, imageNewName);  // gives functionality to the Button
-        imageSceneController.setTagsToAdd(tagsToAdd);  // TODO
-
 
 
         VBox f = vBoxSetup();
@@ -332,7 +329,7 @@ public class ImageSceneView {
         HBox tagBox = new HBox();
         Button addTag = new Button("+");
         imageSceneController.addTag(addTag, newTag, log,  imageNames, imageNewName);
-        imageSceneController.setTagsToAdd(tagsToAdd);  // TODO
+        imageSceneController.setTagsToAdd(tagsToAdd);  // record the new tag which just got added
 
 
 
@@ -343,19 +340,6 @@ public class ImageSceneView {
 
         Button updateTags = new Button("Update tags");
         imageSceneController.updateTags(updateTags, log, imageNames, imageNewName);
-//        updateTags.setOnAction(e -> {    // TODO: put in controller
-//            if (tagsToAdd.size() != 0)
-//                image.addTag(tagsToAdd);
-//            if (tagsToDelete.size() != 0)
-//                image.removeTag(tagsToDelete);
-//
-//            imageSceneController.addClickableTags(tagsToAdd, tagsToDelete);
-//            imageSceneController.updateLog(log);
-//            imageSceneController.imageNameUpdate(imageNames, imageNewName);
-//
-//            tagsToAdd.clear();
-//            tagsToDelete.clear();
-//        });
 
         tagBox.getChildren().add(updateTags);
 
@@ -364,7 +348,6 @@ public class ImageSceneView {
         f.setPadding(new Insets(5));
         f.setPrefHeight(480 / 2.5);
         f = imageSceneController.addClickableTags();
-        imageSceneController.setTagsToAdd(tagsToAdd);  // TODO
 
 
 

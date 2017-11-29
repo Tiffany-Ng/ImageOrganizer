@@ -25,19 +25,39 @@ public class imageSceneController {
 
     private static ArrayList<String> tagsToDelete;
 
+    /**
+     * Setter for the tags to be deleted from an image
+     *
+     * @param tagsToDelete collection of tags which need to be deleted from an image.
+     */
     public static void setTagsToDelete(ArrayList<String> tagsToDelete) {
         imageSceneController.tagsToDelete = tagsToDelete;
     }
 
+    /**
+     * Setter for the tags to be added to an image
+     *
+     * @param tagsToAdd collection of tags which need to be added to an image.
+     */
     public static void setTagsToAdd(ArrayList<String> tagsToAdd) {
         imageSceneController.tagsToAdd = tagsToAdd;
     }
 
 
+    /**
+     * Setter for the image environment opened by a user.
+     *
+     * @param flowLayout The user's current image environment
+     */
     public static void setFlowLayout(FlowPane flowLayout) {
         imageSceneController.flowLayout = flowLayout;
     }
 
+    /**
+     * Setter for the image file opened by a user.
+     *
+     * @param image The image that has been opened by a user.
+     */
     public static void setImage(ImageFile image) {
         imageSceneController.image = image;
     }
@@ -59,7 +79,7 @@ public class imageSceneController {
      * @param header  String
      * @param content String
      */
-    public static void createAlert(String title, String header, String content) {
+    private static void createAlert(String title, String header, String content) {
 
         // taken from http://code.makery.ch/blog/javafx-dialogs-official/
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -73,7 +93,7 @@ public class imageSceneController {
     /**
      * Update the log with its new information.
      */
-    public static void updateLog(TextArea log) {   // TODO: should be in the controller
+    public static void updateLog(TextArea log) {
 
         Log imageLog = image.getLog();
         StringBuilder logs = new StringBuilder();
@@ -92,9 +112,9 @@ public class imageSceneController {
     /**
      * Update the comboBox of image names and the text box name.
      */
-    static public void imageNameUpdate(ComboBox<String> imageNames, TextField name) {  // TODO: not in the right package
+    static public void imageNameUpdate(ComboBox<String> imageNames, TextField name) {
 
-        name.setText(image.getName());;
+        name.setText(image.getName());
         if(!(imageNames.getItems() == null)) {
             imageNames.getItems().clear();
         }
@@ -114,7 +134,7 @@ public class imageSceneController {
      *
      * @return FlowPane
      */
-    public static FlowPane addClickableTags() {  // TODO: change horrible name flowLayout
+    public static FlowPane addClickableTags() {
 
         flowLayout.getChildren().clear();
         //https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm
@@ -176,7 +196,7 @@ public class imageSceneController {
      * cite : https://stackoverflow.com/questions/13880638/how-do-i-pick-up-the-enter-key-being-pressed-in-javafx2
      * rename the image to the name collected from the relevant texBox(on hitting enter)
      */
-    public static void renameImageFile(TextField name, TextArea log, ComboBox imageNames) {
+    private static void renameImageFile(TextField name, TextArea log, ComboBox imageNames) {
 
         boolean success = image.rename(name.getText());
         imageSceneController.addClickableTags();
@@ -191,6 +211,13 @@ public class imageSceneController {
     }
 
 
+    /**
+     * Change the image to the new-name decided by the user.
+     *
+     * @param imageNewName the container of the new name(user event is recorded with an enter)
+     * @param log Recorder of all changes made by a user
+     * @param imageNames A collection of the previous names that the image has had.
+     */
     public static void changeToNewName(TextField imageNewName, TextArea log, ComboBox imageNames){
         imageNewName.setOnKeyPressed(
                 k -> {
@@ -200,12 +227,25 @@ public class imageSceneController {
                 });
     }
 
+    /**
+     * Change the image to the new-name decided by the user.
+     *
+     * @param rename The button which records that a user has decided to change image name
+     * @param imageNewName the container of the new name(user event is recorded a button click)
+     * @param log Recorder of all changes made by a user
+     * @param imageNames A collection of the previous names that the image has had.
+     */
     public static void renameButtonClick(Button rename, TextField imageNewName, ComboBox imageNames, TextArea log){
      rename.setOnAction(
                 e -> {
                     imageSceneController.renameImageFile(imageNewName, log,imageNames);});
     }
 
+    /**
+     * Open the a new directory of images.
+     *
+     * @param openNewDir The button which records that a user wants to view the a new directory of images.
+     */
     public static void openImageDirectory(Button openNewDir){
         openNewDir.setOnAction(
                 e -> {
@@ -221,6 +261,15 @@ public class imageSceneController {
                 });
     }
 
+    /**
+     * Add a new tag to an image
+     *
+     * @param addTag Button which adds the new tag to the image
+     * @param newTag Name of the new tah
+     * @param log  Recorder of all changes made by a user
+     * @param imageNames A collection of the previous names that the image has had.
+     * @param imageNewName The new name of the image, including the newly added tag
+     */
     public static void addTag(Button addTag, TextField newTag, TextArea log, ComboBox<String> imageNames, TextField imageNewName){
         addTag.setOnAction(
                 e -> {
@@ -241,6 +290,14 @@ public class imageSceneController {
                 });
     }
 
+    /**
+     * Records the tag changes made by a user based on the check-box selections.
+     *
+     * @param updateTags Button which records all the tag changes for an image
+     * @param log Recorder of all changes made by a user
+     * @param imageNames A collection of the previous names that the image has had
+     * @param imageNewName The new name of the image, reflecting all changes made to the tags
+     */
     public static void updateTags(Button updateTags, TextArea log, ComboBox imageNames, TextField imageNewName){
         updateTags.setOnAction(e -> {
             if (tagsToAdd.size() != 0)
