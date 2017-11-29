@@ -25,8 +25,6 @@ public class Log implements Iterable<Entry>, Serializable {
      */
     private List<Entry> history;
 
-    private static BufferedWriter out;
-
     /**
      * Construct a new Log.
      */
