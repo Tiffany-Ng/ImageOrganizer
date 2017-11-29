@@ -8,3 +8,6 @@
 
 # ignore any .class
 *.class
+
+# ignore local log.txt
+log.txt
