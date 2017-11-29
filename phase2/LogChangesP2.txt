@@ -218,3 +218,17 @@ Person: Prynciss
 
 Open directory button should work on mac and teaching lab computer now, but need to check.
 
+#########
+#Log 31:
+
+Person: Prynciss
+
+Open directory button should work on mac and teaching lab computer now, but need to check.
+
+#########
+#Log 32:
+
+Person: Prynciss
+
+Added open parent folder in ImageScene - view/controller
+

@@ -189,7 +189,7 @@ public class ImageSceneView {
 
         imageNewName = new TextField(image.getName());
         imageNewName.setEditable(true);
-        imageSceneController.changeToNewName( imageNewName, log,imageNames);
+        imageSceneController.changeToNewName(imageNewName, log, imageNames);
         imageSceneController.setTagsToAdd(tagsToAdd);
         imageSceneController.setTagsToDelete(tagsToDelete);
 
@@ -198,14 +198,13 @@ public class ImageSceneView {
         imageSceneController.renameButtonClick(rename, imageNewName, imageNames, log);
 
 
-
         back.setOnAction(
                 e -> SceneManager.swapToPicGrid(this.directory));
 
         // https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm
 
         imageSceneController.imageNameUpdate(imageNames, imageNewName);
-        imageNames.setMaxWidth(380);
+        imageNames.setMaxWidth(320);
         imageNames.getSelectionModel().selectFirst();
 
         Button revertName = new Button("Revert");
@@ -292,13 +291,19 @@ public class ImageSceneView {
         // image directory
         Text dirText = new Text();
         // Retrieved from: https://stackoverflow.com/questions/12737829/javafx-textfield-resize-to-text-length Date: Nov 21, 2017
-        dirText.setWrappingWidth(280);
+        dirText.setWrappingWidth(480);
         dirText.setText(image.getDirectory().toString());
+        flow.getChildren().add(dirText);
 
         // button for opening the directory
         Button openImgDir = new Button();
         openImgDir.setText("Open Directory");
-        imageSceneController.openImageDirectory(openImgDir);
+        imageSceneController.openImageDirectory(openImgDir, false);
+
+        // button for opening the part directory
+        Button openParentImgDir = new Button();
+        openParentImgDir.setText("Open Parent Directory");
+        imageSceneController.openImageDirectory(openParentImgDir, true);
 
         // button for changing the directory
         Button changeDir = new Button();
@@ -312,9 +317,7 @@ public class ImageSceneView {
         dir.setMaxWidth(flow.getMaxWidth());
         dir.setSpacing(8.0);
 
-        dir.getChildren().add(dirText);
-        dir.getChildren().add(openImgDir);
-        dir.getChildren().add(changeDir);
+        dir.getChildren().addAll(openImgDir, openParentImgDir, changeDir);
         changeDir.setAlignment(Pos.BASELINE_CENTER);
 
         // nested panes implemented from
@@ -322,16 +325,13 @@ public class ImageSceneView {
         flow.getChildren().add(dir);
         flow.setAlignment(Pos.CENTER_LEFT);
 
-
         //https://docs.oracle.com/javafx/2/ui_controls/text-field.htm
         TextField newTag = new TextField();
 
         HBox tagBox = new HBox();
         Button addTag = new Button("+");
-        imageSceneController.addTag(addTag, newTag, log,  imageNames, imageNewName);
+        imageSceneController.addTag(addTag, newTag, log, imageNames, imageNewName);
         imageSceneController.setTagsToAdd(tagsToAdd);  // record the new tag which just got added
-
-
 
         tagBox.getChildren().addAll(newTag, addTag);
         tagBox.setSpacing(5.0);
@@ -348,7 +348,6 @@ public class ImageSceneView {
         f.setPadding(new Insets(5));
         f.setPrefHeight(480 / 2.5);
         f = imageSceneController.addClickableTags();
-
 
 
         flow.getChildren().add(new ScrollPane(f));

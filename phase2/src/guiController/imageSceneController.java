@@ -250,21 +250,28 @@ public class imageSceneController {
      *
      * @param openNewDir The button which records that a user wants to view the a new directory of images.
      */
-    public static void openImageDirectory(Button openNewDir) {
+    public static void openImageDirectory(Button openNewDir, boolean parent) {
         openNewDir.setOnAction(
                 e -> {
                     try {
+                        File directory = image.getDirectory();
+                        if (parent)
+                            directory = image.getDirectory().getParentFile();
+
+                        if(directory == null) {
+                            createAlert("Parent folder does not exist", "Error - open parent folder", "Cannot open a folder that does not exits, opening current directory");
+                            directory = image.getDirectory();
+                        }
                         // https://www.mkyong.com/java/how-to-detect-os-in-java-systemgetpropertyosname/ Date: Nov 29 2017
                         String OS = System.getProperty("os.name").toLowerCase();
 
                         // This is for the Teaching Lab computers
-                        if (OS.contains("nix") || OS.contains("nux") || OS.indexOf("aix") > 0){
+                        if (OS.contains("nix") || OS.contains("nux") || OS.indexOf("aix") > 0) {
                             // https://bb-2017-09.teach.cs.toronto.edu/t/cdf-computers-not-allowing-javafx-to-open-files/1786/4 Date: Nov 29 2017
-                            Runtime.getRuntime().exec("xdg-open " + image.getDirectory());
-                        }
-                        else{
+                            Runtime.getRuntime().exec("xdg-open " + directory);
+                        } else {
                             // https://stackoverflow.com/questions/15875295/open-a-folder-in-explorer-using-java Date: Nov 29 2017
-                            Desktop.getDesktop().open(image.getDirectory());
+                            Desktop.getDesktop().open(directory);
                         }
 
                     } catch (IOException ex) {
