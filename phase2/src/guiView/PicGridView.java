@@ -92,13 +92,7 @@ public class PicGridView {
             // https://stackoverflow.com/questions/18911186/how-do-setcache-and-cachehint-work-together-in-javafx (Date: Nov 9, 2017)
             viewImage.setCache(true);
             viewImage.setCacheHint(CacheHint.SPEED);
-
-            viewImage.setOnAction(  // TODO: in controller
-                    e -> {
-
-                        SceneManager.swapToImageScene(img, dir);
-
-                    });
+            picGridController.viewImage(viewImage, img, dir);
 
             buttons.add(viewImage);
 
@@ -135,14 +129,14 @@ public class PicGridView {
         currentStg.setScene(scene);
 
         Button chooseDirectory = new Button("Select directory");
-        chooseDirectory.setOnAction(e -> dirController.dirChooser(currentStg));  // TODO: in controller
+        picGridController.chooseNewDir(chooseDirectory, currentStg);
 
         pane.getChildren().add(chooseDirectory);
 
         picGridController.activateDirectoryFolders(subDirImageButtons, pane);
 
         Button tagManage = new Button("Edit Tags");
-        tagManage.setOnAction(e -> picGridController.independentTags(dir, PicGridView.getShowAll()));  // TODO: in controller
+        tagManage.setOnAction(e -> picGridController.independentTags(dir, PicGridView.getShowAll()));
         pane.getChildren().add(tagManage);
 
         Label currentDirectory = new Label("Parent directory: " + dir.toString());

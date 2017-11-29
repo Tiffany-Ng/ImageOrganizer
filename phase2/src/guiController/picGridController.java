@@ -4,6 +4,7 @@ import ManageImage.ImageFile;
 import ManageImage.ImageManager;
 import ManageImage.TagManager;
 import guiView.PicGridView;
+import guiView.SceneManager;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -23,7 +24,7 @@ import java.util.LinkedList;
 
 public class picGridController {
 
-    public static void independentTags(File dir, Boolean showAll) { // #TODO create tag option and updating
+    public static void independentTags(File dir, Boolean showAll) {
 
         Stage chooser = new Stage();
 
@@ -132,7 +133,7 @@ public class picGridController {
         Button deleteTags = new Button("Delete Tags");
         deleteTags.setMaxWidth(Double.MAX_VALUE);
 
-        deleteTags.setOnAction(e -> { //#TODO error with delete global tags, imageName retains name, MAYBE FIXED
+        deleteTags.setOnAction(e -> {
             if (!selectedTags.isEmpty()) {
                 for (String tag : selectedTags)
                     ImageManager.deleteGlobalTag(tag);
@@ -239,7 +240,7 @@ public class picGridController {
     // Only show the option of showing ImageFiles in or under directory if the parent directory has sub-folders
     public static void activateDirectoryFolders(ArrayList<Button> subDirImageButtons, FlowPane pane){
 
-        if (subDirImageButtons.size() != 0) {   // TODO: put this in the controller
+        if (subDirImageButtons.size() != 0) {
             Button show;
             if (!PicGridView.showAll) show = new Button("Press to show all images under this directory (includes subfolder)");
             else show = new Button("Press to show images in this directory (only parent folder)");
@@ -258,6 +259,33 @@ public class picGridController {
                     });
             pane.getChildren().add(show);
         }
+    }
+
+
+    /**
+     * Open up an image that a user has selected.
+     *
+     * @param viewImage Records the user's action to view the image
+     * @param img The image file that will be opened
+     * @param dir The directory(path) of the image that will be opened
+     */
+    public static void viewImage(Button viewImage, ImageFile img, File dir){
+        viewImage.setOnAction(
+                e -> {
+                    SceneManager.swapToImageScene(img, dir);
+                });
+    }
+
+
+    /**
+     * Open up a new set of images from a user selected directory path.
+     *
+     * @param chooseDirectory Records the user's action to view a new directory of images
+     * @param currentStg A reference to the current GUI scene.
+     */
+    public static void chooseNewDir(Button chooseDirectory, Stage currentStg){
+        chooseDirectory.setOnAction(e -> dirController.dirChooser(currentStg));
+
     }
 
 }
