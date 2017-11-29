@@ -188,7 +188,8 @@ public class ImageManager implements Serializable {
             for (String dirName : checkForSubDirectory(directory)) {
 
                 // keep recurring through names list - and adding to the temp array
-                allImages.addAll(checkSubDirectories(directory + System.lineSeparator() + dirName));
+                //https://stackoverflow.com/questions/19762169/forward-slash-or-backslash Nov 29 2017
+                allImages.addAll(checkSubDirectories(directory + System.getProperty("file.separator") + dirName));
             }
 
             ArrayList<File> gather = findImages(directory);

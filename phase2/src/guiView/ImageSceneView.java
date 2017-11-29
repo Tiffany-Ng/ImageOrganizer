@@ -300,15 +300,22 @@ public class ImageSceneView {
         openImgDir.setText("Open Directory");
         imageSceneController.openImageDirectory(openImgDir, false);
 
-        // button for opening the part directory
+        // button for opening the parent directory
         Button openParentImgDir = new Button();
         openParentImgDir.setText("Open Parent Directory");
         imageSceneController.openImageDirectory(openParentImgDir, true);
 
+        // button for opening the parent directory
+        Button moveUp = new Button();
+        moveUp.setText("Move up one dir");
+
+        // button for opening the parent directory
+        Button moveDown = new Button();
+        moveDown.setText("Move down one dir");
+
         // button for changing the directory
         Button changeDir = new Button();
         changeDir.setText("Change Directory");
-
         changeDir.setOnAction(
                 e -> DirView.dirChooser(prevScene, this.image, dirText, this));
 

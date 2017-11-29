@@ -77,6 +77,8 @@ public class PicGridView {
 
         for (ImageFile img : files) {
 
+            // needs the "file://" because image will not understand it is a directory
+            // solution found at https://stackoverflow.com/questions/8474694/java-url-unknown-protocol-c
             Image image = new Image("file:///" + img.getFile().toString(), 200, 200, true, true, true);
             ImageView view = new ImageView(image);
 

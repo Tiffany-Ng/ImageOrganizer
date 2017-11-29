@@ -258,7 +258,7 @@ public class imageSceneController {
                         if (parent)
                             directory = image.getDirectory().getParentFile();
 
-                        if(directory == null) {
+                        if (directory == null) {
                             createAlert("Parent folder does not exist", "Error - open parent folder", "Cannot open a folder that does not exits, opening current directory");
                             directory = image.getDirectory();
                         }
@@ -306,8 +306,6 @@ public class imageSceneController {
                         imageSceneController.updateLog(log);
                         imageSceneController.imageNameUpdate(imageNames, imageNewName);
                     }
-
-
                 });
     }
 
@@ -332,6 +330,23 @@ public class imageSceneController {
 
             tagsToAdd.clear();
             tagsToDelete.clear();
+        });
+    }
+
+    /**
+     * Moves the ImageFile up or down one directory
+     */
+    public static void moveFile(Button moveBtn, boolean up) throws IOException {
+        moveBtn.setOnAction(e -> {
+            try {
+                if (up)
+                    image.move(image.getDirectory().getParentFile());
+                else
+                    image.move(image.getDirectory());
+
+            } catch (IOException e1) {
+                Main.logger.warning("Cannot move file");
+            }
         });
     }
 

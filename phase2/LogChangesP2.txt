@@ -230,5 +230,12 @@ Open directory button should work on mac and teaching lab computer now, but need
 
 Person: Prynciss
 
-Added open parent folder in ImageScene - view/controller
+Added open parent folder in ImageScene - view/controller.
+
+#########
+#Log 33:
+
+Person: Prynciss
+
+Ongoing implementation of lateral file moving - not finished.
 

@@ -35,7 +35,7 @@ public class SceneManager {
     public static void swapToImageScene(ImageFile image, File dir) {
 
         stage.setMaximized(true);
-        stage.setWidth(1325);
+        stage.setWidth(1385);
         stage.setHeight(750);
 
         try {
