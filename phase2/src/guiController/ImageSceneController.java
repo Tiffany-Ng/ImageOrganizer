@@ -36,7 +36,7 @@ import java.util.logging.Level;
  * @author Amarnath Parthiban 1003193518
  * @author Akshat Nigam 1002922732
  */
-public class imageSceneController {
+public class ImageSceneController {
 
     /**
      * A reference to the interface viewed by a user
@@ -91,7 +91,7 @@ public class imageSceneController {
      * @param hue Slide setting selected by the user for image's hue
      */
     public static void setHue(Slider hue) {
-        imageSceneController.hue = hue;
+        ImageSceneController.hue = hue;
     }
 
     /**
@@ -100,7 +100,7 @@ public class imageSceneController {
      * @param contrast Slide setting selected by the user for image's contrast
      */
     public static void setContrast(Slider contrast) {
-        imageSceneController.contrast = contrast;
+        ImageSceneController.contrast = contrast;
     }
 
     /**
@@ -109,7 +109,7 @@ public class imageSceneController {
      * @param brightness Slide setting selected by the user for image's brightness
      */
     public static void setBrightness(Slider brightness) {
-        imageSceneController.brightness = brightness;
+        ImageSceneController.brightness = brightness;
     }
 
     /**
@@ -118,7 +118,7 @@ public class imageSceneController {
      * @param saturation Slide setting selected by the user for image's saturation
      */
     public static void setSaturation(Slider saturation) {
-        imageSceneController.saturation = saturation;
+        ImageSceneController.saturation = saturation;
     }
 
     /**
@@ -127,7 +127,7 @@ public class imageSceneController {
      * @param icon An icon reference of the image
      */
     public static void setIcon(ImageView icon) {
-        imageSceneController.icon = icon;
+        ImageSceneController.icon = icon;
     }
 
 
@@ -137,7 +137,7 @@ public class imageSceneController {
      * @param tagsToDelete collection of tags which need to be deleted from an image.
      */
     public static void setTagsToDelete(ArrayList<String> tagsToDelete) {
-        imageSceneController.tagsToDelete = tagsToDelete;
+        ImageSceneController.tagsToDelete = tagsToDelete;
     }
 
     /**
@@ -146,7 +146,7 @@ public class imageSceneController {
      * @param tagsToAdd collection of tags which need to be added to an image.
      */
     public static void setTagsToAdd(ArrayList<String> tagsToAdd) {
-        imageSceneController.tagsToAdd = tagsToAdd;
+        ImageSceneController.tagsToAdd = tagsToAdd;
     }
 
 
@@ -156,7 +156,7 @@ public class imageSceneController {
      * @param flowLayout The user's current image environment
      */
     public static void setFlowLayout(FlowPane flowLayout) {
-        imageSceneController.flowLayout = flowLayout;
+        ImageSceneController.flowLayout = flowLayout;
     }
 
     /**
@@ -165,7 +165,7 @@ public class imageSceneController {
      * @param image The image that has been opened by a user.
      */
     public static void setImage(ImageFile image) {
-        imageSceneController.image = image;
+        ImageSceneController.image = image;
     }
 
     /**
@@ -304,13 +304,13 @@ public class imageSceneController {
     private static void renameImageFile(TextField name, TextArea log, ComboBox<String> imageNames) {
 
         boolean success = image.rename(name.getText());
-        imageSceneController.addClickableTags();
-        imageSceneController.updateLog(log);
-        imageSceneController.imageNameUpdate(imageNames, name);
+        ImageSceneController.addClickableTags();
+        ImageSceneController.updateLog(log);
+        ImageSceneController.imageNameUpdate(imageNames, name);
 
         if (!success) {
 
-            imageSceneController.createAlert("Invalid Name", "The name you entered is invalid.",
+            ImageSceneController.createAlert("Invalid Name", "The name you entered is invalid.",
                     "A name should not contain ' @' and the name " + name.getText() + " must be available");
         }
     }
@@ -327,7 +327,7 @@ public class imageSceneController {
         imageNewName.setOnKeyPressed(
                 k -> {
                     if (k.getCode().equals(KeyCode.ENTER)) {
-                        imageSceneController.renameImageFile(imageNewName, log, imageNames);
+                        ImageSceneController.renameImageFile(imageNewName, log, imageNames);
                     }
                 });
     }
@@ -342,7 +342,7 @@ public class imageSceneController {
      */
     public static void renameButtonClick(Button rename, TextField imageNewName, ComboBox<String> imageNames, TextArea log) {
         rename.setOnAction(
-                e -> imageSceneController.renameImageFile(imageNewName, log, imageNames));
+                e -> ImageSceneController.renameImageFile(imageNewName, log, imageNames));
     }
 
     /**
@@ -375,7 +375,7 @@ public class imageSceneController {
                         }
 
                     } catch (IOException ex) {
-                        imageSceneController.createAlert("Open directory error", "Execution failed",
+                        ImageSceneController.createAlert("Open directory error", "Execution failed",
                                 "The execution is not supported on this computer");
                         Main.logger.log(Level.SEVERE, "Can't open directory", ex);
                     }
@@ -399,12 +399,12 @@ public class imageSceneController {
                         if (success) {
                             newTag.setText("");
                         } else {
-                            imageSceneController.createAlert("Add Tag Error", "The tag '" + newTag.getText() + "' was not added successfully",
+                            ImageSceneController.createAlert("Add Tag Error", "The tag '" + newTag.getText() + "' was not added successfully",
                                     "Tag imageNewName contains ' @', the tag already exists, or the file imageNewName with the additional tag is occupied");
                         }
-                        imageSceneController.addClickableTags();
-                        imageSceneController.updateLog(log);
-                        imageSceneController.imageNameUpdate(imageNames, imageNewName);
+                        ImageSceneController.addClickableTags();
+                        ImageSceneController.updateLog(log);
+                        ImageSceneController.imageNameUpdate(imageNames, imageNewName);
                     }
                 });
     }
@@ -422,9 +422,9 @@ public class imageSceneController {
             image.addTag(tagsToAdd);
             image.removeTag(tagsToDelete);
 
-            imageSceneController.addClickableTags();
-            imageSceneController.updateLog(log);
-            imageSceneController.imageNameUpdate(imageNames, imageNewName);
+            ImageSceneController.addClickableTags();
+            ImageSceneController.updateLog(log);
+            ImageSceneController.imageNameUpdate(imageNames, imageNewName);
 
             tagsToAdd.clear();
             tagsToDelete.clear();
@@ -489,7 +489,7 @@ public class imageSceneController {
         else {
             boolean success = image.move(directory);
             directoryText.setText(image.getDirectory().toString());
-            imageSceneController.updateLog(ImageSceneView.getLog());
+            ImageSceneController.updateLog(ImageSceneView.getLog());
             if (!success) {
                 createAlert("Error - moving file", "Error!", "Cannot move file - file with same name in targeted folder.");
             }

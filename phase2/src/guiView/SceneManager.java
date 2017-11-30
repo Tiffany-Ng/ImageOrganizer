@@ -1,7 +1,7 @@
 package guiView;
 
 import ManageImage.ImageFile;
-import guiController.dirController;
+import guiController.DirController;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -87,7 +87,7 @@ public class SceneManager {
      */
     void dirChooser() {
 
-        dirController.dirChooser(stage);
+        DirController.dirChooser(stage);
 
     }
 

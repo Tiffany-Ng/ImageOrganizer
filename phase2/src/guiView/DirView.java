@@ -123,7 +123,7 @@ public class DirView {
         pane.add(instruction, 4, 6);
         pane.add(goBtn, 5, 8);
 
-        dirController.openDirectoryChooser(dirChooserBtn, dirTextField, error, currentStage);
+        DirController.openDirectoryChooser(dirChooserBtn, dirTextField, error, currentStage);
 
         btmMethod(goBtn, file, currentStage, chooser, error, dirTextField);
 
@@ -158,7 +158,7 @@ public class DirView {
                             try {
                                 boolean success = image.move(directory);
                                 directoryText.setText(image.getDirectory().toString());
-                                imageSceneController.updateLog(ImageSceneView.getLog());
+                                ImageSceneController.updateLog(ImageSceneView.getLog());
 
                                 if (!success) {
                                     DirView.imageMovingFailed();

@@ -36,7 +36,7 @@ public class Main extends Application {
     }
 
     /**
-     * Opens dirController, loads prior ImageManager.imageFiles and TagManager.tags.
+     * Opens DirController, loads prior ImageManager.imageFiles and TagManager.tags.
      *
      * @param currentStage the stage user is in.
      */

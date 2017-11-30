@@ -111,7 +111,7 @@ public class ImageSceneView {
 
         // inspired from https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm
         GridPane g;
-        imageSceneController.setImage(image);
+        ImageSceneController.setImage(image);
         g = gridSetup();
         imageScene = new Scene(g);
         this.directory = directory;
@@ -163,13 +163,13 @@ public class ImageSceneView {
 
         imageNewName = new TextField(image.getName());
         imageNewName.setEditable(true);
-        imageSceneController.changeToNewName(imageNewName, log, imageNames);
-        imageSceneController.setTagsToAdd(tagsToAdd);
-        imageSceneController.setTagsToDelete(tagsToDelete);
+        ImageSceneController.changeToNewName(imageNewName, log, imageNames);
+        ImageSceneController.setTagsToAdd(tagsToAdd);
+        ImageSceneController.setTagsToDelete(tagsToDelete);
 
 
         Button rename = new Button("Rename");
-        imageSceneController.renameButtonClick(rename, imageNewName, imageNames, log);
+        ImageSceneController.renameButtonClick(rename, imageNewName, imageNames, log);
 
 
         back.setOnAction(
@@ -177,12 +177,12 @@ public class ImageSceneView {
 
         // https://docs.oracle.com/javafx/2/ui_controls/combo-box.htm
 
-        imageSceneController.imageNameUpdate(imageNames, imageNewName);
+        ImageSceneController.imageNameUpdate(imageNames, imageNewName);
         imageNames.setMaxWidth(320);
         imageNames.getSelectionModel().selectFirst();
 
         Button revertName = new Button("Revert");
-        imageSceneController.revertOldTagName(revertName, imageNames, log, imageNewName);  // gives functionality to the Button
+        ImageSceneController.revertOldTagName(revertName, imageNames, log, imageNewName);  // gives functionality to the Button
 
 
         VBox f = vBoxSetup();
@@ -213,13 +213,13 @@ public class ImageSceneView {
         Text contrastText = new Text("Contrast:");
         Slider contrast = new Slider(-1, 1, 0);
 
-        imageSceneController.setIcon(icon);
-        imageSceneController.setHue(hue);
-        imageSceneController.setBrightness(brightness);
-        imageSceneController.setContrast(contrast);
-        imageSceneController.setSaturation(saturation);
+        ImageSceneController.setIcon(icon);
+        ImageSceneController.setHue(hue);
+        ImageSceneController.setBrightness(brightness);
+        ImageSceneController.setContrast(contrast);
+        ImageSceneController.setSaturation(saturation);
 
-        imageSceneController.customImageFilter();
+        ImageSceneController.customImageFilter();
 
         customFilter.getChildren().addAll(hueText, hue);
         customFilter.getChildren().addAll(brightnessText, brightness);
@@ -288,22 +288,22 @@ public class ImageSceneView {
         // button for opening the directory
         Button openImgDir = new Button();
         openImgDir.setText("Open Directory");
-        imageSceneController.openImageDirectory(openImgDir, false);
+        ImageSceneController.openImageDirectory(openImgDir, false);
 
         // button for opening the parent directory
         Button openParentImgDir = new Button();
         openParentImgDir.setText("Open Parent Directory");
-        imageSceneController.openImageDirectory(openParentImgDir, true);
+        ImageSceneController.openImageDirectory(openParentImgDir, true);
 
         // button for opening the parent directory
         Button moveUp = new Button();
         moveUp.setText("Move up one dir");
-        imageSceneController.moveFile(moveUp, true, dirText);
+        ImageSceneController.moveFile(moveUp, true, dirText);
 
         // button for opening the parent directory
         Button moveDown = new Button();
         moveDown.setText("Move down dir");
-        imageSceneController.moveFile(moveDown, false, dirText);
+        ImageSceneController.moveFile(moveDown, false, dirText);
 
 
         // button for changing the directory
@@ -338,8 +338,8 @@ public class ImageSceneView {
 
         HBox tagBox = new HBox();
         Button addTag = new Button("+");
-        imageSceneController.addTag(addTag, newTag, log, imageNames, imageNewName);
-        imageSceneController.setTagsToAdd(tagsToAdd);  // record the new tag which just got added
+        ImageSceneController.addTag(addTag, newTag, log, imageNames, imageNewName);
+        ImageSceneController.setTagsToAdd(tagsToAdd);  // record the new tag which just got added
 
         tagBox.getChildren().addAll(newTag, addTag);
         tagBox.setSpacing(5.0);
@@ -347,20 +347,20 @@ public class ImageSceneView {
         flow.getChildren().add(tagBox);
 
         Button updateTags = new Button("Update tags");
-        imageSceneController.updateTags(updateTags, log, imageNames, imageNewName);
+        ImageSceneController.updateTags(updateTags, log, imageNames, imageNewName);
 
         tagBox.getChildren().add(updateTags);
 
         FlowPane pane = new FlowPane(Orientation.VERTICAL, 7, 5);
-        imageSceneController.setFlowLayout(pane);
+        ImageSceneController.setFlowLayout(pane);
         pane.setPadding(new Insets(5));
         pane.setPrefHeight(480 / 2.5);
-        pane = imageSceneController.addClickableTags();
+        pane = ImageSceneController.addClickableTags();
 
 
         flow.getChildren().add(new ScrollPane(pane));
 
-        imageSceneController.updateLog(log);
+        ImageSceneController.updateLog(log);
 
         log.setWrapText(true);
         log.setEditable(false);

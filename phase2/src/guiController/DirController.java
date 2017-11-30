@@ -20,7 +20,7 @@ import java.io.File;
  * @author Amarnath Parthiban 1003193518
  * @author Akshat Nigam 1002922732
  */
-public class dirController {
+public class DirController {
 
     /**
      * Lets user to choose a directory and then shows PicGridView.

@@ -30,7 +30,7 @@ import java.util.LinkedList;
  * @author Amarnath Parthiban 1003193518
  * @author Akshat Nigam 1002922732
  */
-public class picGridController {
+public class PicGridController {
 
     /**
      * Manage a user's interaction with tags for a particular/all images
@@ -338,7 +338,7 @@ public class picGridController {
      * @param currentStg      A reference to the current GUI scene.
      */
     public static void chooseNewDir(Button chooseDirectory, Stage currentStg) {
-        chooseDirectory.setOnAction(e -> dirController.dirChooser(currentStg));
+        chooseDirectory.setOnAction(e -> DirController.dirChooser(currentStg));
 
     }
 
