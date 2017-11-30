@@ -1,3 +1,14 @@
+Akshat Nigam
+	- Implemented full MVC by making a distinction between View & controller.
+	  Makes code in GUI a lot more readable & helps in testing.
+	- Implemented :
+		'dirController.java'
+		'imageSceneController.java'
+		'picGridController.java'
+	- Helped with implementation of image filters.
+	- Fixed quite a few bugs resulting from bad design.
+	- Implemented better design choices.
+
 Prynciss Ng:
 - Added .gitignore file
 - Implemented FilterStrategy interface and BlackAndWhiteFilter class, implemented in ImageFile
