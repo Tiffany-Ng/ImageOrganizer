@@ -1,8 +1,6 @@
 package JUnit;
 
-import ManageImage.Manager;
 import ManageImage.TagManager;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
