@@ -441,9 +441,9 @@ public class imageSceneController {
     public static void moveFile(Button moveBtn, boolean up, Text directoryText) throws IOException {
         moveBtn.setOnAction(e -> {
             try {
-                if (up) {
+                if (up) { // If user chose to move up one directory
                     move(directoryText, image.getDirectory().getParentFile());
-                } else {
+                } else { // If user chose to move down to subdirectories
                     ArrayList<String> subDirectories = new ArrayList<>();
                     listAllSubDirectories(image.getDirectory().toString(), subDirectories);
 
@@ -464,7 +464,7 @@ public class imageSceneController {
                                 Main.logger.warning("Cannot move file");
                             }
                         });
-                    } else if (subDirectories.size() == 1) {
+                    } else if (subDirectories.size() == 1) { // If there is only one subdirectory then ChoiceDialog is not needed
                         move(directoryText, new File(subDirectories.get(0)));
                     } else
                         createAlert("Error - moving file", "Error!", "Cannot move file - target folder does not exist.");

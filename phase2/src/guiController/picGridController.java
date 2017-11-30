@@ -40,20 +40,21 @@ public class picGridController {
      */
     public static void independentTags(File dir, Boolean showAll) {
 
-        Stage chooser = new Stage();
+        Stage independentTagEditor = new Stage();
 
-        GridPane g = new GridPane();
-        g.setVgap(5);
-        g.setHgap(5);
+        GridPane layout = new GridPane();
+        layout.setVgap(5);
+        layout.setHgap(5);
 
-        Scene s = new Scene(g);
+        Scene scene = new Scene(layout);
 
         ArrayList<String> selectedTags = new ArrayList<>();
         ListView<HBox> listView = new ListView<>();
 
         independentTags(selectedTags, listView);
-        g.add(listView, 1, 1, 1, 1);
+        layout.add(listView, 1, 1, 1, 1);
 
+        // only show images currently shown on PicGrid
         ArrayList<ImageFile> images;
         if (showAll)
             images = ImageManager.getImageFilesByDirectory(dir);
@@ -62,44 +63,34 @@ public class picGridController {
         ArrayList<CheckBox> imageCheckBox = new ArrayList<>();
         ArrayList<ImageFile> imageSelected = new ArrayList<>();
 
-        CheckBox c = new CheckBox();
+        CheckBox selectAllImages = new CheckBox();
 
-        c.setOnAction(e -> {
+        // on check select all images to be modified
+        selectAllImages.setOnAction(e -> {
 
-            if (c.isSelected()) {
-
+            if (selectAllImages.isSelected()) {
                 imageSelected.addAll(images);
-
                 for (CheckBox check : imageCheckBox) {
-
                     check.setSelected(true);
-
                 }
-
             } else {
-
                 imageSelected.removeAll(images);
                 for (CheckBox check : imageCheckBox) {
-
                     check.setSelected(false);
-
                 }
-
             }
-
         });
 
+        // create a checkbox for each image to be selected by user
         for (ImageFile image : images) {
             CheckBox checkBox = new CheckBox(image.getName());
             imageCheckBox.add(checkBox);
 
             checkBox.setOnAction(e -> {
-
                 ImageFile currImage = images.get(imageCheckBox.indexOf(checkBox));
 
                 if (checkBox.isSelected())
                     imageSelected.add(currImage);
-
                 else
                     imageSelected.remove(currImage);
 
@@ -107,25 +98,23 @@ public class picGridController {
         }
 
         ListView<CheckBox> imageView = new ListView<>();
-        imageView.getItems().add(c);
+        imageView.getItems().add(selectAllImages);
         imageView.getItems().addAll(imageCheckBox);
 
-        g.add(imageView, 3, 1, 1, 1);
+        layout.add(imageView, 3, 1, 1, 1);
 
         Button add = new Button("Add to");
         add.setTooltip(new Tooltip("Add selected tags to selected images."));
         add.setMaxWidth(Double.MAX_VALUE);
 
+        // add all selected tags to selected images
         add.setOnAction(e -> {
 
             if (imageSelected.isEmpty() || selectedTags.isEmpty()) {
                 createAlert(false);
             } else {
-
                 for (ImageFile i : imageSelected) {
-
                     i.addTag(selectedTags);
-
                 }
                 deselect(imageCheckBox, listView);
             }
@@ -135,15 +124,14 @@ public class picGridController {
 
         Button remove = new Button("Remove from");
         remove.setTooltip(new Tooltip("Remove selected tags from selected images."));
+
+        // remove selected tags from selected images
         remove.setOnAction(e -> {
             if (imageSelected.isEmpty() || selectedTags.isEmpty()) {
                 createAlert(false);
             } else {
-
                 for (ImageFile i : imageSelected) {
-
                     i.removeTag(selectedTags);
-
                 }
                 deselect(imageCheckBox, listView);
             }
@@ -157,6 +145,7 @@ public class picGridController {
         // cite: https://stackoverflow.com/questions/27295505/javafx-button-with-multiple-text-lines Date: Nov 30 2017
         deleteTags.wrapTextProperty().setValue(true);
 
+        // delete all selected tags permanently from the program
         deleteTags.setOnAction(e -> {
             if (!selectedTags.isEmpty()) {
                 for (String tag : selectedTags)
@@ -174,18 +163,18 @@ public class picGridController {
 
         });
 
-        VBox v = new VBox();
-        v.getChildren().addAll(add, remove, deleteTags);
-        v.setAlignment(Pos.CENTER);
-        v.setSpacing(5);
+        VBox buttonsBox = new VBox();
+        buttonsBox.getChildren().addAll(add, remove, deleteTags);
+        buttonsBox.setAlignment(Pos.CENTER);
+        buttonsBox.setSpacing(5);
 
-        g.add(v, 2, 1, 1, 1);
-        GridPane.setValignment(v, VPos.CENTER);
+        layout.add(buttonsBox, 2, 1, 1, 1);
+        GridPane.setValignment(buttonsBox, VPos.CENTER);
 
-        chooser.setMaximized(false);
-        chooser.setScene(s);
-        chooser.initModality(Modality.APPLICATION_MODAL);
-        chooser.show();
+        independentTagEditor.setMaximized(false);
+        independentTagEditor.setScene(scene);
+        independentTagEditor.initModality(Modality.APPLICATION_MODAL);
+        independentTagEditor.show();
 
 
     }
@@ -208,7 +197,12 @@ public class picGridController {
 
     }
 
-    // TODO: add docstring
+    /**
+     * Refreshes independent tags listView when include new tags.
+     *
+     * @param selectedTags keep selected tags selected on refresh
+     * @param listView change the listView items
+     */
     private static void independentTags(ArrayList<String> selectedTags, ListView<HBox> listView) {
 
         listView.getItems().clear();
@@ -222,23 +216,21 @@ public class picGridController {
             tagCheckBox.add(v);
 
             checkBox.setOnAction(e -> {
-
                 String currTag = checkBox.getText();
 
                 if (checkBox.isSelected())
                     selectedTags.add(currTag);
-
                 else
                     selectedTags.remove(currTag);
 
             });
         }
 
-        CheckBox d = new CheckBox();
+        // selects/deselects all tags
+        CheckBox selectAllCheckBox = new CheckBox();
+        selectAllCheckBox.setOnAction(e -> {
 
-        d.setOnAction(e -> {
-
-            if (d.isSelected()) {
+            if (selectAllCheckBox.isSelected()) {
 
                 selectedTags.addAll(tags);
 
@@ -285,9 +277,9 @@ public class picGridController {
 
         });
 
+        // add new tags and select all tags should be first entry for user to see
         HBox firstElement = new HBox();
-
-        firstElement.getChildren().addAll(d, newTag, add);
+        firstElement.getChildren().addAll(selectAllCheckBox, newTag, add);
         firstElement.setSpacing(5);
 
         listView.getItems().add(firstElement);
