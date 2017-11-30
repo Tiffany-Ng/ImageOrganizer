@@ -2,7 +2,6 @@ package guiView;
 
 import ManageImage.ImageManager;
 import ManageImage.TagManager;
-import guiController.dirController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -47,7 +46,6 @@ public class Main extends Application {
         TagManager.load();
         SceneManager sM =  new SceneManager(currentStage);
         sM.dirChooser();
-        //dirController.dirChooser(currentStage);   // TODO: pretty much initiates the program
     }
 
     /**

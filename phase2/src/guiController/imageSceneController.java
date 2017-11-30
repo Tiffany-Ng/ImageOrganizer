@@ -342,9 +342,7 @@ public class imageSceneController {
      */
     public static void renameButtonClick(Button rename, TextField imageNewName, ComboBox imageNames, TextArea log) {
         rename.setOnAction(
-                e -> {
-                    imageSceneController.renameImageFile(imageNewName, log, imageNames);
-                });
+                e -> imageSceneController.renameImageFile(imageNewName, log, imageNames));
     }
 
     /**
@@ -499,24 +497,20 @@ public class imageSceneController {
         }
     }
 
+    /**
+     * Add ability to view image using custom image filter.
+     * <p>
+     * Images can be transformed based on : brightness, contrast, saturation, hue
+     */
     public static void customImageFilter(){
-        contrast.valueProperty().addListener(e -> {
-            image.applyFilter(icon, brightness, contrast, hue, saturation);
-        });
+        contrast.valueProperty().addListener (e -> image.applyFilter(icon, brightness, contrast, hue, saturation));
 
-        saturation.valueProperty().addListener(e -> {
-            image.applyFilter(icon, brightness, contrast, hue, saturation);
-        });
+        saturation.valueProperty().addListener(e -> image.applyFilter(icon, brightness, contrast, hue, saturation));
 
-        brightness.valueProperty().addListener(e -> {
-            image.applyFilter(icon, brightness, contrast, hue, saturation);
-        });
+        brightness.valueProperty().addListener(e -> image.applyFilter(icon, brightness, contrast, hue, saturation));
 
+        hue.valueProperty().addListener(e -> image.applyFilter(icon, brightness, contrast, hue, saturation));
 
-        hue.valueProperty().addListener(e -> {
-            image.applyFilter(icon, brightness, contrast, hue, saturation);
-        });
     }
-
 
 }

@@ -54,11 +54,6 @@ public class ImageSceneView {
     private TextField imageNewName;
 
     /**
-     * Pane to hold clickable tags.
-     */
-    private FlowPane pane;
-
-    /**
      * The directory that the user first opened
      */
     private File directory;
@@ -72,26 +67,6 @@ public class ImageSceneView {
      * All names the image has had.
      */
     private ComboBox<String> imageNames;
-
-    /**
-     * The hue of the customFilter
-     */
-    private Slider hue;
-
-    /**
-     * The contrast of the customFilter
-     */
-    private Slider contrast;
-
-    /**
-     * The brightness of the customFilter
-     */
-    private Slider brightness;
-
-    /**
-     * The saturation of the customFilter
-     */
-    private Slider saturation;
 
     /**
      * image in form of a viewable icon
@@ -125,7 +100,7 @@ public class ImageSceneView {
      * @param directory Location of the file containing images
      * @throws IOException Case when invalid directory
      */
-    public void initialize(ImageFile image, File directory) throws IOException {
+     void initialize(ImageFile image, File directory) throws IOException {
 
         this.image = image;
         log = new TextArea();
@@ -228,16 +203,16 @@ public class ImageSceneView {
         HBox customFilter = new HBox();
 
         Text hueText = new Text("Hue:");
-        hue = new Slider(-1, 1, 0);
+        Slider hue = new Slider(-1, 1, 0);
 
         Text brightnessText = new Text("Brightness:");
-        brightness = new Slider(-1, 1, 0);
+        Slider brightness = new Slider(-1, 1, 0);
 
         Text saturationText = new Text("Saturation:");
-        saturation = new Slider(-1, 1, 0);
+        Slider saturation = new Slider(-1, 1, 0);
 
         Text contrastText = new Text("Contrast:");
-        contrast = new Slider(-1, 1, 0);
+        Slider contrast = new Slider(-1, 1, 0);
 
         imageSceneController.setIcon(icon);
         imageSceneController.setHue(hue);
@@ -355,7 +330,7 @@ public class ImageSceneView {
 
         tagBox.getChildren().add(updateTags);
 
-        pane = new FlowPane(Orientation.VERTICAL, 7, 5);
+        FlowPane pane = new FlowPane(Orientation.VERTICAL, 7, 5);
         imageSceneController.setFlowLayout(pane);
         pane.setPadding(new Insets(5));
         pane.setPrefHeight(480 / 2.5);
