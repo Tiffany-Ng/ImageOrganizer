@@ -19,8 +19,26 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * Manage all interactions of the user with PicGridView
+ * <p>
+ * Actions include: <br>
+ * - manging tags independently <br>
+ * - selecting an image
+ *
+ * @author Allan Chang 1003235983
+ * @author Prynciss Ng 1003136091
+ * @author Amarnath Parthiban 1003193518
+ * @author Akshat Nigam 1002922732
+ */
 public class picGridController {
 
+    /**
+     * Manage a user's interaction with tags for a particular/all images
+     *
+     * @param dir directory of the image file
+     * @param showAll Allows the view of all images in both parent/sub-directory
+     */
     public static void independentTags(File dir, Boolean showAll) {
 
         Stage chooser = new Stage();
@@ -169,6 +187,14 @@ public class picGridController {
 
     }
 
+    /**
+     * Deselect an image while manipulation tags
+     * <p>
+     * Changes made to the tags will not be reflected onto the deselected image
+     *
+     * @param imageCheckBox Gives user a choice to reflect tag changes onto image
+     * @param listView A list of possible image choices
+     */
     private static void deselect(ArrayList<CheckBox> imageCheckBox, ListView<HBox> listView) {
 
         for (CheckBox check : imageCheckBox)
@@ -179,6 +205,7 @@ public class picGridController {
 
     }
 
+    // TODO: add docstring
     private static void independentTags(ArrayList<String> selectedTags,  ListView<HBox> listView ) {
 
         listView.getItems().clear();
@@ -237,7 +264,7 @@ public class picGridController {
         newTag.setEditable(true);
         newTag.setOnKeyPressed(k -> {
 
-            if (k.getCode().equals(KeyCode.ENTER)) { // #TODO add way to verify and update dynamically
+            if (k.getCode().equals(KeyCode.ENTER)) {
 
                 TagManager.add(newTag.getText());
                 independentTags(selectedTags, listView);
@@ -265,7 +292,14 @@ public class picGridController {
 
     }
 
-    // Only show the option of showing ImageFiles in or under directory if the parent directory has sub-folders
+    /**
+     * Give the user an option to view images in the parent directory or all images(including sub-directories)
+     * <p>
+     * If no sub-directory exists, the choice is not provided.
+     *
+     * @param subDirImageButtons record the user's choice of including images in the sub-directories
+     * @param pane A view consisting of images from a directory.
+     */
     public static void activateDirectoryFolders(ArrayList<Button> subDirImageButtons, FlowPane pane){
 
         if (subDirImageButtons.size() != 0) {

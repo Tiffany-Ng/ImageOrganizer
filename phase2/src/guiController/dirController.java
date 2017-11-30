@@ -9,12 +9,11 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
-/**  // TODO: change doc
- * A stage that pops up when dirChooser is called.
- * There are two usages, pass in only a Stage to select a directory to open. It will then lead to PicGridView for a list of ImageFiles to show.
- * Pass in a Stage, an ImageFile, and a Text to select a directory for the ImageFile to transfer to. It will also update the Text to show
- * the new directory.
- * Functionality of panes from: https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm Date: Nov 6, 2017
+/**
+ * Records all interactions of the user with the directory selector.
+ *<p>
+ * Interactions include: <br>
+ * - Selecting a directory of images
  *
  * @author Allan Chang 1003235983
  * @author Prynciss Ng 1003136091
@@ -22,8 +21,6 @@ import java.io.File;
  * @author Akshat Nigam 1002922732
  */
 public class dirController {
-
-
 
     /**
      * Lets user to choose a directory and then shows PicGridView.

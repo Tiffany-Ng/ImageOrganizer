@@ -287,3 +287,10 @@ Added JUnit tests for TagManager
 Person: Allan
 
 Moved subclasses of filter to seperate files
+
+#########
+#Log 39:
+
+Person: Allan
+
+Moved Added doctrines

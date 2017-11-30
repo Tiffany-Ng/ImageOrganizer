@@ -61,13 +61,29 @@ public class DirView {
      * <p>
      * Common cause: similar image already exists in the same directory.
      */
-    public static void imageMovingFailed(){
+    private static void imageMovingFailed(){
         // taken from http://code.makery.ch/blog/javafx-dialogs-official/
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Move Directory Error");
         alert.setHeaderText("Failed to move this image to " + directory.toString());
         alert.setContentText("The destination directory likely already contains another image named " + image.nameWithTags());
         alert.showAndWait();
+    }
+
+    /**
+     * Lets user to choose a directory and then moves the ImageFile to chosen directory.
+     * <p>
+     * Acts as an initiation for the GUI.
+     *
+     * @param currentStage the Stage that the user is in
+     * @param imageToMove  the ImageFile to move
+     * @param dirText      the Text to display the directory of the ImageFile
+     */
+    static void dirChooser(Stage currentStage, ImageFile imageToMove, Text dirText, ImageSceneView is) {
+        imageScene = is;
+        guiSetup(currentStage, true);
+        image = imageToMove;
+        directoryText = dirText;
     }
 
 
@@ -126,7 +142,7 @@ public class DirView {
         chooser.show();
     }
 
-    /** // TODO: unsure about this method, talk to Allan about it
+    /**
      * Sets the 'Go' button method according to if an ImageFile was passed when dirChooser is called.
      * If True, ImageFile will be moved to the selected directory.
      * If False, PicGridView will be shown.
@@ -176,21 +192,4 @@ public class DirView {
                 });
     }
 
-
-
-    /**
-     * Lets user to choose a directory and then moves the ImageFile to chosen directory.
-     * <p>
-     * Acts as an initiation for the GUI.
-     *
-     * @param currentStage the Stage that the user is in
-     * @param imageToMove  the ImageFile to move
-     * @param dirText      the Text to display the directory of the ImageFile
-     */
-    static void dirChooser(Stage currentStage, ImageFile imageToMove, Text dirText, ImageSceneView is) {
-        imageScene = is;
-        guiSetup(currentStage, true);
-        image = imageToMove;
-        directoryText = dirText;
-    }
 }

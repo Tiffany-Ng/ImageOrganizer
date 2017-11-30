@@ -22,14 +22,40 @@ import java.util.LinkedList;
 import java.util.Optional;
 import java.util.logging.Level;
 
+/**
+ * Manage all interactions of the user with an image
+ * <p>
+ * Actions include: <br>
+ * - choosing a filter for an image <br>
+ * - moving an image <br>
+ * - adding/deleting tags <br>
+ * - viewing directory of the image <br>
+ *
+ * @author Allan Chang 1003235983
+ * @author Prynciss Ng 1003136091
+ * @author Amarnath Parthiban 1003193518
+ * @author Akshat Nigam 1002922732
+ */
 public class imageSceneController {
 
+    /**
+     * A reference to the interface viewed by a user
+     */
     private static FlowPane flowLayout;
 
+    /**
+     * The image that a user has decided to view
+     */
     private static ImageFile image;
 
+    /**
+     * A collection of tags to be added the image
+     */
     private static ArrayList<String> tagsToAdd;
 
+    /**
+     * A collection of tags to be deleted from image
+     */
     private static ArrayList<String> tagsToDelete;
 
     /**
