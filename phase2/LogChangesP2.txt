@@ -281,3 +281,9 @@ Person: Allan
 
 Added JUnit tests for TagManager
 
+#########
+#Log 38:
+
+Person: Allan
+
+Moved subclasses of filter to seperate files
