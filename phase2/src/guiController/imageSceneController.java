@@ -444,7 +444,8 @@ public class imageSceneController {
                 if (up) {
                     move(directoryText, image.getDirectory().getParentFile());
                 } else {
-                    ArrayList<String> subDirectories = ImageManager.checkForSubDirectory(image.getDirectory().toString());
+                    ArrayList<String> subDirectories = new ArrayList<>();
+                    listAllSubDirectories(image.getDirectory().toString(), subDirectories);
 
                     if (subDirectories.size() > 1) {
 
@@ -458,13 +459,13 @@ public class imageSceneController {
                         //https://stackoverflow.com/questions/19762169/forward-slash-or-backslash Nov 29 2017
                         result.ifPresent(choice -> {
                             try {
-                                move(directoryText, new File(image.getDirectory() + System.getProperty("file.separator") + choice));
+                                move(directoryText, new File( choice));
                             } catch (IOException e1) {
                                 Main.logger.warning("Cannot move file");
                             }
                         });
                     } else if (subDirectories.size() == 1) {
-                        move(directoryText, new File(image.getDirectory() + System.getProperty("file.separator") + subDirectories.get(0)));
+                        move(directoryText, new File(subDirectories.get(0)));
                     } else
                         createAlert("Error - moving file", "Error!", "Cannot move file - target folder does not exist.");
 
@@ -493,6 +494,21 @@ public class imageSceneController {
                 createAlert("Error - moving file", "Error!", "Cannot move file - file with same name in targeted folder.");
             }
         }
+    }
+
+    // Cite: https://stackoverflow.com/questions/14676407/list-all-files-in-the-folder-and-also-sub-folders Date: Nov 30 2017
+    private static void listAllSubDirectories(String directoryName, ArrayList<String> files) {
+        File directory = new File(directoryName);
+
+        // get all the files from a directory
+        File[] listFiles = directory.listFiles();
+        if (listFiles != null && listFiles.length != 0)
+            for (File file : listFiles) {
+                if (file.isDirectory()) {
+                    files.add(file.toString());
+                    listAllSubDirectories(file.getAbsolutePath(), files);
+                }
+            }
     }
 
     /**

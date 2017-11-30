@@ -288,7 +288,7 @@ public class ImageSceneView {
 
         // button for opening the parent directory
         Button moveDown = new Button();
-        moveDown.setText("Move down one dir");
+        moveDown.setText("Move down dir");
         imageSceneController.moveFile(moveDown, false, dirText);
 
 

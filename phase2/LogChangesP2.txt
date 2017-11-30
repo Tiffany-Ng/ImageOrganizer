@@ -316,3 +316,10 @@ Changed formatting for buttons in ImageSceneView, added JUnit tests
 Person: Prynciss
 
 Created AlertBox for Edit Tags, added JUnit tests
+
+#########
+#Log 43:
+
+Person: Prynciss
+
+Modified move down dir button so user can use from all sub-folders
