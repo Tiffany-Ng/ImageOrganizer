@@ -8,3 +8,11 @@ Akshat Nigam
 	- Helped with implementation of image filters.
 	- Fixed quite a few bugs resulting from bad design.
 	- Implemented better design choices.
+
+Prynciss Ng:
+- Added .gitignore file
+- Implemented FilterStrategy interface and BlackAndWhiteFilter class, implemented in ImageFile
+- Open root/current directory folder based on os
+- JUnit tests
+- Move up one dir/move down sub-directories - backend/GUI
+- Created AlertBox for Edit Tags
