@@ -18,7 +18,7 @@ public class ManagerTest {
 
     @Test
     void emptyWhenCreatedTest(){
-        assertEquals(manager.getAll().size(), 0);
+        assertEquals(0, manager.getAll().size());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class ManagerTest {
         LinkedList<String> items = new LinkedList<>();
         items.add("1");
         items.add("2");
-        assertEquals(manager.getAll(), items);
+        assertEquals(items, manager.getAll());
     }
 
     @Test
@@ -53,6 +53,6 @@ public class ManagerTest {
         LinkedList<String> items = new LinkedList<>();
         items.add("1");
         items.add("2");
-        assertEquals(manager.getAll(), items);
+        assertEquals(items, manager.getAll());
     }
 }

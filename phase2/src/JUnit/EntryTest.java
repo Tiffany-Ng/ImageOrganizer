@@ -20,6 +20,6 @@ class EntryTest {
 
     @Test
     void toStringTest(){
-        assertEquals(entry.toString(), date.toString() + " - Entry message");
+        assertEquals(date.toString() + " - Entry message", entry.toString());
     }
 }

@@ -23,7 +23,7 @@ class LogTest {
         for(Entry ignored : log){
             logCount++;
         }
-        assertEquals(logCount, 0);
+        assertEquals(0, logCount);
     }
 
     @Test
@@ -31,7 +31,7 @@ class LogTest {
         Entry entryRaw = new Entry("Unit Test Message");
         log.addEntry(entryRaw);
         for(Entry entry : log){
-            assertEquals(entry, entryRaw);
+            assertEquals(entryRaw, entry);
         }
     }
 
@@ -47,9 +47,9 @@ class LogTest {
         }
         int counter = 0;
         for(Entry entry : log){
-            assertEquals(entry, entries.get(counter));
+            assertEquals(entries.get(counter), entry);
             counter++;
         }
-        assertEquals(counter, 4);
+        assertEquals(4, counter);
     }
 }

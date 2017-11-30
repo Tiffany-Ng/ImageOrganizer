@@ -274,4 +274,10 @@ Person: Allan
 
 Added JUnit tests for Log
 
+#########
+#Log 37:
+
+Person: Allan
+
+Added JUnit tests for TagManager
 
