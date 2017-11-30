@@ -9,17 +9,17 @@ import javafx.scene.image.ImageView;
 public class CustomFilter implements FilterStrategy{
 
     /**
-     * Apply a normal filter onto the image
+     * Apply a custom filter onto the image
+     *
      * @param imageView the image
      * @return the image with filter
      */
+    // Adapted from: https://stackoverflow.com/questions/43068319/how-to-create-javafx-16-bit-greyscale-images Date: Nov 21, 207
     @Override
     public ImageView applyFilter(ImageView imageView) {
-        // Adapted from: https://stackoverflow.com/questions/43068319/how-to-create-javafx-16-bit-greyscale-images Date: Nov 21, 207
 
         ColorAdjust colorAdjust = new ColorAdjust();
         imageView.setEffect(colorAdjust);
-
         return imageView;
     }
 
@@ -32,7 +32,7 @@ public class CustomFilter implements FilterStrategy{
      * @param saturation the saturation of the image. Max 1, min -1
      * @return the image with filter
      */
-    public ImageView applyFilter(ImageView imageView, double brightness, double contrast, double hue, double saturation) {
+    ImageView applyFilter(ImageView imageView, double brightness, double contrast, double hue, double saturation) {
         ColorAdjust colorAdjust = new ColorAdjust(hue, saturation, brightness, contrast);
         imageView.setEffect(colorAdjust);
 
