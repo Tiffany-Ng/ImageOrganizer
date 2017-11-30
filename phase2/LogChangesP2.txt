@@ -267,3 +267,11 @@ Person: Allan
 
 Added JUnit tests for Entry
 
+#########
+#Log 37:
+
+Person: Allan
+
+Added JUnit tests for Log
+
+

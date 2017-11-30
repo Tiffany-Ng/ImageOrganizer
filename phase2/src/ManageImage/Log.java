@@ -28,7 +28,7 @@ public class Log implements Iterable<Entry>, Serializable {
     /**
      * Construct a new Log.
      */
-    Log() {
+    public Log() {
 
         history = new ArrayList<>();
 
@@ -39,7 +39,7 @@ public class Log implements Iterable<Entry>, Serializable {
      *
      * @param e ManageImage.Entry
      */
-    void addEntry(Entry e) {
+    public void addEntry(Entry e) {
 
         history.add(e);
         addToText(e);
