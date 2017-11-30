@@ -16,3 +16,11 @@ Prynciss Ng:
 - JUnit tests
 - Move up one dir/move down sub-directories - backend/GUI
 - Created AlertBox for Edit Tags
+
+Amarnath Parthiban
+	- Independent Tags
+	- Unit Tests
+	- Implemented SceneManager
+	- Implemented FilterStrategy invertColours
+	- UML
+	- write log to a txt file
