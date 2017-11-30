@@ -477,11 +477,16 @@ public class ImageFile implements Serializable {
     }
 
     /**
-     * Returns the chosen directory by the user
+     * Modifies the imageView to apply CustomFilter
      *
-     * @return ImageView the ImageView after filter has been applied to it
-     */
-    public ImageView applyFilter(ImageView imageView, Slider brightness, Slider contrast, Slider hue, Slider saturation) {
+     * @param  imageView the imageView to apply the CustomFilter to
+     * @param brightness the brightness slider
+     * @param contrast the contrast slider
+     * @param hue the hue slider
+     * @param saturation the saturation slider
+     *
+     **/
+    public void applyFilter(ImageView imageView, Slider brightness, Slider contrast, Slider hue, Slider saturation) {
         if (inverted) {
             imageView.setImage(this.getImage());
         }
@@ -489,7 +494,7 @@ public class ImageFile implements Serializable {
         double contrastVal = contrast.getValue();
         double hueVal = hue.getValue();
         double saturationVal = saturation.getValue();
-        return ((CustomFilter) strategy).applyFilter(imageView, brightnessVal, contrastVal, hueVal, saturationVal);
+        ((CustomFilter) strategy).applyFilter(imageView, brightnessVal, contrastVal, hueVal, saturationVal);
 
 
     }

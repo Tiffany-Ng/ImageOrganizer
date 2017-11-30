@@ -58,6 +58,11 @@ public class PicGridView {
 
     }
 
+    /**
+     * Refreshes the PicGrid with the indicated directory.
+     *
+     * @param dir the the root directory the user is viewing
+     */
     void initialize(File dir) {
 
         PicGridView.dir = dir;
@@ -70,6 +75,7 @@ public class PicGridView {
     /**
      * Return a view of all images form a directory, onto the guiController
      *
+     * @param files the imageFiles that will be displayed as buttons
      * @return ArrayList an array list of all clickable image buttons
      */
     private static ArrayList<Button> gatherImages(ArrayList<ImageFile> files) {

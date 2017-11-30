@@ -7,12 +7,31 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Controls all the scenes in the program and switched between them without having to make new instances of each scene.
+ */
 public class SceneManager {
 
+    /**
+     * The main stage.
+     */
     private static Stage stage;
+
+    /**
+     * PicGrid object.
+     */
     private static PicGridView picGrid;
+
+    /**
+     * ImageView object.
+     */
     private static ImageSceneView imageScene;
 
+    /**
+     * Create a manager, to control changes in Scenes.
+     *
+     * @param stage main Stage
+     */
     SceneManager(Stage stage) {
 
         SceneManager.stage = stage;
@@ -21,6 +40,11 @@ public class SceneManager {
 
     }
 
+    /**
+     * Swap to the PicGrid.
+     *
+     * @param dir File
+     */
     static void swapToPicGrid(File dir) {
 
         stage.setMaximized(true);
@@ -32,6 +56,12 @@ public class SceneManager {
 
     }
 
+    /**
+     * Swap to the ImageScene.
+     *
+     * @param image ImageFile
+     * @param dir File
+     */
     public static void swapToImageScene(ImageFile image, File dir) {
 
         stage.setMaximized(true);
@@ -52,6 +82,9 @@ public class SceneManager {
 
     }
 
+    /**
+     * Brings up the directory chooser. Lets user choose a directory.
+     */
     void dirChooser() {
 
         dirController.dirChooser(stage);

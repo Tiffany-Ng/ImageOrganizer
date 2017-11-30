@@ -13,8 +13,7 @@ public interface FilterStrategy {
      * Apply filter onto an image.
      *
      * @param image an image before any filter
-     * @return a view of the image after a filter is applied
      */
-    ImageView applyFilter(ImageView image);
+    void applyFilter(ImageView image);
 }
 

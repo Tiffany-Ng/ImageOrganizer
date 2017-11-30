@@ -42,6 +42,11 @@ public class Log implements Iterable<Entry>, Serializable {
 
     }
 
+    /**
+     * Adds log to the log.txt.
+     *
+     * @param e ManageImage.Entry
+     */
     private static void addToText(Entry e) {
 
         // taken from https://stackoverflow.com/questions/1625234/how-to-append-text-to-an-existing-file-in-java

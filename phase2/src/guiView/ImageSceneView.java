@@ -116,11 +116,6 @@ public class ImageSceneView {
         imageScene = new Scene(g);
         this.directory = directory;
 
-        // cite: https://stackoverflow.com/questions/3680221/how-can-i-get-screen-resolution-in-java
-        // Rectangle screenSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
-        // prevScene.setX((screenSize.getWidth() - prevScene.getWidth()) / 2);
-        // prevScene.setY((screenSize.getHeight() - prevScene.getHeight()) / 2);
-        // prevScene.setResizable(false);
     }
 
 
@@ -251,7 +246,7 @@ public class ImageSceneView {
             File ad = image.getFile();
             try {
 
-               // BufferedImage b = SwingFXUtils.fromFXImage(icon.snapshot(writableImage), null);
+                // taken from: https://stackoverflow.com/questions/4386446/problem-using-imageio-write-jpg-file
                 ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null), "png", new File(ad.getParent() + "\\(Copy) " + ad.getName()));
 
             } catch (IOException e1) {
