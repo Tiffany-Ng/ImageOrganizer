@@ -148,7 +148,7 @@ public class ImageManager implements Serializable {
      * @param directory the path of the folder to search in.
      * @return The array list of names of sub-directories.
      */
-    public static ArrayList<String> checkForSubDirectory(String directory) {
+    private static ArrayList<String> checkForSubDirectory(String directory) {
 
         File folder = new File(directory);
         ArrayList<String> gatherSubDirectories = new ArrayList<>();
@@ -174,7 +174,7 @@ public class ImageManager implements Serializable {
      * @param directory the path of the folder to search in.
      * @return arrayList of all imageFiles(including those found in sub-directories).
      */
-    public static ArrayList<File> checkSubDirectories(String directory) {
+    private static ArrayList<File> checkSubDirectories(String directory) {
 
         // if no sub-directory, return findImages
         if (checkForSubDirectory(directory).isEmpty()) {
@@ -241,17 +241,6 @@ public class ImageManager implements Serializable {
         for (ImageFile file : list)
             file.removeTag(tag);
 
-    }
-
-    /**
-     * Add a tag from TagManager.tags and all ImageFiles containing that tag.
-     *
-     * @param tag The tag to add to TagManager.tags and ImageFiles
-     */
-    public static void addGlobalTag(String tag) {
-        ArrayList<ImageFile> list = getDisplayedFiles(PicGridView.getShowAll(), PicGridView.getDirectory());
-
-        for (ImageFile file : list) file.addTag(tag);
     }
 
     /**

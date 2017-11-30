@@ -60,14 +60,30 @@ class ImageManagerTest {
 
     @Test
     void createImagesFromDirectory() {
-    }
 
-    @Test
-    void deleteGlobalTag() {
-    }
 
-    @Test
-    void addGlobalTag() {
+        ArrayList<ImageFile> filesInDirectory = ImageManager.getImageFilesByDirectory(new File("src/JUnit/testImages"));
+        ArrayList<ImageFile> expectedFiles = new ArrayList<>();
+
+        try {
+            expectedFiles.add(new ImageFile(new File("src/JUnit/testImages/1.jpg")));
+            expectedFiles.add(new ImageFile(new File("src/JUnit/testImages/1copy.jpg")));
+            expectedFiles.add(new ImageFile(new File("src/JUnit/testImages/3.jpeg")));
+            expectedFiles.add(new ImageFile(new File("src/JUnit/testImages/3copy.jpeg")));
+            expectedFiles.add(new ImageFile(new File("src/JUnit/testImages/4.jpg")));
+            expectedFiles.add(new ImageFile(new File("src/JUnit/testImages/4copy.jpg")));
+            expectedFiles.add(new ImageFile(new File("src/JUnit/testImages/baby_snake_deadpan @snake @cute.jpg")));
+            expectedFiles.add(new ImageFile(new File("src/JUnit/testImages/filterJUnitTest.jpg")));
+            expectedFiles.add(new ImageFile(new File("src/JUnit/testImages/sub/pokemon.jpg")));
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(expectedFiles, filesInDirectory);
+
+
     }
 
 }
