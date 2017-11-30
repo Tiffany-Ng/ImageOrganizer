@@ -5,7 +5,6 @@ import ManageImage.ImageManager;
 import ManageImage.TagManager;
 import guiView.PicGridView;
 import guiView.SceneManager;
-import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;

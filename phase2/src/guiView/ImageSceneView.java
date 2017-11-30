@@ -23,7 +23,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.File;
 import java.util.ArrayList;
@@ -202,7 +201,7 @@ public class ImageSceneView {
                         "Invert",
                         "Custom"
                 );
-        ComboBox<String> comboBox = new ComboBox(options);
+        ComboBox<String> comboBox = new ComboBox<>(options);
         comboBox.setValue("Normal");
 
         HBox customFilter = new HBox();
@@ -316,7 +315,7 @@ public class ImageSceneView {
         Button changeDir = new Button();
         changeDir.setText("Change Directory");
         changeDir.setOnAction(
-                e -> DirView.dirChooser(prevScene, this.image, dirText, this));
+                e -> DirView.dirChooser(prevScene, this.image, dirText));
 
         HBox dir = new HBox();
         dir.boundsInParentProperty();

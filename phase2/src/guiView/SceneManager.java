@@ -13,7 +13,7 @@ public class SceneManager {
     private static PicGridView picGrid;
     private static ImageSceneView imageScene;
 
-    public SceneManager(Stage stage) {
+    SceneManager(Stage stage) {
 
         SceneManager.stage = stage;
         picGrid = new PicGridView(stage);
@@ -21,7 +21,7 @@ public class SceneManager {
 
     }
 
-    public static void swapToPicGrid(File dir) {
+    static void swapToPicGrid(File dir) {
 
         stage.setMaximized(true);
         stage.setWidth(1325);
@@ -52,7 +52,7 @@ public class SceneManager {
 
     }
 
-    public void dirChooser() {
+    void dirChooser() {
 
         dirController.dirChooser(stage);
 

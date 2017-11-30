@@ -301,7 +301,7 @@ public class imageSceneController {
      * cite : https://stackoverflow.com/questions/13880638/how-do-i-pick-up-the-enter-key-being-pressed-in-javafx2
      * rename the image to the name collected from the relevant texBox(on hitting enter)
      */
-    private static void renameImageFile(TextField name, TextArea log, ComboBox imageNames) {
+    private static void renameImageFile(TextField name, TextArea log, ComboBox<String> imageNames) {
 
         boolean success = image.rename(name.getText());
         imageSceneController.addClickableTags();
@@ -323,7 +323,7 @@ public class imageSceneController {
      * @param log          Recorder of all changes made by a user
      * @param imageNames   A collection of the previous names that the image has had.
      */
-    public static void changeToNewName(TextField imageNewName, TextArea log, ComboBox imageNames) {
+    public static void changeToNewName(TextField imageNewName, TextArea log, ComboBox<String> imageNames) {
         imageNewName.setOnKeyPressed(
                 k -> {
                     if (k.getCode().equals(KeyCode.ENTER)) {
@@ -340,7 +340,7 @@ public class imageSceneController {
      * @param log          Recorder of all changes made by a user
      * @param imageNames   A collection of the previous names that the image has had.
      */
-    public static void renameButtonClick(Button rename, TextField imageNewName, ComboBox imageNames, TextArea log) {
+    public static void renameButtonClick(Button rename, TextField imageNewName, ComboBox<String> imageNames, TextArea log) {
         rename.setOnAction(
                 e -> imageSceneController.renameImageFile(imageNewName, log, imageNames));
     }
@@ -417,7 +417,7 @@ public class imageSceneController {
      * @param imageNames   A collection of the previous names that the image has had
      * @param imageNewName The new name of the image, reflecting all changes made to the tags
      */
-    public static void updateTags(Button updateTags, TextArea log, ComboBox imageNames, TextField imageNewName) {
+    public static void updateTags(Button updateTags, TextArea log, ComboBox<String> imageNames, TextField imageNewName) {
         updateTags.setOnAction(e -> {
             image.addTag(tagsToAdd);
             image.removeTag(tagsToDelete);
@@ -450,7 +450,7 @@ public class imageSceneController {
                     if (subDirectories.size() > 1) {
 
                         // Adapted from: http://code.makery.ch/blog/javafx-dialogs-official/ Date: Nov 29 2017
-                        ChoiceDialog<String> dialog = new ChoiceDialog(subDirectories.get(0), subDirectories);
+                        ChoiceDialog<String> dialog = new ChoiceDialog<>(subDirectories.get(0), subDirectories);
                         dialog.setTitle("Choose a subdirectory");
                         dialog.setHeaderText("Look, a choice!");
                         dialog.setContentText("Choose your directory:");

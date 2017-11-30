@@ -1,10 +1,6 @@
 package ManageImage;
 
 import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -46,7 +42,7 @@ public class Log implements Iterable<Entry>, Serializable {
 
     }
 
-    public static void addToText(Entry e) {
+    private static void addToText(Entry e) {
 
         // taken from https://stackoverflow.com/questions/1625234/how-to-append-text-to-an-existing-file-in-java
         try(FileWriter fw = new FileWriter("log.txt", true);

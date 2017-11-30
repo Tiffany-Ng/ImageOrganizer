@@ -285,10 +285,9 @@ public class ImageFile implements Serializable {
      * <p>Precondition: tag does not contain " @". Images cannot have duplicate tags</p>
      *
      * @param tagList to add
-     * @return Indicates if the tag insertion was successful
      */
-    public boolean addTag(ArrayList<String> tagList) {
-        boolean success = false;
+    public void addTag(ArrayList<String> tagList) {
+        boolean success;
         if (tagList.size() != 0) {
             for (String tag : tagList) {
                 if (tag.contains(" @")) {
@@ -307,17 +306,15 @@ public class ImageFile implements Serializable {
                 priorNames.add(nameWithTags());
             }
         }
-        return success;
     }
 
     /**
      * Removes tag from image
      *
      * @param tag tag to remove
-     * @return Indicates if the tag removal was successful
      */
-    public boolean removeTag(String tag) {
-        boolean success = false;
+    public void removeTag(String tag) {
+        boolean success;
         if (tag.contains(tag)) {
             tags.remove(tag);
             // TagManager.remove(tag);
@@ -327,17 +324,15 @@ public class ImageFile implements Serializable {
                 priorNames.add(nameWithTags());
             }
         }
-        return success;
     }
 
     /**
      * Removes tag from image
      *
      * @param tagList tag to remove
-     * @return Indicates if the tag removal was successful
      */
-    public boolean removeTag(ArrayList<String> tagList) {
-        boolean success = false;
+    public void removeTag(ArrayList<String> tagList) {
+        boolean success;
         if(tagList.size() != 0) {
             for (String tag : tagList) {
                 if (tag.contains(tag)) {
@@ -353,7 +348,6 @@ public class ImageFile implements Serializable {
                 priorNames.add(nameWithTags());
             }
         }
-        return success;
     }
 
     /**
@@ -365,10 +359,8 @@ public class ImageFile implements Serializable {
     private boolean updateFile(String logMessage) {
         String oldName = imageFile.getName();
         File newImageFile = createLocation();
-        boolean success;
-        if(newImageFile.exists()){
-            success = false;
-        }else{
+        boolean success = false;
+        if(!newImageFile.exists()){
             success = imageFile.renameTo(newImageFile);
         }
         String newName = newImageFile.getName();
@@ -470,9 +462,9 @@ public class ImageFile implements Serializable {
     /**
      * Returns the chosen directory by the user
      *
-     * @return ImageView the ImageView after filter has been applied to it
+     * @param imageView the imageView to apply the filter
      */
-    public ImageView applyFilter(ImageView imageView) {
+    public void applyFilter(ImageView imageView) {
         if (inverted) {
             imageView.setImage(this.getImage());
         }
@@ -480,7 +472,7 @@ public class ImageFile implements Serializable {
         if (strategy instanceof InvertColoursFilter) {
             inverted = true;
         }
-        return strategy.applyFilter(imageView);
+        strategy.applyFilter(imageView);
 
     }
 

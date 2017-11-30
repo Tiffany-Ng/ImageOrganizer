@@ -1,10 +1,6 @@
 package ManageImage;
 
-import guiView.Main;
-
-import java.io.*;
 import java.util.LinkedList;
-import java.util.logging.Level;
 
 /**
  * TagManager represents a pool of unique tags

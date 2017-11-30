@@ -38,13 +38,6 @@ public class DirView {
      */
     private static ImageFile image;
 
-
-    /**
-     * Scene of the image selected
-     */
-    private static ImageSceneView imageScene;
-
-
     /**
      * Text that displays the directory of the ImageFile
      */
@@ -79,8 +72,7 @@ public class DirView {
      * @param imageToMove  the ImageFile to move
      * @param dirText      the Text to display the directory of the ImageFile
      */
-    static void dirChooser(Stage currentStage, ImageFile imageToMove, Text dirText, ImageSceneView is) {
-        imageScene = is;
+    static void dirChooser(Stage currentStage, ImageFile imageToMove, Text dirText) {
         guiSetup(currentStage, true);
         image = imageToMove;
         directoryText = dirText;

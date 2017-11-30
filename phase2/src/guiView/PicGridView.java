@@ -52,13 +52,13 @@ public class PicGridView {
      */
     private ArrayList<Button> subDirImageButtons = new ArrayList<>();
 
-    public PicGridView(Stage currentStg) {
+    PicGridView(Stage currentStg) {
 
         PicGridView.currentStg = currentStg;
 
     }
 
-    public void initialize(File dir) {
+    void initialize(File dir) {
 
         PicGridView.dir = dir;
         imageButtons = gatherImages(ImageManager.getImageFilesInParentDirectory(dir));
@@ -107,7 +107,7 @@ public class PicGridView {
      * Functionality of panes from: https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm Date:  Nov 9, 2017
      */
 
-    public void picGrid() {
+    void picGrid() {
 
         currentStg.setTitle("Image Viewer - List images");
 
