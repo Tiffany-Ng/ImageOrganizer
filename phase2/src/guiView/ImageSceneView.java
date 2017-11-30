@@ -3,22 +3,27 @@ package guiView;
 import guiController.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.*;
 
 import ManageImage.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.File;
 import java.util.ArrayList;
@@ -241,8 +246,23 @@ public class ImageSceneView {
             image.applyFilter(icon);
         });
 
+        Button saveImageAs = new Button("Save Copy");
+        saveImageAs.setOnAction(e -> {
+            WritableImage writableImage = icon.snapshot(new SnapshotParameters(), null);
+            File ad = image.getFile();
+            try {
+
+               // BufferedImage b = SwingFXUtils.fromFXImage(icon.snapshot(writableImage), null);
+                ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null), "png", new File(ad.getParent() + "\\(Copy) " + ad.getName()));
+
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+        });
+
         HBox imageName = new HBox();
-        imageName.getChildren().addAll(imageNewName, rename, imageNames, revertName, comboBox);
+        imageName.getChildren().addAll(imageNewName, rename, imageNames, revertName, comboBox, saveImageAs);
         imageName.setSpacing(5.0);
         layout.add(customFilter, 1, 2, 1, 1);
         layout.add(imageName, 1, 0, 1, 1);
