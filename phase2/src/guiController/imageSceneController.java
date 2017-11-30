@@ -1,13 +1,13 @@
 package guiController;
 
 import ManageImage.*;
-import guiView.DirView;
 import guiView.ImageSceneView;
 import guiView.Main;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
@@ -57,6 +57,79 @@ public class imageSceneController {
      * A collection of tags to be deleted from image
      */
     private static ArrayList<String> tagsToDelete;
+
+    /**
+     * The hue of the customFilter
+     */
+    private static Slider hue;
+
+    /**
+     * The contrast of the customFilter
+     */
+    private static Slider contrast;
+
+    /**
+     * The brightness of the customFilter
+     */
+    private static Slider brightness;
+
+    /**
+     * The saturation of the customFilter
+     */
+    private static Slider saturation;
+
+
+    /**
+     * image in form of a viewable icon
+     */
+    private static ImageView icon;
+
+
+    /**
+     * setter for the custom image filter (hue setting)
+     *
+     * @param hue Slide setting selected by the user for image's hue
+     */
+    public static void setHue(Slider hue) {
+        imageSceneController.hue = hue;
+    }
+
+    /**
+     * setter for the custom image filter (contrast setting)
+     *
+     * @param contrast Slide setting selected by the user for image's contrast
+     */
+    public static void setContrast(Slider contrast) {
+        imageSceneController.contrast = contrast;
+    }
+
+    /**
+     * setter for the custom image filter (brightness setting)
+     *
+     * @param brightness Slide setting selected by the user for image's brightness
+     */
+    public static void setBrightness(Slider brightness) {
+        imageSceneController.brightness = brightness;
+    }
+
+    /**
+     * setter for the custom image filter (saturation setting)
+     *
+     * @param saturation Slide setting selected by the user for image's saturation
+     */
+    public static void setSaturation(Slider saturation) {
+        imageSceneController.saturation = saturation;
+    }
+
+    /**
+     * Setter for the an image's icon reference
+     *
+     * @param icon An icon reference of the image
+     */
+    public static void setIcon(ImageView icon) {
+        imageSceneController.icon = icon;
+    }
+
 
     /**
      * Setter for the tags to be deleted from an image
@@ -424,6 +497,25 @@ public class imageSceneController {
                 createAlert("Error - moving file", "Error!", "Cannot move file - file with same name in targeted folder.");
             }
         }
+    }
+
+    public static void customImageFilter(){
+        contrast.valueProperty().addListener(e -> {
+            image.applyFilter(icon, brightness, contrast, hue, saturation);
+        });
+
+        saturation.valueProperty().addListener(e -> {
+            image.applyFilter(icon, brightness, contrast, hue, saturation);
+        });
+
+        brightness.valueProperty().addListener(e -> {
+            image.applyFilter(icon, brightness, contrast, hue, saturation);
+        });
+
+
+        hue.valueProperty().addListener(e -> {
+            image.applyFilter(icon, brightness, contrast, hue, saturation);
+        });
     }
 
 

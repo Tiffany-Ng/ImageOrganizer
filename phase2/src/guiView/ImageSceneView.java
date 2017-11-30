@@ -56,7 +56,7 @@ public class ImageSceneView {
     /**
      * Pane to hold clickable tags.
      */
-    private FlowPane f;
+    private FlowPane pane;
 
     /**
      * The directory that the user first opened
@@ -226,30 +226,32 @@ public class ImageSceneView {
         comboBox.setValue("Normal");
 
         HBox customFilter = new HBox();
+
         Text hueText = new Text("Hue:");
         hue = new Slider(-1, 1, 0);
-        hue.valueProperty().addListener(e -> {
-            image.applyFilter(icon, brightness, contrast, hue, saturation);
-        });
-        customFilter.getChildren().addAll(hueText, hue);
+
         Text brightnessText = new Text("Brightness:");
         brightness = new Slider(-1, 1, 0);
-        brightness.valueProperty().addListener(e -> {
-            image.applyFilter(icon, brightness, contrast, hue, saturation);
-        });
-        customFilter.getChildren().addAll(brightnessText, brightness);
+
         Text saturationText = new Text("Saturation:");
         saturation = new Slider(-1, 1, 0);
-        saturation.valueProperty().addListener(e -> {
-            image.applyFilter(icon, brightness, contrast, hue, saturation);
-        });
-        customFilter.getChildren().addAll(saturationText, saturation);
+
         Text contrastText = new Text("Contrast:");
         contrast = new Slider(-1, 1, 0);
-        contrast.valueProperty().addListener(e -> {
-            image.applyFilter(icon, brightness, contrast, hue, saturation);
-        });
+
+        imageSceneController.setIcon(icon);
+        imageSceneController.setHue(hue);
+        imageSceneController.setBrightness(brightness);
+        imageSceneController.setContrast(contrast);
+        imageSceneController.setSaturation(saturation);
+
+        imageSceneController.customImageFilter();
+
+        customFilter.getChildren().addAll(hueText, hue);
+        customFilter.getChildren().addAll(brightnessText, brightness);
+        customFilter.getChildren().addAll(saturationText, saturation);
         customFilter.getChildren().addAll(contrastText, contrast);
+
         customFilter.setVisible(false);
 
         //cite: https://stackoverflow.com/questions/41323945/javafx-combobox-add-listener-on-selected-item-value Nov 25, 2017
@@ -353,14 +355,14 @@ public class ImageSceneView {
 
         tagBox.getChildren().add(updateTags);
 
-        f = new FlowPane(Orientation.VERTICAL, 7, 5);
-        imageSceneController.setFlowLayout(f);
-        f.setPadding(new Insets(5));
-        f.setPrefHeight(480 / 2.5);
-        f = imageSceneController.addClickableTags();
+        pane = new FlowPane(Orientation.VERTICAL, 7, 5);
+        imageSceneController.setFlowLayout(pane);
+        pane.setPadding(new Insets(5));
+        pane.setPrefHeight(480 / 2.5);
+        pane = imageSceneController.addClickableTags();
 
 
-        flow.getChildren().add(new ScrollPane(f));
+        flow.getChildren().add(new ScrollPane(pane));
 
         imageSceneController.updateLog(log);
 

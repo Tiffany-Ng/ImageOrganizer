@@ -294,3 +294,17 @@ Moved subclasses of filter to seperate files
 Person: Allan
 
 Moved Added doctrines
+
+#########
+#Log 40:
+
+Person: Akshat
+
+Added extensive docstrings
+
+#########
+#Log 41:
+
+Person: Akshat
+
+Changed method implementation of custom image filter in controller.
