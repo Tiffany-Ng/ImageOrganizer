@@ -259,3 +259,11 @@ Added JUnit tests in ImageFileTest.
 Person: Allan
 
 Added JUnit tests for Manager
+
+#########
+#Log 37:
+
+Person: Allan
+
+Added JUnit tests for Entry
+

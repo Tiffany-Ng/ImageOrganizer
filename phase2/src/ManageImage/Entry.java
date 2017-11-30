@@ -28,7 +28,7 @@ public class Entry implements Serializable {
      *
      * @param entryName String
      */
-    Entry(String entryName) {
+    public Entry(String entryName) {
 
         this.entryName = entryName;
         this.currDate = new Date();
