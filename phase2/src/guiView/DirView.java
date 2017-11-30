@@ -158,9 +158,11 @@ public class DirView {
         button.setOnAction(
                 e -> {
                     directory = new File(dirTextField.getText());
+                    // If there is a file to move
                     if (file) {
                         if (directory.isDirectory()) {
 
+                            // Move image to indicated directory
                             try {
                                 boolean success = image.move(directory);
                                 directoryText.setText(image.getDirectory().toString());
@@ -178,6 +180,7 @@ public class DirView {
                             error.setVisible(true);
                         }
                     } else {
+                        // No file to move, meaning choosing a directory to open PicGrid
                         if (directory.isDirectory()) {
                             ImageManager.createImagesFromDirectory( directory.toString());
 

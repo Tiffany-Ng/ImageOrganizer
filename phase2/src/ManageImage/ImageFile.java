@@ -288,7 +288,7 @@ public class ImageFile implements Serializable {
      * @return Indicates if the tag insertion was successful
      */
     public boolean addTag(ArrayList<String> tagList) {
-        boolean success = false;
+        boolean success;
         for (String tag : tagList) {
             if (tag.contains(" @")) {
                 Main.logger.log(
@@ -335,7 +335,7 @@ public class ImageFile implements Serializable {
      * @return Indicates if the tag removal was successful
      */
     public boolean removeTag(ArrayList<String> tagList) {
-        boolean success = false;
+        boolean success;
         for (String tag : tagList) {
             if (tag.contains(tag)) {
                 tags.remove(tag);

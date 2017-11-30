@@ -302,3 +302,10 @@ Added extensive docstrings
 Person: Akshat
 
 Changed method implementation of custom image filter in controller.
+
+#########
+#Log 41:
+
+Person: Prynciss
+
+Changed formatting for buttons in ImageSceneView, added JUnit tests

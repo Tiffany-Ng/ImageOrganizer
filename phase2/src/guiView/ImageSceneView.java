@@ -100,7 +100,7 @@ public class ImageSceneView {
      * @param directory Location of the file containing images
      * @throws IOException Case when invalid directory
      */
-     void initialize(ImageFile image, File directory) throws IOException {
+    void initialize(ImageFile image, File directory) throws IOException {
 
         this.image = image;
         log = new TextArea();
@@ -268,9 +268,8 @@ public class ImageSceneView {
         // image directory
         Text dirText = new Text();
         // Retrieved from: https://stackoverflow.com/questions/12737829/javafx-textfield-resize-to-text-length Date: Nov 21, 2017
-        dirText.setWrappingWidth(480);
+        dirText.setWrappingWidth(250);
         dirText.setText(image.getDirectory().toString());
-        flow.getChildren().add(dirText);
 
         // button for opening the directory
         Button openImgDir = new Button();
@@ -304,13 +303,21 @@ public class ImageSceneView {
         dir.setMaxWidth(flow.getMaxWidth());
         dir.setSpacing(8.0);
 
-        dir.getChildren().addAll(openImgDir, openParentImgDir, changeDir, moveUp, moveDown);
+        dir.getChildren().addAll(dirText, openImgDir, openParentImgDir);
         changeDir.setAlignment(Pos.BASELINE_CENTER);
 
         // nested panes implemented from
         // https://stackoverflow.com/questions/33339427/javafx-have-multiple-panes-in-one-scene
         flow.getChildren().add(dir);
         flow.setAlignment(Pos.CENTER_LEFT);
+
+        HBox moveDir = new HBox();
+        moveDir.boundsInParentProperty();
+        moveDir.setMaxWidth(flow.getMaxWidth());
+        moveDir.setSpacing(8.0);
+
+        moveDir.getChildren().addAll(changeDir, moveUp, moveDown);
+        flow.getChildren().add(moveDir);
 
         //https://docs.oracle.com/javafx/2/ui_controls/text-field.htm
         TextField newTag = new TextField();
