@@ -309,3 +309,10 @@ Changed method implementation of custom image filter in controller.
 Person: Prynciss
 
 Changed formatting for buttons in ImageSceneView, added JUnit tests
+
+#########
+#Log 42:
+
+Person: Prynciss
+
+Created AlertBox for Edit Tags, added JUnit tests

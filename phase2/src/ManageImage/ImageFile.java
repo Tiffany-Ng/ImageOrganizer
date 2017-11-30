@@ -288,22 +288,24 @@ public class ImageFile implements Serializable {
      * @return Indicates if the tag insertion was successful
      */
     public boolean addTag(ArrayList<String> tagList) {
-        boolean success;
-        for (String tag : tagList) {
-            if (tag.contains(" @")) {
-                Main.logger.log(
-                        Level.SEVERE, "Invalid tag name", new InvalidNameException("Tag contains \" @\""));
-            } else if (!tags.contains(tag)) {
-                tags.add(tag);
+        boolean success = false;
+        if (tagList.size() != 0) {
+            for (String tag : tagList) {
+                if (tag.contains(" @")) {
+                    Main.logger.log(
+                            Level.SEVERE, "Invalid tag name", new InvalidNameException("Tag contains \" @\""));
+                } else if (!tags.contains(tag)) {
+                    tags.add(tag);
 
-                if (!TagManager.getTags().contains(tag)) TagManager.add(tag);
+                    if (!TagManager.getTags().contains(tag)) TagManager.add(tag);
+                }
             }
-        }
 
-        success = updateFile("Added tags \"" + tagList.toString() + "\" to image \"" + name + "\"");
-        if (success) {
-            priorNames.remove(nameWithTags());
-            priorNames.add(nameWithTags());
+            success = updateFile("Added tags \"" + tagList.toString() + "\" to image \"" + name + "\"");
+            if (success) {
+                priorNames.remove(nameWithTags());
+                priorNames.add(nameWithTags());
+            }
         }
         return success;
     }
@@ -335,19 +337,21 @@ public class ImageFile implements Serializable {
      * @return Indicates if the tag removal was successful
      */
     public boolean removeTag(ArrayList<String> tagList) {
-        boolean success;
-        for (String tag : tagList) {
-            if (tag.contains(tag)) {
-                tags.remove(tag);
-                // TagManager.remove(tag);
+        boolean success = false;
+        if(tagList.size() != 0) {
+            for (String tag : tagList) {
+                if (tag.contains(tag)) {
+                    tags.remove(tag);
+                    // TagManager.remove(tag);
 
+                }
             }
-        }
 
-        success = updateFile("Removed tags \"" + tagList.toString() + "\" from image \"" + name + "\"");
-        if (success) {
-            priorNames.remove(nameWithTags());
-            priorNames.add(nameWithTags());
+            success = updateFile("Removed tags \"" + tagList.toString() + "\" from image \"" + name + "\"");
+            if (success) {
+                priorNames.remove(nameWithTags());
+                priorNames.add(nameWithTags());
+            }
         }
         return success;
     }

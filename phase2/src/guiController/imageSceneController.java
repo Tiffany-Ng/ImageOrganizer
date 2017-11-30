@@ -419,10 +419,8 @@ public class imageSceneController {
      */
     public static void updateTags(Button updateTags, TextArea log, ComboBox imageNames, TextField imageNewName) {
         updateTags.setOnAction(e -> {
-            if (tagsToAdd.size() != 0)
-                image.addTag(tagsToAdd);
-            if (tagsToDelete.size() != 0)
-                image.removeTag(tagsToDelete);
+            image.addTag(tagsToAdd);
+            image.removeTag(tagsToDelete);
 
             imageSceneController.addClickableTags();
             imageSceneController.updateLog(log);
@@ -436,9 +434,9 @@ public class imageSceneController {
     /**
      * Moves the ImageFile up or down one directory
      *
-     * @param moveBtn the Button to set the action to
-     * @param  up if the user chose to move the file up one directory
-     *  @param  directoryText the Text display of the directory of the image
+     * @param moveBtn       the Button to set the action to
+     * @param up            if the user chose to move the file up one directory
+     * @param directoryText the Text display of the directory of the image
      */
     public static void moveFile(Button moveBtn, boolean up, Text directoryText) throws IOException {
         moveBtn.setOnAction(e -> {
@@ -481,8 +479,8 @@ public class imageSceneController {
     /**
      * Moves the ImageFile to the indicated directory
      *
-     *  @param  directoryText the Text display of the directory of the image
-     *  @param  directory the directory to move the image to
+     * @param directoryText the Text display of the directory of the image
+     * @param directory     the directory to move the image to
      */
     private static void move(Text directoryText, File directory) throws IOException {
         if (directory == null)
@@ -502,8 +500,8 @@ public class imageSceneController {
      * <p>
      * Images can be transformed based on : brightness, contrast, saturation, hue
      */
-    public static void customImageFilter(){
-        contrast.valueProperty().addListener (e -> image.applyFilter(icon, brightness, contrast, hue, saturation));
+    public static void customImageFilter() {
+        contrast.valueProperty().addListener(e -> image.applyFilter(icon, brightness, contrast, hue, saturation));
 
         saturation.valueProperty().addListener(e -> image.applyFilter(icon, brightness, contrast, hue, saturation));
 

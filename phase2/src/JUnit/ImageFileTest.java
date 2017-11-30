@@ -119,7 +119,18 @@ class ImageFileTest {
         }
 
         @org.junit.jupiter.api.Test
-        void removeMultipleTags() {
+        void addNoTags() {
+            // https://stackoverflow.com/questions/21696784/how-to-declare-an-arraylist-with-values Date: Nov 29 2017
+            ArrayList<String> toAdd = new ArrayList<>();
+
+            imageFile.addTag(toAdd);
+            ArrayList tags = imageFile.getTags();
+            ArrayList<String> expectedTags = new ArrayList<>();
+            assertEquals(expectedTags, tags);
+        }
+
+        @org.junit.jupiter.api.Test
+        void removeTags() {
             imageFile.addTag("Tiger");
             imageFile.addTag("Cool");
             imageFile.removeTag("Tiger");
@@ -131,13 +142,26 @@ class ImageFileTest {
         }
 
         @org.junit.jupiter.api.Test
-        void removeTag1() {
+        void removeMultipleTag() {
             imageFile.addTag(new ArrayList<>(Arrays.asList("Snow", "Wild", "Awesome")));
             imageFile.removeTag(new ArrayList<>(Arrays.asList("Snow", "Awesome")));
 
             ArrayList tags = imageFile.getTags();
             ArrayList<String> expectedTags = new ArrayList<>();
             expectedTags.add("Wild");
+
+            assertEquals(expectedTags, tags);
+
+        }
+
+        @org.junit.jupiter.api.Test
+        void removeNoTag() {
+            imageFile.addTag(new ArrayList<>(Arrays.asList("Snow", "Wild", "Awesome")));
+            imageFile.removeTag(new ArrayList<>());
+
+            ArrayList tags = imageFile.getTags();
+            ArrayList<String> expectedTags = new ArrayList<>();
+            expectedTags.addAll(Arrays.asList("Snow", "Wild", "Awesome"));
 
             assertEquals(expectedTags, tags);
 

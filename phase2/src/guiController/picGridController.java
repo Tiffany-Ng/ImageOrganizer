@@ -36,7 +36,7 @@ public class picGridController {
     /**
      * Manage a user's interaction with tags for a particular/all images
      *
-     * @param dir directory of the image file
+     * @param dir     directory of the image file
      * @param showAll Allows the view of all images in both parent/sub-directory
      */
     public static void independentTags(File dir, Boolean showAll) {
@@ -56,7 +56,7 @@ public class picGridController {
         g.add(listView, 1, 1, 1, 1);
 
         ArrayList<ImageFile> images;
-        if(showAll)
+        if (showAll)
             images = ImageManager.getImageFilesByDirectory(dir);
         else
             images = ImageManager.getImageFilesInParentDirectory(dir);
@@ -77,9 +77,7 @@ public class picGridController {
 
                 }
 
-            }
-
-            else {
+            } else {
 
                 imageSelected.removeAll(images);
                 for (CheckBox check : imageCheckBox) {
@@ -96,11 +94,11 @@ public class picGridController {
             CheckBox checkBox = new CheckBox(image.getName());
             imageCheckBox.add(checkBox);
 
-            checkBox.setOnAction(e ->{
+            checkBox.setOnAction(e -> {
 
                 ImageFile currImage = images.get(imageCheckBox.indexOf(checkBox));
 
-                if(checkBox.isSelected())
+                if (checkBox.isSelected())
                     imageSelected.add(currImage);
 
                 else
@@ -119,20 +117,19 @@ public class picGridController {
         add.setTooltip(new Tooltip("Add selected tags to selected images."));
         add.setMaxWidth(Double.MAX_VALUE);
 
-        add.setOnAction(e ->  {
+        add.setOnAction(e -> {
 
-            if (!imageSelected.isEmpty()) {
+            if (imageSelected.isEmpty() || selectedTags.isEmpty()) {
+                createAlert(false);
+            } else {
 
                 for (ImageFile i : imageSelected) {
 
                     i.addTag(selectedTags);
 
                 }
+                deselect(imageCheckBox, listView);
             }
-
-
-            deselect(imageCheckBox, listView);
-
 
         });
 
@@ -140,34 +137,41 @@ public class picGridController {
         Button remove = new Button("Remove from");
         remove.setTooltip(new Tooltip("Remove selected tags from selected images."));
         remove.setOnAction(e -> {
-
-            if (!imageSelected.isEmpty()) {
+            if (imageSelected.isEmpty() || selectedTags.isEmpty()) {
+                createAlert(false);
+            } else {
 
                 for (ImageFile i : imageSelected) {
 
                     i.removeTag(selectedTags);
 
                 }
+                deselect(imageCheckBox, listView);
             }
-
-            deselect(imageCheckBox, listView);
 
         });
 
-        Button deleteTags = new Button("Delete Tags");
+        Button deleteTags = new Button("Independently Delete Tags");
         deleteTags.setTooltip(new Tooltip("Remove selected tags permanently."));
-        deleteTags.setMaxWidth(Double.MAX_VALUE);
+        deleteTags.setMaxWidth(100);
+        deleteTags.setAlignment(Pos.BASELINE_CENTER);
+        // cite: https://stackoverflow.com/questions/27295505/javafx-button-with-multiple-text-lines Date: Nov 30 2017
+        deleteTags.wrapTextProperty().setValue(true);
 
         deleteTags.setOnAction(e -> {
             if (!selectedTags.isEmpty()) {
                 for (String tag : selectedTags)
                     ImageManager.deleteGlobalTag(tag);
-            }
-            TagManager.getTags().removeAll(selectedTags);
-            selectedTags.clear();
-            independentTags(selectedTags, listView);
 
-            deselect(imageCheckBox, listView);
+                TagManager.getTags().removeAll(selectedTags);
+                selectedTags.clear();
+                independentTags(selectedTags, listView);
+
+                deselect(imageCheckBox, listView);
+            } else {
+                createAlert(true);
+            }
+
 
         });
 
@@ -193,7 +197,7 @@ public class picGridController {
      * Changes made to the tags will not be reflected onto the deselected image
      *
      * @param imageCheckBox Gives user a choice to reflect tag changes onto image
-     * @param listView A list of possible image choices
+     * @param listView      A list of possible image choices
      */
     private static void deselect(ArrayList<CheckBox> imageCheckBox, ListView<HBox> listView) {
 
@@ -206,7 +210,7 @@ public class picGridController {
     }
 
     // TODO: add docstring
-    private static void independentTags(ArrayList<String> selectedTags,  ListView<HBox> listView ) {
+    private static void independentTags(ArrayList<String> selectedTags, ListView<HBox> listView) {
 
         listView.getItems().clear();
         LinkedList<String> tags = TagManager.getTags();
@@ -218,11 +222,11 @@ public class picGridController {
             v.getChildren().add(checkBox);
             tagCheckBox.add(v);
 
-            checkBox.setOnAction(e ->{
+            checkBox.setOnAction(e -> {
 
                 String currTag = checkBox.getText();
 
-                if(checkBox.isSelected())
+                if (checkBox.isSelected())
                     selectedTags.add(currTag);
 
                 else
@@ -245,9 +249,7 @@ public class picGridController {
 
                 }
 
-            }
-
-            else {
+            } else {
 
                 selectedTags.removeAll(tags);
                 for (HBox hBox : tagCheckBox) {
@@ -277,8 +279,10 @@ public class picGridController {
         add.setTooltip(new Tooltip("Create new tag."));
         add.setOnAction(e -> {
 
-            TagManager.add(newTag.getText());
-            independentTags(selectedTags, listView);
+            if(newTag.getText() != null) {
+                TagManager.add(newTag.getText());
+                independentTags(selectedTags, listView);
+            }
 
         });
 
@@ -298,13 +302,13 @@ public class picGridController {
      * If no sub-directory exists, the choice is not provided.
      *
      * @param subDirImageButtons record the user's choice of including images in the sub-directories
-     * @param pane A view consisting of images from a directory.
+     * @param pane               A view consisting of images from a directory.
      */
-    public static void activateDirectoryFolders(ArrayList<Button> subDirImageButtons, FlowPane pane){
-
+    public static void activateDirectoryFolders(ArrayList<Button> subDirImageButtons, FlowPane pane) {
         if (subDirImageButtons.size() != 0) {
             Button show;
-            if (!PicGridView.showAll) show = new Button("Press to show all images under this directory (includes subfolder)");
+            if (!PicGridView.showAll)
+                show = new Button("Press to show all images under this directory (includes subfolder)");
             else show = new Button("Press to show images in this directory (only parent folder)");
 
             show.setOnAction(
@@ -328,14 +332,11 @@ public class picGridController {
      * Open up an image that a user has selected.
      *
      * @param viewImage Records the user's action to view the image
-     * @param img The image file that will be opened
-     * @param dir The directory(path) of the image that will be opened
+     * @param img       The image file that will be opened
+     * @param dir       The directory(path) of the image that will be opened
      */
-    public static void viewImage(Button viewImage, ImageFile img, File dir){
-        viewImage.setOnAction(
-                e -> {
-                    SceneManager.swapToImageScene(img, dir);
-                });
+    public static void viewImage(Button viewImage, ImageFile img, File dir) {
+        viewImage.setOnAction(e -> SceneManager.swapToImageScene(img, dir));
     }
 
 
@@ -343,11 +344,31 @@ public class picGridController {
      * Open up a new set of images from a user selected directory path.
      *
      * @param chooseDirectory Records the user's action to view a new directory of images
-     * @param currentStg A reference to the current GUI scene.
+     * @param currentStg      A reference to the current GUI scene.
      */
-    public static void chooseNewDir(Button chooseDirectory, Stage currentStg){
+    public static void chooseNewDir(Button chooseDirectory, Stage currentStg) {
         chooseDirectory.setOnAction(e -> dirController.dirChooser(currentStg));
 
+    }
+
+    /**
+     * Create an Alert for when no image is selected.
+     *
+     * @param tagOnly if the alertBox is for only not selecting tag
+     */
+    private static void createAlert(boolean tagOnly) {
+        String image = "";
+        String oneImage = "";
+        if(!tagOnly){
+            image = "image/";
+            oneImage = "and one image";
+        }
+        // taken from http://code.makery.ch/blog/javafx-dialogs-official/
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error!");
+        alert.setHeaderText("No " + image +"tag selected");
+        alert.setContentText("Please select at least one tag "+ oneImage + " for this operation.");
+        alert.showAndWait();
     }
 
 }
