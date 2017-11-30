@@ -253,3 +253,9 @@ Person: Prynciss
 
 Added JUnit tests in ImageFileTest.
 
+#########
+#Log 36:
+
+Person: Allan
+
+Added JUnit tests for Manager

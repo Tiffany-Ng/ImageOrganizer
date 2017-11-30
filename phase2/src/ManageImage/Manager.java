@@ -11,7 +11,7 @@ import java.util.logging.Level;
  *
  * @param <T> The type of items to be stored
  */
-public abstract class Manager<T> implements Serializable {
+public class Manager<T> implements Serializable {
 
     /**
      * the stored items
@@ -91,7 +91,7 @@ public abstract class Manager<T> implements Serializable {
      * @param item the added item
      * @return indicates if the item was added
      */
-    boolean add(T item) {
+    public boolean add(T item) {
         if (!items.contains(item)) {
             items.add(item);
             return true;
