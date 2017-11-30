@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ManagerTest {
+class ManagerTest {
 
     private Manager<String> manager;
 

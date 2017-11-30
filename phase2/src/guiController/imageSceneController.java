@@ -432,7 +432,7 @@ public class imageSceneController {
     }
 
     /**
-     * Moves the ImageFile up or down one directory
+     * Moves the ImageFile up one directory or down into sub-directories (has choice if there are more than one sub-directory)
      *
      * @param moveBtn       the Button to set the action to
      * @param up            if the user chose to move the file up one directory
@@ -496,6 +496,12 @@ public class imageSceneController {
         }
     }
 
+    /**
+     * Collects all sub-directories under the directory indicated by directoryName, stores the names of the sub-directories in files.
+     *
+     * @param directoryName the name of the directory to search
+     * @param files    the ArrayList to store the sub-Directory names in
+     */
     // Cite: https://stackoverflow.com/questions/14676407/list-all-files-in-the-folder-and-also-sub-folders Date: Nov 30 2017
     private static void listAllSubDirectories(String directoryName, ArrayList<String> files) {
         File directory = new File(directoryName);
