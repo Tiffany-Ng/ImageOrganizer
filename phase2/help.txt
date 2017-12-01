@@ -1,10 +1,10 @@
 Please follow the following steps to run the code on the command line:
 
-1. cd inside the 'src' directory. 'ls' should produce(JUnit/ManageImage/guiController/guiView)
+1. cd inside the 'src' directory. 'ls' should produce(JUnit/ManageImage/GuiController/GuiView)
 
-2. compile all the files using the following command: "javac guiView/Main.java".
+2. compile all the files using the following command: "javac GuiView/Main.java".
 
-3. Run the program with the following command: "java guiView.Main".
+3. Run the program with the following command: "java GuiView.Main".
 
 A directory chooser should pop-up. Select a directory, and have fun!
 

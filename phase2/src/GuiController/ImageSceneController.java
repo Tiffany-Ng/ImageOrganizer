@@ -1,8 +1,8 @@
-package guiController;
+package GuiController;
 
 import ManageImage.*;
-import guiView.ImageSceneView;
-import guiView.Main;
+import GuiView.ImageSceneView;
+import GuiView.Main;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -169,7 +169,7 @@ public class ImageSceneController {
     }
 
     /**
-     * Check if the string entered by the user on the guiController is a valid tag
+     * Check if the string entered by the user on the GuiController is a valid tag
      *
      * @param newTag field which contains the new tag imageNewName
      * @return true if valid tag imageNewName.
@@ -269,7 +269,7 @@ public class ImageSceneController {
 
 
     /**
-     * Adding the ability to revert to an older name on the guiController
+     * Adding the ability to revert to an older name on the GuiController
      *
      * @param revertName Button that initiates action
      */

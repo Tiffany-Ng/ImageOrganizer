@@ -1,6 +1,6 @@
-package guiView;
+package GuiView;
 
-import guiController.*;
+import GuiController.*;
 import javafx.geometry.Insets;
 import javafx.scene.CacheHint;
 import javafx.scene.Scene;
@@ -73,7 +73,7 @@ public class PicGridView {
     }
 
     /**
-     * Return a view of all images form a directory, onto the guiController
+     * Return a view of all images form a directory, onto the GuiController
      *
      * @param files the imageFiles that will be displayed as buttons
      * @return ArrayList an array list of all clickable image buttons
@@ -109,7 +109,7 @@ public class PicGridView {
     }
 
     /**
-     * Sets the pane and ImageFiles for guiController in a grid like format.
+     * Sets the pane and ImageFiles for GuiController in a grid like format.
      * Functionality of panes from: https://docs.oracle.com/javafx/2/layout/builtin_layouts.htm Date:  Nov 9, 2017
      */
 

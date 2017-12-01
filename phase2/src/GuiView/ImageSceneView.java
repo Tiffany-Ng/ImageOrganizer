@@ -1,6 +1,6 @@
-package guiView;
+package GuiView;
 
-import guiController.*;
+import GuiController.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -28,7 +28,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * guiController of an individual image's information.
+ * GuiController of an individual image's information.
  *
  * @author Allan Chang 1003235983
  * @author Prynciss Ng 1003136091
@@ -98,7 +98,7 @@ public class ImageSceneView {
     }
 
     /**
-     * Construct the guiController view of an image
+     * Construct the GuiController view of an image
      *
      * @param image     particular image in a directory
      * @param directory Location of the file containing images

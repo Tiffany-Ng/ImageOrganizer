@@ -1,6 +1,6 @@
-package guiView;
+package GuiView;
 
-import guiController.*;
+import GuiController.*;
 import ManageImage.ImageFile;
 import ManageImage.ImageManager;
 import javafx.geometry.HPos;

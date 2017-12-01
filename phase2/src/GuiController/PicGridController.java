@@ -1,10 +1,10 @@
-package guiController;
+package GuiController;
 
 import ManageImage.ImageFile;
 import ManageImage.ImageManager;
 import ManageImage.TagManager;
-import guiView.PicGridView;
-import guiView.SceneManager;
+import GuiView.PicGridView;
+import GuiView.SceneManager;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
@@ -140,7 +140,7 @@ public class PicGridController {
 
         Button deleteTags = new Button("Independently Delete Tags");
         deleteTags.setTooltip(new Tooltip("Remove selected tags permanently."));
-        deleteTags.setMaxWidth(100);
+        deleteTags.setMaxWidth(150);
         deleteTags.setAlignment(Pos.BASELINE_CENTER);
         // cite: https://stackoverflow.com/questions/27295505/javafx-button-with-multiple-text-lines Date: Nov 30 2017
         deleteTags.wrapTextProperty().setValue(true);

@@ -1,7 +1,7 @@
-package guiView;
+package GuiView;
 
 import ManageImage.ImageFile;
-import guiController.DirController;
+import GuiController.DirController;
 import javafx.stage.Stage;
 
 import java.io.File;

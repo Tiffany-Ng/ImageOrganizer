@@ -1,6 +1,6 @@
-package guiController;
+package GuiController;
 
-import guiView.DirView;
+import GuiView.DirView;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;

@@ -1,6 +1,6 @@
 package ManageImage;
 
-import guiView.Main;
+import GuiView.Main;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -217,6 +217,10 @@ public class ImageFile implements Serializable {
         tags.clear();
         tags.addAll(priorTags);
 
+        for (String tag : priorTags)
+            if (!TagManager.getTags().contains(tag))
+                TagManager.add(tag);
+
         boolean success = updateFile("Reverted " + getName() + " to prior tags: " + nameWithTags());
         if (success) {
             priorNames.add(priorNames.remove(entryNumber));
@@ -271,7 +275,7 @@ public class ImageFile implements Serializable {
         } else if (!tags.contains(tag)) {
             tags.add(tag);
             success = updateFile("Added tag \"" + tag + "\" to image \"" + name + "\"");
-            if (success){
+            if (success) {
                 priorNames.remove(nameWithTags());
                 priorNames.add(nameWithTags());
             }
@@ -333,7 +337,7 @@ public class ImageFile implements Serializable {
      */
     public void removeTag(ArrayList<String> tagList) {
         boolean success;
-        if(tagList.size() != 0) {
+        if (tagList.size() != 0) {
             for (String tag : tagList) {
                 if (tag.contains(tag)) {
                     tags.remove(tag);
@@ -360,7 +364,7 @@ public class ImageFile implements Serializable {
         String oldName = imageFile.getName();
         File newImageFile = createLocation();
         boolean success = false;
-        if(!newImageFile.exists()){
+        if (!newImageFile.exists()) {
             success = imageFile.renameTo(newImageFile);
         }
         String newName = newImageFile.getName();
@@ -479,12 +483,11 @@ public class ImageFile implements Serializable {
     /**
      * Modifies the imageView to apply CustomFilter
      *
-     * @param  imageView the imageView to apply the CustomFilter to
+     * @param imageView  the imageView to apply the CustomFilter to
      * @param brightness the brightness slider
-     * @param contrast the contrast slider
-     * @param hue the hue slider
+     * @param contrast   the contrast slider
+     * @param hue        the hue slider
      * @param saturation the saturation slider
-     *
      **/
     public void applyFilter(ImageView imageView, Slider brightness, Slider contrast, Slider hue, Slider saturation) {
         if (inverted) {

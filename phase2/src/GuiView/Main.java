@@ -1,4 +1,4 @@
-package guiView;
+package GuiView;
 
 import ManageImage.ImageManager;
 import ManageImage.TagManager;
