@@ -41,7 +41,7 @@ class ImageFileTest {
         void setupEach() {
 
             try {
-                imageFile = new ImageFile(new File("src/JUnit/testImages/1.jpg"));
+                imageFile = new ImageFile(new File("src" + System.getProperty("file.separator") +"JUnit" + System.getProperty("file.separator") +"testImages" + System.getProperty("file.separator") +"1.jpg"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -119,15 +119,15 @@ class ImageFileTest {
         void move() {
 
             try {
-                imageFile.move(new File("src/JUnit/testImages/sub"));
+                imageFile.move(new File("src" + System.getProperty("file.separator") +"JUnit" + System.getProperty("file.separator") +"testImages" + System.getProperty("file.separator") + "sub"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            assertEquals(new File("src/JUnit/testImages/sub"), imageFile.getDirectory());
+            assertEquals(new File("src" + System.getProperty("file.separator") +"JUnit" + System.getProperty("file.separator") +"testImages" + System.getProperty("file.separator") + "sub"), imageFile.getDirectory());
 
             try {
-                imageFile.move(new File("src/JUnit/testImages"));
+                imageFile.move(new File("src" + System.getProperty("file.separator") +"JUnit" + System.getProperty("file.separator") +"testImages" ));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -248,7 +248,7 @@ class ImageFileTest {
         void setupEach() {
 
             try {
-                imageFile = new ImageFile(new File("src/JUnit/testImages/baby_snake_deadpan @snake @cute.jpg"));
+                imageFile = new ImageFile(new File("src" + System.getProperty("file.separator") +"JUnit" + System.getProperty("file.separator") +"testImages" + System.getProperty("file.separator") +"baby_snake_deadpan @snake @cute.jpg"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
