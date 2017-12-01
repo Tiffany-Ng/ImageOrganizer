@@ -24,3 +24,15 @@ Amarnath Parthiban
 	- Implemented FilterStrategy invertColours
 	- UML
 	- write log to a txt file
+
+Allan Chang
+- Implemented Manager, (TagManager and ImageManager now use a Manager to store items)
+- Implemented CustomFilter
+- Added custom filter options and sliders in gui
+- Fixed filterStrategy bug with an invertedCheck
+- Fixed imageFile priornames by only storing unique names
+- Added JUnit tests for:
+	-TagManager
+	-Manager
+	-Log
+	-Entry
