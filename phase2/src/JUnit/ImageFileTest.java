@@ -10,14 +10,32 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The ImageFileTest contains JUnit tests for the class ImageFile
+ * @author Allan Chang 1003235983
+ * @author Prynciss Ng 1003136091
+ * @author Amarnath Parthiban 1003193518
+ * @author Akshat Nigam 1002922732
+ */
 class ImageFileTest {
 
+    /**
+     * The imageFile
+     */
     private static ImageFile imageFile;
 
-    // https://www.petrikainulainen.net/programming/testing/junit-5-tutorial-writing-nested-tests/ Date: Nov 30 2017
-    @Nested
-    class Test {
 
+    /**
+     * The collection of tests for ImageFiles with no tags by default
+     * cite
+     * https://www.petrikainulainen.net/programming/testing/junit-5-tutorial-writing-nested-tests/ Date: Nov 30 2017
+     */
+    @Nested
+    class ImagesWithNoTagsTest {
+
+        /**
+         * Recreate imageFile
+         */
         @BeforeEach
         void setupEach() {
 
@@ -30,6 +48,9 @@ class ImageFileTest {
 
         }
 
+        /**
+         * Revert any changes to imageFile
+         */
         @AfterEach
         void afterEach() {
             imageFile.rename("1");
@@ -37,6 +58,9 @@ class ImageFileTest {
                 imageFile.removeTag(imageFile.getTags());
         }
 
+        /**
+         * check if imageFile.getName works
+         */
         @org.junit.jupiter.api.Test
         void getNameTest() {
 
@@ -44,6 +68,9 @@ class ImageFileTest {
 
         }
 
+        /**
+         * check if imageFile.rename works
+         */
         @org.junit.jupiter.api.Test
         void rename() {
 
@@ -52,6 +79,9 @@ class ImageFileTest {
 
         }
 
+        /**
+         * check if imageFile.revertName works
+         */
         @org.junit.jupiter.api.Test
         void revertName() {
 
@@ -64,6 +94,9 @@ class ImageFileTest {
 
         }
 
+        /**
+         * check if imageFile.getPriorNames works
+         */
         @org.junit.jupiter.api.Test
         void getPriorNames() {
 
@@ -78,6 +111,9 @@ class ImageFileTest {
 
         }
 
+        /**
+         * check if imageFile.move works
+         */
         @org.junit.jupiter.api.Test
         void move() {
 
@@ -97,6 +133,9 @@ class ImageFileTest {
 
         }
 
+        /**
+         * check if imageFile.addTag works for a single tag
+         */
         @org.junit.jupiter.api.Test
         void addTag() {
             imageFile.addTag("Tiger");
@@ -106,6 +145,9 @@ class ImageFileTest {
             assertEquals(expectedTags, tags);
         }
 
+        /**
+         * check if imageFile.addTag works for multiple tags
+         */
         @org.junit.jupiter.api.Test
         void addMultipleTags() {
             // https://stackoverflow.com/questions/21696784/how-to-declare-an-arraylist-with-values Date: Nov 29 2017
@@ -118,6 +160,9 @@ class ImageFileTest {
             assertEquals(expectedTags, tags);
         }
 
+        /**
+         * check if imageFile.addTag adds 0 tags for an empty string array
+         */
         @org.junit.jupiter.api.Test
         void addNoTags() {
             // https://stackoverflow.com/questions/21696784/how-to-declare-an-arraylist-with-values Date: Nov 29 2017
@@ -129,6 +174,9 @@ class ImageFileTest {
             assertEquals(expectedTags, tags);
         }
 
+        /**
+         * check if imageFile.removeTag works for a single tag removal
+         */
         @org.junit.jupiter.api.Test
         void removeTags() {
             imageFile.addTag("Tiger");
@@ -141,6 +189,9 @@ class ImageFileTest {
             assertEquals(expectedTags, tags);
         }
 
+        /**
+         * check if imageFile.removeTag works for multiple tag removal
+         */
         @org.junit.jupiter.api.Test
         void removeMultipleTag() {
             imageFile.addTag(new ArrayList<>(Arrays.asList("Snow", "Wild", "Awesome")));
@@ -154,6 +205,9 @@ class ImageFileTest {
 
         }
 
+        /**
+         * check if imageFile.removeTag works for a collection of no tags
+         */
         @org.junit.jupiter.api.Test
         void removeNoTag() {
             imageFile.addTag(new ArrayList<>(Arrays.asList("Snow", "Wild", "Awesome")));
@@ -167,6 +221,9 @@ class ImageFileTest {
 
         }
 
+        /**
+         * check if imageFile.nameWithTags works
+         */
         @org.junit.jupiter.api.Test
         void nameWithTags() {
             imageFile.addTag(new ArrayList<>(Arrays.asList("Snow", "Wild")));
@@ -177,9 +234,15 @@ class ImageFileTest {
         }
     }
 
+    /**
+     * A collection of tests for images with tags by default
+     */
     @Nested
-    class TestImageWithTagsAlready {
+    class ImageWithTagsAlreadyTest {
 
+        /**
+         * Create imageFile
+         */
         @BeforeEach
         void setupEach() {
 
@@ -192,6 +255,9 @@ class ImageFileTest {
 
         }
 
+        /**
+         * Check if imageFile.getTags works
+         */
         @org.junit.jupiter.api.Test
         void getTagsTest() {
 
@@ -202,6 +268,9 @@ class ImageFileTest {
 
         }
 
+        /**
+         * Check if imageFile.getName works
+         */
         @org.junit.jupiter.api.Test
         void getNameTest() {
 

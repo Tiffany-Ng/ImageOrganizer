@@ -10,15 +10,28 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The ImageManagerTest contains JUnit tests for the class ImageManager
+ * @author Allan Chang 1003235983
+ * @author Prynciss Ng 1003136091
+ * @author Amarnath Parthiban 1003193518
+ * @author Akshat Nigam 1002922732
+ */
 class ImageManagerTest {
 
+    /**
+     * Load in test images from directory
+     */
     @BeforeAll
     static void setup() {
         ImageManager.createImagesFromDirectory("src/JUnit/testImages");
     }
 
+    /**
+     * Check if ImageManager returns imageFiles from subdirectory
+     */
     @Test
-    void getImageFilesInSubDirectory() {
+    void getImageFilesInSubDirectoryTest() {
 
         ArrayList<ImageFile> filesInSubDirectory = ImageManager.getImageFilesInSubDirectory(new File("src/JUnit/testImages"));
         ArrayList<ImageFile> expectedFiles = new ArrayList<>();
@@ -33,8 +46,11 @@ class ImageManagerTest {
 
     }
 
+    /**
+     * Check if imageManager returns imageFiles from parent directory
+     */
     @Test
-    void getImageFilesInParentDirectory() {
+    void getImageFilesInParentDirectoryTest() {
 
         ArrayList<ImageFile> filesInParentDirectory = ImageManager.getImageFilesInParentDirectory(new File("src/JUnit/testImages"));
         ArrayList<ImageFile> expectedFiles = new ArrayList<>();
@@ -58,8 +74,11 @@ class ImageManagerTest {
         assertEquals(expectedFiles, filesInParentDirectory);
     }
 
+    /**
+     * Check if imageManager creates imageFiles from directory
+     */
     @Test
-    void createImagesFromDirectory() {
+    void createImagesFromDirectoryTest() {
 
 
         ArrayList<ImageFile> filesInDirectory = ImageManager.getImageFilesByDirectory(new File("src/JUnit/testImages"));

@@ -51,4 +51,11 @@ public class TagManager {
     public static void add(String tag) {
         manager.add(tag);
     }
+
+    /**
+     * Removes all stored tags
+     */
+    public static void clear(){
+        manager.clear();
+    }
 }

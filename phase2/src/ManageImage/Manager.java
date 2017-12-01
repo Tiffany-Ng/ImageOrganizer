@@ -99,4 +99,11 @@ public class Manager<T> implements Serializable {
             return false;
         }
     }
+
+    /**
+     * Removes all stored items
+     */
+    public void clear(){
+        items.clear();
+    }
 }
