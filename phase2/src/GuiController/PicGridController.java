@@ -306,14 +306,13 @@ public class PicGridController {
             show.setOnAction(
                     e -> {
                         if (PicGridView.showAll) {
-                            PicGridView.showAll = false;
-                            show.setText("Press to show images in this directory (only parent folder)");
+                            show.setText("Press to show all images under this directory (includes subfolder)");
                             pane.getChildren().removeAll(subDirImageButtons);
                         } else {
-                            PicGridView.showAll = true;
-                            show.setText("Press to show all images under this directory (includes subfolder)");
+                            show.setText("Press to show images in this directory (only parent folder)");
                             pane.getChildren().addAll(subDirImageButtons);
                         }
+                        PicGridView.showAll = !PicGridView.showAll;
                     });
             pane.getChildren().add(show);
         }
