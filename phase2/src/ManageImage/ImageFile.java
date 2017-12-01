@@ -269,7 +269,7 @@ public class ImageFile implements Serializable {
      */
     public boolean addTag(String tag) {
         boolean success = false;
-        if (tag.contains(" @")) {
+        if (tag.contains("@")) {
             Main.logger.log(
                     Level.SEVERE, "Invalid tag name", new InvalidNameException("Tag contains \" @\""));
         } else if (!tags.contains(tag)) {

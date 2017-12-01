@@ -123,6 +123,7 @@ public class PicGridController {
 
 
         Button remove = new Button("Remove from");
+        remove.setMaxWidth(Double.MAX_VALUE);
         remove.setTooltip(new Tooltip("Remove selected tags from selected images."));
 
         // remove selected tags from selected images
@@ -140,7 +141,7 @@ public class PicGridController {
 
         Button deleteTags = new Button("Independently Delete Tags");
         deleteTags.setTooltip(new Tooltip("Remove selected tags permanently."));
-        deleteTags.setMaxWidth(150);
+        deleteTags.setMaxWidth(Double.MAX_VALUE);
         deleteTags.setAlignment(Pos.BASELINE_CENTER);
         // cite: https://stackoverflow.com/questions/27295505/javafx-button-with-multiple-text-lines Date: Nov 30 2017
         deleteTags.wrapTextProperty().setValue(true);
@@ -255,6 +256,7 @@ public class PicGridController {
 
         TextField newTag = new TextField();
         newTag.setEditable(true);
+        newTag.setPrefWidth(150);
         newTag.setOnKeyPressed(k -> {
 
             if (k.getCode().equals(KeyCode.ENTER)) {
