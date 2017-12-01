@@ -16,7 +16,7 @@ public class TagManager {
     /**
      * the manager that stores tags
      */
-    private static Manager<String> manager = new Manager<String>("tags.ser") {
+    private static Manager<String> manager = new Manager<>("tags.ser") {
     };
 
     /**

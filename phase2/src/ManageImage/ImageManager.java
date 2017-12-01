@@ -23,7 +23,7 @@ public class ImageManager implements Serializable {
     /**
      * The manager that stores imageFiles
      */
-    private static Manager<ImageFile> manager = new Manager<ImageFile>("out.ser") {
+    private static Manager<ImageFile> manager = new Manager<>("out.ser") {
     };
 
     /**
