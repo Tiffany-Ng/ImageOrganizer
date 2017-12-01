@@ -9,7 +9,7 @@ Akshat Nigam
 	- Fixed quite a few bugs resulting from bad design.
 	- Implemented better design choices.
 
-Prynciss Ng:
+Prynciss Ng (Please note that 'Tiffany Ng'/ 'Prynciss Ng Porche' in git log is the same person - used the wrong name on different computer):
 - Added .gitignore file
 - Implemented FilterStrategy interface and BlackAndWhiteFilter class, implemented in ImageFile
 - Open root/current directory folder based on os
