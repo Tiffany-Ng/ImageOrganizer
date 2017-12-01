@@ -87,10 +87,18 @@ public class ImageSceneView {
      */
     private ArrayList<String> tagsToDelete = new ArrayList<>();
 
+    /**
+     * Get log textBox
+     * @return log
+     */
     public static TextArea getLog() {
         return log;
     }
 
+    /**
+     * Construct an ImageSceneView
+     * @param stage the previous scene
+     */
     ImageSceneView(Stage stage) {
 
         this.prevScene = stage;
@@ -118,7 +126,6 @@ public class ImageSceneView {
 
     }
 
-
     /**
      * * Return the scene which holds the elements.
      *
@@ -127,7 +134,6 @@ public class ImageSceneView {
     Scene getImageScene() {
         return imageScene;
     }
-
 
     /**
      * Setup of the whole screen combining all smaller elements and layouts.
@@ -265,7 +271,6 @@ public class ImageSceneView {
         layout.setPrefWidth(1325);
         return layout;
     }
-
 
     /**
      * Setup the image's information (log, tags, directory) in a flowPane.

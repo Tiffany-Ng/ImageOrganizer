@@ -8,7 +8,12 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Controls all the scenes in the program and switched between them without having to make new instances of each scene.
+ * The SceneManager manages the currently displayed scene
+ *
+ * @author Allan Chang 1003235983
+ * @author Prynciss Ng 1003136091
+ * @author Amarnath Parthiban 1003193518
+ * @author Akshat Nigam 1002922732
  */
 public class SceneManager {
 

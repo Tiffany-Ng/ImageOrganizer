@@ -20,10 +20,9 @@ import java.util.LinkedList;
 
 /**
  * Manage all interactions of the user with PicGridView
- * <p>
- * Actions include: <br>
- * - manging tags independently <br>
- * - selecting an image
+ * <p>Actions include: <br>
+ * - managing tags independently <br>
+ * - selecting an image</p>
  *
  * @author Allan Chang 1003235983
  * @author Prynciss Ng 1003136091

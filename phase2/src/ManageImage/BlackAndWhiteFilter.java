@@ -4,14 +4,18 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 
 /**
- * Gives a user the ability to view a black & white version of the image
+ * BlackAndWhiteFilter represents a black and white filter
+ * @author Allan Chang 1003235983
+ * @author Prynciss Ng 1003136091
+ * @author Amarnath Parthiban 1003193518
+ * @author Akshat Nigam 1002922732
  */
 public class BlackAndWhiteFilter implements FilterStrategy{
 
     /**
-     * Convert an image into it's black & white version.
+     * Apply a filter onto image view
      *
-     * @param imageView view of an image before an filter implementation
+     * @param imageView the image view
      */
     @Override
     public void applyFilter(ImageView imageView) {

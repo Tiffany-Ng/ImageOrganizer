@@ -84,6 +84,9 @@ public class Log implements Iterable<Entry>, Serializable {
      */
     private class LogIterator implements Iterator<Entry> {
 
+        /**
+         * The index
+         */
         private int index = 0;
 
         /**

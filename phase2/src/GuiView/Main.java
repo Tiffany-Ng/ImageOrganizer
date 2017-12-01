@@ -20,9 +20,16 @@ import java.util.logging.Logger;
  */
 public class Main extends Application {
 
-    //Citation for all logger related code, adapted from: https://www.loggly.com/ultimate-guide/java-logging-basics/ Date: Nov 16, 2017
+    /**
+     * The logger
+     * Citation for all logger related code, adapted from: https://www.loggly.com/ultimate-guide/java-logging-basics/ Date: Nov 16, 2017
+     */
     public static Logger logger = Logger.getLogger(Main.class.getName());
 
+    /**
+     * Start the program
+     * @param args default arguments
+     */
     public static void main(String[] args) {
 
         LogManager.getLogManager().reset();

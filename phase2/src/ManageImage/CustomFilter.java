@@ -4,14 +4,18 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 
 /**
- * CustomFilter is a filter that can be customized by its caller
+ * CustomFilter represents a filter with variable effects
+ * @author Allan Chang 1003235983
+ * @author Prynciss Ng 1003136091
+ * @author Amarnath Parthiban 1003193518
+ * @author Akshat Nigam 1002922732
  */
 public class CustomFilter implements FilterStrategy{
 
     /**
-     * Apply a custom filter onto the image
-     *
-     * @param imageView the image
+     * Apply a custom filter onto the image.
+     * <p>Since no parameters are given, no effects are applied</p>
+     * @param imageView the image view
      */
     // Adapted from: https://stackoverflow.com/questions/43068319/how-to-create-javafx-16-bit-greyscale-images Date: Nov 21, 207
     @Override
