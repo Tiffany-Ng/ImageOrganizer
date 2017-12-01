@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * The ImageFileTest contains JUnit tests for the class ImageFile
+ *
  * @author Allan Chang 1003235983
  * @author Prynciss Ng 1003136091
  * @author Amarnath Parthiban 1003193518

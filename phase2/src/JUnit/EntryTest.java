@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * The EntryTest contains JUnit tests for the class Entry
+ *
  * @author Allan Chang 1003235983
  * @author Prynciss Ng 1003136091
  * @author Amarnath Parthiban 1003193518
@@ -29,7 +30,7 @@ class EntryTest {
      * Refresh entry and date
      */
     @BeforeEach
-    void setup(){
+    void setup() {
         entry = new Entry("Entry message");
         date = new Date();
     }
@@ -38,7 +39,7 @@ class EntryTest {
      * Check if string representation is "date - message"
      */
     @Test
-    void toStringTest(){
+    void toStringTest() {
         assertEquals(date.toString() + " - Entry message", entry.toString());
     }
 }

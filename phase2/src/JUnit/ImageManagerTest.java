@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * The ImageManagerTest contains JUnit tests for the class ImageManager
+ *
  * @author Allan Chang 1003235983
  * @author Prynciss Ng 1003136091
  * @author Amarnath Parthiban 1003193518
@@ -64,7 +65,6 @@ class ImageManagerTest {
             expectedFiles.add(new ImageFile(new File("src/JUnit/testImages/4copy.jpg")));
             expectedFiles.add(new ImageFile(new File("src/JUnit/testImages/baby_snake_deadpan @snake @cute.jpg")));
             expectedFiles.add(new ImageFile(new File("src/JUnit/testImages/filterJUnitTest.jpg")));
-
 
 
         } catch (Exception e) {

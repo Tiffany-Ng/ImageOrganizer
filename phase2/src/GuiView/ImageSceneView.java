@@ -89,6 +89,7 @@ public class ImageSceneView {
 
     /**
      * Get log textBox
+     *
      * @return log
      */
     public static TextArea getLog() {
@@ -97,6 +98,7 @@ public class ImageSceneView {
 
     /**
      * Construct an ImageSceneView
+     *
      * @param stage the previous scene
      */
     ImageSceneView(Stage stage) {

@@ -37,6 +37,7 @@ public class Entry implements Serializable {
 
     /**
      * Get the date of the entry
+     *
      * @return the date
      */
     private Date getDate() {
@@ -45,6 +46,7 @@ public class Entry implements Serializable {
 
     /**
      * Get the name of the entry
+     *
      * @return the name
      */
     private String getEntryName() {
@@ -54,6 +56,7 @@ public class Entry implements Serializable {
     /**
      * Return the entry in an easy to read format. date acquired - entry information.
      * <p>ex.  Mon Nov 13 23:08:15 EST 2017 - Added new tag: @beach</p>
+     *
      * @return the string representation of entry
      */
     @Override

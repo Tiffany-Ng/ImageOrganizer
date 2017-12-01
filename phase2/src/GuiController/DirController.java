@@ -11,7 +11,7 @@ import java.io.File;
 
 /**
  * Records all interactions of the user with the directory selector.
- *<p>
+ * <p>
  * Interactions include: <br>
  * - Selecting a directory of images
  *
@@ -35,11 +35,11 @@ public class DirController {
      * Check if the user has decided to open a directory by clicking on a button
      *
      * @param dirChooserButton Button that user clicks for choosing a directory
-     * @param dirTextField Displays the path of the selected directory
-     * @param error Error message in case an improper directory is provided
-     * @param currentStage Representation in which all actions will be taking place
+     * @param dirTextField     Displays the path of the selected directory
+     * @param error            Error message in case an improper directory is provided
+     * @param currentStage     Representation in which all actions will be taking place
      */
-    public static void openDirectoryChooser(Button dirChooserButton, TextField dirTextField, Text error, Stage currentStage){
+    public static void openDirectoryChooser(Button dirChooserButton, TextField dirTextField, Text error, Stage currentStage) {
         dirChooserButton.setOnAction(
                 e -> {
                     // Adapted from: https://docs.oracle.com/javafx/2/ui_controls/file-chooser.html Date: Nov 5, 2017
@@ -51,7 +51,6 @@ public class DirController {
                     }
                 });
     }
-
 
 
 }

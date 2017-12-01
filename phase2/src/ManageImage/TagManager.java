@@ -55,7 +55,7 @@ public class TagManager {
     /**
      * Removes all stored tags
      */
-    public static void clear(){
+    public static void clear() {
         manager.clear();
     }
 }

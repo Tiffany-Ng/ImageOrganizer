@@ -105,9 +105,9 @@ public class ImageManager implements Serializable {
      */
     private static void addImage(ImageFile imageInsert) {
         boolean added = manager.add(imageInsert);
-        if(added){
+        if (added) {
             LinkedList<String> tags = new LinkedList<>(imageInsert.getTags());
-            for(String tag : tags) {
+            for (String tag : tags) {
                 TagManager.add(tag);
             }
         }

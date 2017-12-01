@@ -201,7 +201,7 @@ public class PicGridController {
      * Refreshes independent tags listView when include new tags.
      *
      * @param selectedTags keep selected tags selected on refresh
-     * @param listView change the listView items
+     * @param listView     change the listView items
      */
     private static void independentTags(ArrayList<String> selectedTags, ListView<HBox> listView) {
 
@@ -271,7 +271,7 @@ public class PicGridController {
         add.setTooltip(new Tooltip("Create new tag."));
         add.setOnAction(e -> {
 
-            if(newTag.getText() != null) {
+            if (newTag.getText() != null) {
                 TagManager.add(newTag.getText());
                 independentTags(selectedTags, listView);
             }
@@ -351,15 +351,15 @@ public class PicGridController {
     private static void createAlert(boolean tagOnly) {
         String image = "";
         String oneImage = "";
-        if(!tagOnly){
+        if (!tagOnly) {
             image = "image/";
             oneImage = "and one image";
         }
         // taken from http://code.makery.ch/blog/javafx-dialogs-official/
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error!");
-        alert.setHeaderText("No " + image +"tag selected");
-        alert.setContentText("Please select at least one tag "+ oneImage + " for this operation.");
+        alert.setHeaderText("No " + image + "tag selected");
+        alert.setContentText("Please select at least one tag " + oneImage + " for this operation.");
         alert.showAndWait();
     }
 

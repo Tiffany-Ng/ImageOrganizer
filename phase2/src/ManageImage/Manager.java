@@ -95,7 +95,7 @@ public class Manager<T> implements Serializable {
         if (!items.contains(item)) {
             items.add(item);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -103,7 +103,7 @@ public class Manager<T> implements Serializable {
     /**
      * Removes all stored items
      */
-    public void clear(){
+    public void clear() {
         items.clear();
     }
 }

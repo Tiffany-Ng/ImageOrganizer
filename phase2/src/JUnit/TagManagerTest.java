@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * The TagManagerTest contains JUnit tests for the class TagManager
+ *
  * @author Allan Chang 1003235983
  * @author Prynciss Ng 1003136091
  * @author Amarnath Parthiban 1003193518
@@ -21,7 +22,7 @@ class TagManagerTest {
      * Since tagManager is static, we clear all stored items before each test
      */
     @BeforeEach
-    void setup(){
+    void setup() {
         TagManager.clear();
     }
 
@@ -29,7 +30,7 @@ class TagManagerTest {
      * Check if tag manager is empty on clear
      */
     @Test
-    void clearTest(){
+    void clearTest() {
         TagManager.add("Test");
         TagManager.clear();
         assertEquals(0, TagManager.getTags().size());
@@ -39,7 +40,7 @@ class TagManagerTest {
      * Check if tags are added into tagManager
      */
     @Test
-    void addTagTest(){
+    void addTagTest() {
         TagManager.add("1");
         assertTrue(TagManager.getTags().contains("1"));
     }
@@ -48,7 +49,7 @@ class TagManagerTest {
      * Check if tagManager does not add repeated tags.
      */
     @Test
-    void addRepeatTest(){
+    void addRepeatTest() {
         TagManager.add("1");
         TagManager.add("1");
         assertEquals(1, TagManager.getTags().size());
@@ -58,7 +59,7 @@ class TagManagerTest {
      * Check if tagManager properly returns all tags
      */
     @Test
-    void getTagsTest(){
+    void getTagsTest() {
         TagManager.add("1");
         TagManager.add("2");
         LinkedList<String> items = new LinkedList<>();

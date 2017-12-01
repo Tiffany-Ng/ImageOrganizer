@@ -28,6 +28,7 @@ public class Main extends Application {
 
     /**
      * Start the program
+     *
      * @param args default arguments
      */
     public static void main(String[] args) {
@@ -51,7 +52,7 @@ public class Main extends Application {
     public void start(Stage currentStage) {
         ImageManager.load();
         TagManager.load();
-        SceneManager sM =  new SceneManager(currentStage);
+        SceneManager sM = new SceneManager(currentStage);
         sM.dirChooser();
     }
 

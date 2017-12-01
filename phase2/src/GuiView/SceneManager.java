@@ -65,7 +65,7 @@ public class SceneManager {
      * Swap to the ImageScene.
      *
      * @param image ImageFile
-     * @param dir File
+     * @param dir   File
      */
     public static void swapToImageScene(ImageFile image, File dir) {
 

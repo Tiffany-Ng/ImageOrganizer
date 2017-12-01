@@ -54,7 +54,7 @@ public class DirView {
      * <p>
      * Common cause: similar image already exists in the same directory.
      */
-    private static void imageMovingFailed(){
+    private static void imageMovingFailed() {
         // taken from http://code.makery.ch/blog/javafx-dialogs-official/
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Move Directory Error");
@@ -79,11 +79,10 @@ public class DirView {
     }
 
 
-
     /**
      * Sets the stage except for the goBtn.
      *
-     * @param file True if a file was given when dirChooser is called
+     * @param file         True if a file was given when dirChooser is called
      * @param currentStage the Stage that the user is in
      */
     public static void guiSetup(Stage currentStage, boolean file) {
@@ -139,11 +138,11 @@ public class DirView {
      * If True, ImageFile will be moved to the selected directory.
      * If False, PicGridView will be shown.
      *
-     * @param button  the 'Go' button
-     * @param file True if a file was given when dirChooser is called
+     * @param button       the 'Go' button
+     * @param file         True if a file was given when dirChooser is called
      * @param currentStage the Stage that the user is in
-     * @param chooser  the Stage of the directory chooser
-     * @param error the error message to be shown if user chose an invalid directory
+     * @param chooser      the Stage of the directory chooser
+     * @param error        the error message to be shown if user chose an invalid directory
      * @param dirTextField the TextField for showing the chosen directory
      */
     private static void btmMethod(Button button, boolean file, Stage currentStage, Stage chooser, Text error, TextField dirTextField) {
@@ -174,7 +173,7 @@ public class DirView {
                     } else {
                         // No file to move, meaning choosing a directory to open PicGrid
                         if (directory.isDirectory()) {
-                            ImageManager.createImagesFromDirectory( directory.toString());
+                            ImageManager.createImagesFromDirectory(directory.toString());
 
                             SceneManager.swapToPicGrid(directory);
 

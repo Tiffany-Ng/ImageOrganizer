@@ -459,7 +459,7 @@ public class ImageSceneController {
                         //https://stackoverflow.com/questions/19762169/forward-slash-or-backslash Nov 29 2017
                         result.ifPresent(choice -> {
                             try {
-                                move(directoryText, new File( choice));
+                                move(directoryText, new File(choice));
                             } catch (IOException e1) {
                                 Main.logger.warning("Cannot move file");
                             }
@@ -500,7 +500,7 @@ public class ImageSceneController {
      * Collects all sub-directories under the directory indicated by directoryName, stores the names of the sub-directories in files.
      *
      * @param directoryName the name of the directory to search
-     * @param files    the ArrayList to store the sub-Directory names in
+     * @param files         the ArrayList to store the sub-Directory names in
      */
     // Cite: https://stackoverflow.com/questions/14676407/list-all-files-in-the-folder-and-also-sub-folders Date: Nov 30 2017
     private static void listAllSubDirectories(String directoryName, ArrayList<String> files) {
